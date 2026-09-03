@@ -32,4 +32,4 @@ Follow existing explicit registration patterns. Do not introduce a cross-environ
 5. Run affected tests and required Payload generators.
 6. Report which project-context files changed, or explicitly report that the skill remained current.
 
-A no-op inventory update is valid. Treat a stale knowledge graph as a warning; refresh it incrementally after structural architecture changes.
+A no-op inventory update is valid. Keep ignored local knowledge-graph metadata out of the deterministic inventory. Treat a stale local graph as a warning and refresh it incrementally after structural architecture changes.

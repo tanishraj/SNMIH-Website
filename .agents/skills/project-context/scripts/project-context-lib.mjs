@@ -490,6 +490,22 @@ async function getSourceDigest(projectRoot) {
   }
 }
 
+async function readLocalKnowledgeGraphMetadata(projectRoot) {
+  const graphMetaPath = path.join(projectRoot, '.understand-anything/meta.json')
+
+  if (!existsSync(graphMetaPath)) {
+    return null
+  }
+
+  const graphMeta = JSON.parse(await fs.readFile(graphMetaPath, 'utf8'))
+
+  return {
+    analyzedFiles: graphMeta.analyzedFiles,
+    gitCommitHash: graphMeta.gitCommitHash,
+    lastAnalyzedAt: graphMeta.lastAnalyzedAt,
+  }
+}
+
 export async function buildProjectInventory(projectRoot) {
   const root = path.resolve(projectRoot)
   const packageJson = JSON.parse(await readText(root, 'package.json'))
@@ -508,10 +524,6 @@ export async function buildProjectInventory(projectRoot) {
     'blockThumbnailFixtures',
   )
   const generatedTypes = await readText(root, 'src/payload-types.ts')
-  const graphMetaPath = path.join(root, '.understand-anything/meta.json')
-  const graphMeta = existsSync(graphMetaPath)
-    ? JSON.parse(await fs.readFile(graphMetaPath, 'utf8'))
-    : null
   const sharedPaths = await walkFiles(root, 'src/blocks/shared', (filePath) =>
     /\.(ts|tsx)$/.test(filePath),
   )
@@ -569,13 +581,8 @@ export async function buildProjectInventory(projectRoot) {
         fixtures: thumbnailFixtures,
       },
     },
-    knowledgeGraph: graphMeta
-      ? {
-          analyzedFiles: graphMeta.analyzedFiles,
-          gitCommitHash: graphMeta.gitCommitHash,
-          lastAnalyzedAt: graphMeta.lastAnalyzedAt,
-        }
-      : null,
+    // The graph is ignored machine-local state, so it cannot be part of a deterministic inventory.
+    knowledgeGraph: null,
     sourceDigest: await getSourceDigest(root),
     surfaces: {
       access: await walkFiles(root, 'src/access', (filePath) => filePath.endsWith('.ts')),
@@ -747,6 +754,7 @@ export async function validateProjectContracts(projectRoot, inventory, options =
 
 export async function checkProjectContext(projectRoot) {
   const expected = await buildProjectInventory(projectRoot)
+  const localKnowledgeGraph = await readLocalKnowledgeGraphMetadata(projectRoot)
   const inventoryPath = path.join(
     projectRoot,
     '.agents/skills/project-context/references/project-inventory.json',
@@ -760,7 +768,10 @@ export async function checkProjectContext(projectRoot) {
   }
 
   const checkedIn = JSON.parse(await fs.readFile(inventoryPath, 'utf8'))
-  const result = await validateProjectContracts(projectRoot, expected)
+  const result = await validateProjectContracts(projectRoot, {
+    ...expected,
+    knowledgeGraph: localKnowledgeGraph,
+  })
   const referenceErrors = await validateSkillReferences(projectRoot)
   result.errors.push(...referenceErrors)
 

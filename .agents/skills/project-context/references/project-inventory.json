@@ -1899,11 +1899,7 @@
       ]
     }
   },
-  "knowledgeGraph": {
-    "analyzedFiles": 502,
-    "gitCommitHash": "18ac3f6b03666aeb18aae7cfd87b23377f5dc4e7",
-    "lastAnalyzedAt": "2026-07-26T05:31:01.980Z"
-  },
+  "knowledgeGraph": null,
   "payload": {
     "collections": [
       {
@@ -2032,12 +2028,12 @@
   },
   "project": {
     "frameworks": {
-      "next": "16.2.10",
+      "next": "16.2.11",
       "payload": "3.85.2",
       "react": "19.2.7",
       "tailwindcss": "^4.3.2",
       "typescript": "5.7.3",
-      "vitest": "4.0.18"
+      "vitest": "4.1.0"
     },
     "name": "payload-cms-next-tailwind-shadcn-starter-kit",
     "scripts": [
@@ -2846,7 +2842,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "dc48239a539796067dae0b5621d6bfb20f1f1ea8458384f9abb7c0ff39723594"
+    "sha256": "cf4d4359e297405c46d7c6fb36d1d9f0703c2c4612712e8f92a82bfbc673bb50"
   },
   "surfaces": {
     "access": [

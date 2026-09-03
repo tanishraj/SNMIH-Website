@@ -120,6 +120,7 @@ describe('project context parser', () => {
     const inventory = await buildProjectInventory(process.cwd())
 
     expect(inventory.schemaVersion).toBe(1)
+    expect(inventory.knowledgeGraph).toBeNull()
     expect(inventory.payload.collections).toHaveLength(21)
     expect(inventory.payload.globals).toHaveLength(9)
     expect(inventory.blocks.page).toHaveLength(57)
@@ -167,12 +168,13 @@ describe('project context parser', () => {
   })
 
   it('treats stale knowledge graph metadata as a warning', async () => {
-    const inventory = await buildProjectInventory(process.cwd())
-
-    inventory.knowledgeGraph = {
-      analyzedFiles: 0,
-      gitCommitHash: 'stale-commit',
-      lastAnalyzedAt: '2026-01-01T00:00:00.000Z',
+    const inventory = {
+      ...(await buildProjectInventory(process.cwd())),
+      knowledgeGraph: {
+        analyzedFiles: 0,
+        gitCommitHash: 'stale-commit',
+        lastAnalyzedAt: '2026-01-01T00:00:00.000Z',
+      },
     }
 
     const result = await validateProjectContracts(process.cwd(), inventory, {
