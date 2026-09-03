@@ -6,6 +6,25 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# Operating system and local editor files
+.DS_Store
+.vscode/
+*.pem
+
+# Local agent and design-tool state
+.claude/
+.codex/
+.impeccable/
+.superpowers/
+.understand-anything/
+.mcp.json
+/skills/
+/skills-lock.json
+
+# Local duplicate/reference copies
+.gitignore copy
+README copy*.md
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -21,6 +40,12 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
+
+# Browser test output
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
 
 # nyc test coverage
 .nyc_output
@@ -69,6 +94,16 @@ web_modules/
 .env
 .env.*
 !.env.example
+test.env
+
+# Local Payload uploads and database backups
+/media/
+/backups/
+*.archive
+*.dump
+
+# Temporary captures
+.tmp-video/
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -109,6 +144,7 @@ dist
 
 # Serverless directories
 .serverless/
+.vercel/
 
 # FuseBox cache
 .fusebox/

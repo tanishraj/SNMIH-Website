@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Project Context'
+  short_description: 'Navigate and maintain this Payload starter'
+  default_prompt: 'Use $project-context to implement this repository change and keep its project knowledge current.'

@@ -1,0 +1,175 @@
+// ─── Lexical editor — unified card ───────────────────────────────────────────
+//
+// Single outer card on .editor-container (border + border-radius + overflow:hidden).
+// The toolbar and scroller sit inside it; overflow:hidden clips their corners.
+//
+// .fixed-toolbar is given position:relative so it stays in normal flow and IS
+// correctly clipped — sticky would escape overflow:hidden in some stacking contexts.
+//
+// Payload's base CSS always applies these regardless of hideGutter:
+//   .ContentEditable__root { padding-left: 3rem; padding-top: calc(--base * 1.25) }
+//   .ContentEditable__root::before { border-left: 1px solid ... }
+//   .LexicalEditorTheme__placeholder { left: 3rem; top: calc(--base * 1.25) }
+// We override all of them below. Non-layered styles beat @layer payload-default
+// without needing !important (we use it only for the ::before display:none where
+// Payload also uses !important on that pseudo-element's top/height).
+
+// ─── Outer card ──────────────────────────────────────────────────────────────
+
+.editor-container {
+  border: 1px solid var(--theme-elevation-150);
+  overflow: hidden;
+  background: var(--theme-elevation-0);
+  transition: border-color 0.15s ease;
+
+  &:focus-within {
+    border-color: var(--theme-elevation-300);
+  }
+}
+
+// ─── Fixed toolbar — strip Payload's independent card and sticky ──────────────
+
+.editor-container .fixed-toolbar {
+  border: none;
+  border-bottom: 1px solid var(--theme-elevation-150);
+  border-radius: 0;
+  transform: none;
+  position: relative;
+  top: auto;
+  background: var(--theme-elevation-50);
+
+  &::before,
+  &::after {
+    display: none !important;
+  }
+}
+
+// ─── Shared fixed-toolbar editor scroller ────────────────────────────────────
+
+.editor-container .editor-scroller {
+  padding: 16px;
+  min-height: 250px;
+  border-radius: 0;
+}
+
+// ─── Override Payload's always-applied gutter rules ──────────────────────────
+// Payload's bundled CSS always sets padding-left:3rem and padding-top on
+// .ContentEditable__root, and left:3rem on the placeholder, via @layer rules.
+// Non-layered author styles beat @layer payload-default — no !important needed.
+
+.editor-container .editor-scroller .editor .ContentEditable__root {
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+  outline: none;
+  caret-color: var(--theme-text);
+
+  &:focus {
+    outline: none;
+  }
+
+  &::before {
+    display: none !important;
+  }
+}
+
+.editor-container .editor-scroller .editor div .LexicalEditorTheme__placeholder {
+  left: 0 !important;
+  top: 0 !important;
+}
+
+// ─── Body editor typography ──────────────────────────────────────────────────
+
+.editor-container:has(.fixed-toolbar) .ContentEditable__root {
+  min-height: 250px;
+  font-size: 1rem;
+  line-height: 1.75;
+
+  p {
+    margin-bottom: 0.6em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.2em 0 0.4em;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1em 0 0.4em;
+    line-height: 1.3;
+  }
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0.9em 0 0.3em;
+    line-height: 1.3;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5em;
+    margin-bottom: 0.6em;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  li {
+    margin-bottom: 0.25em;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--theme-elevation-300);
+    margin: 0.8em 0;
+    padding: 0.4em 0 0.4em 1em;
+    color: var(--theme-elevation-600);
+    font-style: italic;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--theme-elevation-200);
+    margin: 1.2em 0;
+  }
+
+  code {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.875em;
+    background: var(--theme-elevation-100);
+    border: 1px solid var(--theme-elevation-150);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+  }
+
+  pre {
+    background: var(--theme-elevation-50);
+    border: 1px solid var(--theme-elevation-150);
+    border-radius: var(--style-radius, 6px);
+    padding: 0.9em 1.1em;
+    margin: 0.8em 0;
+    overflow-x: auto;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.875em;
+    line-height: 1.6;
+
+    code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: inherit;
+    }
+  }
+
+  a {
+    color: var(--theme-elevation-800);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}

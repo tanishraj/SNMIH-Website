@@ -1,0 +1,3196 @@
+{
+  "blocks": {
+    "definitions": [
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/AboutSection/Component.tsx",
+        "configPath": "src/blocks/AboutSection/config.ts",
+        "files": [
+          "src/blocks/AboutSection/Component.tsx",
+          "src/blocks/AboutSection/config.ts"
+        ],
+        "interfaceName": "AboutSectionBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "aboutSection",
+        "symbol": "AboutSectionBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/AcademicProgrammes/AcademicProgrammesClient.tsx"
+        ],
+        "componentPath": "src/blocks/AcademicProgrammes/Component.tsx",
+        "configPath": "src/blocks/AcademicProgrammes/config.ts",
+        "files": [
+          "src/blocks/AcademicProgrammes/AcademicProgrammesClient.tsx",
+          "src/blocks/AcademicProgrammes/Component.tsx",
+          "src/blocks/AcademicProgrammes/DetailedProgrammeCard.tsx",
+          "src/blocks/AcademicProgrammes/config.ts",
+          "src/blocks/AcademicProgrammes/types.ts"
+        ],
+        "interfaceName": "AcademicProgrammesBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "academicProgrammes",
+        "symbol": "AcademicProgrammesBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/AccreditationCards/Component.tsx",
+        "configPath": "src/blocks/AccreditationCards/config.ts",
+        "files": [
+          "src/blocks/AccreditationCards/Component.tsx",
+          "src/blocks/AccreditationCards/config.ts"
+        ],
+        "interfaceName": "AccreditationCardsBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "accreditationCards",
+        "symbol": "AccreditationCardsBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Announcement/Component.tsx",
+        "configPath": "src/blocks/Announcement/config.ts",
+        "files": [
+          "src/blocks/Announcement/Component.tsx",
+          "src/blocks/Announcement/config.ts"
+        ],
+        "interfaceName": "AnnouncementBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "announcement",
+        "symbol": "AnnouncementBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/AnnualCalendar/Component.tsx",
+        "configPath": "src/blocks/AnnualCalendar/config.ts",
+        "files": [
+          "src/blocks/AnnualCalendar/AnnualCalendarUpcoming.tsx",
+          "src/blocks/AnnualCalendar/AnnualCalendarYearStream.tsx",
+          "src/blocks/AnnualCalendar/Component.tsx",
+          "src/blocks/AnnualCalendar/Presentation.tsx",
+          "src/blocks/AnnualCalendar/PreviewComponent.tsx",
+          "src/blocks/AnnualCalendar/annualCalendarShared.ts",
+          "src/blocks/AnnualCalendar/config.ts"
+        ],
+        "interfaceName": "AnnualCalendarBlock",
+        "presentationPath": "src/blocks/AnnualCalendar/Presentation.tsx",
+        "previewComponentPath": "src/blocks/AnnualCalendar/PreviewComponent.tsx",
+        "slug": "annualCalendar",
+        "symbol": "AnnualCalendarBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/AwardsList/Component.tsx",
+        "configPath": "src/blocks/AwardsList/config.ts",
+        "files": [
+          "src/blocks/AwardsList/Component.tsx",
+          "src/blocks/AwardsList/config.ts"
+        ],
+        "interfaceName": "AwardsListBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "awardsList",
+        "symbol": "AwardsListBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/BankDetails/BankDetailsClient.tsx"
+        ],
+        "componentPath": "src/blocks/BankDetails/Component.tsx",
+        "configPath": "src/blocks/BankDetails/config.ts",
+        "files": [
+          "src/blocks/BankDetails/BankDetailsClient.tsx",
+          "src/blocks/BankDetails/BankDetailsQRCode.tsx",
+          "src/blocks/BankDetails/Component.tsx",
+          "src/blocks/BankDetails/RowLabel.tsx",
+          "src/blocks/BankDetails/config.ts",
+          "src/blocks/BankDetails/normalizeBankDetails.ts",
+          "src/blocks/BankDetails/types.ts"
+        ],
+        "interfaceName": "BankDetailsBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "bankDetails",
+        "symbol": "BankDetailsBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/BannerCta/Component.tsx",
+        "configPath": "src/blocks/BannerCta/config.ts",
+        "files": [
+          "src/blocks/BannerCta/Component.tsx",
+          "src/blocks/BannerCta/config.ts"
+        ],
+        "interfaceName": "BannerCtaBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "bannerCta",
+        "symbol": "BannerCtaBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/BentoGrid/Component.tsx",
+        "configPath": "src/blocks/BentoGrid/config.ts",
+        "files": [
+          "src/blocks/BentoGrid/Component.tsx",
+          "src/blocks/BentoGrid/config.ts"
+        ],
+        "interfaceName": "BentoGridBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "bentoGrid",
+        "symbol": "BentoGridBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Breadcrumb/Component.tsx",
+        "configPath": "src/blocks/Breadcrumb/config.ts",
+        "files": [
+          "src/blocks/Breadcrumb/Component.tsx",
+          "src/blocks/Breadcrumb/config.ts"
+        ],
+        "interfaceName": "BreadcrumbBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "breadcrumb",
+        "symbol": "BreadcrumbBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/Calendar/CalendarClient.tsx"
+        ],
+        "componentPath": "src/blocks/Calendar/Component.tsx",
+        "configPath": "src/blocks/Calendar/config.ts",
+        "files": [
+          "src/blocks/Calendar/CalendarClient.tsx",
+          "src/blocks/Calendar/CalendarMonthView.tsx",
+          "src/blocks/Calendar/CalendarTimelineView.tsx",
+          "src/blocks/Calendar/CalendarUpcoming.tsx",
+          "src/blocks/Calendar/Component.tsx",
+          "src/blocks/Calendar/Presentation.tsx",
+          "src/blocks/Calendar/PreviewComponent.tsx",
+          "src/blocks/Calendar/calendarShared.ts",
+          "src/blocks/Calendar/calendarStyles.ts",
+          "src/blocks/Calendar/calendarTone.ts",
+          "src/blocks/Calendar/config.ts"
+        ],
+        "interfaceName": "CalendarBlock",
+        "presentationPath": "src/blocks/Calendar/Presentation.tsx",
+        "previewComponentPath": "src/blocks/Calendar/PreviewComponent.tsx",
+        "slug": "calendar",
+        "symbol": "CalendarBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Contact24/Component.tsx",
+        "configPath": "src/blocks/Contact24/config.ts",
+        "files": [
+          "src/blocks/Contact24/Component.tsx",
+          "src/blocks/Contact24/Presentation.tsx",
+          "src/blocks/Contact24/PreviewComponent.tsx",
+          "src/blocks/Contact24/config.ts"
+        ],
+        "interfaceName": "Contact24Block",
+        "presentationPath": "src/blocks/Contact24/Presentation.tsx",
+        "previewComponentPath": "src/blocks/Contact24/PreviewComponent.tsx",
+        "slug": "contact24",
+        "symbol": "Contact24Block"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Contact33/Component.tsx",
+        "configPath": "src/blocks/Contact33/config.ts",
+        "files": [
+          "src/blocks/Contact33/Component.tsx",
+          "src/blocks/Contact33/config.ts"
+        ],
+        "interfaceName": "Contact33Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "contact33",
+        "symbol": "Contact33Block"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/ContentHighlights/Component.tsx",
+        "configPath": "src/blocks/ContentHighlights/config.ts",
+        "files": [
+          "src/blocks/ContentHighlights/Component.tsx",
+          "src/blocks/ContentHighlights/config.ts"
+        ],
+        "interfaceName": "ContentHighlightsBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "contentHighlights",
+        "symbol": "ContentHighlightsBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Cta39/Component.tsx",
+        "configPath": "src/blocks/Cta39/config.ts",
+        "files": [
+          "src/blocks/Cta39/Component.tsx",
+          "src/blocks/Cta39/config.ts"
+        ],
+        "interfaceName": "Cta39Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "cta39",
+        "symbol": "Cta39Block"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/DepartmentProfiles/DepartmentProfilesClient.tsx"
+        ],
+        "componentPath": "src/blocks/DepartmentProfiles/Component.tsx",
+        "configPath": "src/blocks/DepartmentProfiles/config.ts",
+        "files": [
+          "src/blocks/DepartmentProfiles/Component.tsx",
+          "src/blocks/DepartmentProfiles/DepartmentProfileCard.tsx",
+          "src/blocks/DepartmentProfiles/DepartmentProfilesClient.tsx",
+          "src/blocks/DepartmentProfiles/RowLabels.tsx",
+          "src/blocks/DepartmentProfiles/config.ts",
+          "src/blocks/DepartmentProfiles/types.ts"
+        ],
+        "interfaceName": "DepartmentProfilesBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "departmentProfiles",
+        "symbol": "DepartmentProfilesBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/DownloadList/DownloadListClient.tsx"
+        ],
+        "componentPath": "src/blocks/DownloadList/Component.tsx",
+        "configPath": "src/blocks/DownloadList/config.ts",
+        "files": [
+          "src/blocks/DownloadList/Component.tsx",
+          "src/blocks/DownloadList/DownloadListClient.tsx",
+          "src/blocks/DownloadList/Presentation.tsx",
+          "src/blocks/DownloadList/config.ts",
+          "src/blocks/DownloadList/resolveActions.ts",
+          "src/blocks/DownloadList/types.ts"
+        ],
+        "interfaceName": "DownloadListBlock",
+        "presentationPath": "src/blocks/DownloadList/Presentation.tsx",
+        "previewComponentPath": null,
+        "slug": "downloadList",
+        "symbol": "DownloadListBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/EditorialReasons/Component.tsx",
+        "configPath": "src/blocks/EditorialReasons/config.ts",
+        "files": [
+          "src/blocks/EditorialReasons/Component.tsx",
+          "src/blocks/EditorialReasons/config.ts"
+        ],
+        "interfaceName": "EditorialReasonsBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "editorialReasons",
+        "symbol": "EditorialReasonsBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/EventGallery/Component.tsx",
+        "configPath": "src/blocks/EventGallery/config.ts",
+        "files": [
+          "src/blocks/EventGallery/Component.tsx",
+          "src/blocks/EventGallery/Presentation.tsx",
+          "src/blocks/EventGallery/PreviewComponent.tsx",
+          "src/blocks/EventGallery/config.ts"
+        ],
+        "interfaceName": "EventGalleryBlock",
+        "presentationPath": "src/blocks/EventGallery/Presentation.tsx",
+        "previewComponentPath": "src/blocks/EventGallery/PreviewComponent.tsx",
+        "slug": "eventGallery",
+        "symbol": "EventGalleryBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/FeatureMatrix/Component.tsx",
+        "configPath": "src/blocks/FeatureMatrix/config.ts",
+        "files": [
+          "src/blocks/FeatureMatrix/Component.tsx",
+          "src/blocks/FeatureMatrix/config.ts"
+        ],
+        "interfaceName": "FeatureMatrixBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "featureMatrix",
+        "symbol": "FeatureMatrixBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/FeatureSpotlight/Component.tsx",
+        "configPath": "src/blocks/FeatureSpotlight/config.ts",
+        "files": [
+          "src/blocks/FeatureSpotlight/Component.tsx",
+          "src/blocks/FeatureSpotlight/config.ts"
+        ],
+        "interfaceName": "FeatureSpotlightBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "featureSpotlight",
+        "symbol": "FeatureSpotlightBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/FeeStructure/FeeStructureClient.tsx"
+        ],
+        "componentPath": "src/blocks/FeeStructure/Component.tsx",
+        "configPath": "src/blocks/FeeStructure/config.ts",
+        "files": [
+          "src/blocks/FeeStructure/Component.tsx",
+          "src/blocks/FeeStructure/FeeStructureClient.tsx",
+          "src/blocks/FeeStructure/FeeStructureDownload.tsx",
+          "src/blocks/FeeStructure/ProgrammeCostAtlasPresentation.tsx",
+          "src/blocks/FeeStructure/config.ts",
+          "src/blocks/FeeStructure/normalizeFeeStructure.ts",
+          "src/blocks/FeeStructure/types.ts"
+        ],
+        "interfaceName": "FeeStructureBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "feeStructure",
+        "symbol": "FeeStructureBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Footer56/Component.tsx",
+        "configPath": "src/blocks/Footer56/config.ts",
+        "files": [
+          "src/blocks/Footer56/Component.tsx",
+          "src/blocks/Footer56/config.ts"
+        ],
+        "interfaceName": "Footer56Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "footer56",
+        "symbol": "Footer56Block"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/FooterMinimal/Component.tsx",
+        "configPath": "src/blocks/FooterMinimal/config.ts",
+        "files": [
+          "src/blocks/FooterMinimal/Component.tsx",
+          "src/blocks/FooterMinimal/config.ts"
+        ],
+        "interfaceName": "FooterMinimalBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "footerMinimal",
+        "symbol": "FooterMinimalBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/GalleryAlbumTabs/GalleryAlbumTabsClient.tsx"
+        ],
+        "componentPath": "src/blocks/GalleryAlbumTabs/Component.tsx",
+        "configPath": "src/blocks/GalleryAlbumTabs/config.ts",
+        "files": [
+          "src/blocks/GalleryAlbumTabs/Component.tsx",
+          "src/blocks/GalleryAlbumTabs/GalleryAlbumTabsClient.tsx",
+          "src/blocks/GalleryAlbumTabs/Presentation.tsx",
+          "src/blocks/GalleryAlbumTabs/PreviewComponent.tsx",
+          "src/blocks/GalleryAlbumTabs/config.ts",
+          "src/blocks/GalleryAlbumTabs/galleryAlbumTabsShared.ts"
+        ],
+        "interfaceName": "GalleryAlbumTabsBlock",
+        "presentationPath": "src/blocks/GalleryAlbumTabs/Presentation.tsx",
+        "previewComponentPath": "src/blocks/GalleryAlbumTabs/PreviewComponent.tsx",
+        "slug": "galleryAlbumTabs",
+        "symbol": "GalleryAlbumTabsBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/GalleryCoverflow/GalleryCoverflowClient.tsx"
+        ],
+        "componentPath": "src/blocks/GalleryCoverflow/Component.tsx",
+        "configPath": "src/blocks/GalleryCoverflow/config.ts",
+        "files": [
+          "src/blocks/GalleryCoverflow/Component.tsx",
+          "src/blocks/GalleryCoverflow/GalleryCoverflowClient.tsx",
+          "src/blocks/GalleryCoverflow/config.ts"
+        ],
+        "interfaceName": "GalleryCoverflowBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "galleryCoverflow",
+        "symbol": "GalleryCoverflowBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/GalleryShowcase/Component.tsx",
+        "configPath": "src/blocks/GalleryShowcase/config.ts",
+        "files": [
+          "src/blocks/GalleryShowcase/Component.tsx",
+          "src/blocks/GalleryShowcase/config.ts"
+        ],
+        "interfaceName": "GalleryShowcaseBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "galleryShowcase",
+        "symbol": "GalleryShowcaseBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/HeaderNavbar12/Component.tsx",
+        "configPath": "src/blocks/HeaderNavbar12/config.ts",
+        "files": [
+          "src/blocks/HeaderNavbar12/Component.tsx",
+          "src/blocks/HeaderNavbar12/LogoHeightField.tsx",
+          "src/blocks/HeaderNavbar12/config.ts"
+        ],
+        "interfaceName": "HeaderNavbar12Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "headerNavbar12",
+        "symbol": "HeaderNavbar12Block"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/HeroBanner/Component.tsx",
+        "configPath": "src/blocks/HeroBanner/config.ts",
+        "files": [
+          "src/blocks/HeroBanner/Component.tsx",
+          "src/blocks/HeroBanner/config.ts"
+        ],
+        "interfaceName": "HeroBannerBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "heroBanner",
+        "symbol": "HeroBannerBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/HeroCarousel/HeroCarouselClient.tsx"
+        ],
+        "componentPath": "src/blocks/HeroCarousel/Component.tsx",
+        "configPath": "src/blocks/HeroCarousel/config.ts",
+        "files": [
+          "src/blocks/HeroCarousel/Component.tsx",
+          "src/blocks/HeroCarousel/HeroCarouselClient.tsx",
+          "src/blocks/HeroCarousel/config.ts"
+        ],
+        "interfaceName": "HeroCarouselBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "heroCarousel",
+        "symbol": "HeroCarouselBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/IconCardShowcase/Component.tsx",
+        "configPath": "src/blocks/IconCardShowcase/config.ts",
+        "files": [
+          "src/blocks/IconCardShowcase/Component.tsx",
+          "src/blocks/IconCardShowcase/config.ts"
+        ],
+        "interfaceName": "IconCardShowcaseBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "iconCardShowcase",
+        "symbol": "IconCardShowcaseBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/IconGrid/Component.tsx",
+        "configPath": "src/blocks/IconGrid/config.ts",
+        "files": [
+          "src/blocks/IconGrid/Component.tsx",
+          "src/blocks/IconGrid/config.ts"
+        ],
+        "interfaceName": "IconGridBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "iconGrid",
+        "symbol": "IconGridBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/ImageMosaic/Component.tsx",
+        "configPath": "src/blocks/ImageMosaic/config.ts",
+        "files": [
+          "src/blocks/ImageMosaic/Component.tsx",
+          "src/blocks/ImageMosaic/Presentation.tsx",
+          "src/blocks/ImageMosaic/PreviewComponent.tsx",
+          "src/blocks/ImageMosaic/config.ts"
+        ],
+        "interfaceName": "ImageMosaicBlock",
+        "presentationPath": "src/blocks/ImageMosaic/Presentation.tsx",
+        "previewComponentPath": "src/blocks/ImageMosaic/PreviewComponent.tsx",
+        "slug": "imageMosaic",
+        "symbol": "ImageMosaicBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/LeadershipProfiles/Component.tsx",
+        "configPath": "src/blocks/LeadershipProfiles/config.ts",
+        "files": [
+          "src/blocks/LeadershipProfiles/Component.tsx",
+          "src/blocks/LeadershipProfiles/config.ts",
+          "src/blocks/LeadershipProfiles/types.ts"
+        ],
+        "interfaceName": "LeadershipProfilesBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "leadershipProfiles",
+        "symbol": "LeadershipProfilesBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/LogoStrip/Component.tsx",
+        "configPath": "src/blocks/LogoStrip/config.ts",
+        "files": [
+          "src/blocks/LogoStrip/Component.tsx",
+          "src/blocks/LogoStrip/LogoStripMarquee.tsx",
+          "src/blocks/LogoStrip/config.ts"
+        ],
+        "interfaceName": "LogoStripBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "logoStrip",
+        "symbol": "LogoStripBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/MediaCarousel/MediaCarouselClient.tsx"
+        ],
+        "componentPath": "src/blocks/MediaCarousel/Component.tsx",
+        "configPath": "src/blocks/MediaCarousel/config.ts",
+        "files": [
+          "src/blocks/MediaCarousel/Component.tsx",
+          "src/blocks/MediaCarousel/MediaCarouselClient.tsx",
+          "src/blocks/MediaCarousel/config.ts"
+        ],
+        "interfaceName": "MediaCarouselBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "mediaCarousel",
+        "symbol": "MediaCarouselBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/NewsEventsContent/Component.tsx",
+        "configPath": "src/blocks/NewsEventsContent/config.ts",
+        "files": [
+          "src/blocks/NewsEventsContent/Component.tsx",
+          "src/blocks/NewsEventsContent/config.ts"
+        ],
+        "interfaceName": "NewsEventsContentBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "newsEventsContent",
+        "symbol": "NewsEventsContentBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/NewsEventsHighlights/Component.tsx",
+        "configPath": "src/blocks/NewsEventsHighlights/config.ts",
+        "files": [
+          "src/blocks/NewsEventsHighlights/Component.tsx",
+          "src/blocks/NewsEventsHighlights/Presentation.tsx",
+          "src/blocks/NewsEventsHighlights/PreviewComponent.tsx",
+          "src/blocks/NewsEventsHighlights/config.ts",
+          "src/blocks/NewsEventsHighlights/newsEventsHighlightsShared.ts",
+          "src/blocks/NewsEventsHighlights/resolveItems.ts"
+        ],
+        "interfaceName": "NewsEventsHighlightsBlock",
+        "presentationPath": "src/blocks/NewsEventsHighlights/Presentation.tsx",
+        "previewComponentPath": "src/blocks/NewsEventsHighlights/PreviewComponent.tsx",
+        "slug": "newsEventsHighlights",
+        "symbol": "NewsEventsHighlightsBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/NewsEventsTabs/NewsEventsTabsClient.tsx"
+        ],
+        "componentPath": "src/blocks/NewsEventsTabs/Component.tsx",
+        "configPath": "src/blocks/NewsEventsTabs/config.ts",
+        "files": [
+          "src/blocks/NewsEventsTabs/Component.tsx",
+          "src/blocks/NewsEventsTabs/NewsEventsTabsCard.tsx",
+          "src/blocks/NewsEventsTabs/NewsEventsTabsClient.tsx",
+          "src/blocks/NewsEventsTabs/NewsEventsTabsRow.tsx",
+          "src/blocks/NewsEventsTabs/Presentation.tsx",
+          "src/blocks/NewsEventsTabs/PreviewComponent.tsx",
+          "src/blocks/NewsEventsTabs/config.ts",
+          "src/blocks/NewsEventsTabs/newsEventsTabsShared.ts"
+        ],
+        "interfaceName": "NewsEventsTabsBlock",
+        "presentationPath": "src/blocks/NewsEventsTabs/Presentation.tsx",
+        "previewComponentPath": "src/blocks/NewsEventsTabs/PreviewComponent.tsx",
+        "slug": "newsEventsTabs",
+        "symbol": "NewsEventsTabsBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/NewsGrid/Component.tsx",
+        "configPath": "src/blocks/NewsGrid/config.ts",
+        "files": [
+          "src/blocks/NewsGrid/Component.tsx",
+          "src/blocks/NewsGrid/Presentation.tsx",
+          "src/blocks/NewsGrid/PreviewComponent.tsx",
+          "src/blocks/NewsGrid/config.ts",
+          "src/blocks/NewsGrid/newsGridShared.ts"
+        ],
+        "interfaceName": "NewsGridBlock",
+        "presentationPath": "src/blocks/NewsGrid/Presentation.tsx",
+        "previewComponentPath": "src/blocks/NewsGrid/PreviewComponent.tsx",
+        "slug": "newsGrid",
+        "symbol": "NewsGridBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/NumberedSteps/Component.tsx",
+        "configPath": "src/blocks/NumberedSteps/config.ts",
+        "files": [
+          "src/blocks/NumberedSteps/Component.tsx",
+          "src/blocks/NumberedSteps/config.ts"
+        ],
+        "interfaceName": "NumberedStepsBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "numberedSteps",
+        "symbol": "NumberedStepsBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/PageHeader/Component.tsx",
+        "configPath": "src/blocks/PageHeader/config.ts",
+        "files": [
+          "src/blocks/PageHeader/Component.tsx",
+          "src/blocks/PageHeader/config.ts"
+        ],
+        "interfaceName": "PageHeaderBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "pageHeader",
+        "symbol": "PageHeaderBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/PGFeeStructure/PGFeeStructureClient.tsx"
+        ],
+        "componentPath": "src/blocks/PGFeeStructure/Component.tsx",
+        "configPath": "src/blocks/PGFeeStructure/config.ts",
+        "files": [
+          "src/blocks/PGFeeStructure/Component.tsx",
+          "src/blocks/PGFeeStructure/PGFeeStructureAtlasPresentation.tsx",
+          "src/blocks/PGFeeStructure/PGFeeStructureClient.tsx",
+          "src/blocks/PGFeeStructure/config.ts",
+          "src/blocks/PGFeeStructure/normalizePGFeeStructure.ts",
+          "src/blocks/PGFeeStructure/types.ts"
+        ],
+        "interfaceName": "PGFeeStructureBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "pgFeeStructure",
+        "symbol": "PGFeeStructureBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/ProfileCarousel/Component.tsx",
+        "configPath": "src/blocks/ProfileCarousel/config.ts",
+        "files": [
+          "src/blocks/ProfileCarousel/Component.tsx",
+          "src/blocks/ProfileCarousel/config.ts"
+        ],
+        "interfaceName": "ProfileCarouselBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "profileCarousel",
+        "symbol": "ProfileCarouselBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/ProgramMatrix/Component.tsx",
+        "configPath": "src/blocks/ProgramMatrix/config.ts",
+        "files": [
+          "src/blocks/ProgramMatrix/Component.tsx",
+          "src/blocks/ProgramMatrix/config.ts"
+        ],
+        "interfaceName": "ProgramMatrixBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "programMatrix",
+        "symbol": "ProgramMatrixBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/QaAccordion/Component.tsx",
+        "configPath": "src/blocks/QaAccordion/config.ts",
+        "files": [
+          "src/blocks/QaAccordion/Component.tsx",
+          "src/blocks/QaAccordion/config.ts",
+          "src/blocks/QaAccordion/layoutContract.ts"
+        ],
+        "interfaceName": "QaAccordionBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "qaAccordion",
+        "symbol": "QaAccordionBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/QuoteBlock/Component.tsx",
+        "configPath": "src/blocks/QuoteBlock/config.ts",
+        "files": [
+          "src/blocks/QuoteBlock/Component.tsx",
+          "src/blocks/QuoteBlock/config.ts"
+        ],
+        "interfaceName": "QuoteBlockBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "quoteBlock",
+        "symbol": "QuoteBlockBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/RatingSpotlight/Component.tsx",
+        "configPath": "src/blocks/RatingSpotlight/config.ts",
+        "files": [
+          "src/blocks/RatingSpotlight/Component.tsx",
+          "src/blocks/RatingSpotlight/Presentation.tsx",
+          "src/blocks/RatingSpotlight/PreviewComponent.tsx",
+          "src/blocks/RatingSpotlight/config.ts"
+        ],
+        "interfaceName": "RatingSpotlightBlock",
+        "presentationPath": "src/blocks/RatingSpotlight/Presentation.tsx",
+        "previewComponentPath": "src/blocks/RatingSpotlight/PreviewComponent.tsx",
+        "slug": "ratingSpotlight",
+        "symbol": "RatingSpotlightBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": null,
+        "configPath": "src/blocks/ReusableSection/config.ts",
+        "files": [
+          "src/blocks/ReusableSection/config.ts"
+        ],
+        "interfaceName": "ReusableSectionBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "reusableSection",
+        "symbol": "ReusableSectionBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/ReviewFeed/Component.tsx",
+        "configPath": "src/blocks/ReviewFeed/config.ts",
+        "files": [
+          "src/blocks/ReviewFeed/Component.tsx",
+          "src/blocks/ReviewFeed/Presentation.tsx",
+          "src/blocks/ReviewFeed/PreviewComponent.tsx",
+          "src/blocks/ReviewFeed/config.ts"
+        ],
+        "interfaceName": "ReviewFeedBlock",
+        "presentationPath": "src/blocks/ReviewFeed/Presentation.tsx",
+        "previewComponentPath": "src/blocks/ReviewFeed/PreviewComponent.tsx",
+        "slug": "reviewFeed",
+        "symbol": "ReviewFeedBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/ReviewSubmission/Component.tsx",
+        "configPath": "src/blocks/ReviewSubmission/config.ts",
+        "files": [
+          "src/blocks/ReviewSubmission/Component.tsx",
+          "src/blocks/ReviewSubmission/config.ts"
+        ],
+        "interfaceName": "ReviewSubmissionBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "reviewSubmission",
+        "symbol": "ReviewSubmissionBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/RichTextBlock/Component.tsx",
+        "configPath": "src/blocks/RichTextBlock/config.ts",
+        "files": [
+          "src/blocks/RichTextBlock/Component.tsx",
+          "src/blocks/RichTextBlock/config.ts"
+        ],
+        "interfaceName": "RichTextBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "richText",
+        "symbol": "RichTextBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Services21/Component.tsx",
+        "configPath": "src/blocks/Services21/config.ts",
+        "files": [
+          "src/blocks/Services21/Component.tsx",
+          "src/blocks/Services21/config.ts"
+        ],
+        "interfaceName": "Services21Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "services21",
+        "symbol": "Services21Block"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/StatsStrip/Component.tsx",
+        "configPath": "src/blocks/StatsStrip/config.ts",
+        "files": [
+          "src/blocks/StatsStrip/AnimatedMetricValue.tsx",
+          "src/blocks/StatsStrip/Component.tsx",
+          "src/blocks/StatsStrip/config.ts"
+        ],
+        "interfaceName": "StatsStripBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "statsStrip",
+        "symbol": "StatsStripBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/StudentExperience/Component.tsx",
+        "configPath": "src/blocks/StudentExperience/config.ts",
+        "files": [
+          "src/blocks/StudentExperience/Component.tsx",
+          "src/blocks/StudentExperience/config.ts"
+        ],
+        "interfaceName": "StudentExperienceBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "studentExperience",
+        "symbol": "StudentExperienceBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/System404/Component.tsx",
+        "configPath": "src/blocks/System404/config.ts",
+        "files": [
+          "src/blocks/System404/Component.tsx",
+          "src/blocks/System404/config.ts"
+        ],
+        "interfaceName": "System404Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "system404",
+        "symbol": "System404Block"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/SystemComingSoon/Component.tsx",
+        "configPath": "src/blocks/SystemComingSoon/config.ts",
+        "files": [
+          "src/blocks/SystemComingSoon/Component.tsx",
+          "src/blocks/SystemComingSoon/config.ts"
+        ],
+        "interfaceName": "SystemComingSoonBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "systemComingSoon",
+        "symbol": "SystemComingSoonBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/SystemMaintenance/Component.tsx",
+        "configPath": "src/blocks/SystemMaintenance/config.ts",
+        "files": [
+          "src/blocks/SystemMaintenance/Component.tsx",
+          "src/blocks/SystemMaintenance/config.ts"
+        ],
+        "interfaceName": "SystemMaintenanceBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "systemMaintenance",
+        "symbol": "SystemMaintenanceBlock"
+      },
+      {
+        "clientFiles": [
+          "src/blocks/TabsContent/TabsContentClient.tsx"
+        ],
+        "componentPath": "src/blocks/TabsContent/Component.tsx",
+        "configPath": "src/blocks/TabsContent/config.ts",
+        "files": [
+          "src/blocks/TabsContent/Component.tsx",
+          "src/blocks/TabsContent/TabsContentClient.tsx",
+          "src/blocks/TabsContent/config.ts"
+        ],
+        "interfaceName": "TabsContentBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "tabsContent",
+        "symbol": "TabsContentBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/TeamShowcase/Component.tsx",
+        "configPath": "src/blocks/TeamShowcase/config.ts",
+        "files": [
+          "src/blocks/TeamShowcase/Component.tsx",
+          "src/blocks/TeamShowcase/config.ts"
+        ],
+        "interfaceName": "TeamShowcaseBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "teamShowcase",
+        "symbol": "TeamShowcaseBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/TestimonialGrid/Component.tsx",
+        "configPath": "src/blocks/TestimonialGrid/config.ts",
+        "files": [
+          "src/blocks/TestimonialGrid/Component.tsx",
+          "src/blocks/TestimonialGrid/config.ts"
+        ],
+        "interfaceName": "TestimonialGridBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "testimonialGrid",
+        "symbol": "TestimonialGridBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/TestimonialSpotlight/Component.tsx",
+        "configPath": "src/blocks/TestimonialSpotlight/config.ts",
+        "files": [
+          "src/blocks/TestimonialSpotlight/Component.tsx",
+          "src/blocks/TestimonialSpotlight/config.ts"
+        ],
+        "interfaceName": "TestimonialSpotlightBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "testimonialSpotlight",
+        "symbol": "TestimonialSpotlightBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Timeline/Component.tsx",
+        "configPath": "src/blocks/Timeline/config.ts",
+        "files": [
+          "src/blocks/Timeline/Component.tsx",
+          "src/blocks/Timeline/config.ts"
+        ],
+        "interfaceName": "TimelineBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "timeline",
+        "symbol": "TimelineBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/VideoEmbed/Component.tsx",
+        "configPath": "src/blocks/VideoEmbed/config.ts",
+        "files": [
+          "src/blocks/VideoEmbed/Component.tsx",
+          "src/blocks/VideoEmbed/config.ts"
+        ],
+        "interfaceName": "VideoEmbedBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "videoEmbed",
+        "symbol": "VideoEmbedBlock"
+      }
+    ],
+    "footer": [
+      "footer56",
+      "footerMinimal"
+    ],
+    "generatedInterfaces": [
+      "AboutSectionBlock",
+      "AcademicProgrammesBlock",
+      "AccreditationCardsBlock",
+      "AnnouncementBlock",
+      "AnnualCalendarBlock",
+      "AwardsListBlock",
+      "BankDetailsBlock",
+      "BannerCtaBlock",
+      "BentoGridBlock",
+      "BreadcrumbBlock",
+      "CalendarBlock",
+      "Contact24Block",
+      "Contact33Block",
+      "ContentHighlightsBlock",
+      "Cta39Block",
+      "DepartmentProfilesBlock",
+      "DownloadListBlock",
+      "EditorialReasonsBlock",
+      "EventGalleryBlock",
+      "FeatureMatrixBlock",
+      "FeatureSpotlightBlock",
+      "FeeStructureBlock",
+      "Footer56Block",
+      "FooterMinimalBlock",
+      "GalleryAlbumTabsBlock",
+      "GalleryCoverflowBlock",
+      "GalleryShowcaseBlock",
+      "HeaderNavbar12Block",
+      "HeroBannerBlock",
+      "HeroCarouselBlock",
+      "IconCardShowcaseBlock",
+      "IconGridBlock",
+      "ImageMosaicBlock",
+      "LeadershipProfilesBlock",
+      "LogoStripBlock",
+      "MediaCarouselBlock",
+      "NewsEventsContentBlock",
+      "NewsEventsHighlightsBlock",
+      "NewsEventsTabsBlock",
+      "NewsGridBlock",
+      "NumberedStepsBlock",
+      "PGFeeStructureBlock",
+      "PageHeaderBlock",
+      "ProfileCarouselBlock",
+      "ProgramMatrixBlock",
+      "QaAccordionBlock",
+      "QuoteBlockBlock",
+      "RatingSpotlightBlock",
+      "ReusableSectionBlock",
+      "ReviewFeedBlock",
+      "ReviewSubmissionBlock",
+      "RichTextBlock",
+      "Services21Block",
+      "StatsStripBlock",
+      "StudentExperienceBlock",
+      "System404Block",
+      "SystemComingSoonBlock",
+      "SystemMaintenanceBlock",
+      "TabsContentBlock",
+      "TeamShowcaseBlock",
+      "TestimonialGridBlock",
+      "TestimonialSpotlightBlock",
+      "TimelineBlock",
+      "VideoEmbedBlock"
+    ],
+    "header": [
+      "headerNavbar12"
+    ],
+    "livePreviewRenderer": [
+      "announcement",
+      "heroBanner",
+      "heroCarousel",
+      "galleryCoverflow",
+      "qaAccordion",
+      "featureMatrix",
+      "contentHighlights",
+      "editorialReasons",
+      "academicProgrammes",
+      "leadershipProfiles",
+      "departmentProfiles",
+      "newsEventsHighlights",
+      "profileCarousel",
+      "galleryShowcase",
+      "eventGallery",
+      "galleryAlbumTabs",
+      "imageMosaic",
+      "studentExperience",
+      "reviewSubmission",
+      "contact33",
+      "contact24",
+      "ratingSpotlight",
+      "reviewFeed",
+      "featureSpotlight",
+      "testimonialSpotlight",
+      "statsStrip",
+      "teamShowcase",
+      "services21",
+      "newsGrid",
+      "newsEventsTabs",
+      "calendar",
+      "annualCalendar",
+      "bannerCta",
+      "cta39",
+      "richText",
+      "videoEmbed",
+      "mediaCarousel",
+      "programMatrix",
+      "logoStrip",
+      "pageHeader",
+      "breadcrumb",
+      "timeline",
+      "iconCardShowcase",
+      "iconGrid",
+      "quoteBlock",
+      "tabsContent",
+      "downloadList",
+      "feeStructure",
+      "pgFeeStructure",
+      "bankDetails",
+      "numberedSteps",
+      "bentoGrid",
+      "testimonialGrid",
+      "awardsList",
+      "aboutSection",
+      "accreditationCards",
+      "reusableSection"
+    ],
+    "page": [
+      "pageHeader",
+      "heroBanner",
+      "reusableSection",
+      "richText",
+      "aboutSection",
+      "featureSpotlight",
+      "contentHighlights",
+      "academicProgrammes",
+      "newsEventsTabs",
+      "calendar",
+      "annualCalendar",
+      "departmentProfiles",
+      "galleryAlbumTabs",
+      "qaAccordion",
+      "statsStrip",
+      "testimonialSpotlight",
+      "accreditationCards",
+      "bannerCta",
+      "contact24",
+      "downloadList",
+      "announcement",
+      "newsGrid",
+      "cta39",
+      "heroCarousel",
+      "galleryCoverflow",
+      "featureMatrix",
+      "editorialReasons",
+      "leadershipProfiles",
+      "newsEventsHighlights",
+      "profileCarousel",
+      "galleryShowcase",
+      "eventGallery",
+      "imageMosaic",
+      "studentExperience",
+      "ratingSpotlight",
+      "reviewFeed",
+      "reviewSubmission",
+      "contact33",
+      "teamShowcase",
+      "services21",
+      "videoEmbed",
+      "mediaCarousel",
+      "programMatrix",
+      "logoStrip",
+      "breadcrumb",
+      "timeline",
+      "iconCardShowcase",
+      "iconGrid",
+      "quoteBlock",
+      "tabsContent",
+      "feeStructure",
+      "pgFeeStructure",
+      "bankDetails",
+      "numberedSteps",
+      "bentoGrid",
+      "testimonialGrid",
+      "awardsList"
+    ],
+    "productionRenderer": [
+      "announcement",
+      "heroBanner",
+      "heroCarousel",
+      "galleryCoverflow",
+      "qaAccordion",
+      "featureMatrix",
+      "contentHighlights",
+      "editorialReasons",
+      "academicProgrammes",
+      "leadershipProfiles",
+      "departmentProfiles",
+      "newsEventsHighlights",
+      "profileCarousel",
+      "galleryShowcase",
+      "eventGallery",
+      "galleryAlbumTabs",
+      "imageMosaic",
+      "studentExperience",
+      "reviewSubmission",
+      "contact33",
+      "contact24",
+      "ratingSpotlight",
+      "reviewFeed",
+      "featureSpotlight",
+      "testimonialSpotlight",
+      "statsStrip",
+      "teamShowcase",
+      "services21",
+      "newsGrid",
+      "newsEventsTabs",
+      "calendar",
+      "annualCalendar",
+      "bannerCta",
+      "cta39",
+      "richText",
+      "videoEmbed",
+      "mediaCarousel",
+      "programMatrix",
+      "logoStrip",
+      "pageHeader",
+      "breadcrumb",
+      "timeline",
+      "iconCardShowcase",
+      "iconGrid",
+      "quoteBlock",
+      "tabsContent",
+      "downloadList",
+      "feeStructure",
+      "pgFeeStructure",
+      "bankDetails",
+      "numberedSteps",
+      "bentoGrid",
+      "testimonialGrid",
+      "awardsList",
+      "aboutSection",
+      "accreditationCards",
+      "reusableSection"
+    ],
+    "reusableSection": [
+      "pageHeader",
+      "heroBanner",
+      "richText",
+      "aboutSection",
+      "featureSpotlight",
+      "contentHighlights",
+      "academicProgrammes",
+      "newsEventsTabs",
+      "calendar",
+      "annualCalendar",
+      "departmentProfiles",
+      "galleryAlbumTabs",
+      "qaAccordion",
+      "statsStrip",
+      "testimonialSpotlight",
+      "accreditationCards",
+      "bannerCta",
+      "contact24",
+      "downloadList",
+      "announcement",
+      "newsGrid",
+      "cta39",
+      "heroCarousel",
+      "galleryCoverflow",
+      "featureMatrix",
+      "editorialReasons",
+      "leadershipProfiles",
+      "newsEventsHighlights",
+      "profileCarousel",
+      "galleryShowcase",
+      "eventGallery",
+      "imageMosaic",
+      "studentExperience",
+      "ratingSpotlight",
+      "reviewFeed",
+      "reviewSubmission",
+      "contact33",
+      "teamShowcase",
+      "services21",
+      "videoEmbed",
+      "mediaCarousel",
+      "programMatrix",
+      "logoStrip",
+      "breadcrumb",
+      "timeline",
+      "iconCardShowcase",
+      "iconGrid",
+      "quoteBlock",
+      "tabsContent",
+      "feeStructure",
+      "pgFeeStructure",
+      "bankDetails",
+      "numberedSteps",
+      "bentoGrid",
+      "testimonialGrid",
+      "awardsList"
+    ],
+    "shared": [
+      {
+        "exports": [],
+        "file": "src/blocks/shared/BlockErrorBoundary.tsx"
+      },
+      {
+        "exports": [
+          "BlockFooterActions"
+        ],
+        "file": "src/blocks/shared/BlockFooterActions.tsx"
+      },
+      {
+        "exports": [
+          "CalendarPdfDownload"
+        ],
+        "file": "src/blocks/shared/CalendarPdfDownload.tsx"
+      },
+      {
+        "exports": [
+          "CalendarSidebar"
+        ],
+        "file": "src/blocks/shared/CalendarSidebar.tsx"
+      },
+      {
+        "exports": [
+          "FeeDocumentDownload",
+          "resolveFeeDocumentButtonVariant"
+        ],
+        "file": "src/blocks/shared/FeeDocumentDownload.tsx"
+      },
+      {
+        "exports": [
+          "ScrollableContentTabRail"
+        ],
+        "file": "src/blocks/shared/ScrollableContentTabRail.tsx"
+      },
+      {
+        "exports": [
+          "createBannerActionPlacementField",
+          "createBannerContentAlignmentField",
+          "createBannerContentWidthField",
+          "createBannerHeightField",
+          "createBannerOverlayDirectionField",
+          "createBannerOverlayStyleField",
+          "createBannerSectionPaddingField",
+          "createBannerThemeModeField"
+        ],
+        "file": "src/blocks/shared/bannerCtaFields.ts"
+      },
+      {
+        "exports": [
+          "bannerActionAlignmentClasses",
+          "bannerAlignmentClasses",
+          "bannerContentWidthClasses",
+          "bannerHeightClasses",
+          "bannerTitleSizeClasses",
+          "resolveBannerActionPlacement"
+        ],
+        "file": "src/blocks/shared/bannerCtaPresentation.ts"
+      },
+      {
+        "exports": [
+          "normalizeBlockBackground",
+          "resolveBlockAppearanceClasses",
+          "resolveBlockSurface"
+        ],
+        "file": "src/blocks/shared/blockAppearance.ts"
+      },
+      {
+        "exports": [
+          "createBlockAppearanceFields"
+        ],
+        "file": "src/blocks/shared/blockAppearanceFields.ts"
+      },
+      {
+        "exports": [
+          "regularBlockContainerClasses",
+          "regularBlockMobilePaddingClasses"
+        ],
+        "file": "src/blocks/shared/blockSpacing.ts"
+      },
+      {
+        "exports": [
+          "createBreadcrumbModeField",
+          "createBreadcrumbsField"
+        ],
+        "file": "src/blocks/shared/breadcrumbFields.ts"
+      },
+      {
+        "exports": [
+          "resolveCalendarDownloadPanel",
+          "resolveCalendarPdf"
+        ],
+        "file": "src/blocks/shared/calendarPdf.ts"
+      },
+      {
+        "exports": [
+          "DEFAULT_CALENDAR_PDF_LABEL",
+          "DEFAULT_CALENDAR_PDF_TITLE",
+          "createCalendarDownloadPanelFields"
+        ],
+        "file": "src/blocks/shared/calendarPdfFields.ts"
+      },
+      {
+        "exports": [
+          "resolveCardSurface",
+          "resolveCardSurfaceOverlay"
+        ],
+        "file": "src/blocks/shared/cardSurface.ts"
+      },
+      {
+        "exports": [
+          "cardSurfaceValues",
+          "createCardBackgroundField",
+          "createCardTabs"
+        ],
+        "file": "src/blocks/shared/cardThemeFields.ts"
+      },
+      {
+        "exports": [
+          "buttonVariantDescription",
+          "buttonVariantOptions",
+          "buttonVariantWithLinkOptions",
+          "createContentActionModeField",
+          "createContentActionsField"
+        ],
+        "file": "src/blocks/shared/contentActionsFields.ts"
+      },
+      {
+        "exports": [
+          "contentIntroClasses",
+          "contentItemDescriptionClasses",
+          "contentItemLinkClasses",
+          "contentItemMetadataClasses",
+          "contentItemTitleClasses",
+          "contentSectionDescriptionClasses",
+          "contentSectionHeadingClasses"
+        ],
+        "file": "src/blocks/shared/contentStyles.ts"
+      },
+      {
+        "exports": [
+          "CONTENT_TAB_VARIANTS",
+          "getContentTabClasses",
+          "getContentTabRailClasses",
+          "normalizeContentTabVariant"
+        ],
+        "file": "src/blocks/shared/contentTabRail.ts"
+      },
+      {
+        "exports": [
+          "createIconField"
+        ],
+        "file": "src/blocks/shared/iconField.ts"
+      },
+      {
+        "exports": [
+          "createMediaOverlayCoverageField",
+          "createMediaOverlayDirectionField",
+          "createMediaOverlayStrengthField",
+          "createMediaOverlayToneField"
+        ],
+        "file": "src/blocks/shared/mediaOverlayFields.ts"
+      },
+      {
+        "exports": [
+          "mediaOverlayTextClasses",
+          "normalizeMediaOverlayCoverage",
+          "normalizeMediaOverlayDirection",
+          "normalizeMediaOverlayStrength",
+          "normalizeMediaOverlayTone",
+          "resolveMediaOverlay",
+          "resolveMediaOverlayTone"
+        ],
+        "file": "src/blocks/shared/mediaOverlayPresentation.ts"
+      },
+      {
+        "exports": [
+          "createOverlayDisplayField"
+        ],
+        "file": "src/blocks/shared/overlayDisplayFields.ts"
+      },
+      {
+        "exports": [
+          "normalizeOverlayDisplayMode"
+        ],
+        "file": "src/blocks/shared/overlayDisplayPresentation.ts"
+      },
+      {
+        "exports": [
+          "resolveLucideIcon"
+        ],
+        "file": "src/blocks/shared/resolveLucideIcon.ts"
+      },
+      {
+        "exports": [
+          "resolveSiteSocialLinks"
+        ],
+        "file": "src/blocks/shared/siteSocialLinks.ts"
+      }
+    ],
+    "systemPage": [
+      "system404",
+      "systemMaintenance",
+      "systemComingSoon"
+    ],
+    "thumbnails": {
+      "assets": [
+        "public/block-thumbnails/about-section.jpg",
+        "public/block-thumbnails/academic-programmes.jpg",
+        "public/block-thumbnails/accreditation-cards.jpg",
+        "public/block-thumbnails/announcement.jpg",
+        "public/block-thumbnails/annual-calendar.jpg",
+        "public/block-thumbnails/awards-list.jpg",
+        "public/block-thumbnails/bank-details.jpg",
+        "public/block-thumbnails/banner-cta.jpg",
+        "public/block-thumbnails/bento-grid.jpg",
+        "public/block-thumbnails/breadcrumb.jpg",
+        "public/block-thumbnails/calendar.jpg",
+        "public/block-thumbnails/contact-24.jpg",
+        "public/block-thumbnails/contact-33.jpg",
+        "public/block-thumbnails/content-highlights.jpg",
+        "public/block-thumbnails/cta-39.jpg",
+        "public/block-thumbnails/department-profiles.jpg",
+        "public/block-thumbnails/download-list.jpg",
+        "public/block-thumbnails/editorial-reasons.jpg",
+        "public/block-thumbnails/event-gallery.jpg",
+        "public/block-thumbnails/feature-matrix.jpg",
+        "public/block-thumbnails/feature-spotlight.jpg",
+        "public/block-thumbnails/fee-structure.jpg",
+        "public/block-thumbnails/footer-56.jpg",
+        "public/block-thumbnails/footer-minimal.jpg",
+        "public/block-thumbnails/gallery-album-tabs.jpg",
+        "public/block-thumbnails/gallery-coverflow.jpg",
+        "public/block-thumbnails/gallery-showcase.jpg",
+        "public/block-thumbnails/header-navbar-12.jpg",
+        "public/block-thumbnails/hero-banner.jpg",
+        "public/block-thumbnails/hero-carousel.jpg",
+        "public/block-thumbnails/icon-card-showcase.jpg",
+        "public/block-thumbnails/icon-grid.jpg",
+        "public/block-thumbnails/image-mosaic.jpg",
+        "public/block-thumbnails/leadership-profiles.jpg",
+        "public/block-thumbnails/logo-strip.jpg",
+        "public/block-thumbnails/media-carousel.jpg",
+        "public/block-thumbnails/news-events-highlights.jpg",
+        "public/block-thumbnails/news-events-tabs.jpg",
+        "public/block-thumbnails/news-grid.jpg",
+        "public/block-thumbnails/numbered-steps.jpg",
+        "public/block-thumbnails/page-header.jpg",
+        "public/block-thumbnails/pg-fee-structure.jpg",
+        "public/block-thumbnails/profile-carousel.jpg",
+        "public/block-thumbnails/program-matrix.jpg",
+        "public/block-thumbnails/qa-accordion.jpg",
+        "public/block-thumbnails/quote-block.jpg",
+        "public/block-thumbnails/rating-spotlight.jpg",
+        "public/block-thumbnails/reusable-section.jpg",
+        "public/block-thumbnails/review-feed.jpg",
+        "public/block-thumbnails/review-submission.jpg",
+        "public/block-thumbnails/rich-text-block.jpg",
+        "public/block-thumbnails/services-21.jpg",
+        "public/block-thumbnails/stats-strip.jpg",
+        "public/block-thumbnails/student-experience.jpg",
+        "public/block-thumbnails/system-404.jpg",
+        "public/block-thumbnails/system-coming-soon.jpg",
+        "public/block-thumbnails/system-maintenance.jpg",
+        "public/block-thumbnails/tabs-content.jpg",
+        "public/block-thumbnails/team-showcase.jpg",
+        "public/block-thumbnails/testimonial-grid.jpg",
+        "public/block-thumbnails/testimonial-spotlight.jpg",
+        "public/block-thumbnails/timeline.jpg",
+        "public/block-thumbnails/video-embed.jpg"
+      ],
+      "definitions": [
+        {
+          "filename": "announcement.jpg",
+          "slug": "announcement"
+        },
+        {
+          "filename": "hero-banner.jpg",
+          "slug": "heroBanner"
+        },
+        {
+          "filename": "hero-carousel.jpg",
+          "slug": "heroCarousel"
+        },
+        {
+          "filename": "footer-minimal.jpg",
+          "slug": "footerMinimal"
+        },
+        {
+          "filename": "news-grid.jpg",
+          "slug": "newsGrid"
+        },
+        {
+          "filename": "news-events-tabs.jpg",
+          "slug": "newsEventsTabs"
+        },
+        {
+          "filename": "calendar.jpg",
+          "slug": "calendar"
+        },
+        {
+          "filename": "annual-calendar.jpg",
+          "slug": "annualCalendar"
+        },
+        {
+          "filename": "banner-cta.jpg",
+          "slug": "bannerCta"
+        },
+        {
+          "filename": "cta-39.jpg",
+          "slug": "cta39"
+        },
+        {
+          "filename": "feature-spotlight.jpg",
+          "slug": "featureSpotlight"
+        },
+        {
+          "filename": "testimonial-spotlight.jpg",
+          "slug": "testimonialSpotlight"
+        },
+        {
+          "filename": "feature-matrix.jpg",
+          "slug": "featureMatrix"
+        },
+        {
+          "filename": "content-highlights.jpg",
+          "slug": "contentHighlights"
+        },
+        {
+          "filename": "editorial-reasons.jpg",
+          "slug": "editorialReasons"
+        },
+        {
+          "filename": "academic-programmes.jpg",
+          "slug": "academicProgrammes"
+        },
+        {
+          "filename": "leadership-profiles.jpg",
+          "slug": "leadershipProfiles"
+        },
+        {
+          "filename": "department-profiles.jpg",
+          "slug": "departmentProfiles"
+        },
+        {
+          "filename": "news-events-highlights.jpg",
+          "slug": "newsEventsHighlights"
+        },
+        {
+          "filename": "profile-carousel.jpg",
+          "slug": "profileCarousel"
+        },
+        {
+          "filename": "gallery-showcase.jpg",
+          "slug": "galleryShowcase"
+        },
+        {
+          "filename": "gallery-coverflow.jpg",
+          "slug": "galleryCoverflow"
+        },
+        {
+          "filename": "event-gallery.jpg",
+          "slug": "eventGallery"
+        },
+        {
+          "filename": "gallery-album-tabs.jpg",
+          "slug": "galleryAlbumTabs"
+        },
+        {
+          "filename": "image-mosaic.jpg",
+          "slug": "imageMosaic"
+        },
+        {
+          "filename": "student-experience.jpg",
+          "slug": "studentExperience"
+        },
+        {
+          "filename": "stats-strip.jpg",
+          "slug": "statsStrip"
+        },
+        {
+          "filename": "team-showcase.jpg",
+          "slug": "teamShowcase"
+        },
+        {
+          "filename": "qa-accordion.jpg",
+          "slug": "qaAccordion"
+        },
+        {
+          "filename": "review-feed.jpg",
+          "slug": "reviewFeed"
+        },
+        {
+          "filename": "review-submission.jpg",
+          "slug": "reviewSubmission"
+        },
+        {
+          "filename": "contact-33.jpg",
+          "slug": "contact33"
+        },
+        {
+          "filename": "contact-24.jpg",
+          "slug": "contact24"
+        },
+        {
+          "filename": "rating-spotlight.jpg",
+          "slug": "ratingSpotlight"
+        },
+        {
+          "filename": "services-21.jpg",
+          "slug": "services21"
+        },
+        {
+          "filename": "header-navbar-12.jpg",
+          "slug": "headerNavbar12"
+        },
+        {
+          "filename": "footer-56.jpg",
+          "slug": "footer56"
+        },
+        {
+          "filename": "system-404.jpg",
+          "slug": "system404"
+        },
+        {
+          "filename": "system-maintenance.jpg",
+          "slug": "systemMaintenance"
+        },
+        {
+          "filename": "system-coming-soon.jpg",
+          "slug": "systemComingSoon"
+        },
+        {
+          "filename": "about-section.jpg",
+          "slug": "aboutSection"
+        },
+        {
+          "filename": "accreditation-cards.jpg",
+          "slug": "accreditationCards"
+        },
+        {
+          "filename": "awards-list.jpg",
+          "slug": "awardsList"
+        },
+        {
+          "filename": "bento-grid.jpg",
+          "slug": "bentoGrid"
+        },
+        {
+          "filename": "download-list.jpg",
+          "slug": "downloadList"
+        },
+        {
+          "filename": "fee-structure.jpg",
+          "slug": "feeStructure"
+        },
+        {
+          "filename": "pg-fee-structure.jpg",
+          "slug": "pgFeeStructure"
+        },
+        {
+          "filename": "bank-details.jpg",
+          "slug": "bankDetails"
+        },
+        {
+          "filename": "icon-grid.jpg",
+          "slug": "iconGrid"
+        },
+        {
+          "filename": "icon-card-showcase.jpg",
+          "slug": "iconCardShowcase"
+        },
+        {
+          "filename": "logo-strip.jpg",
+          "slug": "logoStrip"
+        },
+        {
+          "filename": "media-carousel.jpg",
+          "slug": "mediaCarousel"
+        },
+        {
+          "filename": "numbered-steps.jpg",
+          "slug": "numberedSteps"
+        },
+        {
+          "filename": "page-header.jpg",
+          "slug": "pageHeader"
+        },
+        {
+          "filename": "breadcrumb.jpg",
+          "slug": "breadcrumb"
+        },
+        {
+          "filename": "program-matrix.jpg",
+          "slug": "programMatrix"
+        },
+        {
+          "filename": "quote-block.jpg",
+          "slug": "quoteBlock"
+        },
+        {
+          "filename": "rich-text-block.jpg",
+          "slug": "richText"
+        },
+        {
+          "filename": "tabs-content.jpg",
+          "slug": "tabsContent"
+        },
+        {
+          "filename": "testimonial-grid.jpg",
+          "slug": "testimonialGrid"
+        },
+        {
+          "filename": "timeline.jpg",
+          "slug": "timeline"
+        },
+        {
+          "filename": "video-embed.jpg",
+          "slug": "videoEmbed"
+        },
+        {
+          "filename": "reusable-section.jpg",
+          "slug": "reusableSection"
+        }
+      ],
+      "fixtures": [
+        "accreditationCards",
+        "academicProgrammes",
+        "leadershipProfiles",
+        "departmentProfiles",
+        "newsGrid",
+        "newsEventsTabs",
+        "calendar",
+        "annualCalendar",
+        "bannerCta",
+        "announcement",
+        "qaAccordion",
+        "featureMatrix",
+        "contentHighlights",
+        "editorialReasons",
+        "cta39",
+        "newsEventsHighlights",
+        "profileCarousel",
+        "galleryShowcase",
+        "galleryCoverflow",
+        "eventGallery",
+        "galleryAlbumTabs",
+        "imageMosaic",
+        "studentExperience",
+        "footerMinimal",
+        "footer56",
+        "headerNavbar12",
+        "heroBanner",
+        "heroCarousel",
+        "reviewSubmission",
+        "contact33",
+        "contact24",
+        "reviewFeed",
+        "services21",
+        "ratingSpotlight",
+        "teamShowcase",
+        "featureSpotlight",
+        "testimonialSpotlight",
+        "statsStrip",
+        "system404",
+        "systemComingSoon",
+        "systemMaintenance",
+        "aboutSection",
+        "awardsList",
+        "bentoGrid",
+        "downloadList",
+        "feeStructure",
+        "pgFeeStructure",
+        "bankDetails",
+        "iconGrid",
+        "iconCardShowcase",
+        "logoStrip",
+        "mediaCarousel",
+        "numberedSteps",
+        "pageHeader",
+        "breadcrumb",
+        "programMatrix",
+        "quoteBlock",
+        "richText",
+        "reusableSection",
+        "tabsContent",
+        "testimonialGrid",
+        "timeline",
+        "videoEmbed"
+      ]
+    }
+  },
+  "knowledgeGraph": {
+    "analyzedFiles": 502,
+    "gitCommitHash": "18ac3f6b03666aeb18aae7cfd87b23377f5dc4e7",
+    "lastAnalyzedAt": "2026-07-26T05:31:01.980Z"
+  },
+  "payload": {
+    "collections": [
+      {
+        "source": "src/collections/Pages.ts",
+        "symbol": "Pages"
+      },
+      {
+        "source": "src/collections/Articles.ts",
+        "symbol": "Articles"
+      },
+      {
+        "source": "src/collections/NewsEvents.ts",
+        "symbol": "NewsEvents"
+      },
+      {
+        "source": "src/collections/NewsEventClassifications.ts",
+        "symbol": "NewsEventClassifications"
+      },
+      {
+        "source": "src/collections/Reviews.ts",
+        "symbol": "Reviews"
+      },
+      {
+        "source": "src/collections/ReusableSections.ts",
+        "symbol": "ReusableSections"
+      },
+      {
+        "source": "src/collections/Categories.ts",
+        "symbol": "Categories"
+      },
+      {
+        "source": "src/collections/Tags.ts",
+        "symbol": "Tags"
+      },
+      {
+        "source": "src/collections/NavigationLinks.ts",
+        "symbol": "NavigationLinks"
+      },
+      {
+        "source": "src/collections/Headers.ts",
+        "symbol": "Headers"
+      },
+      {
+        "source": "src/collections/Footers.ts",
+        "symbol": "Footers"
+      },
+      {
+        "source": "src/collections/OfficeLocations.ts",
+        "symbol": "OfficeLocations"
+      },
+      {
+        "source": "src/collections/Redirects.ts",
+        "symbol": "Redirects"
+      },
+      {
+        "source": "src/collections/SystemPages.ts",
+        "symbol": "SystemPages"
+      },
+      {
+        "source": "src/collections/Media.ts",
+        "symbol": "Media"
+      },
+      {
+        "source": "src/collections/GalleryAlbums.ts",
+        "symbol": "GalleryAlbums"
+      },
+      {
+        "source": "src/collections/Forms.ts",
+        "symbol": "Forms"
+      },
+      {
+        "source": "src/collections/FormSubmissions.ts",
+        "symbol": "FormSubmissions"
+      },
+      {
+        "source": "src/collections/WorkQueue.ts",
+        "symbol": "WorkQueue"
+      },
+      {
+        "source": "src/collections/OperationalAuditEvents.ts",
+        "symbol": "OperationalAuditEvents"
+      },
+      {
+        "source": "src/collections/Users.ts",
+        "symbol": "Users"
+      }
+    ],
+    "globals": [
+      {
+        "source": "src/globals/SiteSettings.ts",
+        "symbol": "SiteSettings"
+      },
+      {
+        "source": "src/globals/ThemeSettings.ts",
+        "symbol": "ThemeSettings"
+      },
+      {
+        "source": "src/globals/SEOSettings.ts",
+        "symbol": "SEOSettings"
+      },
+      {
+        "source": "src/globals/AnalyticsSettings.ts",
+        "symbol": "AnalyticsSettings"
+      },
+      {
+        "source": "src/globals/CookieConsentSettings.ts",
+        "symbol": "CookieConsentSettings"
+      },
+      {
+        "source": "src/globals/PageSettings.ts",
+        "symbol": "PageSettings"
+      },
+      {
+        "source": "src/globals/NewsEventsDetailTemplate.ts",
+        "symbol": "NewsEventsDetailTemplate"
+      },
+      {
+        "source": "src/globals/SearchSettings.ts",
+        "symbol": "SearchSettings"
+      },
+      {
+        "source": "src/globals/SystemModeSettings.ts",
+        "symbol": "SystemModeSettings"
+      }
+    ]
+  },
+  "project": {
+    "frameworks": {
+      "next": "16.2.10",
+      "payload": "3.85.2",
+      "react": "19.2.7",
+      "tailwindcss": "^4.3.2",
+      "typescript": "5.7.3",
+      "vitest": "4.0.18"
+    },
+    "name": "payload-cms-next-tailwind-shadcn-starter-kit",
+    "scripts": [
+      "build",
+      "dev",
+      "devsafe",
+      "export:db",
+      "generate:block-thumbnails",
+      "generate:importmap",
+      "generate:types",
+      "lint",
+      "migrate:offices",
+      "payload",
+      "project-context:check",
+      "project-context:update",
+      "report:permissions-migration",
+      "start",
+      "test",
+      "test:e2e",
+      "test:int",
+      "test:project-context"
+    ],
+    "version": "1.0.0"
+  },
+  "schemaVersion": 1,
+  "sourceDigest": {
+    "files": [
+      "AGENTS.md",
+      "Dockerfile",
+      "README.md",
+      "docs/architecture/content-model-map.md",
+      "docs/architecture/feature-inventory.md",
+      "docs/guides/README.md",
+      "docs/guides/analytics.md",
+      "docs/guides/articles.md",
+      "docs/guides/blocks.md",
+      "docs/guides/categories.md",
+      "docs/guides/cookie-consent.md",
+      "docs/guides/dashboard.md",
+      "docs/guides/footers.md",
+      "docs/guides/form-submissions.md",
+      "docs/guides/forms.md",
+      "docs/guides/gallery-albums.md",
+      "docs/guides/headers.md",
+      "docs/guides/links.md",
+      "docs/guides/media.md",
+      "docs/guides/news-events.md",
+      "docs/guides/office-locations.md",
+      "docs/guides/operational-audit-events.md",
+      "docs/guides/pages.md",
+      "docs/guides/redirects.md",
+      "docs/guides/reusable-sections.md",
+      "docs/guides/reviews.md",
+      "docs/guides/search.md",
+      "docs/guides/seo-settings.md",
+      "docs/guides/site-defaults.md",
+      "docs/guides/site-settings.md",
+      "docs/guides/system-modes.md",
+      "docs/guides/system-pages.md",
+      "docs/guides/tags.md",
+      "docs/guides/theme-settings.md",
+      "docs/guides/trash-and-recovery.md",
+      "docs/guides/users.md",
+      "docs/guides/work-queue.md",
+      "docs/operations/developer-workflows.md",
+      "docs/operations/editorial-governance.md",
+      "docs/operations/mongodb-deployment.md",
+      "docs/operations/runtime-and-providers.md",
+      "docs/operations/starter-clone-checklist.md",
+      "next.config.ts",
+      "package.json",
+      "src/access/adminFeatures.ts",
+      "src/access/featureAccess.ts",
+      "src/app/(block-thumbnails)/block-thumbnail-previews/[slug]/page.tsx",
+      "src/app/(block-thumbnails)/layout.tsx",
+      "src/app/(frontend)/ManagedCmsPage.tsx",
+      "src/app/(frontend)/PageContent.tsx",
+      "src/app/(frontend)/SystemFallbackPage.tsx",
+      "src/app/(frontend)/[...slug]/page.tsx",
+      "src/app/(frontend)/articles/[slug]/opengraph-image.tsx",
+      "src/app/(frontend)/articles/[slug]/page.tsx",
+      "src/app/(frontend)/articles/category/[slug]/page.tsx",
+      "src/app/(frontend)/articles/feed.xml/route.ts",
+      "src/app/(frontend)/articles/tag/[slug]/page.tsx",
+      "src/app/(frontend)/error.tsx",
+      "src/app/(frontend)/layout.tsx",
+      "src/app/(frontend)/news-events/[slug]/opengraph-image.tsx",
+      "src/app/(frontend)/news-events/[slug]/page.tsx",
+      "src/app/(frontend)/news-events/feed.xml/route.ts",
+      "src/app/(frontend)/news-events/page.tsx",
+      "src/app/(frontend)/not-found.tsx",
+      "src/app/(frontend)/opengraph-image.tsx",
+      "src/app/(frontend)/page.tsx",
+      "src/app/(frontend)/pageData.ts",
+      "src/app/(frontend)/preview/page/[id]/page.tsx",
+      "src/app/(frontend)/reviews/[slug]/opengraph-image.tsx",
+      "src/app/(frontend)/reviews/[slug]/page.tsx",
+      "src/app/(frontend)/reviews/category/[slug]/page.tsx",
+      "src/app/(frontend)/search/SearchInput.tsx",
+      "src/app/(frontend)/search/page.tsx",
+      "src/app/(payload)/admin/[[...segments]]/not-found.tsx",
+      "src/app/(payload)/admin/[[...segments]]/page.tsx",
+      "src/app/(payload)/api/[...slug]/route.ts",
+      "src/app/(payload)/api/graphql-playground/route.ts",
+      "src/app/(payload)/api/graphql/route.ts",
+      "src/app/(payload)/custom.scss",
+      "src/app/(payload)/layout.tsx",
+      "src/app/api/calendar-events/route.ts",
+      "src/app/api/forms/[slug]/submit/route.ts",
+      "src/app/api/frontend-session/route.ts",
+      "src/app/api/news-events-tabs/route.ts",
+      "src/app/api/operations/media/reconcile-storage/route.ts",
+      "src/app/api/redirects/route.ts",
+      "src/app/api/review-feed/route.ts",
+      "src/app/api/search/route.ts",
+      "src/app/robots.ts",
+      "src/app/sitemap.ts",
+      "src/block-thumbnails/BlockThumbnailPreviewStage.tsx",
+      "src/block-thumbnails/definitions.ts",
+      "src/block-thumbnails/fixtures.tsx",
+      "src/blocks/AboutSection/Component.tsx",
+      "src/blocks/AboutSection/config.ts",
+      "src/blocks/AcademicProgrammes/AcademicProgrammesClient.tsx",
+      "src/blocks/AcademicProgrammes/Component.tsx",
+      "src/blocks/AcademicProgrammes/DetailedProgrammeCard.tsx",
+      "src/blocks/AcademicProgrammes/config.ts",
+      "src/blocks/AcademicProgrammes/types.ts",
+      "src/blocks/AccreditationCards/Component.tsx",
+      "src/blocks/AccreditationCards/config.ts",
+      "src/blocks/Announcement/Component.tsx",
+      "src/blocks/Announcement/config.ts",
+      "src/blocks/AnnualCalendar/AnnualCalendarUpcoming.tsx",
+      "src/blocks/AnnualCalendar/AnnualCalendarYearStream.tsx",
+      "src/blocks/AnnualCalendar/Component.tsx",
+      "src/blocks/AnnualCalendar/Presentation.tsx",
+      "src/blocks/AnnualCalendar/PreviewComponent.tsx",
+      "src/blocks/AnnualCalendar/annualCalendarShared.ts",
+      "src/blocks/AnnualCalendar/config.ts",
+      "src/blocks/AwardsList/Component.tsx",
+      "src/blocks/AwardsList/config.ts",
+      "src/blocks/BankDetails/BankDetailsClient.tsx",
+      "src/blocks/BankDetails/BankDetailsQRCode.tsx",
+      "src/blocks/BankDetails/Component.tsx",
+      "src/blocks/BankDetails/RowLabel.tsx",
+      "src/blocks/BankDetails/config.ts",
+      "src/blocks/BankDetails/normalizeBankDetails.ts",
+      "src/blocks/BankDetails/types.ts",
+      "src/blocks/BannerCta/Component.tsx",
+      "src/blocks/BannerCta/config.ts",
+      "src/blocks/BentoGrid/Component.tsx",
+      "src/blocks/BentoGrid/config.ts",
+      "src/blocks/Breadcrumb/Component.tsx",
+      "src/blocks/Breadcrumb/config.ts",
+      "src/blocks/Calendar/CalendarClient.tsx",
+      "src/blocks/Calendar/CalendarMonthView.tsx",
+      "src/blocks/Calendar/CalendarTimelineView.tsx",
+      "src/blocks/Calendar/CalendarUpcoming.tsx",
+      "src/blocks/Calendar/Component.tsx",
+      "src/blocks/Calendar/Presentation.tsx",
+      "src/blocks/Calendar/PreviewComponent.tsx",
+      "src/blocks/Calendar/calendarShared.ts",
+      "src/blocks/Calendar/calendarStyles.ts",
+      "src/blocks/Calendar/calendarTone.ts",
+      "src/blocks/Calendar/config.ts",
+      "src/blocks/Contact24/Component.tsx",
+      "src/blocks/Contact24/Presentation.tsx",
+      "src/blocks/Contact24/PreviewComponent.tsx",
+      "src/blocks/Contact24/config.ts",
+      "src/blocks/Contact33/Component.tsx",
+      "src/blocks/Contact33/config.ts",
+      "src/blocks/ContentHighlights/Component.tsx",
+      "src/blocks/ContentHighlights/config.ts",
+      "src/blocks/Cta39/Component.tsx",
+      "src/blocks/Cta39/config.ts",
+      "src/blocks/DepartmentProfiles/Component.tsx",
+      "src/blocks/DepartmentProfiles/DepartmentProfileCard.tsx",
+      "src/blocks/DepartmentProfiles/DepartmentProfilesClient.tsx",
+      "src/blocks/DepartmentProfiles/RowLabels.tsx",
+      "src/blocks/DepartmentProfiles/config.ts",
+      "src/blocks/DepartmentProfiles/types.ts",
+      "src/blocks/DownloadList/Component.tsx",
+      "src/blocks/DownloadList/DownloadListClient.tsx",
+      "src/blocks/DownloadList/Presentation.tsx",
+      "src/blocks/DownloadList/config.ts",
+      "src/blocks/DownloadList/resolveActions.ts",
+      "src/blocks/DownloadList/types.ts",
+      "src/blocks/EditorialReasons/Component.tsx",
+      "src/blocks/EditorialReasons/config.ts",
+      "src/blocks/EventGallery/Component.tsx",
+      "src/blocks/EventGallery/Presentation.tsx",
+      "src/blocks/EventGallery/PreviewComponent.tsx",
+      "src/blocks/EventGallery/config.ts",
+      "src/blocks/FeatureMatrix/Component.tsx",
+      "src/blocks/FeatureMatrix/config.ts",
+      "src/blocks/FeatureSpotlight/Component.tsx",
+      "src/blocks/FeatureSpotlight/config.ts",
+      "src/blocks/FeeStructure/Component.tsx",
+      "src/blocks/FeeStructure/FeeStructureClient.tsx",
+      "src/blocks/FeeStructure/FeeStructureDownload.tsx",
+      "src/blocks/FeeStructure/ProgrammeCostAtlasPresentation.tsx",
+      "src/blocks/FeeStructure/config.ts",
+      "src/blocks/FeeStructure/normalizeFeeStructure.ts",
+      "src/blocks/FeeStructure/types.ts",
+      "src/blocks/Footer56/Component.tsx",
+      "src/blocks/Footer56/config.ts",
+      "src/blocks/FooterMinimal/Component.tsx",
+      "src/blocks/FooterMinimal/config.ts",
+      "src/blocks/GalleryAlbumTabs/Component.tsx",
+      "src/blocks/GalleryAlbumTabs/GalleryAlbumTabsClient.tsx",
+      "src/blocks/GalleryAlbumTabs/Presentation.tsx",
+      "src/blocks/GalleryAlbumTabs/PreviewComponent.tsx",
+      "src/blocks/GalleryAlbumTabs/config.ts",
+      "src/blocks/GalleryAlbumTabs/galleryAlbumTabsShared.ts",
+      "src/blocks/GalleryCoverflow/Component.tsx",
+      "src/blocks/GalleryCoverflow/GalleryCoverflowClient.tsx",
+      "src/blocks/GalleryCoverflow/config.ts",
+      "src/blocks/GalleryShowcase/Component.tsx",
+      "src/blocks/GalleryShowcase/config.ts",
+      "src/blocks/HeaderNavbar12/Component.tsx",
+      "src/blocks/HeaderNavbar12/LogoHeightField.tsx",
+      "src/blocks/HeaderNavbar12/config.ts",
+      "src/blocks/HeroBanner/Component.tsx",
+      "src/blocks/HeroBanner/config.ts",
+      "src/blocks/HeroCarousel/Component.tsx",
+      "src/blocks/HeroCarousel/HeroCarouselClient.tsx",
+      "src/blocks/HeroCarousel/config.ts",
+      "src/blocks/IconCardShowcase/Component.tsx",
+      "src/blocks/IconCardShowcase/config.ts",
+      "src/blocks/IconGrid/Component.tsx",
+      "src/blocks/IconGrid/config.ts",
+      "src/blocks/ImageMosaic/Component.tsx",
+      "src/blocks/ImageMosaic/Presentation.tsx",
+      "src/blocks/ImageMosaic/PreviewComponent.tsx",
+      "src/blocks/ImageMosaic/config.ts",
+      "src/blocks/LeadershipProfiles/Component.tsx",
+      "src/blocks/LeadershipProfiles/config.ts",
+      "src/blocks/LeadershipProfiles/types.ts",
+      "src/blocks/LogoStrip/Component.tsx",
+      "src/blocks/LogoStrip/LogoStripMarquee.tsx",
+      "src/blocks/LogoStrip/config.ts",
+      "src/blocks/MediaCarousel/Component.tsx",
+      "src/blocks/MediaCarousel/MediaCarouselClient.tsx",
+      "src/blocks/MediaCarousel/config.ts",
+      "src/blocks/NewsEventsContent/Component.tsx",
+      "src/blocks/NewsEventsContent/config.ts",
+      "src/blocks/NewsEventsHighlights/Component.tsx",
+      "src/blocks/NewsEventsHighlights/Presentation.tsx",
+      "src/blocks/NewsEventsHighlights/PreviewComponent.tsx",
+      "src/blocks/NewsEventsHighlights/config.ts",
+      "src/blocks/NewsEventsHighlights/newsEventsHighlightsShared.ts",
+      "src/blocks/NewsEventsHighlights/resolveItems.ts",
+      "src/blocks/NewsEventsTabs/Component.tsx",
+      "src/blocks/NewsEventsTabs/NewsEventsTabsCard.tsx",
+      "src/blocks/NewsEventsTabs/NewsEventsTabsClient.tsx",
+      "src/blocks/NewsEventsTabs/NewsEventsTabsRow.tsx",
+      "src/blocks/NewsEventsTabs/Presentation.tsx",
+      "src/blocks/NewsEventsTabs/PreviewComponent.tsx",
+      "src/blocks/NewsEventsTabs/config.ts",
+      "src/blocks/NewsEventsTabs/newsEventsTabsShared.ts",
+      "src/blocks/NewsGrid/Component.tsx",
+      "src/blocks/NewsGrid/Presentation.tsx",
+      "src/blocks/NewsGrid/PreviewComponent.tsx",
+      "src/blocks/NewsGrid/config.ts",
+      "src/blocks/NewsGrid/newsGridShared.ts",
+      "src/blocks/NumberedSteps/Component.tsx",
+      "src/blocks/NumberedSteps/config.ts",
+      "src/blocks/PGFeeStructure/Component.tsx",
+      "src/blocks/PGFeeStructure/PGFeeStructureAtlasPresentation.tsx",
+      "src/blocks/PGFeeStructure/PGFeeStructureClient.tsx",
+      "src/blocks/PGFeeStructure/config.ts",
+      "src/blocks/PGFeeStructure/normalizePGFeeStructure.ts",
+      "src/blocks/PGFeeStructure/types.ts",
+      "src/blocks/PageBlockStack.tsx",
+      "src/blocks/PageHeader/Component.tsx",
+      "src/blocks/PageHeader/config.ts",
+      "src/blocks/ProfileCarousel/Component.tsx",
+      "src/blocks/ProfileCarousel/config.ts",
+      "src/blocks/ProgramMatrix/Component.tsx",
+      "src/blocks/ProgramMatrix/config.ts",
+      "src/blocks/QaAccordion/Component.tsx",
+      "src/blocks/QaAccordion/config.ts",
+      "src/blocks/QaAccordion/layoutContract.ts",
+      "src/blocks/QuoteBlock/Component.tsx",
+      "src/blocks/QuoteBlock/config.ts",
+      "src/blocks/RatingSpotlight/Component.tsx",
+      "src/blocks/RatingSpotlight/Presentation.tsx",
+      "src/blocks/RatingSpotlight/PreviewComponent.tsx",
+      "src/blocks/RatingSpotlight/config.ts",
+      "src/blocks/RenderBlocks.tsx",
+      "src/blocks/ReusableSection/config.ts",
+      "src/blocks/ReviewFeed/Component.tsx",
+      "src/blocks/ReviewFeed/Presentation.tsx",
+      "src/blocks/ReviewFeed/PreviewComponent.tsx",
+      "src/blocks/ReviewFeed/config.ts",
+      "src/blocks/ReviewSubmission/Component.tsx",
+      "src/blocks/ReviewSubmission/config.ts",
+      "src/blocks/RichTextBlock/Component.tsx",
+      "src/blocks/RichTextBlock/config.ts",
+      "src/blocks/Services21/Component.tsx",
+      "src/blocks/Services21/config.ts",
+      "src/blocks/StatsStrip/AnimatedMetricValue.tsx",
+      "src/blocks/StatsStrip/Component.tsx",
+      "src/blocks/StatsStrip/config.ts",
+      "src/blocks/StudentExperience/Component.tsx",
+      "src/blocks/StudentExperience/config.ts",
+      "src/blocks/System404/Component.tsx",
+      "src/blocks/System404/config.ts",
+      "src/blocks/SystemComingSoon/Component.tsx",
+      "src/blocks/SystemComingSoon/config.ts",
+      "src/blocks/SystemMaintenance/Component.tsx",
+      "src/blocks/SystemMaintenance/config.ts",
+      "src/blocks/TabsContent/Component.tsx",
+      "src/blocks/TabsContent/TabsContentClient.tsx",
+      "src/blocks/TabsContent/config.ts",
+      "src/blocks/TeamShowcase/Component.tsx",
+      "src/blocks/TeamShowcase/config.ts",
+      "src/blocks/TestimonialGrid/Component.tsx",
+      "src/blocks/TestimonialGrid/config.ts",
+      "src/blocks/TestimonialSpotlight/Component.tsx",
+      "src/blocks/TestimonialSpotlight/config.ts",
+      "src/blocks/Timeline/Component.tsx",
+      "src/blocks/Timeline/config.ts",
+      "src/blocks/VideoEmbed/Component.tsx",
+      "src/blocks/VideoEmbed/config.ts",
+      "src/blocks/blockCatalog.ts",
+      "src/blocks/renderFooterBlocks.tsx",
+      "src/blocks/renderHeaderBlocks.tsx",
+      "src/blocks/renderLivePreviewNewsEventDetailBlocks.tsx",
+      "src/blocks/renderLivePreviewPageBlocks.tsx",
+      "src/blocks/renderNewsEventDetailBlocks.tsx",
+      "src/blocks/renderPageBlocks.tsx",
+      "src/blocks/shared/BlockErrorBoundary.tsx",
+      "src/blocks/shared/BlockFooterActions.tsx",
+      "src/blocks/shared/CalendarPdfDownload.tsx",
+      "src/blocks/shared/CalendarSidebar.tsx",
+      "src/blocks/shared/FeeDocumentDownload.tsx",
+      "src/blocks/shared/ScrollableContentTabRail.tsx",
+      "src/blocks/shared/bannerCtaFields.ts",
+      "src/blocks/shared/bannerCtaPresentation.ts",
+      "src/blocks/shared/blockAppearance.ts",
+      "src/blocks/shared/blockAppearanceFields.ts",
+      "src/blocks/shared/blockSpacing.ts",
+      "src/blocks/shared/breadcrumbFields.ts",
+      "src/blocks/shared/calendarPdf.ts",
+      "src/blocks/shared/calendarPdfFields.ts",
+      "src/blocks/shared/cardSurface.ts",
+      "src/blocks/shared/cardThemeFields.ts",
+      "src/blocks/shared/contentActionsFields.ts",
+      "src/blocks/shared/contentStyles.ts",
+      "src/blocks/shared/contentTabRail.ts",
+      "src/blocks/shared/iconField.ts",
+      "src/blocks/shared/mediaOverlayFields.ts",
+      "src/blocks/shared/mediaOverlayPresentation.ts",
+      "src/blocks/shared/overlayDisplayFields.ts",
+      "src/blocks/shared/overlayDisplayPresentation.ts",
+      "src/blocks/shared/resolveLucideIcon.ts",
+      "src/blocks/shared/siteSocialLinks.ts",
+      "src/blocks/systemPageFields.ts",
+      "src/collections/Articles.ts",
+      "src/collections/Categories.ts",
+      "src/collections/Footers.ts",
+      "src/collections/FormSubmissions.ts",
+      "src/collections/Forms.ts",
+      "src/collections/GalleryAlbums.ts",
+      "src/collections/Headers.ts",
+      "src/collections/Media.ts",
+      "src/collections/NavigationLinks.ts",
+      "src/collections/NewsEventClassifications.ts",
+      "src/collections/NewsEvents.ts",
+      "src/collections/OfficeLocations.ts",
+      "src/collections/OperationalAuditEvents.ts",
+      "src/collections/Pages.ts",
+      "src/collections/Redirects.ts",
+      "src/collections/ReusableSections.ts",
+      "src/collections/Reviews.ts",
+      "src/collections/SystemPages.ts",
+      "src/collections/Tags.ts",
+      "src/collections/Users.ts",
+      "src/collections/WorkQueue.ts",
+      "src/components/ActionArrow.tsx",
+      "src/components/ActionButtonContent.tsx",
+      "src/components/BreadcrumbTrail.tsx",
+      "src/components/ContentActions.tsx",
+      "src/components/ContentLink.tsx",
+      "src/components/SectionEyebrow.tsx",
+      "src/components/admin/AdminSessionBar.tsx",
+      "src/components/admin/AdminUserMenu.tsx",
+      "src/components/admin/DashboardOverview.tsx",
+      "src/components/admin/DeferredAdminSessionBar.tsx",
+      "src/components/admin/PageCreateView.tsx",
+      "src/components/admin/PageRecipeSetup.scss",
+      "src/components/admin/PageRecipeSetup.tsx",
+      "src/components/analytics/ConsentAwareAnalytics.tsx",
+      "src/components/announcement/AnnouncementBar.tsx",
+      "src/components/announcement/MarqueeAnnouncementContent.tsx",
+      "src/components/announcement/RotatingAnnouncementContent.tsx",
+      "src/components/articles/ArticleArchivePage.tsx",
+      "src/components/articles/ArticlePage.tsx",
+      "src/components/contact24.tsx",
+      "src/components/contact33.tsx",
+      "src/components/content-highlights.tsx",
+      "src/components/event-gallery-client.tsx",
+      "src/components/event-gallery-presentation.ts",
+      "src/components/event-gallery-viewer.tsx",
+      "src/components/event-gallery.tsx",
+      "src/components/feature-matrix.tsx",
+      "src/components/footer56.tsx",
+      "src/components/gallery-album-overlay-content.tsx",
+      "src/components/gallery-showcase-fan.tsx",
+      "src/components/gallery-showcase.tsx",
+      "src/components/gallery-slideshow-viewer.tsx",
+      "src/components/global/BackToTopButton.tsx",
+      "src/components/global/CookieConsentBanner.tsx",
+      "src/components/global/GlobalAnnouncement.tsx",
+      "src/components/global/GlobalFooter.tsx",
+      "src/components/global/GlobalHeader.tsx",
+      "src/components/global/SearchDialog.tsx",
+      "src/components/header/HeaderMobileMenu.tsx",
+      "src/components/header/HeaderNavMenu.tsx",
+      "src/components/header/HeaderNavbar.tsx",
+      "src/components/header/SearchTriggerButton.tsx",
+      "src/components/image-mosaic-album-grid.tsx",
+      "src/components/image-mosaic-presentation.ts",
+      "src/components/image-mosaic.tsx",
+      "src/components/live-preview/ArticleLivePreview.tsx",
+      "src/components/live-preview/NewsEventLivePreview.tsx",
+      "src/components/live-preview/PageLivePreview.tsx",
+      "src/components/motion/MotionToggle.tsx",
+      "src/components/motion/useControllableMotion.ts",
+      "src/components/navbar12.tsx",
+      "src/components/news-events/NewsEventClassificationBadge.tsx",
+      "src/components/news-events/NewsEventDateMeta.tsx",
+      "src/components/news-events/NewsEventDetailPage.tsx",
+      "src/components/news-events/NewsEventShareActions.tsx",
+      "src/components/news-events/NewsEventStory.tsx",
+      "src/components/news-events/NewsEventsFeaturedCarousel.tsx",
+      "src/components/news-events/NewsEventsFeaturedCarouselClient.tsx",
+      "src/components/news-events/featuredHighlightsShared.ts",
+      "src/components/profile-carousel-card.tsx",
+      "src/components/profile-carousel-client.tsx",
+      "src/components/profile-carousel-collection.tsx",
+      "src/components/profile-carousel.tsx",
+      "src/components/rating-spotlight.tsx",
+      "src/components/review-feed-list.tsx",
+      "src/components/review-feed.tsx",
+      "src/components/reviews/ReviewArchivePage.tsx",
+      "src/components/reviews/ReviewPage.tsx",
+      "src/components/rich-text/richTextStyles.ts",
+      "src/components/services21.tsx",
+      "src/components/shadcnblocks/border-button.tsx",
+      "src/components/shadcnblocks/rating.tsx",
+      "src/components/site/SiteLogo.tsx",
+      "src/components/system-pages/System404View.tsx",
+      "src/components/system-pages/SystemComingSoonView.tsx",
+      "src/components/system-pages/SystemMaintenanceView.tsx",
+      "src/components/system-pages/primitives/SystemPageActions.tsx",
+      "src/components/system-pages/primitives/SystemPageCopy.tsx",
+      "src/components/system-pages/primitives/SystemPageShell.tsx",
+      "src/components/system-pages/primitives/SystemPageStatus.tsx",
+      "src/components/system-pages/types.ts",
+      "src/components/team-showcase.tsx",
+      "src/components/ui/accordion.tsx",
+      "src/components/ui/alert.tsx",
+      "src/components/ui/avatar.tsx",
+      "src/components/ui/badge.tsx",
+      "src/components/ui/button.tsx",
+      "src/components/ui/card.tsx",
+      "src/components/ui/carousel.tsx",
+      "src/components/ui/checkbox.tsx",
+      "src/components/ui/empty.tsx",
+      "src/components/ui/field.tsx",
+      "src/components/ui/input.tsx",
+      "src/components/ui/label.tsx",
+      "src/components/ui/navigation-menu.tsx",
+      "src/components/ui/pagination.tsx",
+      "src/components/ui/progress.tsx",
+      "src/components/ui/radio-group.tsx",
+      "src/components/ui/select.tsx",
+      "src/components/ui/separator.tsx",
+      "src/components/ui/sheet.tsx",
+      "src/components/ui/table.tsx",
+      "src/components/ui/tabs.tsx",
+      "src/components/ui/textarea.tsx",
+      "src/components/ui/toggle-group.tsx",
+      "src/components/ui/toggle.tsx",
+      "src/config/mediaPublicURL.ts",
+      "src/config/providers.ts",
+      "src/config/runtime.ts",
+      "src/config/starterContract.ts",
+      "src/config/uploadLimits.ts",
+      "src/endpoints/createPageFromRecipe.ts",
+      "src/fields/bodyEditorConfig.ts",
+      "src/fields/buildSEOFields.ts",
+      "src/fields/cmsLinkFields.ts",
+      "src/fields/projectSlugField.ts",
+      "src/fields/publicationMetadataFields.ts",
+      "src/globals/AnalyticsSettings.ts",
+      "src/globals/CookieConsentSettings.ts",
+      "src/globals/NewsEventsDetailTemplate.ts",
+      "src/globals/PageSettings.ts",
+      "src/globals/SEOSettings.ts",
+      "src/globals/SearchSettings.ts",
+      "src/globals/SiteSettings.ts",
+      "src/globals/SystemModeSettings.ts",
+      "src/globals/ThemeSettings.ts",
+      "src/hooks/createRedirectsForChangedPagePath.ts",
+      "src/hooks/enforcePublicationPolicy.ts",
+      "src/hooks/enforceReviewModeration.ts",
+      "src/hooks/logOperationalAuditEvent.ts",
+      "src/hooks/migrateLegacyReusableLinks.ts",
+      "src/hooks/newsEventClassificationReferences.ts",
+      "src/hooks/normalizeNewsEventFields.ts",
+      "src/hooks/populatePageUrlPreview.ts",
+      "src/hooks/preventMediaDeletionWhileInUse.ts",
+      "src/hooks/preventReferencedNewsEventClassificationDelete.ts",
+      "src/hooks/preventReferencedPageUnpublish.ts",
+      "src/hooks/preventReferencedSystemPageInvalidation.ts",
+      "src/hooks/protectNewsEventClassificationSystemFields.ts",
+      "src/hooks/resolveNewsEventClassification.ts",
+      "src/hooks/revalidateCmsContent.ts",
+      "src/hooks/syncDraftPublishToWorkQueue.ts",
+      "src/hooks/syncFormSubmissionToWorkQueue.ts",
+      "src/hooks/syncMediaToWorkQueue.ts",
+      "src/hooks/syncNavigationLinkForPage.ts",
+      "src/hooks/syncPrimaryCategoryMembership.ts",
+      "src/hooks/syncReviewToWorkQueue.ts",
+      "src/hooks/syncWorkQueueItem.ts",
+      "src/hooks/updateFormSubmissionActivity.ts",
+      "src/hooks/validateSEOContract.ts",
+      "src/lib/analyticsConsent.ts",
+      "src/lib/calendarEvents.ts",
+      "src/lib/calendarRequest.ts",
+      "src/lib/cmsLinks.ts",
+      "src/lib/cmsSession.ts",
+      "src/lib/contact33Form.ts",
+      "src/lib/contentEntries.ts",
+      "src/lib/eventGallery.ts",
+      "src/lib/eventGalleryShared.ts",
+      "src/lib/formNotifications.ts",
+      "src/lib/formSpamProtection.ts",
+      "src/lib/formSubmissionEvents.ts",
+      "src/lib/forms.ts",
+      "src/lib/frontendSession.ts",
+      "src/lib/headerNavigation.ts",
+      "src/lib/legalPagePaths.ts",
+      "src/lib/media.ts",
+      "src/lib/mediaStorage.ts",
+      "src/lib/mediaUsage.ts",
+      "src/lib/navigationLinkSync.ts",
+      "src/lib/navigationLinks.ts",
+      "src/lib/newsEventClassifications.ts",
+      "src/lib/newsEventDetailTemplate.ts",
+      "src/lib/newsEventDetailTemplateShared.ts",
+      "src/lib/newsEvents.ts",
+      "src/lib/newsEventsMetadata.ts",
+      "src/lib/newsEventsPreviewShared.ts",
+      "src/lib/newsEventsPreviewSnapshot.ts",
+      "src/lib/newsEventsShared.ts",
+      "src/lib/openGraphImages.tsx",
+      "src/lib/operationalAudit.ts",
+      "src/lib/pageBreadcrumbs.ts",
+      "src/lib/pagePaths.ts",
+      "src/lib/redirects.ts",
+      "src/lib/reviewFeed.ts",
+      "src/lib/reviewFeedShared.ts",
+      "src/lib/reviewPreviewShared.ts",
+      "src/lib/reviewPreviewSnapshot.ts",
+      "src/lib/reviewPromotion.ts",
+      "src/lib/reviewRatingShared.ts",
+      "src/lib/reviewRatingSummary.ts",
+      "src/lib/reviews.ts",
+      "src/lib/searchPagePaths.ts",
+      "src/lib/searchSuggestions.ts",
+      "src/lib/seo.ts",
+      "src/lib/siteOffices.ts",
+      "src/lib/siteOfficesShared.ts",
+      "src/lib/siteTimeZone.server.ts",
+      "src/lib/siteTimeZone.ts",
+      "src/lib/siteUrl.ts",
+      "src/lib/stripInternalMediaFields.ts",
+      "src/lib/systemPageActions.ts",
+      "src/lib/systemPageTypes.ts",
+      "src/lib/taxonomy.ts",
+      "src/lib/themes/websiteThemes.ts",
+      "src/lib/utils.ts",
+      "src/lib/workQueue.ts",
+      "src/migrations/20260829_000000_rename_snmih_theme_values.ts",
+      "src/migrations/20260831_000000_provision_legal_pages.ts",
+      "src/migrations/20260831_010000_nest_department_profiles.ts",
+      "src/migrations/20260902_000000_two_role_feature_permissions.ts",
+      "src/migrations/index.ts",
+      "src/page-recipes/pageRecipes.ts",
+      "src/payload-types.ts",
+      "src/payload.config.ts",
+      "src/plugins/withFeatureDeletionAudit.ts",
+      "src/plugins/withTrash.ts",
+      "src/proxy.ts",
+      "src/styles/custom.css",
+      "src/styles/globals.css",
+      "src/styles/themes/theme-snmih-blue.css",
+      "src/styles/themes/theme-snmih-green.css",
+      "tests/e2e/admin.e2e.spec.ts",
+      "tests/e2e/calendar.e2e.spec.ts",
+      "tests/e2e/frontend.e2e.spec.ts",
+      "tests/helpers/login.ts",
+      "tests/helpers/mongoMemoryServer.ts",
+      "tests/helpers/oklchContrast.ts",
+      "tests/helpers/pageRecipeDraft.ts",
+      "tests/helpers/seedHomepage.ts",
+      "tests/helpers/seedUser.ts",
+      "tests/helpers/server-only.ts",
+      "tests/int/about-section.int.spec.tsx",
+      "tests/int/academic-programmes-client.int.spec.tsx",
+      "tests/int/academic-programmes.int.spec.tsx",
+      "tests/int/admin-documentation.int.spec.ts",
+      "tests/int/admin-features.int.spec.ts",
+      "tests/int/admin-information-architecture.int.spec.ts",
+      "tests/int/admin-session-bar.int.spec.ts",
+      "tests/int/analytics-consent.int.spec.tsx",
+      "tests/int/announcement-admin-conditions.int.spec.ts",
+      "tests/int/announcement-controls.int.spec.tsx",
+      "tests/int/annual-calendar-data.int.spec.ts",
+      "tests/int/annual-calendar.int.spec.tsx",
+      "tests/int/api.int.spec.ts",
+      "tests/int/articles-feed-route.int.spec.ts",
+      "tests/int/articles.int.spec.ts",
+      "tests/int/back-to-top-button.int.spec.tsx",
+      "tests/int/bank-details.int.spec.tsx",
+      "tests/int/banner-media-overlay.int.spec.tsx",
+      "tests/int/block-appearance-contract.int.spec.ts",
+      "tests/int/block-catalog.int.spec.ts",
+      "tests/int/block-layout-contracts.int.spec.tsx",
+      "tests/int/block-surface-semantics.int.spec.ts",
+      "tests/int/block-theme-tabs.int.spec.ts",
+      "tests/int/block-thumbnail-fixtures.int.spec.ts",
+      "tests/int/block-thumbnails.int.spec.ts",
+      "tests/int/breadcrumb-block.int.spec.tsx",
+      "tests/int/button-primary-variant.int.spec.tsx",
+      "tests/int/cache-revalidation.int.spec.ts",
+      "tests/int/calendar-data.int.spec.ts",
+      "tests/int/calendar-pdf-download.int.spec.tsx",
+      "tests/int/calendar-route.int.spec.ts",
+      "tests/int/calendar-ui-contracts.int.spec.tsx",
+      "tests/int/calendar.int.spec.tsx",
+      "tests/int/card-block-renderers.int.spec.tsx",
+      "tests/int/card-block-theme-contract.int.spec.ts",
+      "tests/int/card-theme-contract.int.spec.ts",
+      "tests/int/carousel-blocks.int.spec.tsx",
+      "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/contact24-data.int.spec.ts",
+      "tests/int/contact24-render.int.spec.tsx",
+      "tests/int/contact33-config.int.spec.ts",
+      "tests/int/contact33-render.int.spec.tsx",
+      "tests/int/content-action-presentation.int.spec.tsx",
+      "tests/int/content-highlights.int.spec.tsx",
+      "tests/int/content-style-parity.int.spec.ts",
+      "tests/int/content-tab-rail.int.spec.ts",
+      "tests/int/content-taxonomy.int.spec.ts",
+      "tests/int/controllable-motion.int.spec.tsx",
+      "tests/int/cookie-consent-modal.int.spec.tsx",
+      "tests/int/cta39.int.spec.tsx",
+      "tests/int/dark-mode-media-treatment.int.spec.tsx",
+      "tests/int/dashboard-capability-filtering.int.spec.tsx",
+      "tests/int/department-profiles-migration.int.spec.ts",
+      "tests/int/department-profiles.int.spec.tsx",
+      "tests/int/docker-standalone.int.spec.ts",
+      "tests/int/download-list.int.spec.tsx",
+      "tests/int/editorial-reasons.int.spec.tsx",
+      "tests/int/editorial-workflow.int.spec.ts",
+      "tests/int/event-gallery-data.int.spec.ts",
+      "tests/int/event-gallery-presentation.int.spec.ts",
+      "tests/int/event-gallery-render.int.spec.tsx",
+      "tests/int/event-gallery-selection.int.spec.tsx",
+      "tests/int/event-gallery-viewer.int.spec.tsx",
+      "tests/int/feature-access-matrix.int.spec.ts",
+      "tests/int/feature-matrix.int.spec.ts",
+      "tests/int/feature-spotlight.int.spec.ts",
+      "tests/int/fee-structure.int.spec.tsx",
+      "tests/int/font-delivery.int.spec.ts",
+      "tests/int/footer-minimal.int.spec.tsx",
+      "tests/int/footer-spacing.int.spec.ts",
+      "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/forms-submission.int.spec.ts",
+      "tests/int/frontend-layout-cache.int.spec.ts",
+      "tests/int/frontend-session.int.spec.tsx",
+      "tests/int/gallery-album-tabs.int.spec.tsx",
+      "tests/int/gallery-albums.int.spec.ts",
+      "tests/int/gallery-showcase.int.spec.ts",
+      "tests/int/global-announcement.int.spec.ts",
+      "tests/int/global-footer.int.spec.ts",
+      "tests/int/global-header.int.spec.ts",
+      "tests/int/header-navbar-render.int.spec.ts",
+      "tests/int/header-presets.int.spec.ts",
+      "tests/int/helpers/generatedPayloadInterface.ts",
+      "tests/int/hero-banner-preload.int.spec.tsx",
+      "tests/int/hero-banner-render.int.spec.ts",
+      "tests/int/hero-carousel-motion.int.spec.tsx",
+      "tests/int/icon-card-showcase.int.spec.tsx",
+      "tests/int/icon-grid-ruled-columns.int.spec.tsx",
+      "tests/int/image-mosaic.int.spec.tsx",
+      "tests/int/leadership-profiles.int.spec.tsx",
+      "tests/int/legal-page-paths.int.spec.ts",
+      "tests/int/legal-pages-migration.int.spec.ts",
+      "tests/int/live-preview-import-boundary.int.spec.ts",
+      "tests/int/live-preview-renderer.int.spec.tsx",
+      "tests/int/managed-cms-page.int.spec.tsx",
+      "tests/int/manual-news-events-page-route.int.spec.tsx",
+      "tests/int/marquee-announcement.int.spec.ts",
+      "tests/int/media-governance.int.spec.ts",
+      "tests/int/media-overlay.int.spec.ts",
+      "tests/int/media-public-url.int.spec.ts",
+      "tests/int/media-storage.int.spec.ts",
+      "tests/int/media-upload-limits.int.spec.ts",
+      "tests/int/media-url.int.spec.ts",
+      "tests/int/mongodb-uri-contract.int.spec.ts",
+      "tests/int/news-event-classifications.int.spec.ts",
+      "tests/int/news-event-share-actions.int.spec.tsx",
+      "tests/int/news-event-story.int.spec.tsx",
+      "tests/int/news-events-classification-metadata.int.spec.tsx",
+      "tests/int/news-events-collection.int.spec.ts",
+      "tests/int/news-events-data.int.spec.ts",
+      "tests/int/news-events-detail-template.int.spec.tsx",
+      "tests/int/news-events-featured-carousel.int.spec.tsx",
+      "tests/int/news-events-feed-route.int.spec.ts",
+      "tests/int/news-events-highlights-loader.int.spec.ts",
+      "tests/int/news-events-highlights.int.spec.tsx",
+      "tests/int/news-events-metadata-routes.int.spec.ts",
+      "tests/int/news-events-metadata.int.spec.ts",
+      "tests/int/news-events-opengraph-image.int.spec.tsx",
+      "tests/int/news-events-robots-loader.int.spec.ts",
+      "tests/int/news-events-tabs-route.int.spec.ts",
+      "tests/int/news-events-tabs.int.spec.tsx",
+      "tests/int/news-grid.int.spec.tsx",
+      "tests/int/open-graph-image-renderer.int.spec.tsx",
+      "tests/int/open-graph-images.int.spec.tsx",
+      "tests/int/opengraph-fallback-routes.int.spec.tsx",
+      "tests/int/operational-audit.int.spec.ts",
+      "tests/int/page-blocks.int.spec.ts",
+      "tests/int/page-breadcrumbs.int.spec.tsx",
+      "tests/int/page-create-view.int.spec.tsx",
+      "tests/int/page-header-actions.int.spec.tsx",
+      "tests/int/page-recipe-endpoint.int.spec.ts",
+      "tests/int/page-recipe-setup.int.spec.tsx",
+      "tests/int/page-recipes.int.spec.ts",
+      "tests/int/page-routing.int.spec.ts",
+      "tests/int/page-settings-system-mode.int.spec.ts",
+      "tests/int/pg-fee-structure.int.spec.tsx",
+      "tests/int/preview-access.int.spec.ts",
+      "tests/int/profile-carousel.int.spec.ts",
+      "tests/int/program-matrix.int.spec.tsx",
+      "tests/int/project-context-lib.int.spec.ts",
+      "tests/int/project-context-repository.int.spec.ts",
+      "tests/int/project-slug-field.int.spec.ts",
+      "tests/int/provider-selection.int.spec.ts",
+      "tests/int/proxy.int.spec.ts",
+      "tests/int/public-content-access.int.spec.ts",
+      "tests/int/qa-accordion.int.spec.ts",
+      "tests/int/rating-spotlight.int.spec.ts",
+      "tests/int/redirects.int.spec.ts",
+      "tests/int/regular-block-spacing.int.spec.tsx",
+      "tests/int/repository-hygiene.int.spec.ts",
+      "tests/int/review-feed-data.int.spec.ts",
+      "tests/int/review-feed-route.int.spec.ts",
+      "tests/int/review-feed.int.spec.tsx",
+      "tests/int/review-moderation.int.spec.ts",
+      "tests/int/review-preview-blocks.int.spec.tsx",
+      "tests/int/review-preview-snapshot.int.spec.ts",
+      "tests/int/review-rating-summary.int.spec.ts",
+      "tests/int/review-submission-render.int.spec.ts",
+      "tests/int/review-submission.int.spec.ts",
+      "tests/int/reviews.int.spec.ts",
+      "tests/int/rich-text-presentation.int.spec.tsx",
+      "tests/int/rotating-announcement.int.spec.ts",
+      "tests/int/runtime-config.int.spec.ts",
+      "tests/int/scrollable-content-tab-rail.int.spec.tsx",
+      "tests/int/search-dialog-design.int.spec.ts",
+      "tests/int/search-hierarchical-routes.int.spec.tsx",
+      "tests/int/search-page-design.int.spec.ts",
+      "tests/int/search-page-paths.int.spec.ts",
+      "tests/int/search-settings-access.int.spec.ts",
+      "tests/int/search-suggestions.int.spec.ts",
+      "tests/int/section-eyebrow.int.spec.tsx",
+      "tests/int/semantic-radius-contract.int.spec.ts",
+      "tests/int/seo-contract.int.spec.ts",
+      "tests/int/site-offices.int.spec.ts",
+      "tests/int/site-time-zone.int.spec.ts",
+      "tests/int/sitemap.int.spec.ts",
+      "tests/int/speed-insights.int.spec.ts",
+      "tests/int/starter-contract.int.spec.ts",
+      "tests/int/starter-productization.int.spec.ts",
+      "tests/int/stats-strip-render.int.spec.ts",
+      "tests/int/student-experience.int.spec.tsx",
+      "tests/int/system-page-blocks.int.spec.ts",
+      "tests/int/system-page-rendering.int.spec.ts",
+      "tests/int/tabs-content-active-color.int.spec.ts",
+      "tests/int/taxonomy.int.spec.ts",
+      "tests/int/team-showcase-hover-surface.int.spec.tsx",
+      "tests/int/testimonial-spotlight-config.int.spec.ts",
+      "tests/int/testimonial-spotlight-render.int.spec.tsx",
+      "tests/int/theme-block-outliers.int.spec.tsx",
+      "tests/int/theme-contracts.int.spec.ts",
+      "tests/int/theme-settings.int.spec.ts",
+      "tests/int/theme-value-migration.int.spec.ts",
+      "tests/int/two-role-feature-permissions-migration.int.spec.ts",
+      "tests/int/user-feature-administration.int.spec.ts",
+      "tests/int/work-queue.int.spec.ts",
+      "tsconfig.json"
+    ],
+    "sha256": "dc48239a539796067dae0b5621d6bfb20f1f1ea8458384f9abb7c0ff39723594"
+  },
+  "surfaces": {
+    "access": [
+      "src/access/adminFeatures.ts",
+      "src/access/featureAccess.ts"
+    ],
+    "config": [
+      "src/config/mediaPublicURL.ts",
+      "src/config/providers.ts",
+      "src/config/runtime.ts",
+      "src/config/starterContract.ts",
+      "src/config/uploadLimits.ts"
+    ],
+    "fields": [
+      "src/fields/bodyEditorConfig.ts",
+      "src/fields/buildSEOFields.ts",
+      "src/fields/cmsLinkFields.ts",
+      "src/fields/projectSlugField.ts",
+      "src/fields/publicationMetadataFields.ts"
+    ],
+    "hooks": [
+      "src/hooks/createRedirectsForChangedPagePath.ts",
+      "src/hooks/enforcePublicationPolicy.ts",
+      "src/hooks/enforceReviewModeration.ts",
+      "src/hooks/logOperationalAuditEvent.ts",
+      "src/hooks/migrateLegacyReusableLinks.ts",
+      "src/hooks/newsEventClassificationReferences.ts",
+      "src/hooks/normalizeNewsEventFields.ts",
+      "src/hooks/populatePageUrlPreview.ts",
+      "src/hooks/preventMediaDeletionWhileInUse.ts",
+      "src/hooks/preventReferencedNewsEventClassificationDelete.ts",
+      "src/hooks/preventReferencedPageUnpublish.ts",
+      "src/hooks/preventReferencedSystemPageInvalidation.ts",
+      "src/hooks/protectNewsEventClassificationSystemFields.ts",
+      "src/hooks/resolveNewsEventClassification.ts",
+      "src/hooks/revalidateCmsContent.ts",
+      "src/hooks/syncDraftPublishToWorkQueue.ts",
+      "src/hooks/syncFormSubmissionToWorkQueue.ts",
+      "src/hooks/syncMediaToWorkQueue.ts",
+      "src/hooks/syncNavigationLinkForPage.ts",
+      "src/hooks/syncPrimaryCategoryMembership.ts",
+      "src/hooks/syncReviewToWorkQueue.ts",
+      "src/hooks/syncWorkQueueItem.ts",
+      "src/hooks/updateFormSubmissionActivity.ts",
+      "src/hooks/validateSEOContract.ts"
+    ],
+    "libraries": [
+      "src/lib/analyticsConsent.ts",
+      "src/lib/calendarEvents.ts",
+      "src/lib/calendarRequest.ts",
+      "src/lib/cmsLinks.ts",
+      "src/lib/cmsSession.ts",
+      "src/lib/contact33Form.ts",
+      "src/lib/contentEntries.ts",
+      "src/lib/eventGallery.ts",
+      "src/lib/eventGalleryShared.ts",
+      "src/lib/formNotifications.ts",
+      "src/lib/formSpamProtection.ts",
+      "src/lib/formSubmissionEvents.ts",
+      "src/lib/forms.ts",
+      "src/lib/frontendSession.ts",
+      "src/lib/headerNavigation.ts",
+      "src/lib/legalPagePaths.ts",
+      "src/lib/media.ts",
+      "src/lib/mediaStorage.ts",
+      "src/lib/mediaUsage.ts",
+      "src/lib/navigationLinkSync.ts",
+      "src/lib/navigationLinks.ts",
+      "src/lib/newsEventClassifications.ts",
+      "src/lib/newsEventDetailTemplate.ts",
+      "src/lib/newsEventDetailTemplateShared.ts",
+      "src/lib/newsEvents.ts",
+      "src/lib/newsEventsMetadata.ts",
+      "src/lib/newsEventsPreviewShared.ts",
+      "src/lib/newsEventsPreviewSnapshot.ts",
+      "src/lib/newsEventsShared.ts",
+      "src/lib/openGraphImages.tsx",
+      "src/lib/operationalAudit.ts",
+      "src/lib/pageBreadcrumbs.ts",
+      "src/lib/pagePaths.ts",
+      "src/lib/redirects.ts",
+      "src/lib/reviewFeed.ts",
+      "src/lib/reviewFeedShared.ts",
+      "src/lib/reviewPreviewShared.ts",
+      "src/lib/reviewPreviewSnapshot.ts",
+      "src/lib/reviewPromotion.ts",
+      "src/lib/reviewRatingShared.ts",
+      "src/lib/reviewRatingSummary.ts",
+      "src/lib/reviews.ts",
+      "src/lib/searchPagePaths.ts",
+      "src/lib/searchSuggestions.ts",
+      "src/lib/seo.ts",
+      "src/lib/siteOffices.ts",
+      "src/lib/siteOfficesShared.ts",
+      "src/lib/siteTimeZone.server.ts",
+      "src/lib/siteTimeZone.ts",
+      "src/lib/siteUrl.ts",
+      "src/lib/stripInternalMediaFields.ts",
+      "src/lib/systemPageActions.ts",
+      "src/lib/systemPageTypes.ts",
+      "src/lib/taxonomy.ts",
+      "src/lib/themes/websiteThemes.ts",
+      "src/lib/utils.ts",
+      "src/lib/workQueue.ts"
+    ],
+    "routes": [
+      "src/app/(block-thumbnails)/block-thumbnail-previews/[slug]/page.tsx",
+      "src/app/(block-thumbnails)/layout.tsx",
+      "src/app/(frontend)/[...slug]/page.tsx",
+      "src/app/(frontend)/articles/[slug]/opengraph-image.tsx",
+      "src/app/(frontend)/articles/[slug]/page.tsx",
+      "src/app/(frontend)/articles/category/[slug]/page.tsx",
+      "src/app/(frontend)/articles/feed.xml/route.ts",
+      "src/app/(frontend)/articles/tag/[slug]/page.tsx",
+      "src/app/(frontend)/layout.tsx",
+      "src/app/(frontend)/news-events/[slug]/opengraph-image.tsx",
+      "src/app/(frontend)/news-events/[slug]/page.tsx",
+      "src/app/(frontend)/news-events/feed.xml/route.ts",
+      "src/app/(frontend)/news-events/page.tsx",
+      "src/app/(frontend)/opengraph-image.tsx",
+      "src/app/(frontend)/page.tsx",
+      "src/app/(frontend)/preview/page/[id]/page.tsx",
+      "src/app/(frontend)/reviews/[slug]/opengraph-image.tsx",
+      "src/app/(frontend)/reviews/[slug]/page.tsx",
+      "src/app/(frontend)/reviews/category/[slug]/page.tsx",
+      "src/app/(frontend)/search/page.tsx",
+      "src/app/(payload)/admin/[[...segments]]/page.tsx",
+      "src/app/(payload)/api/[...slug]/route.ts",
+      "src/app/(payload)/api/graphql-playground/route.ts",
+      "src/app/(payload)/api/graphql/route.ts",
+      "src/app/(payload)/layout.tsx",
+      "src/app/api/calendar-events/route.ts",
+      "src/app/api/forms/[slug]/submit/route.ts",
+      "src/app/api/frontend-session/route.ts",
+      "src/app/api/news-events-tabs/route.ts",
+      "src/app/api/operations/media/reconcile-storage/route.ts",
+      "src/app/api/redirects/route.ts",
+      "src/app/api/review-feed/route.ts",
+      "src/app/api/search/route.ts",
+      "src/app/robots.ts",
+      "src/app/sitemap.ts"
+    ],
+    "tests": [
+      "tests/e2e/admin.e2e.spec.ts",
+      "tests/e2e/calendar.e2e.spec.ts",
+      "tests/e2e/frontend.e2e.spec.ts",
+      "tests/int/about-section.int.spec.tsx",
+      "tests/int/academic-programmes-client.int.spec.tsx",
+      "tests/int/academic-programmes.int.spec.tsx",
+      "tests/int/admin-documentation.int.spec.ts",
+      "tests/int/admin-features.int.spec.ts",
+      "tests/int/admin-information-architecture.int.spec.ts",
+      "tests/int/admin-session-bar.int.spec.ts",
+      "tests/int/analytics-consent.int.spec.tsx",
+      "tests/int/announcement-admin-conditions.int.spec.ts",
+      "tests/int/announcement-controls.int.spec.tsx",
+      "tests/int/annual-calendar-data.int.spec.ts",
+      "tests/int/annual-calendar.int.spec.tsx",
+      "tests/int/api.int.spec.ts",
+      "tests/int/articles-feed-route.int.spec.ts",
+      "tests/int/articles.int.spec.ts",
+      "tests/int/back-to-top-button.int.spec.tsx",
+      "tests/int/bank-details.int.spec.tsx",
+      "tests/int/banner-media-overlay.int.spec.tsx",
+      "tests/int/block-appearance-contract.int.spec.ts",
+      "tests/int/block-catalog.int.spec.ts",
+      "tests/int/block-layout-contracts.int.spec.tsx",
+      "tests/int/block-surface-semantics.int.spec.ts",
+      "tests/int/block-theme-tabs.int.spec.ts",
+      "tests/int/block-thumbnail-fixtures.int.spec.ts",
+      "tests/int/block-thumbnails.int.spec.ts",
+      "tests/int/breadcrumb-block.int.spec.tsx",
+      "tests/int/button-primary-variant.int.spec.tsx",
+      "tests/int/cache-revalidation.int.spec.ts",
+      "tests/int/calendar-data.int.spec.ts",
+      "tests/int/calendar-pdf-download.int.spec.tsx",
+      "tests/int/calendar-route.int.spec.ts",
+      "tests/int/calendar-ui-contracts.int.spec.tsx",
+      "tests/int/calendar.int.spec.tsx",
+      "tests/int/card-block-renderers.int.spec.tsx",
+      "tests/int/card-block-theme-contract.int.spec.ts",
+      "tests/int/card-theme-contract.int.spec.ts",
+      "tests/int/carousel-blocks.int.spec.tsx",
+      "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/contact24-data.int.spec.ts",
+      "tests/int/contact24-render.int.spec.tsx",
+      "tests/int/contact33-config.int.spec.ts",
+      "tests/int/contact33-render.int.spec.tsx",
+      "tests/int/content-action-presentation.int.spec.tsx",
+      "tests/int/content-highlights.int.spec.tsx",
+      "tests/int/content-style-parity.int.spec.ts",
+      "tests/int/content-tab-rail.int.spec.ts",
+      "tests/int/content-taxonomy.int.spec.ts",
+      "tests/int/controllable-motion.int.spec.tsx",
+      "tests/int/cookie-consent-modal.int.spec.tsx",
+      "tests/int/cta39.int.spec.tsx",
+      "tests/int/dark-mode-media-treatment.int.spec.tsx",
+      "tests/int/dashboard-capability-filtering.int.spec.tsx",
+      "tests/int/department-profiles-migration.int.spec.ts",
+      "tests/int/department-profiles.int.spec.tsx",
+      "tests/int/docker-standalone.int.spec.ts",
+      "tests/int/download-list.int.spec.tsx",
+      "tests/int/editorial-reasons.int.spec.tsx",
+      "tests/int/editorial-workflow.int.spec.ts",
+      "tests/int/event-gallery-data.int.spec.ts",
+      "tests/int/event-gallery-presentation.int.spec.ts",
+      "tests/int/event-gallery-render.int.spec.tsx",
+      "tests/int/event-gallery-selection.int.spec.tsx",
+      "tests/int/event-gallery-viewer.int.spec.tsx",
+      "tests/int/feature-access-matrix.int.spec.ts",
+      "tests/int/feature-matrix.int.spec.ts",
+      "tests/int/feature-spotlight.int.spec.ts",
+      "tests/int/fee-structure.int.spec.tsx",
+      "tests/int/font-delivery.int.spec.ts",
+      "tests/int/footer-minimal.int.spec.tsx",
+      "tests/int/footer-spacing.int.spec.ts",
+      "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/forms-submission.int.spec.ts",
+      "tests/int/frontend-layout-cache.int.spec.ts",
+      "tests/int/frontend-session.int.spec.tsx",
+      "tests/int/gallery-album-tabs.int.spec.tsx",
+      "tests/int/gallery-albums.int.spec.ts",
+      "tests/int/gallery-showcase.int.spec.ts",
+      "tests/int/global-announcement.int.spec.ts",
+      "tests/int/global-footer.int.spec.ts",
+      "tests/int/global-header.int.spec.ts",
+      "tests/int/header-navbar-render.int.spec.ts",
+      "tests/int/header-presets.int.spec.ts",
+      "tests/int/hero-banner-preload.int.spec.tsx",
+      "tests/int/hero-banner-render.int.spec.ts",
+      "tests/int/hero-carousel-motion.int.spec.tsx",
+      "tests/int/icon-card-showcase.int.spec.tsx",
+      "tests/int/icon-grid-ruled-columns.int.spec.tsx",
+      "tests/int/image-mosaic.int.spec.tsx",
+      "tests/int/leadership-profiles.int.spec.tsx",
+      "tests/int/legal-page-paths.int.spec.ts",
+      "tests/int/legal-pages-migration.int.spec.ts",
+      "tests/int/live-preview-import-boundary.int.spec.ts",
+      "tests/int/live-preview-renderer.int.spec.tsx",
+      "tests/int/managed-cms-page.int.spec.tsx",
+      "tests/int/manual-news-events-page-route.int.spec.tsx",
+      "tests/int/marquee-announcement.int.spec.ts",
+      "tests/int/media-governance.int.spec.ts",
+      "tests/int/media-overlay.int.spec.ts",
+      "tests/int/media-public-url.int.spec.ts",
+      "tests/int/media-storage.int.spec.ts",
+      "tests/int/media-upload-limits.int.spec.ts",
+      "tests/int/media-url.int.spec.ts",
+      "tests/int/mongodb-uri-contract.int.spec.ts",
+      "tests/int/news-event-classifications.int.spec.ts",
+      "tests/int/news-event-share-actions.int.spec.tsx",
+      "tests/int/news-event-story.int.spec.tsx",
+      "tests/int/news-events-classification-metadata.int.spec.tsx",
+      "tests/int/news-events-collection.int.spec.ts",
+      "tests/int/news-events-data.int.spec.ts",
+      "tests/int/news-events-detail-template.int.spec.tsx",
+      "tests/int/news-events-featured-carousel.int.spec.tsx",
+      "tests/int/news-events-feed-route.int.spec.ts",
+      "tests/int/news-events-highlights-loader.int.spec.ts",
+      "tests/int/news-events-highlights.int.spec.tsx",
+      "tests/int/news-events-metadata-routes.int.spec.ts",
+      "tests/int/news-events-metadata.int.spec.ts",
+      "tests/int/news-events-opengraph-image.int.spec.tsx",
+      "tests/int/news-events-robots-loader.int.spec.ts",
+      "tests/int/news-events-tabs-route.int.spec.ts",
+      "tests/int/news-events-tabs.int.spec.tsx",
+      "tests/int/news-grid.int.spec.tsx",
+      "tests/int/open-graph-image-renderer.int.spec.tsx",
+      "tests/int/open-graph-images.int.spec.tsx",
+      "tests/int/opengraph-fallback-routes.int.spec.tsx",
+      "tests/int/operational-audit.int.spec.ts",
+      "tests/int/page-blocks.int.spec.ts",
+      "tests/int/page-breadcrumbs.int.spec.tsx",
+      "tests/int/page-create-view.int.spec.tsx",
+      "tests/int/page-header-actions.int.spec.tsx",
+      "tests/int/page-recipe-endpoint.int.spec.ts",
+      "tests/int/page-recipe-setup.int.spec.tsx",
+      "tests/int/page-recipes.int.spec.ts",
+      "tests/int/page-routing.int.spec.ts",
+      "tests/int/page-settings-system-mode.int.spec.ts",
+      "tests/int/pg-fee-structure.int.spec.tsx",
+      "tests/int/preview-access.int.spec.ts",
+      "tests/int/profile-carousel.int.spec.ts",
+      "tests/int/program-matrix.int.spec.tsx",
+      "tests/int/project-context-lib.int.spec.ts",
+      "tests/int/project-context-repository.int.spec.ts",
+      "tests/int/project-slug-field.int.spec.ts",
+      "tests/int/provider-selection.int.spec.ts",
+      "tests/int/proxy.int.spec.ts",
+      "tests/int/public-content-access.int.spec.ts",
+      "tests/int/qa-accordion.int.spec.ts",
+      "tests/int/rating-spotlight.int.spec.ts",
+      "tests/int/redirects.int.spec.ts",
+      "tests/int/regular-block-spacing.int.spec.tsx",
+      "tests/int/repository-hygiene.int.spec.ts",
+      "tests/int/review-feed-data.int.spec.ts",
+      "tests/int/review-feed-route.int.spec.ts",
+      "tests/int/review-feed.int.spec.tsx",
+      "tests/int/review-moderation.int.spec.ts",
+      "tests/int/review-preview-blocks.int.spec.tsx",
+      "tests/int/review-preview-snapshot.int.spec.ts",
+      "tests/int/review-rating-summary.int.spec.ts",
+      "tests/int/review-submission-render.int.spec.ts",
+      "tests/int/review-submission.int.spec.ts",
+      "tests/int/reviews.int.spec.ts",
+      "tests/int/rich-text-presentation.int.spec.tsx",
+      "tests/int/rotating-announcement.int.spec.ts",
+      "tests/int/runtime-config.int.spec.ts",
+      "tests/int/scrollable-content-tab-rail.int.spec.tsx",
+      "tests/int/search-dialog-design.int.spec.ts",
+      "tests/int/search-hierarchical-routes.int.spec.tsx",
+      "tests/int/search-page-design.int.spec.ts",
+      "tests/int/search-page-paths.int.spec.ts",
+      "tests/int/search-settings-access.int.spec.ts",
+      "tests/int/search-suggestions.int.spec.ts",
+      "tests/int/section-eyebrow.int.spec.tsx",
+      "tests/int/semantic-radius-contract.int.spec.ts",
+      "tests/int/seo-contract.int.spec.ts",
+      "tests/int/site-offices.int.spec.ts",
+      "tests/int/site-time-zone.int.spec.ts",
+      "tests/int/sitemap.int.spec.ts",
+      "tests/int/speed-insights.int.spec.ts",
+      "tests/int/starter-contract.int.spec.ts",
+      "tests/int/starter-productization.int.spec.ts",
+      "tests/int/stats-strip-render.int.spec.ts",
+      "tests/int/student-experience.int.spec.tsx",
+      "tests/int/system-page-blocks.int.spec.ts",
+      "tests/int/system-page-rendering.int.spec.ts",
+      "tests/int/tabs-content-active-color.int.spec.ts",
+      "tests/int/taxonomy.int.spec.ts",
+      "tests/int/team-showcase-hover-surface.int.spec.tsx",
+      "tests/int/testimonial-spotlight-config.int.spec.ts",
+      "tests/int/testimonial-spotlight-render.int.spec.tsx",
+      "tests/int/theme-block-outliers.int.spec.tsx",
+      "tests/int/theme-contracts.int.spec.ts",
+      "tests/int/theme-settings.int.spec.ts",
+      "tests/int/theme-value-migration.int.spec.ts",
+      "tests/int/two-role-feature-permissions-migration.int.spec.ts",
+      "tests/int/user-feature-administration.int.spec.ts",
+      "tests/int/work-queue.int.spec.ts"
+    ],
+    "themes": [
+      "src/styles/themes/theme-snmih-blue.css",
+      "src/styles/themes/theme-snmih-green.css"
+    ]
+  }
+}

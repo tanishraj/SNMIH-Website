@@ -1,0 +1,494 @@
+/* ==========================================================================
+   Section surfaces
+
+   Five surfaces total. `subtle` follows --muted and `brand` follows --primary,
+   so both invert automatically in dark mode without extra rules.
+   These classes are applied only to block section roots (see blockAppearance.ts),
+   which keeps the button rules below from leaking into cards.
+   ========================================================================== */
+
+.bg-subtle {
+  background-color: var(--muted);
+}
+
+.bg-brand {
+  background-color: var(--primary);
+}
+
+/* Light tint fading into the page background. */
+.bg-gradient-subtle {
+  background: linear-gradient(180deg, var(--muted) 0%, var(--background) 100%);
+}
+
+/* Brand surface with a deeper top-left corner. */
+.bg-gradient-brand {
+  background: linear-gradient(
+    145deg,
+    color-mix(in oklch, var(--primary) 80%, black) 0%,
+    var(--primary) 100%
+  );
+}
+
+/* Cards use a restrained brand tint rather than the section's full navy
+   surface, preserving the light card treatment and dark readable content. */
+.bg-card-gradient-brand {
+  background: linear-gradient(
+    145deg,
+    var(--muted) 0%,
+    color-mix(in oklch, var(--primary) 10%, var(--background)) 100%
+  );
+}
+
+/* SNMIH fades the subtle gradient into mint instead of the page background. */
+:root[data-theme-color='snmih-blue'] .bg-gradient-subtle {
+  background: linear-gradient(
+    145deg,
+    var(--muted) 0%,
+    color-mix(in oklch, var(--success) 10%, var(--background)) 100%
+  );
+}
+
+/* ==========================================================================
+   Buttons and links on section surfaces
+
+   Two families only:
+     light surfaces  -> filled = --primary,            outline = --primary border
+     brand surfaces  -> filled = --primary-foreground, outline = translucent border
+
+   Scoped to `section` (every block renders one) so the outline fix reaches
+   `none` sections too, which carry no background class.
+   ========================================================================== */
+
+/* Light surfaces need no rules: the base `outline` variant is already transparent
+   with a --primary border, and every other variant is token-driven.
+
+   Brand surfaces invert everything against --primary. */
+.bg-brand [data-slot='button'][data-variant='default'],
+.bg-gradient-brand [data-slot='button'][data-variant='default'],
+[data-block-surface='brand'] [data-slot='button'][data-variant='default'] {
+  background-color: var(--primary-foreground);
+  color: var(--primary);
+}
+
+.bg-brand [data-slot='button'][data-variant='default']:hover,
+.bg-gradient-brand [data-slot='button'][data-variant='default']:hover,
+[data-block-surface='brand'] [data-slot='button'][data-variant='default']:hover {
+  background-color: color-mix(in oklch, var(--primary-foreground) 90%, var(--primary));
+}
+
+.bg-brand [data-slot='button'][data-variant='outline'],
+.bg-gradient-brand [data-slot='button'][data-variant='outline'],
+[data-block-surface='brand'] [data-slot='button'][data-variant='outline'] {
+  background-color: transparent;
+  border-color: color-mix(in oklch, var(--primary-foreground) 60%, transparent);
+  color: var(--primary-foreground);
+}
+
+.bg-brand [data-slot='button'][data-variant='outline']:hover,
+.bg-gradient-brand [data-slot='button'][data-variant='outline']:hover,
+[data-block-surface='brand'] [data-slot='button'][data-variant='outline']:hover {
+  background-color: color-mix(in oklch, var(--primary-foreground) 12%, transparent);
+  border-color: var(--primary-foreground);
+  color: var(--primary-foreground);
+}
+
+.bg-brand [data-slot='button'][data-variant='secondary'],
+.bg-gradient-brand [data-slot='button'][data-variant='secondary'],
+[data-block-surface='brand'] [data-slot='button'][data-variant='secondary'] {
+  background-color: color-mix(in oklch, var(--primary-foreground) 14%, transparent);
+  color: var(--primary-foreground);
+}
+
+.bg-brand [data-slot='button'][data-variant='secondary']:hover,
+.bg-gradient-brand [data-slot='button'][data-variant='secondary']:hover,
+[data-block-surface='brand'] [data-slot='button'][data-variant='secondary']:hover {
+  background-color: color-mix(in oklch, var(--primary-foreground) 22%, transparent);
+}
+
+.bg-brand [data-slot='button'][data-variant='ghost'],
+.bg-gradient-brand [data-slot='button'][data-variant='ghost'],
+[data-block-surface='brand'] [data-slot='button'][data-variant='ghost'] {
+  color: var(--primary-foreground);
+}
+
+.bg-brand [data-slot='button'][data-variant='ghost']:hover,
+.bg-gradient-brand [data-slot='button'][data-variant='ghost']:hover,
+[data-block-surface='brand'] [data-slot='button'][data-variant='ghost']:hover {
+  background-color: color-mix(in oklch, var(--primary-foreground) 12%, transparent);
+  color: var(--primary-foreground);
+}
+
+/* Text links: --primary is invisible against the brand surface. */
+.bg-brand [data-content-link='true'],
+.bg-gradient-brand [data-content-link='true'],
+[data-block-surface='brand'] [data-content-link='true'] {
+  color: var(--primary-foreground);
+}
+
+/* Image overlays can request a fixed light or dark treatment independently of
+   the site's current color mode. These local action colors stay readable when
+   the global --primary / --primary-foreground pair inverts in dark mode. */
+[data-block-surface='darkOverlay'] {
+  --media-overlay-action: color-mix(in oklch, var(--primary) 35%, white);
+  --media-overlay-action-foreground: black;
+  --media-overlay-copy: white;
+}
+
+[data-block-surface='lightOverlay'] {
+  --media-overlay-action: color-mix(in oklch, var(--primary) 55%, black);
+  --media-overlay-action-foreground: white;
+  --media-overlay-copy: var(--media-overlay-action);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='default'],
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='default'] {
+  background-color: var(--media-overlay-action);
+  color: var(--media-overlay-action-foreground);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='default']:hover,
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='default']:hover {
+  background-color: color-mix(
+    in oklch,
+    var(--media-overlay-action) 88%,
+    var(--media-overlay-action-foreground)
+  );
+}
+
+/* Explicit Dark Hero banners retain their established inverse Default CTA.
+   Primary remains the opt-in brand-filled treatment. */
+[data-hero-banner-block='true'][data-block-surface='darkOverlay'][data-hero-banner-theme='dark']
+  [data-slot='button'][data-variant='default'] {
+  background-color: var(--primary-foreground);
+  color: var(--primary);
+}
+
+[data-hero-banner-block='true'][data-block-surface='darkOverlay'][data-hero-banner-theme='dark']
+  [data-slot='button'][data-variant='default']:hover {
+  background-color: color-mix(in oklch, var(--primary-foreground) 90%, var(--primary));
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='outline'],
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='outline'] {
+  background-color: transparent;
+  border-color: color-mix(in oklch, var(--media-overlay-copy) 60%, transparent);
+  color: var(--media-overlay-copy);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='outline']:hover,
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='outline']:hover {
+  background-color: color-mix(in oklch, var(--media-overlay-copy) 12%, transparent);
+  border-color: var(--media-overlay-copy);
+  color: var(--media-overlay-copy);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='secondary'],
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='secondary'] {
+  background-color: color-mix(in oklch, var(--media-overlay-copy) 14%, transparent);
+  color: var(--media-overlay-copy);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='secondary']:hover,
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='secondary']:hover {
+  background-color: color-mix(in oklch, var(--media-overlay-copy) 22%, transparent);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='ghost'],
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='ghost'],
+[data-block-surface='darkOverlay'] [data-content-link='true'],
+[data-block-surface='lightOverlay'] [data-content-link='true'] {
+  color: var(--media-overlay-copy);
+}
+
+[data-block-surface='darkOverlay'] [data-slot='button'][data-variant='ghost']:hover,
+[data-block-surface='lightOverlay'] [data-slot='button'][data-variant='ghost']:hover {
+  background-color: color-mix(in oklch, var(--media-overlay-copy) 12%, transparent);
+  color: var(--media-overlay-copy);
+}
+
+/* ==========================================================================
+   SNMIH brand accents
+   ========================================================================== */
+
+/* Italic heading fragments pick up the soft green. */
+:root[data-theme-color='snmih-blue'] :is(h1, h2, h3) em {
+  color: var(--ring);
+  font-style: italic;
+}
+
+/* Eyebrows track how dark the surface actually renders, which flips between
+   modes: --primary is navy in light mode but inverts to a light tint in dark
+   mode, so a brand section is dark in one and light in the other.
+   The three rules match disjoint sets, so none needs to outrank another.
+   Retired surface names are matched too, since stored content may still emit
+   them. */
+
+/* Deep green — light-mode surfaces that sit on the page background. */
+:root[data-theme-color='snmih-blue']:not(.dark)
+  [data-section-eyebrow-surface]:not([data-section-eyebrow-surface='brand']):not(
+    [data-section-eyebrow-surface='gradient-brand']
+  ):not([data-section-eyebrow-surface='primary']):not(
+    [data-section-eyebrow-surface='darkOverlay']
+  ) {
+  color: var(--success);
+}
+
+/* Soft green — genuinely dark surfaces: the navy brand surface in light mode,
+   the page background in dark mode, and image overlays in either mode. */
+:root[data-theme-color='snmih-blue']:not(.dark) [data-section-eyebrow-surface='brand'],
+:root[data-theme-color='snmih-blue']:not(.dark) [data-section-eyebrow-surface='gradient-brand'],
+:root[data-theme-color='snmih-blue']:not(.dark) [data-section-eyebrow-surface='primary'],
+:root[data-theme-color='snmih-blue'] [data-section-eyebrow-surface='darkOverlay'],
+:root[data-theme-color='snmih-blue'].dark
+  [data-section-eyebrow-surface]:not([data-section-eyebrow-surface='brand']):not(
+    [data-section-eyebrow-surface='gradient-brand']
+  ):not([data-section-eyebrow-surface='primary']):not(
+    [data-section-eyebrow-surface='lightOverlay']
+  ) {
+  color: var(--ring);
+}
+
+/* Explicit light image overlays remain light even in site dark mode. */
+:root[data-theme-color='snmih-blue'] [data-section-eyebrow-surface='lightOverlay'] {
+  color: color-mix(in oklch, var(--success) 74%, black);
+}
+
+/* In dark mode the brand surface inverts to a light tint, where both greens
+   are too pale to read. Fall back to the surface's own foreground. */
+:root[data-theme-color='snmih-blue'].dark [data-section-eyebrow-surface='brand'],
+:root[data-theme-color='snmih-blue'].dark [data-section-eyebrow-surface='gradient-brand'],
+:root[data-theme-color='snmih-blue'].dark [data-section-eyebrow-surface='primary'] {
+  color: var(--primary-foreground);
+}
+
+/* Leadership cards use the eyebrow color family without inheriting eyebrow
+   typography. Light cards darken the deep green for AA contrast at 14px;
+   dark surfaces use the existing soft-green accent. */
+:root[data-theme-color='snmih-blue']:not(.dark)
+  [data-leadership-profile-accent-surface]:not([data-leadership-profile-accent-surface='primary']) {
+  color: color-mix(in oklch, var(--success) 78%, var(--foreground));
+}
+
+:root[data-theme-color='snmih-blue']:not(.dark) [data-leadership-profile-accent-surface='primary'] {
+  color: var(--ring);
+}
+
+:root[data-theme-color='snmih-blue'].dark
+  [data-leadership-profile-accent-surface]:not([data-leadership-profile-accent-surface='primary']) {
+  color: var(--ring);
+}
+
+:root[data-theme-color='snmih-blue'].dark [data-leadership-profile-accent-surface='primary'] {
+  color: var(--primary-foreground);
+}
+
+/* Department portrait labels inherit the guaranteed overlay foreground by
+   default. SNMIH can safely use its soft-green accent on dark overlays and on
+   the light-mode navy brand overlay; dark-mode brand surfaces stay inverted. */
+:root[data-theme-color='snmih-blue']:not(.dark)
+  [data-department-profile-accent-surface='darkOverlay'],
+:root[data-theme-color='snmih-blue']:not(.dark) [data-department-profile-accent-surface='brand'],
+:root[data-theme-color='snmih-blue'].dark [data-department-profile-accent-surface='darkOverlay'] {
+  color: var(--ring);
+}
+
+:root[data-theme-color='snmih-blue'].dark [data-department-profile-accent-surface='brand'] {
+  color: var(--primary-foreground);
+}
+
+/* Inline department labels sit on the semantic muted card surface. */
+:root[data-theme-color='snmih-blue']:not(.dark) [data-department-profile-accent-surface='inline'] {
+  color: color-mix(in oklch, var(--success) 78%, var(--foreground));
+}
+
+:root[data-theme-color='snmih-blue'].dark [data-department-profile-accent-surface='inline'] {
+  color: var(--ring);
+}
+
+/* Feature Matrix internal-divider motion */
+.feature-matrix-divider-beam {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.feature-matrix-divider-beam::after {
+  position: absolute;
+  content: '';
+  animation-timing-function: linear;
+  animation-duration: var(--feature-matrix-divider-beam-duration);
+  animation-delay: var(--feature-matrix-divider-beam-delay);
+  animation-iteration-count: infinite;
+  animation-direction: var(--feature-matrix-divider-beam-direction);
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam='horizontal'] {
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam='horizontal']::after {
+  width: 22%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  animation-name: feature-matrix-divider-beam-horizontal;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam='vertical'] {
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  width: 2px;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam='vertical']::after {
+  width: 100%;
+  height: 22%;
+  background: linear-gradient(180deg, transparent, var(--primary), transparent);
+  animation-name: feature-matrix-divider-beam-vertical;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam-phase='0'] {
+  --feature-matrix-divider-beam-duration: 5.4s;
+  --feature-matrix-divider-beam-delay: -1.2s;
+  --feature-matrix-divider-beam-direction: normal;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam-phase='1'] {
+  --feature-matrix-divider-beam-duration: 6.7s;
+  --feature-matrix-divider-beam-delay: -4.1s;
+  --feature-matrix-divider-beam-direction: reverse;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam-phase='2'] {
+  --feature-matrix-divider-beam-duration: 7.3s;
+  --feature-matrix-divider-beam-delay: -2.8s;
+  --feature-matrix-divider-beam-direction: reverse;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam-phase='3'] {
+  --feature-matrix-divider-beam-duration: 5.9s;
+  --feature-matrix-divider-beam-delay: -3.6s;
+  --feature-matrix-divider-beam-direction: normal;
+}
+
+.feature-matrix-divider-beam[data-feature-matrix-divider-beam-phase='4'] {
+  --feature-matrix-divider-beam-duration: 7.9s;
+  --feature-matrix-divider-beam-delay: -5.2s;
+  --feature-matrix-divider-beam-direction: normal;
+}
+
+@keyframes feature-matrix-divider-beam-horizontal {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(560%);
+  }
+}
+
+@keyframes feature-matrix-divider-beam-vertical {
+  from {
+    transform: translateY(-120%);
+  }
+  to {
+    transform: translateY(560%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-matrix-divider-beam {
+    display: none;
+  }
+}
+
+/* Shared gallery overlay display and image hover treatment */
+.image-mosaic-image {
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 200ms ease-out;
+}
+
+.gallery-overlay-layer {
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+  [data-gallery-overlay-display='hover'] .gallery-overlay-layer {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .group\/image-mosaic:hover .image-mosaic-image,
+  .group\/image-mosaic:focus-within .image-mosaic-image {
+    transform: scale(1.05);
+  }
+
+  [data-gallery-overlay-display='hover']:hover .gallery-overlay-layer,
+  [data-gallery-overlay-display='hover']:focus-within .gallery-overlay-layer {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-mosaic-image,
+  .gallery-overlay-layer {
+    transition: none;
+  }
+}
+
+/* Event Gallery focused carousel */
+.event-gallery-lightbox {
+  --event-gallery-surface: oklch(0.16 0.006 250 / 78%);
+  --event-gallery-stage: oklch(0.135 0.006 250);
+  --background: var(--event-gallery-surface);
+  --foreground: oklch(0.985 0 0);
+  --muted: oklch(0.28 0.008 250);
+  --muted-foreground: oklch(0.74 0.008 250);
+  --border: oklch(1 0 0 / 16%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.92 0.01 250);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  color-scheme: dark;
+}
+
+.event-gallery-lightbox .pswp__bg {
+  background: var(--event-gallery-stage);
+}
+
+.event-gallery-lightbox .event-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1550;
+  pointer-events: none;
+}
+
+.event-gallery-lightbox [data-event-gallery-control='true'] {
+  box-shadow: 0 0.75rem 2.5rem rgb(0 0 0 / 24%);
+  backdrop-filter: blur(0.75rem);
+}
+
+.event-gallery-lightbox .event-gallery-side-preview {
+  box-shadow: 0 1.125rem 3.75rem rgb(0 0 0 / 35%);
+  transition:
+    opacity 180ms ease-out,
+    transform 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-gallery-lightbox .event-gallery-side-preview {
+    transition: none;
+  }
+}

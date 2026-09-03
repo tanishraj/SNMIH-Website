@@ -1,0 +1,33 @@
+.git
+.github
+.DS_Store
+.next
+node_modules
+.env*
+!.env.example
+backups
+coverage
+media
+playwright-report
+test-results
+.tmp-video
+.agents
+.claude
+.codex
+.impeccable
+.superpowers
+.understand-anything
+.vscode
+skills
+skills-lock.json
+.mcp.json
+.gitignore copy
+README copy*.md
+test.env
+blob-report
+playwright/.cache
+.vercel
+*.pem
+*.archive
+*.dump
+*.log
