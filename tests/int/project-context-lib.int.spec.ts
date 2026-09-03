@@ -120,6 +120,7 @@ describe('project context parser', () => {
     const inventory = await buildProjectInventory(process.cwd())
 
     expect(inventory.schemaVersion).toBe(1)
+    expect(inventory.knowledgeGraph).toBeNull()
     expect(inventory.payload.collections).toHaveLength(21)
     expect(inventory.payload.globals).toHaveLength(9)
     expect(inventory.blocks.page).toHaveLength(57)
