@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img">
+  <title>Neutral profile portrait</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#dce7e2"/>
+      <stop offset="1" stop-color="#8ba79e"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="400" cy="310" r="168" fill="#b77f60"/>
+  <path d="M228 304q18-194 175-194t174 194q-72-56-180-56t-169 56" fill="#263f49"/>
+  <path d="M112 800q28-292 288-292t288 292" fill="#e7ece8"/>
+  <path d="M290 540q110 96 220 0l48 260H242Z" fill="#345c68"/>
+</svg>

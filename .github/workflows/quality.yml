@@ -1,0 +1,46 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      mongo:
+        image: mongo:8.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      EMAIL_PROVIDER: none
+      MEDIA_PROVIDER: localDisk
+      MONGODB_URI: mongodb://127.0.0.1:27017/payload-cms-starter-kit
+      PAYLOAD_SECRET: ci-only-payload-secret-32-characters
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm project-context:check
+      - run: pnpm generate:types
+      - run: git diff --exit-code -- src/payload-types.ts
+      - run: pnpm exec tsc --noEmit
+      - run: pnpm lint
+      - run: pnpm test:int
+      - run: pnpm build

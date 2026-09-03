@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img">
+  <title>Abstract architectural landscape</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dce9ee"/>
+      <stop offset="1" stop-color="#91aebb"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#e7f0f3"/>
+      <stop offset="1" stop-color="#8fa8b3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1260" cy="170" r="92" fill="#fff" opacity=".62"/>
+  <path d="M0 650 260 510 520 630 810 380 1080 590 1330 430 1600 610V900H0Z" fill="#6d887a" opacity=".78"/>
+  <path d="M180 690V285h1050v405" fill="#f5f6f2"/>
+  <path d="M250 355h910v265H250z" fill="url(#glass)"/>
+  <g fill="#f5f6f2">
+    <path d="M430 285h54v405h-54zM690 285h54v405h-54zM950 285h54v405h-54z"/>
+    <path d="M180 430h1050v42H180z"/>
+  </g>
+  <path d="M120 690h1190v52H120z" fill="#334c57"/>
+  <g fill="#3f6958">
+    <circle cx="220" cy="690" r="94"/><circle cx="1380" cy="710" r="128"/><circle cx="1220" cy="740" r="84"/>
+  </g>
+</svg>

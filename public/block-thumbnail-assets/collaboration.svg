@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img">
+  <title>Abstract collaboration scene</title>
+  <defs>
+    <linearGradient id="room" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#e9eee9"/>
+      <stop offset="1" stop-color="#a7b9b3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#room)"/>
+  <path d="M0 610 1200 430v470H0Z" fill="#b98d69" opacity=".52"/>
+  <rect x="110" y="95" width="420" height="300" rx="18" fill="#f7faf8" opacity=".78"/>
+  <path d="M170 330 270 220l92 72 106-126v164Z" fill="#799a89"/>
+  <ellipse cx="620" cy="665" rx="330" ry="105" fill="#e5ddd0"/>
+  <g>
+    <circle cx="390" cy="455" r="72" fill="#bb8062"/><path d="M290 720q20-190 100-190t105 190" fill="#274c5a"/>
+    <circle cx="590" cy="415" r="75" fill="#7e5645"/><path d="M480 690q25-195 110-195t118 195" fill="#647c55"/>
+    <circle cx="810" cy="470" r="70" fill="#d0a17e"/><path d="M710 725q22-180 100-180t112 180" fill="#8b5c50"/>
+  </g>
+  <rect x="500" y="615" width="230" height="135" rx="10" fill="#f2f4f1" transform="rotate(-4 615 682)"/>
+  <path d="M540 652h145M540 683h110" stroke="#81949b" stroke-width="12" stroke-linecap="round"/>
+</svg>
