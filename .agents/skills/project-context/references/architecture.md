@@ -110,8 +110,11 @@ so moving that Page beneath a parent does not leave consent UI pointing at its l
 - Run `pnpm generate:importmap` after custom Admin component changes.
 - Run `pnpm lint`, `pnpm exec tsc --noEmit`, and `pnpm build` in proportion to risk.
 - Finish every implementation with `pnpm project-context:update` and `pnpm project-context:check`.
-- GitHub Actions runs project-context consistency, generated types, TypeScript, lint, integration
-  tests, and the production build on pull requests and protected branch pushes. Mongo-backed tests
-  use a single-node in-memory replica set so transaction behavior matches the supported adapter.
+- GitHub Actions refreshes the generated project inventory before running the source-derived
+  project-context contracts, generated types, TypeScript, lint, integration tests, and the
+  production build on pull requests and protected branch pushes. Inventory freshness is therefore
+  maintained locally without blocking CI solely because a generated digest was not committed.
+  Mongo-backed tests use a single-node in-memory replica set so transaction behavior matches the
+  supported adapter.
 
 Use the maintained [feature inventory](../../../../docs/architecture/feature-inventory.md), [content model map](../../../../docs/architecture/content-model-map.md), [runtime/provider runbook](../../../../docs/operations/runtime-and-providers.md), and [developer workflows](../../../../docs/operations/developer-workflows.md) for deeper operational context.

@@ -37,7 +37,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm project-context:check
+      - run: pnpm project-context:update
       - run: pnpm generate:types
       - run: git diff --exit-code -- src/payload-types.ts
       - run: pnpm exec tsc --noEmit
