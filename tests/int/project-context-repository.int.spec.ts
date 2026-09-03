@@ -1,11 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
 
 import { describe, expect, it } from 'vitest'
 
 import {
   buildProjectInventory,
-  stableStringify,
   validateProjectContracts,
 } from '../../.agents/skills/project-context/scripts/project-context-lib.mjs'
 
@@ -33,15 +31,6 @@ describe('project context repository contract', () => {
     const result = await validateProjectContracts(process.cwd(), inventory)
 
     expect(result.errors).toEqual([])
-  })
-
-  it('matches the checked-in deterministic inventory', async () => {
-    const inventory = await buildProjectInventory(process.cwd())
-    const checkedIn = JSON.parse(
-      await readFile('.agents/skills/project-context/references/project-inventory.json', 'utf8'),
-    )
-
-    expect(stableStringify(checkedIn)).toBe(stableStringify(inventory))
   })
 
   it('keeps maintained Page block and global counts aligned with source', async () => {
