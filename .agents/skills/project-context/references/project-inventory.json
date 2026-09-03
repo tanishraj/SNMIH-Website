@@ -1899,11 +1899,7 @@
       ]
     }
   },
-  "knowledgeGraph": {
-    "analyzedFiles": 502,
-    "gitCommitHash": "18ac3f6b03666aeb18aae7cfd87b23377f5dc4e7",
-    "lastAnalyzedAt": "2026-07-26T05:31:01.980Z"
-  },
+  "knowledgeGraph": null,
   "payload": {
     "collections": [
       {
@@ -2846,7 +2842,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "8d144ed295a26e74634faa4bf2f864a54990036c30c7fd73f9fcd40d0f6c0655"
+    "sha256": "f3e8e5d43e4c5f8e888423e6ff59bdb256638c15c302fa9581f6fc47680f9f0a"
   },
   "surfaces": {
     "access": [
