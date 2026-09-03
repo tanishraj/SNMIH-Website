@@ -2032,12 +2032,12 @@
   },
   "project": {
     "frameworks": {
-      "next": "16.2.10",
+      "next": "16.2.11",
       "payload": "3.85.2",
       "react": "19.2.7",
       "tailwindcss": "^4.3.2",
       "typescript": "5.7.3",
-      "vitest": "4.0.18"
+      "vitest": "4.1.0"
     },
     "name": "payload-cms-next-tailwind-shadcn-starter-kit",
     "scripts": [
@@ -2846,7 +2846,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "dc48239a539796067dae0b5621d6bfb20f1f1ea8458384f9abb7c0ff39723594"
+    "sha256": "8d144ed295a26e74634faa4bf2f864a54990036c30c7fd73f9fcd40d0f6c0655"
   },
   "surfaces": {
     "access": [
