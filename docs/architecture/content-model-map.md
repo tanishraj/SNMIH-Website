@@ -72,7 +72,10 @@ All collections receive Payload Trash through the project plugin, subject to the
 
 `page-settings`, labeled `Layout Defaults`, chooses the homepage, active Header/Footer, default Page appearance, and site-wide announcement behavior.
 
-Pages own the `/news-events` index route and its layout, appearance, and Page SEO. The News & Events collection owns individual entries, while the News & Events Highlights and News & Events Tabs blocks query published entries for Page composition.
+Pages own the `/news-events` index route and its layout, appearance, and Page SEO. The News & Events
+collection owns individual entries and the Event-only `featuredInHighlights` flag. News & Events
+Highlights prioritizes eligible checked Events before automatic upcoming Events, while News & Events
+Tabs queries the complete published classification directory for Page composition.
 
 `news-events-detail-template`, labeled `News & Events Detail Template`, owns the fixed Page Header,
 automatic Breadcrumb appearance, article/sidebar presentation, featured-image ratio, and shared

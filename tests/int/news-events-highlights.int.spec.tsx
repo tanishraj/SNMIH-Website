@@ -73,7 +73,10 @@ describe('News & Events Highlights block', () => {
       admin: {
         allowCreate: true,
       },
-      filterOptions: { active: { equals: true } },
+      filterOptions: {
+        active: { equals: true },
+        behavior: { equals: 'event' },
+      },
       hasMany: true,
       maxRows: 50,
       relationTo: 'news-event-classifications',
@@ -87,15 +90,7 @@ describe('News & Events Highlights block', () => {
       type: 'select',
     })
 
-    const itemCount = findNamedField(themeFields, 'itemCount')
-    expect(itemCount).toMatchObject({
-      defaultValue: 3,
-      max: 6,
-      min: 1,
-      required: true,
-      type: 'number',
-    })
-    expect((itemCount?.admin as { condition?: unknown } | undefined)?.condition).toBeUndefined()
+    expect(findNamedField(themeFields, 'itemCount')).toBeUndefined()
     expect(findNamedField(themeFields, 'autoplay')).toMatchObject({
       defaultValue: true,
       type: 'checkbox',
@@ -132,7 +127,7 @@ describe('News & Events Highlights block', () => {
     expect(findNamedField(NewsEventsHighlightsBlock.fields, 'featuredEntries')).toBeUndefined()
   })
 
-  it('requests automatic preview entries for each count and classification scope', () => {
+  it('requests automatic preview entries for each classification scope', () => {
     expect(
       getNewsEventsHighlightsPreviewScopes([
         {
@@ -150,15 +145,13 @@ describe('News & Events Highlights block', () => {
     ).toEqual([
       {
         classificationIDs: ['classification-news'],
-        key: '[5,"classification-news"]',
-        limit: 5,
+        key: '["classification-news"]',
       },
       {
         classificationIDs: ['classification-event'],
-        key: '[5,"classification-event"]',
-        limit: 5,
+        key: '["classification-event"]',
       },
-      { classificationIDs: [], key: '[2]', limit: 2 },
+      { classificationIDs: [], key: '[]' },
     ])
   })
 
@@ -171,8 +164,8 @@ describe('News & Events Highlights block', () => {
     ])
 
     expect(classificationIDs).toEqual(['classification-news', 'classification-event'])
-    expect(getNewsEventsHighlightsPreviewKey(classificationIDs, 5)).toBe(
-      '[5,"classification-news","classification-event"]',
+    expect(getNewsEventsHighlightsPreviewKey(classificationIDs)).toBe(
+      '["classification-news","classification-event"]',
     )
   })
 
@@ -210,7 +203,6 @@ describe('News & Events Highlights block', () => {
 
     expect(getNewsEventsHighlights).toHaveBeenCalledWith(
       ['classification-news'],
-      5,
       expect.any(String),
     )
     expect(markup).toContain('Collection highlight')
@@ -228,7 +220,7 @@ describe('News & Events Highlights block', () => {
         snapshot: {
           ...EMPTY_NEWS_EVENTS_PREVIEW_SNAPSHOT,
           highlightsByScope: {
-            '[3]': [
+            '[]': [
               {
                 behavior: classification.behavior,
                 classification,
@@ -271,9 +263,9 @@ describe('News & Events Highlights block', () => {
       },
     ])
 
-    const element = await NewsEventsHighlightsBlockComponent({ itemCount: 4 })
+    const element = await NewsEventsHighlightsBlockComponent({ itemCount: 4 } as never)
 
-    expect(getNewsEventsHighlights).toHaveBeenCalledWith([], 4, expect.any(String))
+    expect(getNewsEventsHighlights).toHaveBeenCalledWith([], expect.any(String))
     expect(renderToStaticMarkup(element)).toContain('Campus notice')
   })
 

@@ -56,9 +56,9 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Academic Programmes      | Configurable programme directory             | Grid, List, or Detailed Cards with optional images, category filters, duration pills, configurable icons and facts, per-card actions, section actions, and semantic card backgrounds                                                                                                                                                                 |
 | Leadership Profiles      | Static leadership directory                  | Standard shows all metadata on a shared surface. Image Overlay uses fixed 4:5 portraits and shared overlay controls, showing label/name/designation only; other metadata stays saved for Standard. Legacy content defaults to Standard; 2–4 columns; non-clickable.                                                                                  |
 | Department Profiles      | Searchable department-wise faculty directory | Configure departments in public filter order, then expand each department to manage its profiles. The block supports up to 400 profiles total. Search, department filtering, featured profiles, Load More, responsive card sizes, frames, and missing-image presentation remain configurable.                                                        |
-| News & Events Highlights | Automatic News & Events carousel             | One synchronized featured carousel scoped to selected or all active classifications, with configurable top/bottom controls, shared image/overlay settings, and the bundled SNMIH image fallback                                                                                                                                                      |
+| News & Events Highlights | Prioritized Event carousel                   | Up to three manually featured eligible Events followed by three automatic current/upcoming Events, scoped to selected or all active Event classifications, with configurable top/bottom controls, shared image/overlay settings, and the bundled SNMIH image fallback                                                                                |
 | News Grid                | Editorial News & Events grid                 | Shows every published classification in newest-published order while excluding expired Events; supports 2–4 desktop columns and an optional final feature card                                                                                                                                                                                       |
-| News & Events Tabs       | Filterable News & Events directory           | Card Grid or full-row Editorial List under configurable classification tabs; All stays first and both layouts share Load More and section settings                                                                                                                                                                                                   |
+| News & Events Tabs       | Complete News & Events directory             | Card Grid or full-row Editorial List under configurable classification tabs; All stays first, Load More reaches every published entry, and Event tabs place current/upcoming Events before recent past Events                                                                                                                                        |
 | Calendar                 | Month and timeline event schedule            | Uses one to five active Event classifications; its interface inherits the selected section background; desktop opens as Calendar, phones open as Timeline, Upcoming remains stable, adjacent-month dates can be muted or hidden, and the optional PDF sits at the bottom of one full-height desktop sidebar with separate document and button labels |
 | Annual Calendar          | Twelve-month institutional event stream      | Defaults to January–December in the configured site timezone or accepts start/end dates whose months define one exact 12-month academic range; renders a chronological Year Stream beside the same full-height Upcoming/PDF sidebar, with Download anchored at the desktop bottom and natural compact-layout flow                                    |
 | Profile Carousel         | People/profile cards                         | Client carousel behavior and independent card backgrounds                                                                                                                                                                                                                                                                                            |
@@ -91,7 +91,7 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Download List            | Files and document libraries                 | Stacked or responsive 40/60 split introduction, four document layouts, one shared 1–8 Columns setting, optional file icons, controlled file-type labels, and up to two ordered per-document Download, View, or Custom actions                                                                                                                        |
 | Fee Structure            | Programme fee schedule                       | Default responsive table/cards or a 50/50 Programme Cost Atlas, one to four category tabs, fee-only notes, and a file-locked Link or Button download                                                                                                                                                                                                 |
 | PG Fee Structure         | Department-based postgraduate fees           | A responsive 50/50 Primary/Card department atlas with category-owned departments, shared or department-varying fee columns, category notes, and an official file Link or Button download                                                                                                                                                             |
-| Bank Details             | Official payment account information         | One to six purpose-specific accounts in an admin-selected Text or locally generated Scanner presentation, with mirrored 36/64 panels, editable ledger labels, adaptive tabs, and exact-value copy controls                                                                                                 |
+| Bank Details             | Official payment account information         | One to six purpose-specific accounts in an admin-selected Text or locally generated Scanner presentation, with mirrored 36/64 panels, editable ledger labels, adaptive tabs, and exact-value copy controls                                                                                                                                           |
 | Numbered Steps           | Ordered process                              | Backgrounds apply to numbered Cards, not connected/alternating layouts                                                                                                                                                                                                                                                                               |
 | Bento Grid               | Mixed-size feature cards                     | Grid layout and semantic background controls                                                                                                                                                                                                                                                                                                         |
 | Testimonial Grid         | Curated testimonials                         | Backgrounds apply to Grid and Featured cards                                                                                                                                                                                                                                                                                                         |
@@ -281,14 +281,16 @@ Gallery Albums; existing Image Mosaic blocks retain Reveal on Hover. Keyboard fo
 content, while touch devices keep it visible. Production loads only selected published albums. Authenticated live preview receives the
 selected draft album snapshot from the server and performs no browser-side Payload query.
 
-News & Events Highlights keeps the internal `newsEventsHighlights` block identity and automatically
-interleaves recent published non-event entries with current or upcoming Events up to the configured
-one-to-six item limit. Editors can select active Classifications under Content; an empty selection
-includes every active classification, while a selection strictly limits the carousel without changing
-chronological slide order. Editors configure Number of Items, Autoplay, and the Empty State Message;
-slide content remains owned by the News & Events collection. Carousel Controls Position places the
-status and previous/next controls above or below the carousel. Bottom remains the default and legacy
-fallback.
+News & Events Highlights keeps the internal `newsEventsHighlights` block identity and renders only
+published, non-expired Events. It shows up to three Events checked **Featured in Highlights** first,
+then up to three non-featured current or upcoming Events. Each group is ordered by Event Start and
+the combined result is de-duplicated. Editors can select active Event classifications under Content;
+an empty selection includes every active Event classification, while a selection strictly limits the
+carousel. Timed featured Events require Event End. All-day Events remain eligible through the final
+local calendar day defined by Event End, or Event Start when no end is set. Autoplay and the Empty
+State Message remain configurable; slide content remains owned by the News & Events collection.
+Carousel Controls Position places the status and previous/next controls above or below the carousel.
+Bottom remains the default and legacy fallback.
 
 Image Position Override can retain each item setting or force Center, Top, Bottom, Left, or Right
 across the block. Overlay Tone, Strength, Direction, and Coverage use the shared semantic media
@@ -310,7 +312,11 @@ Settings**, **Layout** selects Card Grid (the default and legacy fallback) or Ed
 Per Row** appears only for Card Grid and retains the existing 2, 3, or 4 desktop-column choices.
 **Items Per Tab** controls the initial number of entries and each later Load More batch. **Load More
 Label** customizes the button shown only when the active tab has another page. Loaded entries remain
-available when visitors switch tabs; refreshing the page returns to the initial batch. The section
+available when visitors switch tabs; refreshing the page returns to the initial batch. Load More can
+reach every published entry in the selected classification. Story classifications use
+newest-published order. Event classifications show current and upcoming Events earliest-first,
+followed by past Events most-recent-first. The manual Highlights checkbox does not affect this
+directory. The section
 header is optional; shared appearance, header actions, footer actions, alignment, spacing,
 empty-state, and action-label controls remain available. Card Grid keeps its text-only semantic card
 surfaces. Editorial List renders each entry as a responsive full-row link with a date column, a
