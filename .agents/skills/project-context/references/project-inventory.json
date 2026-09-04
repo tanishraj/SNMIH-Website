@@ -1308,6 +1308,12 @@
     ],
     "shared": [
       {
+        "exports": [
+          "BlockAnchorWrapper"
+        ],
+        "file": "src/blocks/shared/BlockAnchorWrapper.tsx"
+      },
+      {
         "exports": [],
         "file": "src/blocks/shared/BlockErrorBoundary.tsx"
       },
@@ -1365,6 +1371,17 @@
           "resolveBannerActionPlacement"
         ],
         "file": "src/blocks/shared/bannerCtaPresentation.ts"
+      },
+      {
+        "exports": [
+          "BLOCK_ANCHOR_ID_MAX_LENGTH",
+          "claimBlockAnchorID",
+          "createBlockAnchorField",
+          "normalizeBlockAnchorID",
+          "validateBlockAnchorID",
+          "validateUniqueBlockAnchorIDs"
+        ],
+        "file": "src/blocks/shared/blockAnchor.ts"
       },
       {
         "exports": [
@@ -2365,6 +2382,7 @@
       "src/blocks/renderLivePreviewPageBlocks.tsx",
       "src/blocks/renderNewsEventDetailBlocks.tsx",
       "src/blocks/renderPageBlocks.tsx",
+      "src/blocks/shared/BlockAnchorWrapper.tsx",
       "src/blocks/shared/BlockErrorBoundary.tsx",
       "src/blocks/shared/BlockFooterActions.tsx",
       "src/blocks/shared/CalendarPdfDownload.tsx",
@@ -2373,6 +2391,7 @@
       "src/blocks/shared/ScrollableContentTabRail.tsx",
       "src/blocks/shared/bannerCtaFields.ts",
       "src/blocks/shared/bannerCtaPresentation.ts",
+      "src/blocks/shared/blockAnchor.ts",
       "src/blocks/shared/blockAppearance.ts",
       "src/blocks/shared/blockAppearanceFields.ts",
       "src/blocks/shared/blockSpacing.ts",
@@ -2663,6 +2682,7 @@
       "tests/int/back-to-top-button.int.spec.tsx",
       "tests/int/bank-details.int.spec.tsx",
       "tests/int/banner-media-overlay.int.spec.tsx",
+      "tests/int/block-anchor-navigation.int.spec.tsx",
       "tests/int/block-appearance-contract.int.spec.ts",
       "tests/int/block-catalog.int.spec.ts",
       "tests/int/block-layout-contracts.int.spec.tsx",
@@ -2842,7 +2862,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "269dbdb3469edf744275b78cbc753840c787c4d6fdf4aef8492d5458ee1f709c"
+    "sha256": "fa8897b4db050f6fb082c3ab24b5a76ea601146070182b0d1f33b618fc3822e3"
   },
   "surfaces": {
     "access": [
@@ -3007,6 +3027,7 @@
       "tests/int/back-to-top-button.int.spec.tsx",
       "tests/int/bank-details.int.spec.tsx",
       "tests/int/banner-media-overlay.int.spec.tsx",
+      "tests/int/block-anchor-navigation.int.spec.tsx",
       "tests/int/block-appearance-contract.int.spec.ts",
       "tests/int/block-catalog.int.spec.ts",
       "tests/int/block-layout-contracts.int.spec.tsx",

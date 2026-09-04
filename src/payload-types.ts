@@ -331,6 +331,9 @@ export interface PageHeaderBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -361,6 +364,9 @@ export interface PageHeaderBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -436,6 +442,10 @@ export interface PageHeaderBlock {
   overlayCoverage?: ('full' | 'split') | null;
   height?: ('compact' | 'default' | 'immersive') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'pageHeader';
@@ -540,6 +550,9 @@ export interface HeroBannerBlock {
         label: string;
         linkType?: ('page' | 'custom') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -578,6 +591,10 @@ export interface HeroBannerBlock {
   verticalAlignment: 'top' | 'center' | 'bottom';
   contentWidth: 'narrow' | 'default' | 'wide';
   height: 'compact' | 'default' | 'immersive';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroBanner';
@@ -591,6 +608,10 @@ export interface ReusableSectionBlock {
    * Select a reusable section to embed on this page.
    */
   section: string | ReusableSection;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reusableSection';
@@ -698,6 +719,10 @@ export interface RichTextBlock {
   };
   size: 'none' | 'compact' | 'default' | 'comfortable';
   maxWidth: 'prose' | 'md' | 'lg' | 'full';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'richText';
@@ -791,6 +816,9 @@ export interface AboutSectionBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -821,6 +849,9 @@ export interface AboutSectionBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -863,6 +894,10 @@ export interface AboutSectionBlock {
    */
   imageDetailBackground?: ('subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutSection';
@@ -882,6 +917,9 @@ export interface FeatureSpotlightBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -912,6 +950,9 @@ export interface FeatureSpotlightBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -948,6 +989,10 @@ export interface FeatureSpotlightBlock {
   size: 'none' | 'compact' | 'default' | 'comfortable';
   contentAlignment?: ('left' | 'center') | null;
   contentVerticalAlignment?: ('top' | 'center' | 'bottom') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureSpotlight';
@@ -966,6 +1011,9 @@ export interface ContentHighlightsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -996,6 +1044,9 @@ export interface ContentHighlightsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1041,6 +1092,9 @@ export interface ContentHighlightsBlock {
           label: string;
           linkType?: ('page' | 'custom' | 'file') | null;
           page?: (string | null) | Page;
+          /**
+           * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+           */
           url?: string | null;
           openInNewTab?: boolean | null;
           /**
@@ -1094,6 +1148,10 @@ export interface ContentHighlightsBlock {
   contentAlignment?: ('left' | 'center' | 'right') | null;
   splitContentAlignment?: ('top' | 'center' | 'bottom') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contentHighlights';
@@ -1118,6 +1176,9 @@ export interface AcademicProgrammesBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1211,6 +1272,9 @@ export interface AcademicProgrammesBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1267,6 +1331,10 @@ export interface AcademicProgrammesBlock {
    */
   sideContentAlignment?: ('top' | 'bottom') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'academicProgrammes';
@@ -1291,6 +1359,9 @@ export interface NewsEventsTabsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1321,6 +1392,9 @@ export interface NewsEventsTabsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1393,6 +1467,10 @@ export interface NewsEventsTabsBlock {
    */
   headerActionAlignment?: ('center' | 'top' | 'bottom') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsEventsTabs';
@@ -1458,6 +1536,9 @@ export interface CalendarBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1488,6 +1569,9 @@ export interface CalendarBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1525,6 +1609,9 @@ export interface CalendarBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1563,6 +1650,10 @@ export interface CalendarBlock {
    */
   adjacentMonthDates: 'muted' | 'hidden';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'calendar';
@@ -1587,6 +1678,9 @@ export interface AnnualCalendarBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1617,6 +1711,9 @@ export interface AnnualCalendarBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1666,6 +1763,9 @@ export interface AnnualCalendarBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1700,6 +1800,10 @@ export interface AnnualCalendarBlock {
   };
   contentAlignment: 'left' | 'center';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'annualCalendar';
@@ -1724,6 +1828,9 @@ export interface DepartmentProfilesBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1780,6 +1887,9 @@ export interface DepartmentProfilesBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1869,6 +1979,10 @@ export interface DepartmentProfilesBlock {
   smallColumns?: ('4' | '5' | '6' | '7' | '8') | null;
   cardFrame: 'boxed' | 'framed' | 'open';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'departmentProfiles';
@@ -1893,6 +2007,9 @@ export interface GalleryAlbumTabsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1941,6 +2058,9 @@ export interface GalleryAlbumTabsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -1983,6 +2103,10 @@ export interface GalleryAlbumTabsBlock {
    */
   headerActionAlignment?: ('center' | 'top' | 'bottom') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'galleryAlbumTabs';
@@ -2029,6 +2153,9 @@ export interface QaAccordionBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2059,6 +2186,9 @@ export interface QaAccordionBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2119,6 +2249,9 @@ export interface QaAccordionBlock {
             label: string;
             linkType?: ('page' | 'custom' | 'file') | null;
             page?: (string | null) | Page;
+            /**
+             * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+             */
             url?: string | null;
             openInNewTab?: boolean | null;
             /**
@@ -2157,6 +2290,10 @@ export interface QaAccordionBlock {
   sectionVerticalAlignment?: ('top' | 'center' | 'bottom') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
   defaultOpenFirst?: boolean | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'qaAccordion';
@@ -2183,6 +2320,10 @@ export interface StatsStripBlock {
   animationEnabled?: boolean | null;
   animationDuration: number;
   triggerOnce?: boolean | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'statsStrip';
@@ -2203,6 +2344,9 @@ export interface TestimonialSpotlightBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2240,6 +2384,9 @@ export interface TestimonialSpotlightBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2280,6 +2427,10 @@ export interface TestimonialSpotlightBlock {
   mediaFillMode: 'contained' | 'containedFill' | 'edgeToEdge';
   size: 'none' | 'compact' | 'default' | 'comfortable';
   contentVerticalAlignment: 'top' | 'center' | 'bottom';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonialSpotlight';
@@ -2304,6 +2455,9 @@ export interface AccreditationCardsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2356,6 +2510,9 @@ export interface AccreditationCardsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2403,6 +2560,10 @@ export interface AccreditationCardsBlock {
    */
   iconStyle: 'plain' | 'square' | 'circle' | 'outline';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'accreditationCards';
@@ -2431,6 +2592,9 @@ export interface BannerCtaBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2461,6 +2625,9 @@ export interface BannerCtaBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2511,6 +2678,10 @@ export interface BannerCtaBlock {
   overlayCoverage?: ('full' | 'split') | null;
   height?: ('compact' | 'default' | 'immersive') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'bannerCta';
@@ -2528,6 +2699,9 @@ export interface Contact24Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2558,6 +2732,9 @@ export interface Contact24Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2604,6 +2781,10 @@ export interface Contact24Block {
    * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
    */
   mapActionVariant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contact24';
@@ -2659,6 +2840,9 @@ export interface DownloadListBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2741,6 +2925,9 @@ export interface DownloadListBlock {
               label: string;
               linkType?: ('page' | 'custom' | 'file') | null;
               page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
               url?: string | null;
               openInNewTab?: boolean | null;
               /**
@@ -2793,6 +2980,9 @@ export interface DownloadListBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2854,6 +3044,10 @@ export interface DownloadListBlock {
   gridActionDisplay?: ('labelled' | 'icons') | null;
   contentAlignment?: ('left' | 'center') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'downloadList';
@@ -2880,6 +3074,10 @@ export interface AnnouncementBlock {
    * Lower values scroll faster.
    */
   marqueeDurationMs?: number | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'announcement';
@@ -2901,6 +3099,9 @@ export interface NewsGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -2931,6 +3132,9 @@ export interface NewsGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3003,6 +3207,10 @@ export interface NewsGridBlock {
    */
   headerActionAlignment?: ('center' | 'top' | 'bottom') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsGrid';
@@ -3024,6 +3232,9 @@ export interface Cta39Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3054,6 +3265,9 @@ export interface Cta39Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3097,6 +3311,10 @@ export interface Cta39Block {
    */
   actionLayout?: ('inline' | 'stacked') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta39';
@@ -3130,6 +3348,9 @@ export interface HeroCarouselBlock {
               label: string;
               linkType?: ('page' | 'custom') | null;
               page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
               url?: string | null;
               openInNewTab?: boolean | null;
               /**
@@ -3171,6 +3392,10 @@ export interface HeroCarouselBlock {
   showPauseControl?: boolean | null;
   showArrows?: boolean | null;
   showDots?: boolean | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroCarousel';
@@ -3189,6 +3414,9 @@ export interface GalleryCoverflowBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3219,6 +3447,9 @@ export interface GalleryCoverflowBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3259,6 +3490,10 @@ export interface GalleryCoverflowBlock {
   };
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'galleryCoverflow';
@@ -3277,6 +3512,9 @@ export interface FeatureMatrixBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3307,6 +3545,9 @@ export interface FeatureMatrixBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3353,6 +3594,10 @@ export interface FeatureMatrixBlock {
   size: 'none' | 'compact' | 'default' | 'comfortable';
   showOuterBorder?: boolean | null;
   borderAnimationEnabled?: boolean | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureMatrix';
@@ -3377,6 +3622,9 @@ export interface EditorialReasonsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3419,6 +3667,9 @@ export interface EditorialReasonsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3476,6 +3727,10 @@ export interface EditorialReasonsBlock {
    */
   stickyIntro?: boolean | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'editorialReasons';
@@ -3500,6 +3755,9 @@ export interface LeadershipProfilesBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3558,6 +3816,9 @@ export interface LeadershipProfilesBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3620,6 +3881,10 @@ export interface LeadershipProfilesBlock {
   sideContentAlignment?: ('top' | 'bottom') | null;
   columns: '2' | '3' | '4';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'leadershipProfiles';
@@ -3641,6 +3906,9 @@ export interface NewsEventsHighlightsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3671,6 +3939,9 @@ export interface NewsEventsHighlightsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3722,6 +3993,10 @@ export interface NewsEventsHighlightsBlock {
   };
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsEventsHighlights';
@@ -3740,6 +4015,9 @@ export interface ProfileCarouselBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3770,6 +4048,9 @@ export interface ProfileCarouselBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3830,6 +4111,10 @@ export interface ProfileCarouselBlock {
    */
   overlayCoverage?: ('full' | 'split') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'profileCarousel';
@@ -3848,6 +4133,9 @@ export interface GalleryShowcaseBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3878,6 +4166,9 @@ export interface GalleryShowcaseBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3916,6 +4207,10 @@ export interface GalleryShowcaseBlock {
   };
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'galleryShowcase';
@@ -3933,6 +4228,9 @@ export interface EventGalleryBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -3972,6 +4270,9 @@ export interface EventGalleryBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4030,6 +4331,10 @@ export interface EventGalleryBlock {
   overlayCoverage?: ('full' | 'split') | null;
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'eventGallery';
@@ -4048,6 +4353,9 @@ export interface ImageMosaicBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4078,6 +4386,9 @@ export interface ImageMosaicBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4114,6 +4425,9 @@ export interface ImageMosaicBlock {
               label: string;
               linkType?: ('page' | 'custom' | 'file') | null;
               page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
               url?: string | null;
               openInNewTab?: boolean | null;
               /**
@@ -4181,6 +4495,10 @@ export interface ImageMosaicBlock {
    * Full spans the image. Split limits directional gradients to the strongest half; Even remains full-frame.
    */
   overlayCoverage?: ('full' | 'split') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'imageMosaic';
@@ -4205,6 +4523,9 @@ export interface StudentExperienceBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4261,6 +4582,9 @@ export interface StudentExperienceBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4295,6 +4619,10 @@ export interface StudentExperienceBlock {
   cardHeight: 'compact' | 'default' | 'comfortable';
   showNumbers?: boolean | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'studentExperience';
@@ -4312,6 +4640,9 @@ export interface RatingSpotlightBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4342,6 +4673,9 @@ export interface RatingSpotlightBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4378,6 +4712,10 @@ export interface RatingSpotlightBlock {
   };
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'ratingSpotlight';
@@ -4396,6 +4734,9 @@ export interface ReviewFeedBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4429,6 +4770,9 @@ export interface ReviewFeedBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4460,6 +4804,10 @@ export interface ReviewFeedBlock {
   };
   contentAlignment?: ('left' | 'center') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewFeed';
@@ -4477,6 +4825,9 @@ export interface ReviewSubmissionBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4507,6 +4858,9 @@ export interface ReviewSubmissionBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4542,6 +4896,10 @@ export interface ReviewSubmissionBlock {
   };
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewSubmission';
@@ -4626,6 +4984,9 @@ export interface Contact33Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4656,6 +5017,9 @@ export interface Contact33Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4694,6 +5058,10 @@ export interface Contact33Block {
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
   imagePosition: 'left' | 'right';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contact33';
@@ -4711,6 +5079,9 @@ export interface TeamShowcaseBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4741,6 +5112,9 @@ export interface TeamShowcaseBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4786,6 +5160,10 @@ export interface TeamShowcaseBlock {
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
   showHeaderDivider?: boolean | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'teamShowcase';
@@ -4804,6 +5182,9 @@ export interface Services21Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4834,6 +5215,9 @@ export interface Services21Block {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4874,6 +5258,10 @@ export interface Services21Block {
   };
   contentAlignment: 'left' | 'center' | 'right';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'services21';
@@ -4894,6 +5282,9 @@ export interface VideoEmbedBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4924,6 +5315,9 @@ export interface VideoEmbedBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -4969,6 +5363,10 @@ export interface VideoEmbedBlock {
   aspectRatio: '16/9' | '4/3' | '1/1' | '9/16';
   maxWidth: 'md' | 'lg' | 'full';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoEmbed';
@@ -4989,6 +5387,9 @@ export interface MediaCarouselBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5019,6 +5420,9 @@ export interface MediaCarouselBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5067,6 +5471,9 @@ export interface MediaCarouselBlock {
               label: string;
               linkType?: ('page' | 'custom' | 'file') | null;
               page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
               url?: string | null;
               openInNewTab?: boolean | null;
               /**
@@ -5106,6 +5513,10 @@ export interface MediaCarouselBlock {
   columns: '2' | '3' | '4';
   contentAlignment: 'left' | 'center';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaCarousel';
@@ -5127,6 +5538,9 @@ export interface ProgramMatrixBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5157,6 +5571,9 @@ export interface ProgramMatrixBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5201,6 +5618,9 @@ export interface ProgramMatrixBlock {
           label: string;
           linkType?: ('page' | 'custom' | 'file') | null;
           page?: (string | null) | Page;
+          /**
+           * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+           */
           url?: string | null;
           openInNewTab?: boolean | null;
           /**
@@ -5261,6 +5681,10 @@ export interface ProgramMatrixBlock {
   columns: '1' | '2' | '3' | '4';
   contentAlignment: 'left' | 'center';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'programMatrix';
@@ -5287,6 +5711,9 @@ export interface LogoStripBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5346,6 +5773,10 @@ export interface LogoStripBlock {
   grayscale?: boolean | null;
   logoHeight: 'sm' | 'md' | 'lg';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'logoStrip';
@@ -5381,6 +5812,10 @@ export interface BreadcrumbBlock {
   showHome?: boolean | null;
   showCurrentPage?: boolean | null;
   sectionPadding: 'none' | 'compact' | 'default';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'breadcrumb';
@@ -5402,6 +5837,9 @@ export interface TimelineBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5451,6 +5889,9 @@ export interface TimelineBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5487,6 +5928,10 @@ export interface TimelineBlock {
   showConnectors?: boolean | null;
   contentAlignment: 'left' | 'center';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'timeline';
@@ -5509,6 +5954,9 @@ export interface IconCardShowcaseBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5579,6 +6027,9 @@ export interface IconCardShowcaseBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5636,6 +6087,10 @@ export interface IconCardShowcaseBlock {
    */
   defaultCardBackground: 'default' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'iconCardShowcase';
@@ -5660,6 +6115,9 @@ export interface IconGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5715,6 +6173,9 @@ export interface IconGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5758,6 +6219,10 @@ export interface IconGridBlock {
   iconStyle?: ('square' | 'circle' | 'outline' | 'plain') | null;
   contentAlignment?: ('left' | 'center') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'iconGrid';
@@ -5793,6 +6258,10 @@ export interface QuoteBlockBlock {
   variant?: ('centered' | 'side' | 'card' | 'highlight') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
   quoteSize?: ('sm' | 'lg' | 'xl' | '2xl') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'quoteBlock';
@@ -5817,6 +6286,9 @@ export interface TabsContentBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5874,6 +6346,9 @@ export interface TabsContentBlock {
               label: string;
               linkType?: ('page' | 'custom' | 'file') | null;
               page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
               url?: string | null;
               openInNewTab?: boolean | null;
               /**
@@ -5907,6 +6382,9 @@ export interface TabsContentBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -5950,6 +6428,10 @@ export interface TabsContentBlock {
   contentAlignment?: ('left' | 'center' | 'right') | null;
   tabContentAlignment?: ('left' | 'center') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabsContent';
@@ -5971,6 +6453,9 @@ export interface FeeStructureBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6074,6 +6559,9 @@ export interface FeeStructureBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6116,6 +6604,10 @@ export interface FeeStructureBlock {
     background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
   };
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'feeStructure';
@@ -6137,6 +6629,9 @@ export interface PGFeeStructureBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6230,6 +6725,9 @@ export interface PGFeeStructureBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6271,6 +6769,10 @@ export interface PGFeeStructureBlock {
     background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
   };
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'pgFeeStructure';
@@ -6292,6 +6794,9 @@ export interface BankDetailsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6365,6 +6870,9 @@ export interface BankDetailsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6409,6 +6917,10 @@ export interface BankDetailsBlock {
    */
   tabWidth?: ('content' | 'centered' | 'equal') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'bankDetails';
@@ -6426,6 +6938,9 @@ export interface NumberedStepsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6456,6 +6971,9 @@ export interface NumberedStepsBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6512,6 +7030,10 @@ export interface NumberedStepsBlock {
   numberStyle?: ('circle' | 'outlined' | 'serif') | null;
   contentAlignment?: ('left' | 'center') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'numberedSteps';
@@ -6530,6 +7052,9 @@ export interface BentoGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6560,6 +7085,9 @@ export interface BentoGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6613,6 +7141,10 @@ export interface BentoGridBlock {
   };
   contentAlignment?: ('left' | 'center') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoGrid';
@@ -6634,6 +7166,9 @@ export interface TestimonialGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6681,6 +7216,9 @@ export interface TestimonialGridBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6714,6 +7252,10 @@ export interface TestimonialGridBlock {
   variant: 'grid' | 'featured' | 'list';
   columns: '2' | '3' | '4';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonialGrid';
@@ -6735,6 +7277,9 @@ export interface AwardsListBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6765,6 +7310,9 @@ export interface AwardsListBlock {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -6823,6 +7371,10 @@ export interface AwardsListBlock {
   contentAlignment?: ('left' | 'center') | null;
   variant: 'cards' | 'table' | 'rows';
   size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'awardsList';
@@ -7225,6 +7777,9 @@ export interface NewsEvent {
         label: string;
         linkType?: ('page' | 'custom' | 'file') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -7419,6 +7974,9 @@ export interface NavigationLink {
   description?: string | null;
   linkType: 'page' | 'custom';
   page?: (string | null) | Page;
+  /**
+   * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+   */
   url?: string | null;
   openInNewTab?: boolean | null;
   /**
@@ -7471,6 +8029,9 @@ export interface HeaderNavbar12Block {
         label: string;
         linkType?: ('page' | 'custom') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         children?:
@@ -7478,6 +8039,9 @@ export interface HeaderNavbar12Block {
               label: string;
               linkType?: ('page' | 'custom') | null;
               page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
               url?: string | null;
               openInNewTab?: boolean | null;
               id?: string | null;
@@ -7491,6 +8055,9 @@ export interface HeaderNavbar12Block {
         label: string;
         linkType?: ('page' | 'custom') | null;
         page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
         url?: string | null;
         openInNewTab?: boolean | null;
         /**
@@ -8370,6 +8937,7 @@ export interface PageHeaderBlockSelect<T extends boolean = true> {
   overlayCoverage?: T;
   height?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8410,6 +8978,7 @@ export interface HeroBannerBlockSelect<T extends boolean = true> {
   verticalAlignment?: T;
   contentWidth?: T;
   height?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8419,6 +8988,7 @@ export interface HeroBannerBlockSelect<T extends boolean = true> {
  */
 export interface ReusableSectionBlockSelect<T extends boolean = true> {
   section?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8436,6 +9006,7 @@ export interface RichTextBlockSelect<T extends boolean = true> {
       };
   size?: T;
   maxWidth?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8529,6 +9100,7 @@ export interface AboutSectionBlockSelect<T extends boolean = true> {
   imageDetailPosition?: T;
   imageDetailBackground?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8591,6 +9163,7 @@ export interface FeatureSpotlightBlockSelect<T extends boolean = true> {
   size?: T;
   contentAlignment?: T;
   contentVerticalAlignment?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8686,6 +9259,7 @@ export interface ContentHighlightsBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   splitContentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8778,6 +9352,7 @@ export interface AcademicProgrammesBlockSelect<T extends boolean = true> {
   descriptionPosition?: T;
   sideContentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8845,6 +9420,7 @@ export interface NewsEventsTabsBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   headerActionAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -8927,6 +9503,7 @@ export interface CalendarBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   adjacentMonthDates?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9011,6 +9588,7 @@ export interface AnnualCalendarBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9116,6 +9694,7 @@ export interface DepartmentProfilesBlockSelect<T extends boolean = true> {
   smallColumns?: T;
   cardFrame?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9180,6 +9759,7 @@ export interface GalleryAlbumTabsBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   headerActionAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9282,6 +9862,7 @@ export interface QaAccordionBlockSelect<T extends boolean = true> {
   sectionVerticalAlignment?: T;
   size?: T;
   defaultOpenFirst?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9309,6 +9890,7 @@ export interface StatsStripBlockSelect<T extends boolean = true> {
   animationEnabled?: T;
   animationDuration?: T;
   triggerOnce?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9377,6 +9959,7 @@ export interface TestimonialSpotlightBlockSelect<T extends boolean = true> {
   mediaFillMode?: T;
   size?: T;
   contentVerticalAlignment?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9446,6 +10029,7 @@ export interface AccreditationCardsBlockSelect<T extends boolean = true> {
   cardSize?: T;
   iconStyle?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9510,6 +10094,7 @@ export interface BannerCtaBlockSelect<T extends boolean = true> {
   overlayCoverage?: T;
   height?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9571,6 +10156,7 @@ export interface Contact24BlockSelect<T extends boolean = true> {
   mapActionLabel?: T;
   mapActionMode?: T;
   mapActionVariant?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9695,6 +10281,7 @@ export interface DownloadListBlockSelect<T extends boolean = true> {
   gridActionDisplay?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9721,6 +10308,7 @@ export interface AnnouncementBlockSelect<T extends boolean = true> {
   displayMode?: T;
   intervalMs?: T;
   marqueeDurationMs?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9796,6 +10384,7 @@ export interface NewsGridBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   headerActionAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9855,6 +10444,7 @@ export interface Cta39BlockSelect<T extends boolean = true> {
   splitContentAlignment?: T;
   actionLayout?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9895,6 +10485,7 @@ export interface HeroCarouselBlockSelect<T extends boolean = true> {
   showPauseControl?: T;
   showArrows?: T;
   showDots?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -9957,6 +10548,7 @@ export interface GalleryCoverflowBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10025,6 +10617,7 @@ export interface FeatureMatrixBlockSelect<T extends boolean = true> {
   size?: T;
   showOuterBorder?: T;
   borderAnimationEnabled?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10100,6 +10693,7 @@ export interface EditorialReasonsBlockSelect<T extends boolean = true> {
   actionsPosition?: T;
   stickyIntro?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10184,6 +10778,7 @@ export interface LeadershipProfilesBlockSelect<T extends boolean = true> {
   sideContentAlignment?: T;
   columns?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10248,6 +10843,7 @@ export interface NewsEventsHighlightsBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10321,6 +10917,7 @@ export interface ProfileCarouselBlockSelect<T extends boolean = true> {
   overlayDirection?: T;
   overlayCoverage?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10384,6 +10981,7 @@ export interface GalleryShowcaseBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10451,6 +11049,7 @@ export interface EventGalleryBlockSelect<T extends boolean = true> {
   overlayCoverage?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10546,6 +11145,7 @@ export interface ImageMosaicBlockSelect<T extends boolean = true> {
   overlayStyle?: T;
   overlayDirection?: T;
   overlayCoverage?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10621,6 +11221,7 @@ export interface StudentExperienceBlockSelect<T extends boolean = true> {
   cardHeight?: T;
   showNumbers?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10683,6 +11284,7 @@ export interface RatingSpotlightBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10742,6 +11344,7 @@ export interface ReviewFeedBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10798,6 +11401,7 @@ export interface ReviewSubmissionBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10857,6 +11461,7 @@ export interface Contact33BlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   size?: T;
   imagePosition?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10923,6 +11528,7 @@ export interface TeamShowcaseBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   size?: T;
   showHeaderDivider?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -10988,6 +11594,7 @@ export interface Services21BlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11048,6 +11655,7 @@ export interface VideoEmbedBlockSelect<T extends boolean = true> {
   aspectRatio?: T;
   maxWidth?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11132,6 +11740,7 @@ export interface MediaCarouselBlockSelect<T extends boolean = true> {
   columns?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11227,6 +11836,7 @@ export interface ProgramMatrixBlockSelect<T extends boolean = true> {
   columns?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11277,6 +11887,7 @@ export interface LogoStripBlockSelect<T extends boolean = true> {
   grayscale?: T;
   logoHeight?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11307,6 +11918,7 @@ export interface BreadcrumbBlockSelect<T extends boolean = true> {
   showHome?: T;
   showCurrentPage?: T;
   sectionPadding?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11375,6 +11987,7 @@ export interface TimelineBlockSelect<T extends boolean = true> {
   showConnectors?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11461,6 +12074,7 @@ export interface IconCardShowcaseBlockSelect<T extends boolean = true> {
   iconSize?: T;
   defaultCardBackground?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11536,6 +12150,7 @@ export interface IconGridBlockSelect<T extends boolean = true> {
   iconStyle?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11560,6 +12175,7 @@ export interface QuoteBlockBlockSelect<T extends boolean = true> {
   variant?: T;
   size?: T;
   quoteSize?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11658,6 +12274,7 @@ export interface TabsContentBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   tabContentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11772,6 +12389,7 @@ export interface FeeStructureBlockSelect<T extends boolean = true> {
         background?: T;
       };
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11876,6 +12494,7 @@ export interface PGFeeStructureBlockSelect<T extends boolean = true> {
         background?: T;
       };
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -11965,6 +12584,7 @@ export interface BankDetailsBlockSelect<T extends boolean = true> {
   tabStyle?: T;
   tabWidth?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -12033,6 +12653,7 @@ export interface NumberedStepsBlockSelect<T extends boolean = true> {
   numberStyle?: T;
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -12102,6 +12723,7 @@ export interface BentoGridBlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -12171,6 +12793,7 @@ export interface TestimonialGridBlockSelect<T extends boolean = true> {
   variant?: T;
   columns?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -12239,6 +12862,7 @@ export interface AwardsListBlockSelect<T extends boolean = true> {
   contentAlignment?: T;
   variant?: T;
   size?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }
@@ -13495,6 +14119,10 @@ export interface NewsEventsContentBlock {
    * Full spans the image. Split limits directional gradients to the strongest half; Even remains full-frame.
    */
   overlayCoverage: 'full' | 'split';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsEventsContent';
@@ -13767,6 +14395,7 @@ export interface NewsEventsContentBlockSelect<T extends boolean = true> {
   overlayStyle?: T;
   overlayDirection?: T;
   overlayCoverage?: T;
+  anchorId?: T;
   id?: T;
   blockName?: T;
 }

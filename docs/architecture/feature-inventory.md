@@ -138,6 +138,15 @@ the current hidden `customAction` is appended to available automatic actions; ot
 manual `actions` replace the automatic fallback; otherwise the hidden automatic fallback renders.
 Historical visual-action settings remain ignored without a migration.
 
+Every Page-compatible block receives one optional `anchorId` field from the central block catalog.
+The schema accepts lowercase URL-safe IDs, reserves the site-owned `main-content` target, and rejects
+direct duplicates within Pages, Reusable Sections, and the News & Events Detail Template. Production
+and live-preview renderers wrap configured blocks with the same fragment target, including the
+dynamic News & Events Content block. A shared document-order claim prevents nested or repeated
+Reusable Sections from emitting duplicate DOM IDs. Root fragment navigation uses smooth scrolling
+with sticky-shell clearance and an immediate reduced-motion fallback. Existing content needs no
+migration.
+
 News & Events Highlights retains the `newsEventsHighlights` block slug and renders an Event-only
 priority stream: up to three manually featured published, non-expired Events followed by three
 non-featured current or upcoming Events. It keeps the shared presentation model, overlay controls,

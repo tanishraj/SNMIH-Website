@@ -4,9 +4,13 @@ Use this ownership map before adding schema so client-specific changes land in t
 
 ## Content
 
-`pages` owns hierarchical public CMS routes, block layouts, native draft/publication state, live preview, route SEO, synchronized Page links, and automatic redirects when a published path changes.
+`pages` owns hierarchical public CMS routes, block layouts, optional per-block Section Anchor IDs,
+native draft/publication state, live preview, route SEO, synchronized Page links, and automatic
+redirects when a published path changes. Anchor links use Custom URL destinations such as
+`#admissions` or `/programmes#mbbs`.
 
-`reusable-sections` owns shared block groups referenced from Pages. It uses a restricted block set and cannot reference itself.
+`reusable-sections` owns shared block groups referenced from Pages, including the anchor IDs of its
+nested blocks. It uses a restricted block set and cannot reference itself.
 
 `articles` owns authored long-form content, Topics and Tags, featured media, related-article behavior, SEO, and live preview. Article topic and tag archives are route-owned.
 
@@ -22,7 +26,10 @@ Use this ownership map before adding schema so client-specific changes land in t
 
 ## Navigation And Site Structure
 
-`navigation-links` owns reusable Page or custom destinations. Pages create and update their own synchronized records; manual records remain independently managed. Current Header/Footer presets use their own inline Page/custom link fields, while System Page actions can use Navigation Links.
+`navigation-links` owns reusable Page or custom destinations, including same-page and cross-page
+fragment URLs. Pages create and update their own synchronized records; manual records remain
+independently managed. Current Header/Footer presets use their own inline Page/custom link fields,
+while System Page actions can use Navigation Links.
 
 `redirects` owns enabled normalized incoming paths, 301/302 status, and Page/custom destinations. The redirect proxy refreshes its in-process map every 60 seconds.
 

@@ -27,6 +27,23 @@ Full-page creation starts with **Blank Page** or **Landing Page**. Blank Page ha
 
 Page creation inside a relationship drawer retains Payload's native blank form so the newly created Page can return to and populate the parent field safely.
 
+## Linking To Page Sections
+
+Every Page-compatible block has an optional **Section Anchor ID** field. Use a short, stable value
+such as `admissions` or `student-services`. It must begin with a lowercase letter and may contain only
+lowercase letters, numbers, and single hyphens; enter the value without `#`.
+
+Use a Custom URL destination to link to the section:
+
+- `#admissions` links from the current Page.
+- `/programmes#mbbs` links to a section on another Page.
+
+The browser scrolls smoothly to the section, leaves clearance for the sticky Admin bar,
+announcement, and Header, and switches to immediate movement when the visitor prefers reduced
+motion. Anchor IDs must be unique across the complete rendered Page, including blocks inside Reusable
+Sections. Direct duplicates in one layout are rejected; if nested or repeated Reusable Sections
+still produce a conflict, the first section in document order keeps the ID.
+
 ## Content And Theme Settings
 
 Every configurable visual block uses the same two top-level tabs:

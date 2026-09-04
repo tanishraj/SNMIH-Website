@@ -45,6 +45,10 @@ Production Page blocks are wrapped in `BlockErrorBoundary`, so one broken block 
 ## Shared Configuration and Presentation
 
 - `blockAppearanceFields.ts` and `blockAppearance.ts`: page/subtle/brand surfaces, gradients, borders, legacy normalization, and foreground resolution.
+- `blockAnchor.ts` and `BlockAnchorWrapper.tsx`: the centrally decorated optional Section Anchor ID,
+  URL-safe validation, direct-layout uniqueness, document-order duplicate suppression across
+  Reusable Sections, and matching production/live-preview fragment markup. Custom URL actions use
+  `#anchor-id` on the current Page or `/page-path#anchor-id` across Pages.
 - `blockSpacing.ts`: regular container and responsive vertical spacing contracts.
 - `cardThemeFields.ts` and `cardSurface.ts`: Default/Primary/Secondary/Muted/Accent card semantics.
 - `contentActionsFields.ts` and `BlockFooterActions.tsx`: per-action links/buttons, variants, arrows, and footer actions. Shared actions support Page, Custom URL, and Media File destinations. File actions choose View or Download independently from Button/Link presentation; View has a file-specific new-tab preference, while Download forwards the Media filename through the anchor `download` attribute. Download defaults to an animated Lucide down arrow on the left, which editors can move right or hide without changing File View or navigation-arrow behavior. Keep schema changes in `contentActionsFields.ts`, destination resolution in `src/lib/cmsLinks.ts`, and rendering semantics in `src/components/ContentActions.tsx` plus guarded specialized consumers.

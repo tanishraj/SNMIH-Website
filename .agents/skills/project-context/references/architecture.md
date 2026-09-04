@@ -29,6 +29,10 @@ React Server Components load public CMS data. Focused client components own inte
   Tabs remains the complete published directory; Event classifications place current/upcoming
   entries before recent past entries. Article and Review archive landing pages are also ordinary CMS
   Pages.
+- Page-compatible blocks may expose stable editor-authored fragment IDs. Production and authenticated
+  live preview use the same document-order anchor wrapper, including blocks inside Reusable Sections
+  and the News & Events detail template. Root scrolling accounts for the sticky Admin, announcement,
+  and Header shell and becomes immediate under `prefers-reduced-motion`.
 - `/search`, `/api/search`, feeds, sitemap, robots, and Open Graph image routes implement discovery.
   Generated Open Graph routes keep their page-specific cards when their published record and public
   media logo are available, and return the code-owned SNMIH preview when a required record or the
