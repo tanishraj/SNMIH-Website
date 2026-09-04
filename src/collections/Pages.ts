@@ -1,6 +1,7 @@
 import { type CollectionConfig, type RelationshipFieldSingleValidation } from 'payload'
 
 import { pageBuilderBlocks } from '@/blocks/blockCatalog'
+import { validateUniqueBlockAnchorIDs } from '@/blocks/shared/blockAnchor'
 import type { Page } from '@/payload-types'
 import {
   allowPublishedReadOrFeature,
@@ -189,6 +190,7 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               blocks: pageBuilderBlocks,
               required: false,
+              validate: validateUniqueBlockAnchorIDs,
               admin: {
                 description: 'Compose the page using reusable content blocks.',
                 initCollapsed: true,

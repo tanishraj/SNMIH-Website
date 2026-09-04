@@ -1,11 +1,4 @@
-import type {
-  Block,
-  CheckboxField,
-  NumberField,
-  RelationshipField,
-  SelectField,
-  TabsField,
-} from 'payload'
+import type { Block, CheckboxField, RelationshipField, SelectField, TabsField } from 'payload'
 
 import { getBlockThumbnailAdmin } from '@/block-thumbnails/definitions'
 import { NEWS_EVENTS_HIGHLIGHTS_MAX_CLASSIFICATIONS } from '@/blocks/NewsEventsHighlights/newsEventsHighlightsShared'
@@ -51,11 +44,14 @@ export const NewsEventsHighlightsBlock: Block = {
               relationTo: 'news-event-classifications',
               hasMany: true,
               maxRows: NEWS_EVENTS_HIGHLIGHTS_MAX_CLASSIFICATIONS,
-              filterOptions: { active: { equals: true } },
+              filterOptions: {
+                active: { equals: true },
+                behavior: { equals: 'event' },
+              },
               admin: {
                 allowCreate: true,
                 description:
-                  'Limit the carousel to selected active classifications. Leave empty to include all active classifications. Selection order does not change chronological slide order.',
+                  'Limit the carousel to selected active Event classifications. Leave empty to include all active Event classifications. Up to three featured Events appear first, followed by three automatic upcoming Events.',
               },
             } satisfies RelationshipField,
             createContentActionsField({ maxRows: 1 }),
@@ -69,15 +65,6 @@ export const NewsEventsHighlightsBlock: Block = {
         {
           label: 'Theme Settings',
           fields: [
-            {
-              name: 'itemCount',
-              label: 'Number of Items',
-              type: 'number',
-              defaultValue: 3,
-              min: 1,
-              max: 6,
-              required: true,
-            } satisfies NumberField,
             {
               name: 'autoplay',
               label: 'Autoplay',
@@ -100,7 +87,7 @@ export const NewsEventsHighlightsBlock: Block = {
               label: 'Empty State Message',
               type: 'text',
               admin: {
-                description: 'Optional message shown when there are no News & Events entries.',
+                description: 'Optional message shown when there are no eligible Events.',
               },
             },
             {

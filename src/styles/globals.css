@@ -806,6 +806,14 @@ body:has([data-system-page-root='true']) [data-site-main='true'] {
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--block-anchor-offset, 1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 

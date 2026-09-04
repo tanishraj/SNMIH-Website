@@ -4,9 +4,13 @@ Use this ownership map before adding schema so client-specific changes land in t
 
 ## Content
 
-`pages` owns hierarchical public CMS routes, block layouts, native draft/publication state, live preview, route SEO, synchronized Page links, and automatic redirects when a published path changes.
+`pages` owns hierarchical public CMS routes, block layouts, optional per-block Section Anchor IDs,
+native draft/publication state, live preview, route SEO, synchronized Page links, and automatic
+redirects when a published path changes. Anchor links use Custom URL destinations such as
+`#admissions` or `/programmes#mbbs`.
 
-`reusable-sections` owns shared block groups referenced from Pages. It uses a restricted block set and cannot reference itself.
+`reusable-sections` owns shared block groups referenced from Pages, including the anchor IDs of its
+nested blocks. It uses a restricted block set and cannot reference itself.
 
 `articles` owns authored long-form content, Topics and Tags, featured media, related-article behavior, SEO, and live preview. Article topic and tag archives are route-owned.
 
@@ -22,7 +26,10 @@ Use this ownership map before adding schema so client-specific changes land in t
 
 ## Navigation And Site Structure
 
-`navigation-links` owns reusable Page or custom destinations. Pages create and update their own synchronized records; manual records remain independently managed. Current Header/Footer presets use their own inline Page/custom link fields, while System Page actions can use Navigation Links.
+`navigation-links` owns reusable Page or custom destinations, including same-page and cross-page
+fragment URLs. Pages create and update their own synchronized records; manual records remain
+independently managed. Current Header/Footer presets use their own inline Page/custom link fields,
+while System Page actions can use Navigation Links.
 
 `redirects` owns enabled normalized incoming paths, 301/302 status, and Page/custom destinations. The redirect proxy refreshes its in-process map every 60 seconds.
 
@@ -72,7 +79,10 @@ All collections receive Payload Trash through the project plugin, subject to the
 
 `page-settings`, labeled `Layout Defaults`, chooses the homepage, active Header/Footer, default Page appearance, and site-wide announcement behavior.
 
-Pages own the `/news-events` index route and its layout, appearance, and Page SEO. The News & Events collection owns individual entries, while the News & Events Highlights and News & Events Tabs blocks query published entries for Page composition.
+Pages own the `/news-events` index route and its layout, appearance, and Page SEO. The News & Events
+collection owns individual entries and the Event-only `featuredInHighlights` flag. News & Events
+Highlights prioritizes eligible checked Events before automatic upcoming Events, while News & Events
+Tabs queries the complete published classification directory for Page composition.
 
 `news-events-detail-template`, labeled `News & Events Detail Template`, owns the fixed Page Header,
 automatic Breadcrumb appearance, article/sidebar presentation, featured-image ratio, and shared

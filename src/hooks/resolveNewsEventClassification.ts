@@ -111,7 +111,16 @@ const validateEventFields = (data: NewsEventEntryData, originalDoc: NewsEventEnt
   }
 
   const rawEventEnd = getEffectiveValue(data, originalDoc, 'eventEnd')
-  if (rawEventEnd === null || rawEventEnd === undefined || rawEventEnd === '') return
+  if (rawEventEnd === null || rawEventEnd === undefined || rawEventEnd === '') {
+    const isFeatured = getEffectiveValue(data, originalDoc, 'featuredInHighlights') === true
+    const isAllDay = getEffectiveValue(data, originalDoc, 'eventAllDay') === true
+
+    if (isFeatured && !isAllDay) {
+      throw new APIError('Event End is required when a timed Event is featured in Highlights.', 400)
+    }
+
+    return
+  }
 
   const eventEnd = parseDate(rawEventEnd)
   if (!eventEnd) {
@@ -127,6 +136,7 @@ export const clearNewsEventEventFields = (data: NewsEventEntryData): NewsEventEn
   data.eventStart = null
   data.eventEnd = null
   data.eventAllDay = null
+  data.featuredInHighlights = false
   data.eventLocation = null
   data.eventRegistrationAction = []
 

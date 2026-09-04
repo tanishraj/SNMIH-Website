@@ -65,7 +65,9 @@ const fields: Field[] = [
     admin: {
       condition: (_: unknown, siblingData: { linkType?: 'page' | 'custom' | null }) =>
         siblingData?.linkType === 'custom',
-      placeholder: '/contact or https://example.com',
+      description:
+        'Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.',
+      placeholder: '#admissions, /contact, or https://example.com',
     },
   },
   {

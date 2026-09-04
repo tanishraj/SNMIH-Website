@@ -2,11 +2,15 @@ import type { BlocksFieldValidation, GlobalConfig } from 'payload'
 
 import { allowPublicReadOrFeature, hideUnlessFeature, requireFeature } from '@/access/featureAccess'
 import { newsEventsDetailBuilderBlocks } from '@/blocks/blockCatalog'
+import { validateUniqueBlockAnchorIDs } from '@/blocks/shared/blockAnchor'
 import { revalidateGlobalsCacheForGlobal } from '@/hooks/revalidateCmsContent'
 
 type LayoutBlock = { blockType?: string | null }
 
 export const validateNewsEventsDetailLayout: BlocksFieldValidation = async (value, { data }) => {
+  const anchorValidation = validateUniqueBlockAnchorIDs(value)
+  if (anchorValidation !== true) return anchorValidation
+
   const status = (data as { _status?: 'draft' | 'published' } | undefined)?._status
   if (status !== 'published') return true
 

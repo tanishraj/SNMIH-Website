@@ -14,7 +14,7 @@ import { CookieConsentBanner } from '@/components/global/CookieConsentBanner'
 import { SearchDialog } from '@/components/global/SearchDialog'
 import { GlobalAnnouncement } from '@/components/global/GlobalAnnouncement'
 import { GlobalFooter } from '@/components/global/GlobalFooter'
-import { GlobalHeader } from '@/components/global/GlobalHeader'
+import { GlobalHeader, isGlobalHeaderSticky } from '@/components/global/GlobalHeader'
 import {
   type BlockAppearance,
   resolveBlockAppearanceClasses,
@@ -246,17 +246,25 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   ]
     .filter(Boolean)
     .join(' ')
-  const htmlStyle = {
-    ...(colorScheme === 'system' ? { colorScheme: 'light dark' } : { colorScheme }),
-    '--cms-toolbar-offset': '0px',
-  } as React.CSSProperties & { '--cms-toolbar-offset': string }
   const { className: pageBodyClassName } = resolveBlockAppearanceClasses(pageAppearance)
   const cmsToolbarOffset = 'var(--cms-toolbar-offset, 0px)'
   // Only a persistent (non-hide-on-scroll) announcement reserves space below it;
   // the bar collapses --global-announcement-height to 0 when dismissed. The
   // fallback keeps the correct offset during SSR and before hydration.
   const headerReservesAnnouncement = Boolean(announcementItems?.length) && !announcementHideOnScroll
-  const headerTopOffset = `calc(${cmsToolbarOffset} + var(--global-announcement-height, ${headerReservesAnnouncement ? '2.5rem' : '0px'}))`
+  const announcementHeight = headerReservesAnnouncement ? '2.5rem' : '0px'
+  const headerTopOffset = `calc(${cmsToolbarOffset} + var(--global-announcement-height, ${announcementHeight}))`
+  const blockAnchorOffset = isGlobalHeaderSticky(activeHeader)
+    ? `calc(${cmsToolbarOffset} + var(--global-announcement-height, ${announcementHeight}) + 6rem)`
+    : '1rem'
+  const htmlStyle = {
+    ...(colorScheme === 'system' ? { colorScheme: 'light dark' } : { colorScheme }),
+    '--block-anchor-offset': blockAnchorOffset,
+    '--cms-toolbar-offset': '0px',
+  } as React.CSSProperties & {
+    '--block-anchor-offset': string
+    '--cms-toolbar-offset': string
+  }
   const contentShellStyle = { paddingTop: cmsToolbarOffset } as React.CSSProperties
 
   return (

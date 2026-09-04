@@ -17,10 +17,7 @@ import type {
   ResolvedNewsEventClassification,
 } from '@/lib/newsEventClassifications'
 import { formatNewsEventDateRange } from '@/lib/newsEventsShared'
-import {
-  getNewsEventsPreviewItemCounts,
-  getNewsGridPreviewItemCounts,
-} from '@/lib/newsEventsPreviewShared'
+import { getNewsGridPreviewItemCounts } from '@/lib/newsEventsPreviewShared'
 import type { PublicNewsEventCard } from '@/lib/newsEventsShared'
 
 import { getGeneratedPayloadInterface } from './helpers/generatedPayloadInterface'
@@ -537,12 +534,6 @@ describe('News Grid', () => {
       },
     ] as never)
     expect(counts).toContain(2)
-    expect(
-      getNewsEventsPreviewItemCounts([
-        { blockType: 'newsEventsHighlights', itemCount: 4 },
-        { blockType: 'newsGrid', title: 'News &', totalCards: 3 },
-      ] as never),
-    ).toEqual([4])
   })
 
   it('keeps generated Payload types aligned with the schema', () => {

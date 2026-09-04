@@ -45,6 +45,10 @@ Production Page blocks are wrapped in `BlockErrorBoundary`, so one broken block 
 ## Shared Configuration and Presentation
 
 - `blockAppearanceFields.ts` and `blockAppearance.ts`: page/subtle/brand surfaces, gradients, borders, legacy normalization, and foreground resolution.
+- `blockAnchor.ts` and `BlockAnchorWrapper.tsx`: the centrally decorated optional Section Anchor ID,
+  URL-safe validation, direct-layout uniqueness, document-order duplicate suppression across
+  Reusable Sections, and matching production/live-preview fragment markup. Custom URL actions use
+  `#anchor-id` on the current Page or `/page-path#anchor-id` across Pages.
 - `blockSpacing.ts`: regular container and responsive vertical spacing contracts.
 - `cardThemeFields.ts` and `cardSurface.ts`: Default/Primary/Secondary/Muted/Accent card semantics.
 - `contentActionsFields.ts` and `BlockFooterActions.tsx`: per-action links/buttons, variants, arrows, and footer actions. Shared actions support Page, Custom URL, and Media File destinations. File actions choose View or Download independently from Button/Link presentation; View has a file-specific new-tab preference, while Download forwards the Media filename through the anchor `download` attribute. Download defaults to an animated Lucide down arrow on the left, which editors can move right or hide without changing File View or navigation-arrow behavior. Keep schema changes in `contentActionsFields.ts`, destination resolution in `src/lib/cmsLinks.ts`, and rendering semantics in `src/components/ContentActions.tsx` plus guarded specialized consumers.
@@ -393,14 +397,17 @@ dependencies through supported populated Reusable Sections, load draft albums on
 the client-safe Image Mosaic preview adapter without importing the Payload-backed loader.
 
 News & Events Highlights retains the `newsEventsHighlights` slug and renders one synchronized carousel
-from automatically loaded News & Events collection records. It interleaves recent published non-event
-entries with current or upcoming Events up to the configured one-to-six item limit. Editors can select
-active classifications in the block Content tab; an empty selection includes every active
-classification, while a non-empty selection is strict and does not alter chronological slide order.
-Production and live preview use the same count-plus-classification scope key. Autoplay, Empty State
-Message, semantic section settings, block-wide image-position override, and shared media overlay
-controls remain configurable. Missing overlay values preserve Dark/Darker/Bottom-to-Top/Full; missing
-or failed images use the centered bundled SNMIH fallback. News Grid retains its legacy grid and optional
+from automatically loaded News & Events collection records. It renders only published, non-expired
+Events: up to three checked `featuredInHighlights` Events first, followed by up to three unchecked
+current or upcoming Events. Each group sorts by `eventStart` ascending and the combined result is
+de-duplicated. Timed featured Events require `eventEnd`; all-day eligibility includes the full local
+calendar day of `eventEnd`, or `eventStart` when no end is set. Editors can select active Event
+classifications in the block Content tab; an empty selection includes every active Event
+classification, while a non-empty selection is strict. Production and live preview use the same
+classification scope key. Autoplay, Empty State Message, semantic section settings, block-wide
+image-position override, and shared media overlay controls remain configurable. Missing overlay values
+preserve Dark/Darker/Bottom-to-Top/Full; missing or failed images use the centered bundled SNMIH
+fallback. News Grid retains its legacy grid and optional
 feature card. It loads all published classifications in published-date order, retains the
 current/upcoming Event predicate, uses canonical classification labels, and preserves the stored
 `newsActionLabel` field as the Admin-facing Default Action Label for non-event records. Editors can
@@ -421,8 +428,11 @@ block server-renders page one for each tab as a page-aware public group, with 3,
 per batch. When more entries exist, the client appends the next batch through the read-only
 `/api/news-events-tabs` route. Selected configurations carry their ordered classification scope for
 All requests; All-only configurations omit the scope and resolve all active classifications. The
-client retains independent progress for each classification ID until refresh. Editors can customize the
-Load More label. The block retains shared appearance,
+client retains independent progress for each classification ID until refresh. Load More reaches the
+complete published directory. Story classifications use newest-published order. Event classifications
+show current/upcoming Events earliest-first, followed by past Events most-recent-first; the manual
+Highlights flag does not filter Tabs. Editors can customize the Load More label. The block retains
+shared appearance,
 alignment, spacing, header actions, and footer actions, and uses only semantic theme surfaces. Card
 Grid is the admin default and legacy runtime fallback; its Cards Per Row control remains 2–4 and is
 shown only for that layout under Theme Settings. Editorial List uses full-row detail links with a

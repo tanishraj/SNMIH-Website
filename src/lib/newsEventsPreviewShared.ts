@@ -19,11 +19,7 @@ import {
   normalizeNewsEventsTabsItemsPerTab,
 } from '@/blocks/NewsEventsTabs/newsEventsTabsShared'
 import type { ResolvedNewsEventClassification } from '@/lib/newsEventClassifications'
-import {
-  normalizeHighlightsItemCount,
-  type PublicNewsEventCard,
-  type PublicNewsEventGroups,
-} from '@/lib/newsEventsShared'
+import { type PublicNewsEventCard, type PublicNewsEventGroups } from '@/lib/newsEventsShared'
 import type { Page } from '@/payload-types'
 
 export type NewsEventsPreviewSnapshot = {
@@ -47,7 +43,6 @@ export const EMPTY_NEWS_EVENTS_PREVIEW_SNAPSHOT: NewsEventsPreviewSnapshot = {
 export type NewsEventsHighlightsPreviewScope = {
   classificationIDs: string[]
   key: string
-  limit: number
 }
 
 export function getNewsGridPreviewItemCounts(layout?: Page['layout'] | null): number[] {
@@ -105,10 +100,9 @@ export function getNewsEventsHighlightsPreviewScopes(
 
       if (record.blockType === 'newsEventsHighlights') {
         const classificationIDs = getNewsEventsHighlightsClassificationIDs(record.classifications)
-        const limit = normalizeHighlightsItemCount(record.itemCount as number | null | undefined)
-        const key = getNewsEventsHighlightsPreviewKey(classificationIDs, limit)
+        const key = getNewsEventsHighlightsPreviewKey(classificationIDs)
 
-        scopes.set(key, { classificationIDs, key, limit })
+        scopes.set(key, { classificationIDs, key })
       }
 
       if (
@@ -124,13 +118,6 @@ export function getNewsEventsHighlightsPreviewScopes(
 
   visitLayout(layout, 0)
   return [...scopes.values()]
-}
-
-/** @deprecated Use classification-aware getNewsEventsHighlightsPreviewScopes. */
-export function getNewsEventsPreviewItemCounts(layout?: Page['layout'] | null): number[] {
-  return [...new Set(getNewsEventsHighlightsPreviewScopes(layout).map(({ limit }) => limit))].sort(
-    (left, right) => left - right,
-  )
 }
 
 export function getCalendarPreviewScopes(layout?: Page['layout'] | null): CalendarPreviewScope[] {
@@ -186,8 +173,7 @@ export function getAnnualCalendarPreviewScopes(
         const classificationIDs = getAnnualCalendarClassificationIDs(record.classifications)
         if (classificationIDs.length > 0) {
           const periodInput: AnnualCalendarPeriodInput = {
-            periodEndDate:
-              typeof record.periodEndDate === 'string' ? record.periodEndDate : null,
+            periodEndDate: typeof record.periodEndDate === 'string' ? record.periodEndDate : null,
             periodMode:
               record.periodMode === 'customAcademicYear' ? 'customAcademicYear' : 'currentYear',
             periodStartDate:

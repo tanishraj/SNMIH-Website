@@ -8,6 +8,8 @@ import {
   type PageBlockRenderArgs,
 } from '@/blocks/renderPageBlocks'
 import { BlockErrorBoundary } from '@/blocks/shared/BlockErrorBoundary'
+import { BlockAnchorWrapper } from '@/blocks/shared/BlockAnchorWrapper'
+import { claimBlockAnchorID } from '@/blocks/shared/blockAnchor'
 import type {
   NewsEventDetailTemplateBlock,
   ResolvedNewsEventDetailTemplate,
@@ -37,6 +39,7 @@ export function renderNewsEventDetailBlocks(
   const args: PageBlockRenderArgs = {
     automaticBreadcrumbs: context.automaticBreadcrumbs,
     heroPreloadState: { assigned: false },
+    usedAnchorIDs: new Set(['main-content']),
   }
 
   return (
@@ -49,10 +52,13 @@ export function renderNewsEventDetailBlocks(
         if (!isDynamicContent(block)) return null
 
         const key = block.id ?? `${block.blockType}-${index}`
+        const anchorID = claimBlockAnchorID(block.anchorId, args.usedAnchorIDs)
         return (
-          <BlockErrorBoundary key={key} blockType={block.blockType}>
-            <NewsEventsContentBlockComponent {...block} entry={context.entry} />
-          </BlockErrorBoundary>
+          <BlockAnchorWrapper anchorID={anchorID} key={key}>
+            <BlockErrorBoundary blockType={block.blockType}>
+              <NewsEventsContentBlockComponent {...block} entry={context.entry} />
+            </BlockErrorBoundary>
+          </BlockAnchorWrapper>
         )
       })}
     </PageBlockStack>

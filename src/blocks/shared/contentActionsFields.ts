@@ -143,7 +143,12 @@ const createActionContentFields = ({
             name: 'url',
             label: 'Custom URL',
             type: 'text',
-            admin: { condition: isCustomLink },
+            admin: {
+              condition: isCustomLink,
+              description:
+                'Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.',
+              placeholder: '#admissions or /programmes#mbbs',
+            },
           } satisfies Field,
           {
             name: 'openInNewTab',

@@ -58,6 +58,7 @@ import { TestimonialGridBlock } from '@/blocks/TestimonialGrid/config'
 import { TestimonialSpotlightBlock } from '@/blocks/TestimonialSpotlight/config'
 import { TimelineBlock } from '@/blocks/Timeline/config'
 import { VideoEmbedBlock } from '@/blocks/VideoEmbed/config'
+import { createBlockAnchorField } from '@/blocks/shared/blockAnchor'
 
 export const blockPickerGroups = {
   start: 'Start',
@@ -82,6 +83,7 @@ const decorateBlock = (block: Block, group: BlockPickerGroup): Block => ({
     ...block.admin,
     group,
   },
+  fields: [...block.fields, createBlockAnchorField()],
 })
 
 export const buildBlockRegistry = (groups: readonly BlockGroupDefinition[]): Block[] => {

@@ -29,7 +29,6 @@ export type NewsEventsHighlightsBlockLike = {
   emptyStateMessage?: string | null
   eyebrow?: string | null
   footerActions?: CmsActionValue[] | null
-  itemCount?: number | null
   imagePositionOverride?: FeaturedHighlightImagePositionOverride | null
   overlayCoverage?: MediaOverlayCoverage | null
   overlayDirection?: MediaOverlayDirection | null

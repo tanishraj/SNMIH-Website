@@ -96,7 +96,7 @@ describe('global header wiring', () => {
     )
 
     expect(layoutSource).toContain(
-      "import { GlobalHeader } from '@/components/global/GlobalHeader'",
+      "import { GlobalHeader, isGlobalHeaderSticky } from '@/components/global/GlobalHeader'",
     )
     expect(layoutSource).toContain('const activeHeaderID =')
     expect(layoutSource).toContain('const activeHeader =')

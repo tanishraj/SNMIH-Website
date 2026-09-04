@@ -153,6 +153,7 @@ describe('News & Events editorial model', () => {
       'eventStart',
       'eventEnd',
       'eventAllDay',
+      'featuredInHighlights',
       'eventLocation',
       'eventRegistrationAction',
     ]) {
@@ -161,6 +162,13 @@ describe('News & Events editorial model', () => {
       expect(field).toBeDefined()
       expect(field?.admin).not.toHaveProperty('condition')
     }
+
+    expect(findNamedField(eventDetails?.fields ?? [], 'featuredInHighlights')).toMatchObject({
+      defaultValue: false,
+      index: true,
+      label: 'Featured in Highlights',
+      type: 'checkbox',
+    })
   })
 
   it('retains but hides the legacy per-entry Byline', () => {
@@ -173,6 +181,7 @@ describe('News & Events editorial model', () => {
       data: {
         eventAllDay: true,
         eventEnd: '2026-08-02T00:00:00.000Z',
+        featuredInHighlights: true,
         eventLocation: 'Campus',
         eventRegistrationAction: [{ label: 'Register' }],
         eventStart: '2026-08-01T00:00:00.000Z',
@@ -185,6 +194,7 @@ describe('News & Events editorial model', () => {
     expect(result).toMatchObject({
       eventAllDay: null,
       eventEnd: null,
+      featuredInHighlights: false,
       eventLocation: null,
       eventRegistrationAction: [],
       eventStart: null,
@@ -195,6 +205,7 @@ describe('News & Events editorial model', () => {
     const data = {
       eventAllDay: true,
       eventEnd: '2026-08-02T00:00:00.000Z',
+      featuredInHighlights: true,
       eventLocation: 'Campus',
       eventRegistrationAction: [{ label: 'Register' }],
       eventStart: '2026-08-01T00:00:00.000Z',
@@ -427,6 +438,16 @@ describe('News & Events editorial model', () => {
         },
         'Event End cannot be earlier than Event Start.',
       ],
+      [
+        {
+          classification: eventClassification,
+          eventAllDay: false,
+          eventLocation: 'Campus',
+          eventStart: '2026-08-20T09:00:00.000Z',
+          featuredInHighlights: true,
+        },
+        'Event End is required when a timed Event is featured in Highlights.',
+      ],
     ] as const) {
       const { req } = request({ byID: eventClassification })
 
@@ -439,6 +460,26 @@ describe('News & Events editorial model', () => {
         } as never),
       ).rejects.toMatchObject({ message, status: 400 })
     }
+  })
+
+  it('allows a featured all-day Event without a separate end date', async () => {
+    const eventClassification = classification({ behavior: 'event', id: 'events' })
+    const { req } = request({ byID: eventClassification })
+
+    await expect(
+      resolveNewsEventClassification({
+        data: {
+          classification: eventClassification,
+          eventAllDay: true,
+          eventLocation: 'Campus',
+          eventStart: '2026-08-20T00:00:00.000Z',
+          featuredInHighlights: true,
+        },
+        operation: 'create',
+        originalDoc: undefined,
+        req,
+      } as never),
+    ).resolves.toMatchObject({ featuredInHighlights: true })
   })
 
   it('clears Event-only fields for Story behavior and exposes resolved public classification', async () => {
@@ -454,6 +495,7 @@ describe('News & Events editorial model', () => {
       data: {
         classification: storyClassification,
         eventEnd: '2026-08-20T12:00:00.000Z',
+        featuredInHighlights: true,
         eventLocation: 'Campus',
         eventRegistrationAction: [{ label: 'Register' }],
         eventStart: '2026-08-20T09:00:00.000Z',
@@ -466,6 +508,7 @@ describe('News & Events editorial model', () => {
     expect(result).toMatchObject({
       classification: 'notice-id',
       eventEnd: null,
+      featuredInHighlights: false,
       eventLocation: null,
       eventRegistrationAction: [],
       eventStart: null,
