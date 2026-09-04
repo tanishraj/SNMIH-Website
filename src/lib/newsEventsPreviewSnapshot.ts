@@ -30,8 +30,8 @@ export async function loadNewsEventsPreviewSnapshot(
   const nowISO = new Date().toISOString()
   const payload = await getPayload({ config: configPromise })
   const highlightEntries = await Promise.all(
-    getNewsEventsHighlightsPreviewScopes(layout).map(async ({ classificationIDs, key, limit }) => {
-      const items = await getNewsEventsHighlights(classificationIDs, limit, nowISO).catch(() => [])
+    getNewsEventsHighlightsPreviewScopes(layout).map(async ({ classificationIDs, key }) => {
+      const items = await getNewsEventsHighlights(classificationIDs, nowISO).catch(() => [])
 
       return [key, items] as const
     }),

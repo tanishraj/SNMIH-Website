@@ -8,6 +8,8 @@ import {
   type LivePreviewPageBlockRenderArgs,
 } from '@/blocks/renderLivePreviewPageBlocks'
 import { BlockErrorBoundary } from '@/blocks/shared/BlockErrorBoundary'
+import { BlockAnchorWrapper } from '@/blocks/shared/BlockAnchorWrapper'
+import { claimBlockAnchorID } from '@/blocks/shared/blockAnchor'
 import type { EventGalleryAlbum } from '@/lib/eventGalleryShared'
 import type {
   NewsEventDetailTemplateBlock,
@@ -53,6 +55,7 @@ export function renderLivePreviewNewsEventDetailBlocks(
     newsEventsSnapshot: context.newsEventsSnapshot,
     officeLocations: context.officeLocations,
     snapshot: context.reviewSnapshot,
+    usedAnchorIDs: new Set(['main-content']),
   }
 
   return (
@@ -65,10 +68,13 @@ export function renderLivePreviewNewsEventDetailBlocks(
         if (!isDynamicContent(block)) return null
 
         const key = block.id ?? `${block.blockType}-${index}`
+        const anchorID = claimBlockAnchorID(block.anchorId, args.usedAnchorIDs)
         return (
-          <BlockErrorBoundary key={key} blockType={block.blockType}>
-            <NewsEventsContentBlockComponent {...block} entry={context.entry} />
-          </BlockErrorBoundary>
+          <BlockAnchorWrapper anchorID={anchorID} key={key}>
+            <BlockErrorBoundary blockType={block.blockType}>
+              <NewsEventsContentBlockComponent {...block} entry={context.entry} />
+            </BlockErrorBoundary>
+          </BlockAnchorWrapper>
         )
       })}
     </PageBlockStack>

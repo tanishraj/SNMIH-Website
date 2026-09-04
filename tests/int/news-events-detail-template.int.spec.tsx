@@ -166,6 +166,15 @@ describe('News & Events detail template', () => {
     await expect(
       layout.validate?.([content, content], { data: { _status: 'published' } }),
     ).resolves.toBe('Add exactly one News & Events Content block before publishing.')
+    await expect(
+      layout.validate?.(
+        [
+          { ...content, anchorId: 'article-content' },
+          { anchorId: 'article-content', blockType: 'pageHeader' },
+        ],
+        { data: { _status: 'draft' } },
+      ),
+    ).resolves.toContain('used more than once')
   })
 
   it('uses a complete default layout for missing and legacy field-only data', () => {
@@ -232,6 +241,7 @@ describe('News & Events detail template', () => {
           variant: 'minimal',
         },
         {
+          anchorId: 'story-content',
           blockType: 'newsEventsContent',
           authorLabel: 'Management, SNMIH',
         },
@@ -252,6 +262,7 @@ describe('News & Events detail template', () => {
       markup.indexOf('After article'),
     )
     expect(markup.match(/data-news-event-story="true"/g)).toHaveLength(1)
+    expect(markup).toContain('id="story-content"')
   })
 
   it('renders live entry data through the normalized shared detail layout', () => {
@@ -289,7 +300,7 @@ describe('News & Events detail template', () => {
           showCurrentPage: true,
           showHome: true,
         },
-        { blockType: 'newsEventsContent' },
+        { anchorId: 'preview-story-content', blockType: 'newsEventsContent' },
         {
           blockType: 'pageHeader',
           title: 'Preview detail footer',
@@ -328,6 +339,7 @@ describe('News & Events detail template', () => {
       markup.indexOf('Preview detail footer'),
     )
     expect(markup.match(/data-news-event-story="true"/g)).toHaveLength(1)
+    expect(markup).toContain('id="preview-story-content"')
   })
 
   it('passes the current entry trail to automatic breadcrumb blocks', () => {

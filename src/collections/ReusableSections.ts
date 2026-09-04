@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { reusableSectionBuilderBlocks } from '@/blocks/blockCatalog'
+import { validateUniqueBlockAnchorIDs } from '@/blocks/shared/blockAnchor'
 import {
   allowPublishedReadOrFeature,
   deleteFeatureOrAdmin,
@@ -58,6 +59,7 @@ export const ReusableSections: CollectionConfig = {
       type: 'blocks',
       // Reusable Section is intentionally excluded to prevent direct recursive selection.
       blocks: reusableSectionBuilderBlocks,
+      validate: validateUniqueBlockAnchorIDs,
     },
   ],
 }

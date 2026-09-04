@@ -63,6 +63,8 @@ import { TestimonialGridBlockComponent } from './TestimonialGrid/Component'
 import { AwardsListBlockComponent } from './AwardsList/Component'
 import { AboutSectionBlockComponent } from './AboutSection/Component'
 import { AccreditationCardsBlockComponent } from './AccreditationCards/Component'
+import { BlockAnchorWrapper } from './shared/BlockAnchorWrapper'
+import { claimBlockAnchorID } from './shared/blockAnchor'
 
 export type LivePreviewPageBlock = NonNullable<Page['layout']>[number]
 
@@ -78,9 +80,10 @@ export type LivePreviewPageBlockRenderArgs = {
   newsEventsSnapshot: NewsEventsPreviewSnapshot
   officeLocations: SiteOfficeLocation[]
   eventGalleryAlbums: EventGalleryAlbum[]
+  usedAnchorIDs: Set<string>
 }
 
-export function renderLivePreviewPageBlockNode(
+function renderLivePreviewPageBlockContent(
   block: LivePreviewPageBlock,
   index: number,
   args: LivePreviewPageBlockRenderArgs,
@@ -252,6 +255,25 @@ export function renderLivePreviewPageBlockNode(
   }
 }
 
+export function renderLivePreviewPageBlockNode(
+  block: LivePreviewPageBlock,
+  index: number,
+  args: LivePreviewPageBlockRenderArgs,
+  depth = 0,
+): React.ReactNode {
+  if (depth > 10) return null
+
+  const key = block.id ?? `${block.blockType}-${index}`
+  const anchorID = claimBlockAnchorID(block.anchorId, args.usedAnchorIDs)
+  const content = renderLivePreviewPageBlockContent(block, index, args, depth)
+
+  return content ? (
+    <BlockAnchorWrapper anchorID={anchorID} key={key}>
+      {content}
+    </BlockAnchorWrapper>
+  ) : null
+}
+
 export function renderLivePreviewPageBlocks(
   blocks: Page['layout'] | null | undefined,
   snapshot: ReviewPreviewSnapshot,
@@ -272,6 +294,7 @@ export function renderLivePreviewPageBlocks(
     newsEventsSnapshot,
     officeLocations,
     eventGalleryAlbums,
+    usedAnchorIDs: new Set(['main-content']),
   }
 
   return (

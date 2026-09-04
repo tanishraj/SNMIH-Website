@@ -1,10 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import {
+  currentOrUpcomingEventWhere,
   fetchNewsEventGroups,
   fetchNewsEventPage,
   fetchNewsEventPageForScope,
   parseNewsEventsTabsPagination,
+  pastEventWhere,
   resolveActiveNewsEventClassifications,
 } from '@/lib/newsEvents'
 import {
@@ -113,6 +115,41 @@ describe('News & Events public data helpers', () => {
     expect(normalizeHighlightsItemCount(undefined)).toBe(3)
   })
 
+  it('keeps all-day Events eligible through their final site-local calendar day', () => {
+    const nowISO = '2026-08-20T12:00:00.000Z'
+    const todayStartISO = '2026-08-19T18:30:00.000Z'
+
+    expect(currentOrUpcomingEventWhere(nowISO, 'Asia/Kolkata')).toEqual({
+      or: [
+        {
+          and: [
+            { eventAllDay: { equals: true } },
+            {
+              or: [
+                { eventEnd: { greater_than_equal: todayStartISO } },
+                {
+                  and: [
+                    expect.objectContaining({ or: expect.any(Array) }),
+                    { eventStart: { greater_than_equal: todayStartISO } },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          and: [
+            expect.objectContaining({ or: expect.any(Array) }),
+            expect.objectContaining({ or: expect.any(Array) }),
+          ],
+        },
+      ],
+    })
+    expect(JSON.stringify(pastEventWhere(nowISO, 'Asia/Kolkata'))).toContain(
+      `"less_than":"${todayStartISO}"`,
+    )
+  })
+
   it('parses a bounded selected-classification pagination scope', () => {
     expect(
       parseNewsEventsTabsPagination(
@@ -181,6 +218,7 @@ describe('News & Events public data helpers', () => {
         hasNextPage: false,
         page: 1,
       })
+      .mockResolvedValueOnce({ docs: [], hasNextPage: false, page: 1 })
 
     const page = await fetchNewsEventPageForScope({ find } as never, {
       classification: 'all',
@@ -265,6 +303,8 @@ describe('News & Events public data helpers', () => {
       .fn()
       .mockResolvedValueOnce({ docs: [], hasNextPage: false, page: 1 })
       .mockResolvedValueOnce({ docs: [], hasNextPage: false, page: 1 })
+      .mockResolvedValueOnce({ docs: [] })
+      .mockResolvedValueOnce({ docs: [] })
       .mockResolvedValueOnce({ docs: [] })
       .mockResolvedValueOnce({ docs: [] })
 
@@ -373,6 +413,49 @@ describe('News & Events public data helpers', () => {
       hasNextPage: true,
       page: 2,
     })
+  })
+
+  it('shows every published Event with current and upcoming entries before recent past entries', async () => {
+    const current = {
+      ...record('current-event', eventClassification),
+      eventEnd: '2026-08-18T12:00:00.000Z',
+      eventStart: '2026-08-16T09:00:00.000Z',
+    }
+    const upcoming = {
+      ...record('upcoming-event', eventClassification),
+      eventEnd: '2026-08-21T12:00:00.000Z',
+      eventStart: '2026-08-21T09:00:00.000Z',
+    }
+    const recentPast = {
+      ...record('recent-past-event', eventClassification),
+      eventEnd: '2026-08-16T12:00:00.000Z',
+      eventStart: '2026-08-16T09:00:00.000Z',
+    }
+    const olderPast = {
+      ...record('older-past-event', eventClassification),
+      eventEnd: '2026-08-10T12:00:00.000Z',
+      eventStart: '2026-08-10T09:00:00.000Z',
+    }
+    const find = vi.fn(async (query: { sort?: string[] }) => ({
+      docs: query.sort?.[0] === '-eventStart' ? [recentPast, olderPast] : [current, upcoming],
+    }))
+
+    const result = await fetchNewsEventPage({ find } as never, {
+      classification: eventClassification,
+      classifications: [eventClassification],
+      limit: 6,
+      nowISO: '2026-08-17T00:00:00.000Z',
+      page: 1,
+    })
+
+    expect(result.docs.map(({ id }) => id)).toEqual([
+      'current-event',
+      'upcoming-event',
+      'recent-past-event',
+      'older-past-event',
+    ])
+    expect(find).toHaveBeenCalledWith(expect.objectContaining({ sort: ['eventStart', 'id'] }))
+    expect(find).toHaveBeenCalledWith(expect.objectContaining({ sort: ['-eventStart', '-id'] }))
   })
 
   it('keeps legacy-only Story and Event entries visible during local compatibility', async () => {

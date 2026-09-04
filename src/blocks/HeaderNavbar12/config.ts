@@ -63,6 +63,9 @@ const createLinkFields = (): Field[] => [
     type: 'text',
     admin: {
       condition: customUrlCondition,
+      description:
+        'Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.',
+      placeholder: '#admissions or /programmes#mbbs',
     },
   },
   {

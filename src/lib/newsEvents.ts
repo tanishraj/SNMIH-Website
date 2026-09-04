@@ -7,6 +7,10 @@ import { cache } from 'react'
 
 import { CMS_CACHE_TAGS } from '@/hooks/revalidateCmsContent'
 import {
+  NEWS_EVENTS_HIGHLIGHTS_FEATURED_LIMIT,
+  NEWS_EVENTS_HIGHLIGHTS_UPCOMING_LIMIT,
+} from '@/blocks/NewsEventsHighlights/newsEventsHighlightsShared'
+import {
   isNewsEventsTabsItemsPerTab,
   NEWS_EVENTS_TABS_MAX_CLASSIFICATIONS,
   type NewsEventsTabsItemsPerTab,
@@ -31,7 +35,12 @@ import {
 } from '@/lib/newsEventsShared'
 import type { NewsEvent, SeoSetting, User } from '@/payload-types'
 import { getSiteTimeZone } from '@/lib/siteTimeZone.server'
-import { DEFAULT_SITE_TIME_ZONE, type SiteTimeZone } from '@/lib/siteTimeZone'
+import {
+  DEFAULT_SITE_TIME_ZONE,
+  getZonedDayBounds,
+  getZonedToday,
+  type SiteTimeZone,
+} from '@/lib/siteTimeZone'
 
 export type NewsEventsPayload = Pick<Payload, 'find' | 'findGlobal' | 'logger'>
 
@@ -44,6 +53,7 @@ type NewsEventCardRecord = Pick<
   | 'eventEnd'
   | 'eventStart'
   | 'excerpt'
+  | 'featuredInHighlights'
   | 'featuredImage'
   | 'featuredImagePosition'
   | 'id'
@@ -62,6 +72,7 @@ const cardSelect = {
   eventEnd: true,
   eventStart: true,
   excerpt: true,
+  featuredInHighlights: true,
   featuredImage: true,
   featuredImagePosition: true,
   primaryCategory: true,
@@ -232,14 +243,60 @@ const missingEventEndWhere: Where = {
   or: [{ eventEnd: { exists: false } }, { eventEnd: { equals: null } }],
 }
 
-export const currentOrUpcomingEventWhere = (nowISO: string): Where => ({
+const allDayEventWhere: Where = { eventAllDay: { equals: true } }
+const timedEventWhere: Where = {
   or: [
-    { eventEnd: { greater_than_equal: nowISO } },
+    { eventAllDay: { equals: false } },
+    { eventAllDay: { exists: false } },
+    { eventAllDay: { equals: null } },
+  ],
+}
+
+const eventEndingOnOrAfter = (thresholdISO: string): Where => ({
+  or: [
+    { eventEnd: { greater_than_equal: thresholdISO } },
     {
-      and: [missingEventEndWhere, { eventStart: { greater_than_equal: nowISO } }],
+      and: [missingEventEndWhere, { eventStart: { greater_than_equal: thresholdISO } }],
     },
   ],
 })
+
+const eventEndingBefore = (thresholdISO: string): Where => ({
+  or: [
+    { eventEnd: { less_than: thresholdISO } },
+    {
+      and: [missingEventEndWhere, { eventStart: { less_than: thresholdISO } }],
+    },
+  ],
+})
+
+export const currentOrUpcomingEventWhere = (
+  nowISO: string,
+  timeZone: SiteTimeZone = DEFAULT_SITE_TIME_ZONE,
+): Where => {
+  const todayStartISO = getZonedDayBounds(getZonedToday(nowISO, timeZone), timeZone).startISO
+
+  return {
+    or: [
+      { and: [allDayEventWhere, eventEndingOnOrAfter(todayStartISO)] },
+      { and: [timedEventWhere, eventEndingOnOrAfter(nowISO)] },
+    ],
+  }
+}
+
+export const pastEventWhere = (
+  nowISO: string,
+  timeZone: SiteTimeZone = DEFAULT_SITE_TIME_ZONE,
+): Where => {
+  const todayStartISO = getZonedDayBounds(getZonedToday(nowISO, timeZone), timeZone).startISO
+
+  return {
+    or: [
+      { and: [allDayEventWhere, eventEndingBefore(todayStartISO)] },
+      { and: [timedEventWhere, eventEndingBefore(nowISO)] },
+    ],
+  }
+}
 
 const missingClassificationWhere: Where = {
   or: [{ classification: { exists: false } }, { classification: { equals: null } }],
@@ -276,7 +333,69 @@ const classificationScopeWhere = (
   }
 }
 
-async function fetchMixedNewsEventSources(
+const uniqueNewsEventRecords = (...groups: NewsEventCardRecord[][]): NewsEventCardRecord[] => {
+  const seen = new Set<string>()
+
+  return groups.flat().filter((record) => {
+    const id = String(record.id)
+    if (seen.has(id)) return false
+    seen.add(id)
+    return true
+  })
+}
+
+const toPublicNewsEventCards = (
+  records: NewsEventCardRecord[],
+  nowISO: string,
+  timeZone: SiteTimeZone,
+): PublicNewsEventCard[] => records.map((entry) => toPublicNewsEventCard(entry, nowISO, timeZone))
+
+async function fetchEventDirectoryPrefix(
+  payload: Pick<NewsEventsPayload, 'find'>,
+  {
+    limit,
+    nowISO,
+    scopeWhere,
+    timeZone,
+  }: {
+    limit: number
+    nowISO: string
+    scopeWhere: Where
+    timeZone: SiteTimeZone
+  },
+): Promise<NewsEventCardRecord[]> {
+  const [currentResult, pastResult] = await Promise.all([
+    payload.find({
+      collection: 'news-events',
+      depth: 1,
+      limit,
+      overrideAccess: true,
+      select: cardSelect,
+      sort: ['eventStart', 'id'],
+      where: {
+        and: [...publishedWhere, scopeWhere, currentOrUpcomingEventWhere(nowISO, timeZone)],
+      },
+    }),
+    payload.find({
+      collection: 'news-events',
+      depth: 1,
+      limit,
+      overrideAccess: true,
+      select: cardSelect,
+      sort: ['-eventStart', '-id'],
+      where: {
+        and: [...publishedWhere, scopeWhere, pastEventWhere(nowISO, timeZone)],
+      },
+    }),
+  ])
+
+  return uniqueNewsEventRecords(
+    currentResult.docs as NewsEventCardRecord[],
+    pastResult.docs as NewsEventCardRecord[],
+  ).slice(0, limit)
+}
+
+async function fetchMixedNewsEventDirectorySources(
   payload: Pick<NewsEventsPayload, 'find'>,
   {
     classifications,
@@ -296,7 +415,7 @@ async function fetchMixedNewsEventSources(
   const eventWhere = classificationScopeWhere(
     classifications.filter(({ behavior }) => behavior === 'event'),
   )
-  const [newsResult, eventsResult] = await Promise.all([
+  const [newsResult, eventRecords] = await Promise.all([
     storyWhere
       ? payload.find({
           collection: 'news-events',
@@ -311,26 +430,17 @@ async function fetchMixedNewsEventSources(
         })
       : Promise.resolve({ docs: [] }),
     eventWhere
-      ? payload.find({
-          collection: 'news-events',
-          depth: 1,
+      ? fetchEventDirectoryPrefix(payload, {
           limit,
-          overrideAccess: true,
-          select: cardSelect,
-          sort: ['eventStart', 'id'],
-          where: {
-            and: [...publishedWhere, eventWhere, currentOrUpcomingEventWhere(nowISO)],
-          },
+          nowISO,
+          scopeWhere: eventWhere,
+          timeZone,
         })
-      : Promise.resolve({ docs: [] }),
+      : Promise.resolve([]),
   ])
 
-  const news = (newsResult.docs as NewsEventCardRecord[]).map((entry) =>
-    toPublicNewsEventCard(entry, nowISO, timeZone),
-  )
-  const events = (eventsResult.docs as NewsEventCardRecord[]).map((entry) =>
-    toPublicNewsEventCard(entry, nowISO, timeZone),
-  )
+  const news = toPublicNewsEventCards(newsResult.docs as NewsEventCardRecord[], nowISO, timeZone)
+  const events = toPublicNewsEventCards(eventRecords, nowISO, timeZone)
 
   return { events, news }
 }
@@ -354,7 +464,7 @@ async function fetchMixedNewsEventsPage(
   const offset = (page - 1) * limit
   const end = page * limit
   const prefixLimit = end + 1
-  const { events, news } = await fetchMixedNewsEventSources(payload, {
+  const { events, news } = await fetchMixedNewsEventDirectorySources(payload, {
     classifications,
     limit: prefixLimit,
     nowISO,
@@ -373,17 +483,14 @@ export async function fetchNewsEventsHighlights(
   payload: Pick<NewsEventsPayload, 'find'>,
   {
     classificationIDs = [],
-    limit,
     nowISO,
     timeZone = DEFAULT_SITE_TIME_ZONE,
   }: {
     classificationIDs?: readonly string[]
-    limit: number
     nowISO: string
     timeZone?: SiteTimeZone
   },
 ): Promise<PublicNewsEventCard[]> {
-  const resolvedLimit = normalizeHighlightsItemCount(limit)
   const requestedIDs = [...new Set(classificationIDs.map((id) => id.trim()).filter(Boolean))]
   const classifications =
     requestedIDs.length > 0
@@ -393,14 +500,53 @@ export async function fetchNewsEventsHighlights(
   if (requestedIDs.length > 0 && classifications.length !== requestedIDs.length) return []
   if (classifications.length === 0) return []
 
-  const { events, news } = await fetchMixedNewsEventSources(payload, {
-    classifications,
-    limit: resolvedLimit,
-    nowISO,
-    timeZone,
-  })
+  const eventWhere = classificationScopeWhere(
+    classifications.filter(({ behavior }) => behavior === 'event'),
+  )
+  if (!eventWhere) return []
 
-  return interleaveNewsEvents(news, events, resolvedLimit)
+  const eligibilityWhere = currentOrUpcomingEventWhere(nowISO, timeZone)
+  const [featuredResult, upcomingResult] = await Promise.all([
+    payload.find({
+      collection: 'news-events',
+      depth: 1,
+      limit: NEWS_EVENTS_HIGHLIGHTS_FEATURED_LIMIT,
+      overrideAccess: true,
+      select: cardSelect,
+      sort: ['eventStart', 'id'],
+      where: {
+        and: [
+          ...publishedWhere,
+          eventWhere,
+          eligibilityWhere,
+          { featuredInHighlights: { equals: true } },
+        ],
+      },
+    }),
+    payload.find({
+      collection: 'news-events',
+      depth: 1,
+      limit: NEWS_EVENTS_HIGHLIGHTS_UPCOMING_LIMIT,
+      overrideAccess: true,
+      select: cardSelect,
+      sort: ['eventStart', 'id'],
+      where: {
+        and: [
+          ...publishedWhere,
+          eventWhere,
+          eligibilityWhere,
+          { featuredInHighlights: { not_equals: true } },
+        ],
+      },
+    }),
+  ])
+
+  const records = uniqueNewsEventRecords(
+    featuredResult.docs as NewsEventCardRecord[],
+    upcomingResult.docs as NewsEventCardRecord[],
+  )
+
+  return toPublicNewsEventCards(records, nowISO, timeZone)
 }
 
 export async function fetchNewsEventGroups(
@@ -487,6 +633,23 @@ export async function fetchNewsEventPage(
   const scopeWhere = classificationScopeWhere([classification], true)
   if (!scopeWhere) return createEmptyNewsEventPage(resolvedPage)
 
+  if (isEvent) {
+    const offset = (resolvedPage - 1) * resolvedLimit
+    const end = resolvedPage * resolvedLimit
+    const records = await fetchEventDirectoryPrefix(payload, {
+      limit: end + 1,
+      nowISO,
+      scopeWhere,
+      timeZone,
+    })
+
+    return {
+      docs: toPublicNewsEventCards(records.slice(offset, end), nowISO, timeZone),
+      hasNextPage: records.length > end,
+      page: resolvedPage,
+    }
+  }
+
   const result = await payload.find({
     collection: 'news-events',
     depth: 1,
@@ -494,13 +657,9 @@ export async function fetchNewsEventPage(
     overrideAccess: true,
     page: resolvedPage,
     select: cardSelect,
-    sort: isEvent ? ['eventStart', 'id'] : ['-publishedAt', '-id'],
+    sort: ['-publishedAt', '-id'],
     where: {
-      and: [
-        ...publishedWhere,
-        scopeWhere,
-        ...(isEvent ? [currentOrUpcomingEventWhere(nowISO)] : []),
-      ],
+      and: [...publishedWhere, scopeWhere],
     },
   })
 
@@ -585,7 +744,7 @@ export async function fetchNewsGridItems(
   if (storyWhere) classificationWhere.push(storyWhere)
   if (eventWhere) {
     classificationWhere.push({
-      and: [eventWhere, currentOrUpcomingEventWhere(nowISO)],
+      and: [eventWhere, currentOrUpcomingEventWhere(nowISO, timeZone)],
     })
   }
 
@@ -632,14 +791,13 @@ export async function fetchNewsEventBySlug(
 const loadPayload = cache(async () => getPayload({ config: configPromise }))
 
 export const getNewsEventsHighlights = cache(
-  async (classificationIDs: readonly string[], limit: number, nowISO: string) => {
+  async (classificationIDs: readonly string[], nowISO: string) => {
     const payload = await loadPayload()
     const timeZone = await getSiteTimeZone()
 
     try {
       return await fetchNewsEventsHighlights(payload, {
         classificationIDs,
-        limit,
         nowISO,
         timeZone,
       })

@@ -63,11 +63,11 @@ The primary topic is automatically included in additional topics. Tags are optio
   `News & Events Content`. Event structured data is included when applicable. Non-event entries
   expose the configured shared author as an Organization in NewsArticle structured data.
 - `/news-events/feed.xml` publishes the feed.
-- `News & Events Highlights` is an automatic Featured Carousel. It interleaves recent published
-  non-event entries with current or upcoming Events up to the configured one-to-six item limit.
-  Editors can limit it to selected active classifications under Content; leaving the selection empty
-  includes all active classifications. Selected scopes are strict, and slide order remains
-  chronological rather than following relationship order. Number of Items, Autoplay, and Empty State
+- `News & Events Highlights` is an Event-only Featured Carousel. It shows up to three published,
+  non-expired Events checked **Featured in Highlights**, followed by the next three published,
+  non-featured current or upcoming Events. Events are de-duplicated and ordered by their start date
+  within each group. Editors can limit it to selected active Event classifications under Content;
+  leaving the selection empty includes all active Event classifications. Autoplay and Empty State
   Message live under Theme Settings. Entries without a usable featured image display the bundled
   SNMIH default image.
 - `News Grid` retains its established mixed grid. Editors choose a total of 1–6 cards and 2, 3, or 4
@@ -77,8 +77,11 @@ The primary topic is automatically included in additional topics. Tags are optio
 - `News & Events Tabs` is the separate text-only directory block. `All` is always first; editors
   can add, remove, rename, and reorder the News, Events, Notice, Holiday, Achievements,
   Announcement, and Others tabs, with each classification used at most once. The block loads 3, 6,
-  9, or 12 entries per tab, supports 2–4 desktop columns, and retains the shared section appearance,
-  optional header, header actions, footer actions, spacing, action labels, and empty-state controls.
+  9, or 12 entries per tab and Load More makes every published entry available. Story-based tabs use
+  newest-published order. Event-based tabs show current and upcoming Events earliest-first, followed
+  by past Events most-recent-first. The block supports 2–4 desktop columns and retains the shared
+  section appearance, optional header, header actions, footer actions, spacing, action labels, and
+  empty-state controls.
 - `Calendar` reads one to five selected active classifications whose behavior is Event. Desktop
   visitors start with a Sunday-first six-week month grid and can switch to Timeline; phones receive
   the Timeline-first presentation without a view toggle. A day shows at most two event tiles before
@@ -102,7 +105,8 @@ The primary topic is automatically included in additional topics. Tags are optio
 - The root Page owns index copy, layout, appearance, actions, and SEO through the standard Page fields and selected blocks.
 - Live preview is available at desktop, tablet, and mobile breakpoints.
 
-Past events remain available at their detail URL and in RSS history, while Highlights, Tabs, and News Grid select current or upcoming events.
+Past events remain available at their detail URL, in RSS history, and through News & Events Tabs.
+Highlights and News Grid select only current or upcoming Events.
 
 The sitemap includes the published `/news-events` Page through the normal Page rules and includes eligible News & Events detail URLs. It does not generate News & Events taxonomy, filter, or pagination URLs.
 
@@ -111,7 +115,10 @@ The sitemap includes the published `/news-events` Page through the normal Page r
 1. Open `News & Events` in the `News & Events` Admin group.
 2. Create `White Coat Ceremony 2026` and set `Entry Classification` to `Events`.
 3. In `Content`, write the card excerpt, choose the featured image and image position, add optional Topics & Tags, and complete the body.
-4. In `Event Details`, set the start, optional inclusive end, all-day state, venue, and registration action.
+4. In `Event Details`, set the start, optional inclusive end, all-day state, venue, and registration
+   action. Check **Featured in Highlights** to place an eligible Event in the manual featured group.
+   A timed featured Event requires an end; an all-day Event remains eligible through its inclusive
+   final local calendar day, using the site timezone.
 5. Complete the SEO fields and use live preview at all three breakpoints.
 6. Resolve any blocking `Action Queue` item, then publish the entry.
 7. Verify the detail page, feed, and the Highlights or Tabs block that should feature it on the manually composed Page.

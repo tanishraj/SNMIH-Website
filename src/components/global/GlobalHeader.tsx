@@ -9,6 +9,14 @@ type GlobalHeaderProps = {
   stickyTopOffset?: string
 }
 
+export const isGlobalHeaderSticky = (header?: Pick<Header, 'layout'> | null): boolean => {
+  const firstBlock = header?.layout?.[0]
+
+  return Boolean(
+    firstBlock && (firstBlock.blockType !== 'headerNavbar12' || firstBlock.sticky !== false),
+  )
+}
+
 export function GlobalHeader({
   header,
   siteLogo,
@@ -19,8 +27,7 @@ export function GlobalHeader({
     return null
   }
 
-  const firstBlock = header.layout[0]
-  const isSticky = firstBlock.blockType !== 'headerNavbar12' || firstBlock.sticky !== false
+  const isSticky = isGlobalHeaderSticky(header)
 
   return (
     <div

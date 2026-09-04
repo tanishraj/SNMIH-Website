@@ -260,6 +260,17 @@ export const NewsEvents: CollectionConfig = {
               },
             },
             {
+              name: 'featuredInHighlights',
+              label: 'Featured in Highlights',
+              type: 'checkbox',
+              defaultValue: false,
+              index: true,
+              admin: {
+                description:
+                  'Places this published, non-expired Event before the three automatic upcoming Events. At most three featured Events are shown.',
+              },
+            },
+            {
               name: 'eventLocation',
               type: 'text',
               admin: {

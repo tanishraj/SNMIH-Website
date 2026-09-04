@@ -138,17 +138,29 @@ the current hidden `customAction` is appended to available automatic actions; ot
 manual `actions` replace the automatic fallback; otherwise the hidden automatic fallback renders.
 Historical visual-action settings remain ignored without a migration.
 
-News & Events Highlights retains the `newsEventsHighlights` block slug and automatically interleaves
-recent published non-event entries with current or upcoming Events. It keeps the shared presentation
-model, overlay controls, image-position precedence, bundled missing-image fallback, and synchronized
-carousel. Its optional active-classification relationship strictly scopes results; an empty selection
-continues to include all active classifications. Editors can place the status and previous/next
-controls above or below the carousel; Bottom remains the default and legacy fallback.
+Every Page-compatible block receives one optional `anchorId` field from the central block catalog.
+The schema accepts lowercase URL-safe IDs, reserves the site-owned `main-content` target, and rejects
+direct duplicates within Pages, Reusable Sections, and the News & Events Detail Template. Production
+and live-preview renderers wrap configured blocks with the same fragment target, including the
+dynamic News & Events Content block. A shared document-order claim prevents nested or repeated
+Reusable Sections from emitting duplicate DOM IDs. Root fragment navigation uses smooth scrolling
+with sticky-shell clearance and an immediate reduced-motion fallback. Existing content needs no
+migration.
+
+News & Events Highlights retains the `newsEventsHighlights` block slug and renders an Event-only
+priority stream: up to three manually featured published, non-expired Events followed by three
+non-featured current or upcoming Events. It keeps the shared presentation model, overlay controls,
+image-position precedence, bundled missing-image fallback, and synchronized carousel. Its optional
+active Event-classification relationship strictly scopes results; an empty selection includes all
+active Event classifications. Editors can place the status and previous/next controls above or below
+the carousel; Bottom remains the default and legacy fallback.
 News Grid retains its legacy mixed grid and optional editor-authored feature card. The separate News
 & Events Tabs block provides Card Grid and Editorial List presentations under an editor-configurable
 subset of News/Events/Notice/Holiday/Achievements/Announcement/Others classifications, with All fixed
 first and 3, 6, 9, or 12 server-loaded entries per tab. Both presentations share the same automatic
-collection data and incremental Load More state. Card Grid retains its configurable 2–4 desktop
+collection data and incremental Load More state, which can reach the complete published directory.
+Event tabs show current/upcoming Events earliest-first before past Events most-recent-first. Card Grid
+retains its configurable 2–4 desktop
 columns. Editorial List renders a full-row detail link with date, a badge-above-title group, excerpt,
 and the shared animated arrow. The title and excerpt use equal-width tracks, the arrow receives a
 wider trailing track, and one equal horizontal gutter separates the desktop columns. The date and
