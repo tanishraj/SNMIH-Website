@@ -50,7 +50,9 @@ React Server Components load public CMS data. Focused client components own inte
   published albums; authenticated routes load selected draft albums on the server and pass the same
   serializable snapshot to client-safe preview adapters. Gallery clients never query Payload.
 - Form submission, review-feed, News & Events Tabs pagination, Calendar month loading, redirects, and media reconciliation
-  have focused route handlers.
+  have focused route handlers. The public redirect map is served from `/api/public-redirects`,
+  leaving `/api/redirects` exclusively owned by Payload's collection REST API so Admin create,
+  update, and delete requests reach Payload.
 - Full-page Page creation uses a guided Admin setup with code-owned Blank and Landing recipes. The
   authenticated `POST /api/pages/create-from-recipe` collection endpoint accepts only a Page title
   and approved recipe ID, creates through Payload with `draft: true` and access enforcement, and

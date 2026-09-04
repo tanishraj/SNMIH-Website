@@ -19,6 +19,11 @@ Do not use it to build navigation. That belongs in `Navigation Links`, `Headers`
 
 Redirects affect real frontend routing. When a visitor opens a matching path, the public website sends them to the configured destination before the normal page lookup completes.
 
+When an editor changes the slug of an already-published Page, the website automatically creates a
+permanent redirect from the former public path to that Page. The slug change and redirect are saved
+together; after publishing, test both the new Page URL and the old URL. Manually create a Redirect
+only when the destination is not produced by a Page slug change.
+
 Redirects are runtime — publishing a redirect takes effect within approximately 60 seconds without a rebuild or server restart. There is no need to deploy the website again after adding or changing a redirect.
 
 This section has site-wide impact because a bad redirect can send all users of one path to the wrong place, create loops, or hide the intended page. Redirects depend on stable destination pages, careful slug changes, and coordination with `Pages` and `Navigation Links`.
@@ -46,7 +51,7 @@ Expected website result:
 
 - use `301` for real replacements and `302` only for temporary situations
 - enter paths only, not full URLs, unless the destination is intentionally external
-- review page slug changes and decide whether a redirect is needed immediately
+- test the old and new URLs after publishing a Page slug change; the old path should redirect automatically
 - keep redirect paths simple and consistent with the public URL structure
 - test the old path in the browser after publishing
 

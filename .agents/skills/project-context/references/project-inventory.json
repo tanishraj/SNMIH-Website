@@ -2163,7 +2163,7 @@
       "src/app/api/frontend-session/route.ts",
       "src/app/api/news-events-tabs/route.ts",
       "src/app/api/operations/media/reconcile-storage/route.ts",
-      "src/app/api/redirects/route.ts",
+      "src/app/api/public-redirects/route.ts",
       "src/app/api/review-feed/route.ts",
       "src/app/api/search/route.ts",
       "src/app/robots.ts",
@@ -2862,7 +2862,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "fa8897b4db050f6fb082c3ab24b5a76ea601146070182b0d1f33b618fc3822e3"
+    "sha256": "2205a831c5dc4f1eca8edda924a6fb7f60cfa5f4311fb97bcc34696ddaab008b"
   },
   "surfaces": {
     "access": [
@@ -2999,7 +2999,7 @@
       "src/app/api/frontend-session/route.ts",
       "src/app/api/news-events-tabs/route.ts",
       "src/app/api/operations/media/reconcile-storage/route.ts",
-      "src/app/api/redirects/route.ts",
+      "src/app/api/public-redirects/route.ts",
       "src/app/api/review-feed/route.ts",
       "src/app/api/search/route.ts",
       "src/app/robots.ts",

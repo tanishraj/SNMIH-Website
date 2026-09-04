@@ -144,6 +144,39 @@ describe('redirect cleanup', () => {
     )
   })
 
+  it('preserves MongoDB string IDs when a published page slug changes', async () => {
+    const { req, spies } = createPayloadRequestMock()
+    const pageID = '6a851324d90681b916813985'
+
+    await createRedirectsForChangedPagePath({
+      doc: {
+        _status: 'published',
+        id: pageID,
+        parent: null,
+        slug: 'academic-departments',
+      } as never,
+      operation: 'update',
+      previousDoc: {
+        _status: 'published',
+        id: pageID,
+        parent: null,
+        slug: 'departments',
+      } as never,
+      req: req as never,
+    } as unknown as Parameters<typeof createRedirectsForChangedPagePath>[0])
+
+    expect(spies.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        collection: 'redirects',
+        data: expect.objectContaining({
+          destinationType: 'page',
+          fromPath: '/departments',
+          page: pageID,
+        }),
+      }),
+    )
+  })
+
   it('deletes a stale conflicting redirect when a page reclaims a path and does not create a reverse redirect', async () => {
     const conflictingRedirect: RedirectDoc = {
       destinationType: 'custom',
