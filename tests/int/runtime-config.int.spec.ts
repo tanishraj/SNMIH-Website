@@ -12,7 +12,8 @@ describe('runtime config', () => {
   it('reads the mongodb database url for local runtime', () => {
     process.env = {
       ...ORIGINAL_ENV,
-      MONGODB_URI: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
+      DATABASE_NAME: 'payload-cms-starter-kit',
+      MONGODB_URI: 'mongodb://127.0.0.1:27017',
       PAYLOAD_SECRET: 'test-secret',
       EMAIL_PROVIDER: 'none',
       MEDIA_PROVIDER: 'localDisk',
@@ -22,7 +23,8 @@ describe('runtime config', () => {
     const config = getRuntimeConfig(process.env)
 
     expect(config.database).toEqual({
-      url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
+      name: 'payload-cms-starter-kit',
+      url: 'mongodb://127.0.0.1:27017',
     })
     expect(config.deployment).toEqual({
       isProduction: false,
@@ -37,7 +39,8 @@ describe('runtime config', () => {
   it('accepts mongodb srv urls for hosted deployments', () => {
     process.env = {
       ...ORIGINAL_ENV,
-      MONGODB_URI: 'mongodb+srv://starter:secret@cluster.example.com/payload',
+      DATABASE_NAME: 'prod',
+      MONGODB_URI: 'mongodb+srv://starter:secret@cluster.example.com',
       NODE_ENV: 'production',
       PAYLOAD_SECRET: '4f3a8db96b7240b4a6fbd84585f9bb21',
       VERCEL: '1',
@@ -46,12 +49,42 @@ describe('runtime config', () => {
     const config = getRuntimeConfig(process.env)
 
     expect(config.database).toEqual({
-      url: 'mongodb+srv://starter:secret@cluster.example.com/payload',
+      name: 'prod',
+      url: 'mongodb+srv://starter:secret@cluster.example.com',
     })
     expect(config.deployment).toEqual({
       isProduction: true,
       isVercel: true,
     })
+  })
+
+  it('keeps URI database selection when DATABASE_NAME is omitted', () => {
+    const config = getRuntimeConfig({
+      ...ORIGINAL_ENV,
+      DATABASE_NAME: '',
+      MONGODB_URI: 'mongodb://127.0.0.1:27017/legacy-database',
+      PAYLOAD_SECRET: 'test-secret',
+    })
+
+    expect(config.database).toEqual({
+      name: null,
+      url: 'mongodb://127.0.0.1:27017/legacy-database',
+    })
+  })
+
+  it('rejects unsafe MongoDB database names', () => {
+    const baseEnv = {
+      ...ORIGINAL_ENV,
+      MONGODB_URI: 'mongodb://127.0.0.1:27017',
+      PAYLOAD_SECRET: 'test-secret',
+    }
+
+    expect(() => getRuntimeConfig({ ...baseEnv, DATABASE_NAME: 'invalid/name' })).toThrow(
+      'Invalid DATABASE_NAME. Use at most 63 letters, numbers, hyphens, or underscores.',
+    )
+    expect(() => getRuntimeConfig({ ...baseEnv, DATABASE_NAME: 'admin' })).toThrow(
+      'Invalid DATABASE_NAME. Do not use the admin, config, or local system database.',
+    )
   })
 
   it('reads s3-compatible media configuration for hosted uploads', () => {

@@ -31,7 +31,10 @@ pnpm exec playwright install chromium
 
 ## Database Export
 
-`pnpm export:db` loads `.env`, requires `MONGODB_URI`, and invokes the external `mongodump` executable. It writes a gzip archive named `backups/payload-db-<timestamp>.archive`.
+`pnpm export:db` loads `.env`, requires `MONGODB_URI`, and invokes the external `mongodump`
+executable. When `DATABASE_NAME` is set, the export passes it explicitly to `mongodump` so the
+archive matches the database selected by the application. It writes a gzip archive named
+`backups/payload-db-<timestamp>.archive`.
 
 ```bash
 pnpm export:db

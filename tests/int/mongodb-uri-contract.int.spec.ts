@@ -20,11 +20,12 @@ const projectArchitecture = readFileSync(
 )
 
 describe('MongoDB environment contract', () => {
-  it('uses MONGODB_URI throughout every active contract surface', () => {
+  it('uses MONGODB_URI and DATABASE_NAME throughout every active contract surface', () => {
     for (const filePath of activeContractPaths) {
       const source = readFileSync(filePath, 'utf8')
 
       expect(source, filePath).toContain('MONGODB_URI')
+      expect(source, filePath).toContain('DATABASE_NAME')
       expect(source, filePath).not.toContain('DATABASE_URL')
     }
   })
@@ -32,9 +33,15 @@ describe('MongoDB environment contract', () => {
   it('documents the local MongoDB URI in the environment example', () => {
     const envExample = readFileSync('.env.example', 'utf8')
 
-    expect(envExample).toContain(
-      'MONGODB_URI=mongodb://127.0.0.1:27017/payload-cms-starter-kit',
-    )
+    expect(envExample).toContain('MONGODB_URI=mongodb://127.0.0.1:27017')
+    expect(envExample).toContain('DATABASE_NAME=payload-cms-starter-kit')
+  })
+
+  it('passes the selected database name to database exports', () => {
+    const exportScript = readFileSync('scripts/export-db.mjs', 'utf8')
+
+    expect(exportScript).toContain("process.env.DATABASE_NAME?.trim()")
+    expect(exportScript).toContain("args.push('--db', databaseName)")
   })
 
   it('pins local MongoDB to the Atlas-compatible runtime and volume', () => {

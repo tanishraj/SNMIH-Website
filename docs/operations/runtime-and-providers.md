@@ -15,6 +15,7 @@ The application validates this contract while loading `src/payload.config.ts` an
 | Variable                   | Required           | Purpose                                                                                     |
 | -------------------------- | ------------------ | ------------------------------------------------------------------------------------------- |
 | `MONGODB_URI`              | yes                | MongoDB connection string                                                                   |
+| `DATABASE_NAME`            | recommended        | Target MongoDB database; overrides a database name embedded in `MONGODB_URI`                 |
 | `PAYLOAD_SECRET`           | yes                | Unique authentication/encryption secret; production requires 32+ non-placeholder characters |
 | `NEXT_PUBLIC_SERVER_URL`   | production/preview | Absolute site URL used by metadata and live-preview links                                   |
 | `EMAIL_PROVIDER`           | no                 | `none` by default, or `resend`                                                              |
@@ -37,9 +38,21 @@ The application validates this contract while loading `src/payload.config.ts` an
 
 Boolean variables accept `true/false`, `1/0`, `yes/no`, or `on/off` case-insensitively.
 
+`DATABASE_NAME` accepts up to 63 letters, numbers, hyphens, or underscores. Do not use MongoDB's
+`admin`, `config`, or `local` system databases. When the variable is omitted, MongoDB continues to
+use the database embedded in `MONGODB_URI`, preserving existing deployments. MongoDB creates the
+selected database on the first successful write; the configured database user must have permission
+to create or write to it.
+
+SNMIH hosted environments use `DATABASE_NAME=stage` for staging and `DATABASE_NAME=prod` for
+production. Both deployments may use the same Atlas cluster URI; the database name keeps their
+content isolated.
+
 ## Local Development
 
-Use `MEDIA_PROVIDER=localDisk` and either `docker compose up -d mongo` or another reachable MongoDB. Do not leave the placeholder S3 credentials active in a copied `.env`.
+Use `MEDIA_PROVIDER=localDisk`, `DATABASE_NAME=payload-cms-starter-kit`, and either
+`docker compose up -d mongo` or another reachable MongoDB. Do not leave the placeholder S3
+credentials active in a copied `.env`.
 
 ## Production Docker Image
 
