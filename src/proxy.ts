@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import type { RedirectEntry, RedirectsResponse } from './app/api/redirects/route'
+import type { RedirectEntry, RedirectsResponse } from './app/api/public-redirects/route'
 
 // In-process cache: keyed by base URL so a multi-origin deployment is safe.
 const cacheByOrigin = new Map<string, { map: Map<string, RedirectEntry>; at: number }>()
@@ -12,12 +12,12 @@ async function loadRedirects(baseUrl: string): Promise<Map<string, RedirectEntry
   if (cached && now - cached.at < TTL_MS) return cached.map
 
   try {
-    const res = await fetch(`${baseUrl}/api/redirects`, {
+    const res = await fetch(`${baseUrl}/api/public-redirects`, {
       // Bypass Next.js fetch cache so the proxy always sees fresh data
       // (the API route itself is cached with unstable_cache + tag revalidation).
       cache: 'no-store',
     })
-    if (!res.ok) throw new Error(`/api/redirects returned ${res.status}`)
+    if (!res.ok) throw new Error(`/api/public-redirects returned ${res.status}`)
     const data = (await res.json()) as RedirectsResponse
     const map = new Map<string, RedirectEntry>(data.redirects.map((r) => [r.from, r]))
     cacheByOrigin.set(baseUrl, { map, at: now })
@@ -51,7 +51,7 @@ export const config = {
     /*
      * Run on all paths except:
      *   - /_next/* (Next.js internals)
-     *   - /api/*  (API routes including /api/redirects itself)
+     *   - /api/*  (Payload and public API routes)
      *   - /admin/* (Payload admin panel)
      *   - Common static asset paths
      */
