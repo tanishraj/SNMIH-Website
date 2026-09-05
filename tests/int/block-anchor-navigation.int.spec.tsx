@@ -136,7 +136,7 @@ describe('Page block anchor navigation', () => {
     expect(html).toContain('data-block-anchor="true"')
   })
 
-  it('uses smooth root scrolling with sticky-chrome offset and reduced-motion fallback', () => {
+  it('keeps anchor scrolling smooth without animating full route transitions', () => {
     const globalStyles = readFileSync('src/styles/globals.css', 'utf8')
     const frontendLayout = readFileSync('src/app/(frontend)/layout.tsx', 'utf8')
 
@@ -147,5 +147,6 @@ describe('Page block anchor navigation', () => {
     )
     expect(frontendLayout).toContain("'--block-anchor-offset': blockAnchorOffset")
     expect(frontendLayout).toContain('isGlobalHeaderSticky(activeHeader)')
+    expect(frontendLayout).toContain('data-scroll-behavior="smooth"')
   })
 })
