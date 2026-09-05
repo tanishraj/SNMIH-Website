@@ -18,7 +18,7 @@ The repo fails fast if you try to boot a Vercel production profile with the defa
 ## Getting Started
 
 1. Copy `.env.example` to `.env`.
-2. Start MongoDB locally with `docker compose up -d mongo`, or point `MONGODB_URI` at an existing MongoDB instance.
+2. Start MongoDB locally with `docker compose up -d mongo`, or point `MONGODB_URI` at an existing MongoDB instance and set `DATABASE_NAME` to the database this site should use.
 3. Set `PAYLOAD_SECRET`.
 4. Run `pnpm install`.
 5. Run `pnpm dev`.
@@ -34,12 +34,12 @@ Production containers require a durable external MongoDB database and `MEDIA_PRO
 
 **Content and structure**
 
-- hierarchical pages with live preview, native drafts and publishing guardrails, and managed homepage selection
+- hierarchical pages with live preview, native drafts and publishing guardrails, managed homepage selection, and automatic old-path preservation when a published slug or parent changes
 - reusable section templates — shared block groups that sync across all pages that reference them
 - navigation links, headers, footers, and CMS-managed system pages (404, maintenance, coming soon)
 - articles with lexical rich text, taxonomies (categories + tags), SEO fields, and live preview
 - moderated reviews promoted from form submissions into public editorial content
-- news and events with type-specific layouts, gallery albums, and live preview
+- classification-backed news and events with live preview, manually prioritized eligible Events in Highlights, complete News & Events Tabs directories, and gallery albums
 - 57 selectable Page blocks covering editorial, events, Calendar and Annual Calendar, media, forms, reviews, galleries, offices, and reusable sections
 - production Page block error boundaries that prevent one broken layout block from crashing the remaining Page
 
@@ -67,8 +67,10 @@ Production containers require a durable external MongoDB database and `MEDIA_PRO
 **Redirects**
 
 - CMS-managed redirect collection with page relationship or custom URL destinations
-- edge middleware — redirects go live within 60 seconds of publishing, no rebuild needed
-- in-process TTL cache on middleware; `unstable_cache` + tag invalidation on the API side
+- published Page slug and parent-path changes automatically create permanent redirects for the former path, including affected descendants
+- Payload Admin and REST retain `/api/redirects`; the public request proxy reads its published redirect map from the separate `/api/public-redirects` endpoint
+- request proxy — redirects go live within 60 seconds of publishing, no rebuild needed
+- in-process TTL cache in the request proxy; `unstable_cache` + tag invalidation on the API side
 
 **Feeds and syndication**
 
@@ -90,6 +92,7 @@ Production containers require a durable external MongoDB database and `MEDIA_PRO
 
 - security headers: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `HSTS`
 - skip navigation link, `<main id="main-content">` landmark, `role="search"` on search forms
+- optional Section Anchor IDs on every Page-compatible block, with sticky-header clearance, smooth fragment navigation, and reduced-motion support
 - `aria-live` regions on dynamic content, accessible cookie consent dialog, focus rings on interactive elements
 
 **Editorial tooling**
@@ -161,7 +164,8 @@ See [docs/architecture/content-model-map.md](docs/architecture/content-model-map
 
 Local development defaults:
 
-- `MONGODB_URI=mongodb://127.0.0.1:27017/payload-cms-starter-kit`
+- `MONGODB_URI=mongodb://127.0.0.1:27017`
+- `DATABASE_NAME=payload-cms-starter-kit`
 - `PAYLOAD_SECRET`
 - `EMAIL_PROVIDER=none`
 - `MEDIA_PROVIDER=localDisk`
@@ -176,6 +180,11 @@ Optional email variables:
 Preview and production URL support:
 
 - `NEXT_PUBLIC_SERVER_URL`
+
+SNMIH Atlas database selection:
+
+- Staging: `DATABASE_NAME=stage`
+- Production: `DATABASE_NAME=prod`
 
 S3-compatible media storage for hosted uploads:
 

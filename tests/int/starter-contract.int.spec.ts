@@ -6,6 +6,7 @@ describe('starter contract', () => {
   it('marks the documented local profile as supported', () => {
     const contract = getStarterContract({
       database: {
+        name: null,
         url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
       },
       deployment: {
@@ -36,6 +37,7 @@ describe('starter contract', () => {
   it('rejects Vercel production because local-disk media is not durable there', () => {
     const contract = getStarterContract({
       database: {
+        name: null,
         url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
       },
       deployment: {
@@ -64,6 +66,7 @@ describe('starter contract', () => {
   it('allows hosted deployments when s3 media storage is configured', () => {
     const contract = getStarterContract({
       database: {
+        name: null,
         url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
       },
       deployment: {

@@ -24,6 +24,7 @@ describe('provider selection', () => {
 
     const adapter = createDatabaseAdapter({
       database: {
+        name: 'payload-cms-starter-kit',
         url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
       },
       deployment: {
@@ -45,6 +46,9 @@ describe('provider selection', () => {
     })
 
     expect(adapterMocks.mongooseAdapter).toHaveBeenCalledWith({
+      connectOptions: {
+        dbName: 'payload-cms-starter-kit',
+      },
       url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
     })
     expect(adapter).toMatchObject({ kind: 'mongo' })
@@ -55,6 +59,7 @@ describe('provider selection', () => {
 
     const plugins = createStoragePlugins({
       database: {
+        name: null,
         url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
       },
       deployment: {
@@ -110,6 +115,7 @@ describe('provider selection', () => {
 
     const plugins = createStoragePlugins({
       database: {
+        name: null,
         url: 'mongodb://127.0.0.1:27017/payload-cms-starter-kit',
       },
       deployment: {
