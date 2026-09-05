@@ -8,6 +8,13 @@ import type { RuntimeConfig } from './runtime'
 
 export const createDatabaseAdapter = (config: RuntimeConfig) => {
   return mongooseAdapter({
+    ...(config.database.name
+      ? {
+          connectOptions: {
+            dbName: config.database.name,
+          },
+        }
+      : {}),
     url: config.database.url,
   })
 }
