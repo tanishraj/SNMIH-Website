@@ -4,6 +4,11 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { createTestMongoServer } from '../helpers/mongoMemoryServer'
 
+vi.mock('next/cache', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('next/cache')>()),
+  revalidateTag: vi.fn(),
+}))
+
 let payload: Payload
 let stopMongoServer: (() => Promise<void>) | null = null
 
@@ -212,6 +217,67 @@ describe('API', () => {
     })
     expect(userLifecycleAudit.docs.map(({ action }) => action)).toEqual(
       expect.arrayContaining(['user_trashed', 'user_restored', 'user_permanently_deleted']),
+    )
+  })
+
+  it('renames a published Page and creates a permanent redirect for its former slug', async () => {
+    const admin = await payload.create({
+      collection: 'users',
+      data: {
+        email: 'page-slug-admin@example.test',
+        password: 'test-password',
+        role: 'admin',
+      },
+      draft: false,
+      overrideAccess: true,
+    })
+    const page = await payload.create({
+      collection: 'pages',
+      data: {
+        _status: 'published',
+        generateSlug: false,
+        slug: 'former-page-path',
+        title: 'Renamed Page',
+      },
+      draft: false,
+      overrideAccess: false,
+      user: admin,
+    })
+
+    const updatedPage = await payload.update({
+      collection: 'pages',
+      id: page.id,
+      data: {
+        _status: 'published',
+        generateSlug: false,
+        slug: 'current-page-path',
+      },
+      draft: false,
+      overrideAccess: false,
+      user: admin,
+    })
+    const redirects = await payload.find({
+      collection: 'redirects',
+      depth: 0,
+      draft: true,
+      overrideAccess: true,
+      where: {
+        fromPath: {
+          equals: '/former-page-path',
+        },
+      },
+    })
+
+    expect(updatedPage.slug).toBe('current-page-path')
+    expect(redirects.docs).toHaveLength(1)
+    expect(redirects.docs[0]).toEqual(
+      expect.objectContaining({
+        _status: 'published',
+        destinationType: 'page',
+        enabled: true,
+        page: page.id,
+        statusCode: '301',
+      }),
     )
   })
 })

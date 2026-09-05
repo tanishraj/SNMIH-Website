@@ -273,7 +273,7 @@ export const createRedirectsForChangedPagePath: CollectionAfterChangeHook<Page> 
     return doc
   }
 
-  const pageID = typeof doc.id === 'number' ? doc.id : Number(doc.id)
+  const pageID = doc.id
   const homepageID = await getHomepageID(req)
 
   const deletedConflicts = await deleteConflictingRedirectsForLivePath({
