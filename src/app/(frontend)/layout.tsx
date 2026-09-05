@@ -272,6 +272,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       lang="en"
       className={htmlClassName}
       data-color-scheme={colorScheme}
+      data-scroll-behavior="smooth"
       data-theme-color={themeColor}
       style={htmlStyle}
       suppressHydrationWarning
