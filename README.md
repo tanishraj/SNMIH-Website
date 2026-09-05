@@ -18,7 +18,7 @@ The repo fails fast if you try to boot a Vercel production profile with the defa
 ## Getting Started
 
 1. Copy `.env.example` to `.env`.
-2. Start MongoDB locally with `docker compose up -d mongo`, or point `MONGODB_URI` at an existing MongoDB instance.
+2. Start MongoDB locally with `docker compose up -d mongo`, or point `MONGODB_URI` at an existing MongoDB instance and set `DATABASE_NAME` to the database this site should use.
 3. Set `PAYLOAD_SECRET`.
 4. Run `pnpm install`.
 5. Run `pnpm dev`.
@@ -164,7 +164,8 @@ See [docs/architecture/content-model-map.md](docs/architecture/content-model-map
 
 Local development defaults:
 
-- `MONGODB_URI=mongodb://127.0.0.1:27017/payload-cms-starter-kit`
+- `MONGODB_URI=mongodb://127.0.0.1:27017`
+- `DATABASE_NAME=payload-cms-starter-kit`
 - `PAYLOAD_SECRET`
 - `EMAIL_PROVIDER=none`
 - `MEDIA_PROVIDER=localDisk`
@@ -179,6 +180,11 @@ Optional email variables:
 Preview and production URL support:
 
 - `NEXT_PUBLIC_SERVER_URL`
+
+SNMIH Atlas database selection:
+
+- Staging: `DATABASE_NAME=stage`
+- Production: `DATABASE_NAME=prod`
 
 S3-compatible media storage for hosted uploads:
 

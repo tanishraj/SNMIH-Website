@@ -2,6 +2,7 @@ import { normalizeMediaPublicURL } from './mediaPublicURL'
 
 export type RuntimeConfig = {
   database: {
+    name: string | null
     url: string
   }
   deployment: {
@@ -38,6 +39,26 @@ export type RuntimeConfig = {
 const isMongoConnectionString = (value: string): boolean =>
   value.startsWith('mongodb://') || value.startsWith('mongodb+srv://')
 
+const MONGODB_SYSTEM_DATABASES = new Set(['admin', 'config', 'local'])
+
+const parseDatabaseName = (value: string | undefined): string | null => {
+  const databaseName = value?.trim() || ''
+
+  if (!databaseName) return null
+
+  if (databaseName.length > 63 || !/^[A-Za-z0-9_-]+$/.test(databaseName)) {
+    throw new Error(
+      'Invalid DATABASE_NAME. Use at most 63 letters, numbers, hyphens, or underscores.',
+    )
+  }
+
+  if (MONGODB_SYSTEM_DATABASES.has(databaseName.toLowerCase())) {
+    throw new Error('Invalid DATABASE_NAME. Do not use the admin, config, or local system database.')
+  }
+
+  return databaseName
+}
+
 const parseBooleanEnv = (value: string | undefined, defaultValue: boolean): boolean => {
   if (value == null || value.trim() === '') {
     return defaultValue
@@ -72,6 +93,7 @@ export const getRuntimeConfig = (env: NodeJS.ProcessEnv = process.env): RuntimeC
   const mediaProvider = getMediaProvider(env)
   const isProduction = env.NODE_ENV === 'production'
   const isVercel = Boolean(env.VERCEL)
+  const databaseName = parseDatabaseName(env.DATABASE_NAME)
   const mongodbURI = env.MONGODB_URI?.trim() || ''
   const payloadSecret = env.PAYLOAD_SECRET?.trim() || ''
 
@@ -159,6 +181,7 @@ export const getRuntimeConfig = (env: NodeJS.ProcessEnv = process.env): RuntimeC
 
   return {
     database: {
+      name: databaseName,
       url: mongodbURI,
     },
     deployment: {
