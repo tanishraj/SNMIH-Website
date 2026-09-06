@@ -1,0 +1,47 @@
+name: Production Database Backup
+
+on:
+  schedule:
+    # Daily at 02:00 UTC / 06:00 Asia/Dubai.
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: production-database-backup
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    name: Back up prod to private R2
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: production-backup
+    env:
+      PROD_MONGODB_URI: ${{ secrets.PROD_MONGODB_URI }}
+      R2_BACKUP_ACCESS_KEY_ID: ${{ secrets.R2_BACKUP_ACCESS_KEY_ID }}
+      R2_BACKUP_ENDPOINT: ${{ secrets.R2_BACKUP_ENDPOINT }}
+      R2_BACKUP_SECRET_ACCESS_KEY: ${{ secrets.R2_BACKUP_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install MongoDB Database Tools
+        run: |
+          curl -fsSL https://pgp.mongodb.com/server-8.0.asc | sudo gpg --dearmor --yes -o /usr/share/keyrings/mongodb-server-8.0.gpg
+          echo "deb [ arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+          sudo apt-get update
+          sudo apt-get install --yes mongodb-database-tools=100.18.0
+          mongodump --version
+          aws --version
+      - name: Create, upload, verify, and rotate the production backup
+        run: pnpm backup:prod-db
