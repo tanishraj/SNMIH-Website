@@ -379,87 +379,94 @@ export function Contact33({
                     />
                   </FieldGroup>
 
-                  {fieldDefinitions.phone ? (
+                  <FieldGroup
+                    className={cn('grid gap-4', fieldDefinitions.phone && 'sm:grid-cols-2')}
+                    data-contact33-secondary-row={
+                      fieldDefinitions.phone ? 'phone-subject' : 'subject-only'
+                    }
+                  >
+                    {fieldDefinitions.phone ? (
+                      <Controller
+                        control={formApi.control}
+                        name="phone"
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid || undefined}>
+                            <FieldLabel htmlFor="contact33-phone">
+                              {fieldDefinitions.phone?.label}
+                              {fieldDefinitions.phone?.required ? (
+                                <span aria-hidden="true" className="text-destructive">
+                                  *
+                                </span>
+                              ) : null}
+                            </FieldLabel>
+                            <Input
+                              {...field}
+                              aria-invalid={fieldState.invalid || undefined}
+                              autoComplete="tel"
+                              className="h-11 rounded-control"
+                              id="contact33-phone"
+                              inputMode="tel"
+                              placeholder={fieldDefinitions.phone?.placeholder}
+                              required={fieldDefinitions.phone?.required}
+                              suppressHydrationWarning
+                              type="tel"
+                              onChange={(event) => {
+                                field.onChange(event)
+                                clearMessage()
+                              }}
+                            />
+                            <FieldError errors={[fieldState.error]} />
+                          </Field>
+                        )}
+                      />
+                    ) : null}
+
                     <Controller
                       control={formApi.control}
-                      name="phone"
+                      name="subject"
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid || undefined}>
-                          <FieldLabel htmlFor="contact33-phone">
-                            {fieldDefinitions.phone?.label}
-                            {fieldDefinitions.phone?.required ? (
+                          <FieldLabel htmlFor="contact33-subject">
+                            {fieldDefinitions.subject.label}
+                            {fieldDefinitions.subject.required ? (
                               <span aria-hidden="true" className="text-destructive">
                                 *
                               </span>
                             ) : null}
                           </FieldLabel>
-                          <Input
-                            {...field}
-                            aria-invalid={fieldState.invalid || undefined}
-                            autoComplete="tel"
-                            className="h-11 rounded-control"
-                            id="contact33-phone"
-                            inputMode="tel"
-                            placeholder={fieldDefinitions.phone?.placeholder}
-                            required={fieldDefinitions.phone?.required}
-                            suppressHydrationWarning
-                            type="tel"
-                            onChange={(event) => {
-                              field.onChange(event)
+                          <Select
+                            value={field.value}
+                            onValueChange={(nextValue) => {
+                              field.onChange(nextValue)
                               clearMessage()
                             }}
-                          />
+                          >
+                            <SelectTrigger
+                              aria-invalid={fieldState.invalid || undefined}
+                              className="data-[size=default]:h-11 w-full rounded-control"
+                              id="contact33-subject"
+                            >
+                              <SelectValue
+                                placeholder={
+                                  fieldDefinitions.subject.placeholder || 'What can we help with?'
+                                }
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                {(fieldDefinitions.subject.options ?? []).map((option) => (
+                                  <SelectItem key={option.value} value={option.value}>
+                                    {option.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
                           <FieldError errors={[fieldState.error]} />
                         </Field>
                       )}
                     />
-                  ) : null}
-
-                  <Controller
-                    control={formApi.control}
-                    name="subject"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid || undefined}>
-                        <FieldLabel htmlFor="contact33-subject">
-                          {fieldDefinitions.subject.label}
-                          {fieldDefinitions.subject.required ? (
-                            <span aria-hidden="true" className="text-destructive">
-                              *
-                            </span>
-                          ) : null}
-                        </FieldLabel>
-                        <Select
-                          value={field.value}
-                          onValueChange={(nextValue) => {
-                            field.onChange(nextValue)
-                            clearMessage()
-                          }}
-                        >
-                          <SelectTrigger
-                            aria-invalid={fieldState.invalid || undefined}
-                            className="data-[size=default]:h-11 w-full rounded-control"
-                            id="contact33-subject"
-                          >
-                            <SelectValue
-                              placeholder={
-                                fieldDefinitions.subject.placeholder || 'What can we help with?'
-                              }
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              {(fieldDefinitions.subject.options ?? []).map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                        <FieldError errors={[fieldState.error]} />
-                      </Field>
-                    )}
-                  />
+                  </FieldGroup>
 
                   <Controller
                     control={formApi.control}

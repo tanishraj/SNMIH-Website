@@ -199,10 +199,17 @@ describe('contact33 block', () => {
     )
 
     const phoneInput = screen.getByLabelText(/Phone number/) as HTMLInputElement
+    const subjectInput = screen.getByLabelText(/Topic/)
+    const secondaryRow = phoneInput.closest('[data-contact33-secondary-row="phone-subject"]')
+
     expect(phoneInput.type).toBe('tel')
     expect(phoneInput.inputMode).toBe('tel')
     expect(phoneInput.autocomplete).toBe('tel')
     expect(phoneInput.required).toBe(true)
+    expect(secondaryRow).toBeTruthy()
+    expect(secondaryRow?.className).toContain('sm:grid-cols-2')
+    expect(secondaryRow?.querySelector('#contact33-phone')).toBe(phoneInput)
+    expect(secondaryRow?.querySelector('#contact33-subject')).toBe(subjectInput)
 
     fireEvent.change(screen.getByLabelText(/Full name/), {
       target: { value: 'Jane Doe' },
