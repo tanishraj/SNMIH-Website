@@ -34,7 +34,12 @@ import {
   type Contact33FieldDefinitions,
   type Contact33FormLike,
 } from '@/lib/contact33Form'
-import { FORM_HONEYPOT_FIELD_NAME, isValidPhoneNumber } from '@/lib/forms'
+import {
+  FORM_HONEYPOT_FIELD_NAME,
+  FORM_PHONE_MAX_INPUT_LENGTH,
+  isValidPhoneNumber,
+  sanitizePhoneNumberInput,
+} from '@/lib/forms'
 import { cn } from '@/lib/utils'
 
 type Contact33Size = 'none' | 'comfortable' | 'compact' | 'default'
@@ -406,12 +411,13 @@ export function Contact33({
                               className="h-11 rounded-control"
                               id="contact33-phone"
                               inputMode="tel"
+                              maxLength={FORM_PHONE_MAX_INPUT_LENGTH}
                               placeholder={fieldDefinitions.phone?.placeholder}
                               required={fieldDefinitions.phone?.required}
                               suppressHydrationWarning
                               type="tel"
                               onChange={(event) => {
-                                field.onChange(event)
+                                field.onChange(sanitizePhoneNumberInput(event.target.value))
                                 clearMessage()
                               }}
                             />

@@ -168,14 +168,14 @@ describe('news and event classifications', () => {
     await revalidateDeletedNewsEventClassificationCache({ doc } as never)
 
     expect(revalidateTagMock.mock.calls).toEqual([
-      [CMS_CACHE_TAGS.newsEvents, 'max'],
-      [CMS_CACHE_TAGS.newsEventClassifications, 'max'],
-      [CMS_CACHE_TAGS.calendar, 'max'],
-      [CMS_CACHE_TAGS.pages, 'max'],
-      [CMS_CACHE_TAGS.newsEvents, 'max'],
-      [CMS_CACHE_TAGS.newsEventClassifications, 'max'],
-      [CMS_CACHE_TAGS.calendar, 'max'],
-      [CMS_CACHE_TAGS.pages, 'max'],
+      [CMS_CACHE_TAGS.newsEvents, { expire: 0 }],
+      [CMS_CACHE_TAGS.newsEventClassifications, { expire: 0 }],
+      [CMS_CACHE_TAGS.calendar, { expire: 0 }],
+      [CMS_CACHE_TAGS.pages, { expire: 0 }],
+      [CMS_CACHE_TAGS.newsEvents, { expire: 0 }],
+      [CMS_CACHE_TAGS.newsEventClassifications, { expire: 0 }],
+      [CMS_CACHE_TAGS.calendar, { expire: 0 }],
+      [CMS_CACHE_TAGS.pages, { expire: 0 }],
     ])
   })
 

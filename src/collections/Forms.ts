@@ -8,6 +8,7 @@ import {
   requireFeature,
 } from '@/access/featureAccess'
 import { projectSlugField } from '@/fields/projectSlugField'
+import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
 import {
   formFieldTypeOptions,
   formSubmissionIntentOptions,
@@ -39,6 +40,9 @@ export const Forms: CollectionConfig = {
   },
   versions: {
     drafts: true,
+  },
+  hooks: {
+    afterChange: [revalidateGlobalsCache],
   },
   timestamps: true,
   fields: [

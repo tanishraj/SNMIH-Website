@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { regularBlockMobilePaddingClasses } from '@/blocks/shared/blockSpacing'
 import { Contact33BlockComponent } from '@/blocks/Contact33/Component'
+import { FORM_PHONE_MAX_INPUT_LENGTH } from '@/lib/forms'
 
 const contactForm = {
   fields: [
@@ -205,6 +206,7 @@ describe('contact33 block', () => {
     expect(phoneInput.type).toBe('tel')
     expect(phoneInput.inputMode).toBe('tel')
     expect(phoneInput.autocomplete).toBe('tel')
+    expect(phoneInput.maxLength).toBe(FORM_PHONE_MAX_INPUT_LENGTH)
     expect(phoneInput.required).toBe(true)
     expect(secondaryRow).toBeTruthy()
     expect(secondaryRow?.className).toContain('sm:grid-cols-2')
@@ -217,9 +219,11 @@ describe('contact33 block', () => {
     fireEvent.change(screen.getByLabelText(/Work email/), {
       target: { value: 'jane@example.com' },
     })
-    fireEvent.change(phoneInput, {
-      target: { value: '+91 98765 43210' },
-    })
+    fireEvent.change(phoneInput, { target: { value: 'Call +91abc 98765 43210' } })
+    expect(phoneInput.value).toBe('+91 98765 43210')
+    fireEvent.change(phoneInput, { target: { value: '123456789012345678901234' } })
+    expect(phoneInput.value).toBe('123456789012345')
+    fireEvent.change(phoneInput, { target: { value: '+91 98765 43210' } })
     fireEvent.change(screen.getByLabelText(/Your message/), {
       target: { value: 'Please call me.' },
     })

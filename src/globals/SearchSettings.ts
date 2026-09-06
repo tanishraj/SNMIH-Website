@@ -1,6 +1,7 @@
 import type { ArrayField, GlobalConfig } from 'payload'
 
 import { allowPublicReadOrFeature, hideUnlessFeature, requireFeature } from '@/access/featureAccess'
+import { revalidateGlobalsCacheForGlobal } from '@/hooks/revalidateCmsContent'
 import { MAX_SEARCH_SUGGESTIONS, validateSuggestedSearchTerms } from '@/lib/searchSuggestions'
 
 export const SearchSettings: GlobalConfig = {
@@ -18,6 +19,9 @@ export const SearchSettings: GlobalConfig = {
   },
   versions: {
     drafts: true,
+  },
+  hooks: {
+    afterChange: [revalidateGlobalsCacheForGlobal],
   },
   fields: [
     {
