@@ -1,9 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import {
-  getContact33FieldDefinitions,
-  validateContact33FormDefinition,
-} from '@/lib/contact33Form'
+import { getContact33FieldDefinitions, validateContact33FormDefinition } from '@/lib/contact33Form'
 
 const validForm = {
   fields: [
@@ -42,8 +39,23 @@ const validForm = {
   title: 'Contact',
 }
 
+const validFormWithPhone = {
+  ...validForm,
+  fields: [
+    ...validForm.fields.slice(0, 2),
+    {
+      label: 'Phone number',
+      name: 'phone',
+      placeholder: '+91 98765 43210',
+      required: true,
+      type: 'phone',
+    },
+    ...validForm.fields.slice(2),
+  ],
+}
+
 describe('contact33 form contract', () => {
-  it('accepts and normalizes the four supported fields', () => {
+  it('accepts and normalizes the four required form fields', () => {
     expect(validateContact33FormDefinition(validForm as never)).toBe(true)
     expect(getContact33FieldDefinitions(validForm as never)).toMatchObject({
       email: { label: 'Email', required: true, type: 'email' },
@@ -54,6 +66,18 @@ describe('contact33 form contract', () => {
         required: false,
         type: 'select',
       },
+    })
+    expect(getContact33FieldDefinitions(validForm as never).phone).toBeUndefined()
+  })
+
+  it('accepts and normalizes an optional phone definition', () => {
+    expect(validateContact33FormDefinition(validFormWithPhone as never)).toBe(true)
+    expect(getContact33FieldDefinitions(validFormWithPhone as never).phone).toMatchObject({
+      label: 'Phone number',
+      name: 'phone',
+      placeholder: '+91 98765 43210',
+      required: true,
+      type: 'phone',
     })
   })
 
@@ -82,6 +106,21 @@ describe('contact33 form contract', () => {
         ),
       },
       'Contact form field "subject" must include at least one option.',
+    ],
+    [
+      {
+        ...validForm,
+        fields: [
+          ...validForm.fields,
+          {
+            label: 'Phone',
+            name: 'phone',
+            required: false,
+            type: 'text',
+          },
+        ],
+      },
+      'Contact form field "phone" must use the Phone type.',
     ],
     [
       {
@@ -152,10 +191,7 @@ describe('contact33 form contract', () => {
     })
     expect(byName<{ type?: string }>(layout?.fields ?? [], 'appearance')?.type).toBe('group')
     expect(
-      byName<{ defaultValue?: string; type?: string }>(
-        layout?.fields ?? [],
-        'contentAlignment',
-      ),
+      byName<{ defaultValue?: string; type?: string }>(layout?.fields ?? [], 'contentAlignment'),
     ).toMatchObject({
       defaultValue: 'center',
       type: 'select',

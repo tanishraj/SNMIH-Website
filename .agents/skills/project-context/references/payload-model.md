@@ -47,7 +47,7 @@ Nine globals are registered:
 - NavigationLinks provide reusable destinations and page-synchronized records. Headers and Footers provide versioned shell presets.
 - SystemPages pair one type with its matching block and are referenced from system modes.
 - Media owns governed uploads, alt requirements, usage detection, deletion guards, storage health, queue sync, and audit events. GalleryAlbums own ordered reusable image sets.
-- Forms define general, lead, and review-intent inputs and notifications. FormSubmissions own immutable submitted data plus operational state, activity, assignment, and optional Review promotion.
+- Forms define general, lead, and review-intent inputs, including a dedicated phone type, and responsive branded notifications. Contact Form accepts an optional exact-name `phone` field, while review-intent validation rejects additional required fields that the fixed Review Submission renderer cannot display. Notification dates use the Site Identity timezone. FormSubmissions own immutable submitted data, searchable submitter phone metadata, operational state, activity, assignment, and optional Review promotion.
 - WorkQueue stores deduplicated actionable conditions. OperationalAuditEvents stores selected immutable operational history. Both record their source feature for Site Manager row filtering. Users own authentication, Admin/Site Manager roles, and feature grants.
 
 ## Feature and Publication Governance

@@ -19,12 +19,12 @@ Do not use `Forms` to manage the received entries themselves. That belongs in `F
 
 ## How It Connects To The Website
 
-Only published Forms are loaded by `POST /api/forms/[slug]/submit`. Contact Form accepts a general/lead Form with the expected `name` text, `email` email, `subject` select, and `message` textarea fields. Review Submission accepts review-intent Forms and review field names.
+Only published Forms are loaded by `POST /api/forms/[slug]/submit`. Contact Form accepts a general/lead Form with the expected `name` text, `email` email, `subject` select, and `message` textarea fields. It also renders an optional field named `phone` when that field uses the Phone type; editors may make it required. Existing Contact Forms without `phone` remain valid. Review Submission accepts review-intent Forms and its fixed review field names; the CMS rejects additional required fields that the block cannot render.
 
 This section also controls downstream operations:
 
 - `submissionIntent` decides whether the submission is handled as general intake, a lead, or a review
-- notification recipients receive internal alerts when valid submissions arrive
+- notification recipients receive responsive branded alerts with readable dates in the Site Identity timezone when valid submissions arrive
 - form fields define what data is stored in `Form Submissions`
 - review-intent forms can automatically create or update a linked draft in `Reviews`
 
@@ -42,8 +42,8 @@ Create an `Admission Enquiry` form for North Valley Medical College:
 6. Set the submit button label to `Request a Call Back`.
 7. Write a success message such as `Thanks. Our admissions team will contact you shortly.`
 8. Add one or more notification recipients from the admissions office.
-9. Add fields such as `full_name`, `email`, `phone`, `program_interest`, and `message`.
-10. Mark the required fields clearly.
+9. Add the Contact Form fields `name` (Text), `email` (Email), `subject` (Select), and `message` (Textarea).
+10. To collect a telephone number, add `phone`, choose the Phone type, and configure its label, placeholder, and required state.
 11. Save the form and publish it.
 12. Ensure the schema matches Contact Form, then add that block to a Page and select `Admission Enquiry`.
 
@@ -66,20 +66,23 @@ To configure it:
 5. Write a plain-text message body confirming receipt and next steps.
 6. Save and publish the form.
 
-The CMS looks for a submitted email using the normalized keys `submitterEmail`, then `reviewerEmail`, then `email`. If none exists, no confirmation is sent even when enabled.
+The CMS looks for a submitted email using the normalized keys `submitterEmail`, then `reviewerEmail`, then `email`. If none exists, no confirmation is sent even when enabled. Internal notifications and submitter confirmations share the same responsive branded email shell.
 
 ## Spam Protection And Failure Handling
 
 - the hidden honeypot key is `website`; suspected bots receive a neutral success response
 - the built-in limiter allows five attempts per IP and form slug per ten minutes
 - the limiter is in-memory and per application process, not a durable distributed rate limiter
-- required, email, select-option, and checkbox-acceptance rules come from the Form schema
+- required, email, phone, select-option, and checkbox-acceptance rules come from the Form schema
+- phone values preserve their readable formatting, allow common international punctuation, and must contain 7 to 15 digits
 - notification, confirmation, downstream-event, and review-promotion failures are logged without changing a successful visitor response after the submission is stored
 
 ## Best Practices
 
 - keep field names machine-safe and stable because they are used in stored submission data
 - use clear labels that non-technical operators can understand later
+- use the exact field name `phone` with the Phone type when the Contact Form should collect a number
+- keep phone collection on general or lead Contact Forms; Review Submission intentionally does not request it
 - choose the correct `submissionIntent` before launch because it affects downstream handling
 - keep success messages short and reassuring
 - add notification recipients only when someone is expected to monitor them

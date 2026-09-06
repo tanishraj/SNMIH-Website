@@ -31,9 +31,10 @@ import { Textarea } from '@/components/ui/textarea'
 import {
   getContact33FieldDefinitions,
   type Contact33FieldDefinition,
+  type Contact33FieldDefinitions,
   type Contact33FormLike,
 } from '@/lib/contact33Form'
-import { FORM_HONEYPOT_FIELD_NAME } from '@/lib/forms'
+import { FORM_HONEYPOT_FIELD_NAME, isValidPhoneNumber } from '@/lib/forms'
 import { cn } from '@/lib/utils'
 
 type Contact33Size = 'none' | 'comfortable' | 'compact' | 'default'
@@ -44,6 +45,7 @@ type ContactFormValues = {
   email: string
   message: string
   name: string
+  phone: string
   subject: string
 }
 
@@ -72,6 +74,7 @@ const initialValues: ContactFormValues = {
   email: '',
   message: '',
   name: '',
+  phone: '',
   subject: '',
 }
 
@@ -126,9 +129,7 @@ function createTextSchema(field: Contact33FieldDefinition) {
     })
 }
 
-function createContactFormSchema(
-  fields: Record<keyof ContactFormValues, Contact33FieldDefinition>,
-) {
+function createContactFormSchema(fields: Contact33FieldDefinitions) {
   return z.object({
     email: createTextSchema(fields.email).refine(
       (value) => value.length === 0 || emailPattern.test(value),
@@ -138,6 +139,14 @@ function createContactFormSchema(
     ),
     message: createTextSchema(fields.message),
     name: createTextSchema(fields.name),
+    phone: fields.phone
+      ? createTextSchema(fields.phone).refine(
+          (value) => value.length === 0 || isValidPhoneNumber(value),
+          {
+            message: `${fields.phone.label} must be a valid phone number.`,
+          },
+        )
+      : z.string(),
     subject: createTextSchema(fields.subject),
   })
 }
@@ -206,13 +215,15 @@ export function Contact33({
     }
 
     setMessage(null)
+    const { phone, ...requiredValues } = values
+    const submissionValues = fieldDefinitions.phone ? { ...requiredValues, phone } : requiredValues
 
     try {
       const response = await fetch(`/api/forms/${formSlug}/submit`, {
         body: JSON.stringify({
           metadata: getSubmissionMetadata(),
           values: {
-            ...values,
+            ...submissionValues,
             [FORM_HONEYPOT_FIELD_NAME]: '',
           },
         }),
@@ -228,7 +239,13 @@ export function Contact33({
 
       if (!response.ok) {
         Object.entries(responsePayload.errors ?? {}).forEach(([name, fieldMessage]) => {
-          if (name === 'name' || name === 'email' || name === 'subject' || name === 'message') {
+          if (
+            name === 'name' ||
+            name === 'email' ||
+            name === 'phone' ||
+            name === 'subject' ||
+            name === 'message'
+          ) {
             formApi.setError(name, {
               message: fieldMessage,
               type: 'server',
@@ -361,6 +378,42 @@ export function Contact33({
                       )}
                     />
                   </FieldGroup>
+
+                  {fieldDefinitions.phone ? (
+                    <Controller
+                      control={formApi.control}
+                      name="phone"
+                      render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid || undefined}>
+                          <FieldLabel htmlFor="contact33-phone">
+                            {fieldDefinitions.phone?.label}
+                            {fieldDefinitions.phone?.required ? (
+                              <span aria-hidden="true" className="text-destructive">
+                                *
+                              </span>
+                            ) : null}
+                          </FieldLabel>
+                          <Input
+                            {...field}
+                            aria-invalid={fieldState.invalid || undefined}
+                            autoComplete="tel"
+                            className="h-11 rounded-control"
+                            id="contact33-phone"
+                            inputMode="tel"
+                            placeholder={fieldDefinitions.phone?.placeholder}
+                            required={fieldDefinitions.phone?.required}
+                            suppressHydrationWarning
+                            type="tel"
+                            onChange={(event) => {
+                              field.onChange(event)
+                              clearMessage()
+                            }}
+                          />
+                          <FieldError errors={[fieldState.error]} />
+                        </Field>
+                      )}
+                    />
+                  ) : null}
 
                   <Controller
                     control={formApi.control}
