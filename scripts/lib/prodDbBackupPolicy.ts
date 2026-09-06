@@ -26,6 +26,13 @@ export const buildProdBackupObjectKey = (createdAt: Date): string => {
   return `${PROD_DB_BACKUP_PREFIX}prod-${timestamp}${ARCHIVE_SUFFIX}`
 }
 
+export const buildProdMongoDumpArguments = (mongodbURI: string, archivePath: string): string[] => [
+  `--uri=${mongodbURI}`,
+  `--db=${PROD_DATABASE_NAME}`,
+  `--archive=${archivePath}`,
+  '--gzip',
+]
+
 export const normalizeR2BackupEndpoint = (value: string): string => {
   let endpoint: URL
 
