@@ -11,6 +11,7 @@ import { DeferredAdminSessionBar } from '@/components/admin/DeferredAdminSession
 import { ConsentAwareAnalytics } from '@/components/analytics/ConsentAwareAnalytics'
 import { BackToTopButton } from '@/components/global/BackToTopButton'
 import { CookieConsentBanner } from '@/components/global/CookieConsentBanner'
+import { RouteTransitionScrollGuard } from '@/components/global/RouteTransitionScrollGuard'
 import { SearchDialog } from '@/components/global/SearchDialog'
 import { GlobalAnnouncement } from '@/components/global/GlobalAnnouncement'
 import { GlobalFooter } from '@/components/global/GlobalFooter'
@@ -332,6 +333,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         />
       </head>
       <body className={pageBodyClassName}>
+        <RouteTransitionScrollGuard />
         {/* Skip navigation — visually hidden until focused */}
         <a
           href="#main-content"
