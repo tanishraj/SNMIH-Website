@@ -13,7 +13,7 @@ import {
   formSubmissionIntentOptions,
   isTextLikeFormFieldType,
   isValidFormFieldName,
-  validateFormFieldDefinitions,
+  validateFormFieldDefinitionsForIntent,
 } from '@/lib/forms'
 
 export const Forms: CollectionConfig = {
@@ -160,12 +160,18 @@ export const Forms: CollectionConfig = {
       type: 'array',
       required: true,
       minRows: 1,
-      validate: validateFormFieldDefinitions,
+      validate: (value, { data }) =>
+        validateFormFieldDefinitionsForIntent({
+          fields: value,
+          submissionIntent: (data as { submissionIntent?: unknown }).submissionIntent,
+        }),
       labels: {
         singular: 'Field',
         plural: 'Fields',
       },
       admin: {
+        description:
+          'Review Submission uses its fixed review fields; it cannot render additional required fields.',
         initCollapsed: true,
       },
       fields: [
