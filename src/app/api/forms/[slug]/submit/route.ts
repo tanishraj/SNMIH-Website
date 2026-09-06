@@ -25,6 +25,7 @@ import {
 } from '@/lib/forms'
 import { upsertReviewFromSubmission } from '@/lib/reviewPromotion'
 import { validateReviewSubmission } from '@/lib/reviews'
+import { normalizeSiteTimeZone, type SiteTimeZone } from '@/lib/siteTimeZone'
 import type { Form } from '@/payload-types'
 
 const toSimpleFields = (form: Form): SimpleFormField[] => {
@@ -165,8 +166,11 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
         ...reviewValidation.normalizedData,
       }
     : normalizedData
-  const { email: submitterEmail, name: submitterName } =
-    getSubmissionContactMetadata(submissionData)
+  const {
+    email: submitterEmail,
+    name: submitterName,
+    phone: submitterPhone,
+  } = getSubmissionContactMetadata(submissionData)
   const submittedAt = new Date()
   const submission = await payload.create({
     collection: 'form-submissions',
@@ -182,6 +186,7 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
       submittedAt: submittedAt.toISOString(),
       submitterEmail,
       submitterName,
+      submitterPhone,
     },
     overrideAccess: true,
   })
@@ -237,6 +242,7 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
       submissionIntent,
       submitterEmail,
       submitterName,
+      submitterPhone,
       values: submissionData,
     })
   } catch (error) {
@@ -247,11 +253,33 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
   }
 
   const notificationRecipients = getNotificationRecipients(form)
+  let emailSiteName: string | undefined
+  let emailTimeZone: SiteTimeZone | undefined
+
+  if (notificationRecipients.length > 0 || (form.submitterReply?.enabled && submitterEmail)) {
+    try {
+      const siteSettings = await payload.findGlobal({
+        slug: 'site-settings',
+        depth: 0,
+        draft: false,
+        overrideAccess: true,
+      })
+      emailSiteName = siteSettings.siteName?.trim() || undefined
+      emailTimeZone = normalizeSiteTimeZone(siteSettings.timeZone)
+    } catch (error) {
+      payload.logger.error({
+        err: error,
+        msg: 'Failed to load site identity for form email branding.',
+      })
+    }
+  }
 
   if (notificationRecipients.length > 0) {
     const emailContent = buildFormNotificationEmail({
       form,
+      siteName: emailSiteName,
       submittedAt,
+      timeZone: emailTimeZone,
       values: submissionData,
     })
 
@@ -271,7 +299,11 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
   }
 
   if (form.submitterReply?.enabled && submitterEmail) {
-    const replyEmail = buildSubmitterConfirmationEmail({ form, submitterName })
+    const replyEmail = buildSubmitterConfirmationEmail({
+      form,
+      siteName: emailSiteName,
+      submitterName,
+    })
     try {
       await payload.sendEmail({
         html: replyEmail.html,

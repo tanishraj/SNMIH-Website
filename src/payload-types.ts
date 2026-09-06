@@ -4948,13 +4948,16 @@ export interface Form {
      */
     message?: string | null;
   };
+  /**
+   * Review Submission uses its fixed review fields; it cannot render additional required fields.
+   */
   fields: {
     /**
      * Machine key used in stored submission data.
      */
     name: string;
     label: string;
-    type: 'text' | 'email' | 'textarea' | 'select' | 'checkbox';
+    type: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox';
     required?: boolean | null;
     placeholder?: string | null;
     options?:
@@ -5048,7 +5051,7 @@ export interface Contact33Block {
   image: string | Media;
   imageAlt: string;
   /**
-   * Select a published general or lead form with name (Text), email (Email), subject (Select), and message (Textarea) fields.
+   * Select a published general or lead form with name (Text), email (Email), subject (Select), and message (Textarea) fields. An optional phone field must use the Phone type.
    */
   form: string | Form;
   appearance: {
@@ -7944,6 +7947,7 @@ export interface FormSubmission {
   landingPage?: string | null;
   submitterName?: string | null;
   submitterEmail?: string | null;
+  submitterPhone?: string | null;
   email?: string | null;
   linkedReview?: (string | null) | Review;
   promotionError?: string | null;
@@ -13628,6 +13632,7 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
   landingPage?: T;
   submitterName?: T;
   submitterEmail?: T;
+  submitterPhone?: T;
   email?: T;
   linkedReview?: T;
   promotionError?: T;

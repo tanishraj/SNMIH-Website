@@ -12,6 +12,13 @@ Annual Calendar is the twelve-month Explore companion to Calendar. It uses the s
 
 The catalog imports schema config only. Production and live-preview renderer switches remain explicit and separate so server/client boundaries are not mixed.
 
+Contact Form binds a published general/lead Form with the exact core fields `name` (Text), `email`
+(Email), `subject` (Select), and `message` (Textarea). An optional exact-name `phone` field using the
+Phone type renders as an international-friendly telephone input and may be required; Forms without it
+retain the existing four-field presentation. Client and submission-route validation share the same
+phone rule. Review Submission retains its fixed review-field experience, and review-intent Form
+validation rejects additional required fields that this renderer cannot display.
+
 ## Page Creation Recipes
 
 [pageRecipes.ts](../../../../src/page-recipes/pageRecipes.ts) defines the two code-owned full-page creation recipes. Blank produces an empty layout. Landing produces `pageHeader` followed by `breadcrumb`; it copies the Page title into Page Header, selects an empty eyebrow as its top content to suppress the header's built-in breadcrumb, and configures the standalone Breadcrumb for automatic hierarchy resolution.
