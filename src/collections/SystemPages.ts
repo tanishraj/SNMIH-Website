@@ -9,6 +9,7 @@ import {
 import { buildSEOFields } from '@/fields/buildSEOFields'
 import { publicationMetadataFields } from '@/fields/publicationMetadataFields'
 import { projectSlugField } from '@/fields/projectSlugField'
+import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
 import { enforcePublicationPolicy } from '@/hooks/enforcePublicationPolicy'
 import { createCollectionAuditHook } from '@/hooks/logOperationalAuditEvent'
 import { validateSEOContract } from '@/hooks/validateSEOContract'
@@ -81,6 +82,7 @@ export const SystemPages: CollectionConfig = {
   },
   hooks: {
     afterChange: [
+      revalidateGlobalsCache,
       createCollectionAuditHook({
         entityType: 'system_page',
         feature: 'systemPages',

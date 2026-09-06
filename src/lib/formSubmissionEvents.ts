@@ -10,12 +10,11 @@ export type FormSubmissionEventInput = {
   status: 'new' | 'in_review' | 'qualified' | 'won' | 'rejected' | 'archived'
   submitterEmail?: string
   submitterName?: string
+  submitterPhone?: string
   values: Record<string, boolean | string>
 }
 
 // Starter seam for project-specific lead routing or downstream automation.
-export const emitFormSubmissionEvent = async (
-  _input: FormSubmissionEventInput,
-): Promise<void> => {
+export const emitFormSubmissionEvent = async (_input: FormSubmissionEventInput): Promise<void> => {
   return
 }

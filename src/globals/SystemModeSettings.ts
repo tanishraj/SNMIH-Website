@@ -2,6 +2,7 @@ import type { GlobalConfig, RelationshipFieldSingleValidation } from 'payload'
 
 import { allowPublicReadOrFeature, hideUnlessFeature, requireFeature } from '@/access/featureAccess'
 import { createGlobalAuditHook } from '@/hooks/logOperationalAuditEvent'
+import { revalidateGlobalsCacheForGlobal } from '@/hooks/revalidateCmsContent'
 import type { SystemPageType } from '@/lib/systemPageTypes'
 
 const extractPageID = (
@@ -83,6 +84,7 @@ export const SystemModeSettings: GlobalConfig = {
   },
   hooks: {
     afterChange: [
+      revalidateGlobalsCacheForGlobal,
       createGlobalAuditHook({
         entityType: 'system_mode_settings',
         feature: 'maintenanceModes',

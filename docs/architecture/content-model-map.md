@@ -47,9 +47,9 @@ while System Page actions can use Navigation Links.
 
 ## Forms And Intake
 
-`forms` owns general, lead, or review-intent schemas, validation fields, notification recipients, and optional submitter confirmation copy. Public spam controls and rate-limit constants live in application code, not editable Form fields.
+`forms` owns general, lead, or review-intent schemas, including dedicated phone fields, validation fields, notification recipients, and optional submitter confirmation copy. Review-intent validation prevents additional required fields that the fixed Review Submission renderer cannot display. Public spam controls, phone-format rules, email presentation, and rate-limit constants live in application code, not editable Form fields.
 
-`form-submissions` owns stored visitor data, source/campaign metadata, assignment, follow-up state, activity, and optional promotion to a governed Review.
+`form-submissions` owns stored visitor data, searchable submitter contact metadata including phone, source/campaign metadata, assignment, follow-up state, activity, and optional promotion to a governed Review.
 
 ## Administration
 

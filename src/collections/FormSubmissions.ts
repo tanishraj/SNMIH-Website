@@ -41,12 +41,20 @@ export const FormSubmissions: CollectionConfig = {
       'submissionIntent',
       'submitterName',
       'submitterEmail',
+      'submitterPhone',
       'submittedAt',
       'lastActionAt',
     ],
     description:
       'Stored form submissions. Submission payload fields stay read-only after creation, while operators can update operational status.',
-    listSearchableFields: ['email', 'submitterEmail', 'submitterName', 'campaign', 'source'],
+    listSearchableFields: [
+      'email',
+      'submitterEmail',
+      'submitterName',
+      'submitterPhone',
+      'campaign',
+      'source',
+    ],
   },
   access: {
     create: () => false,
@@ -157,6 +165,14 @@ export const FormSubmissions: CollectionConfig = {
     {
       name: 'submitterEmail',
       type: 'email',
+      access: immutableSubmissionFieldAccess,
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
+      name: 'submitterPhone',
+      type: 'text',
       access: immutableSubmissionFieldAccess,
       admin: {
         readOnly: true,

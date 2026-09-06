@@ -20,7 +20,7 @@ Do not use this section to edit the original submitted answers. The stored submi
 
 ## How It Connects To The Website
 
-Each record in `Form Submissions` comes from a real public website form submission. The frontend validates the submission, stores the submitted data, and saves useful intake metadata such as source, campaign, landing page, submitter name, and submitter email when available.
+Each record in `Form Submissions` comes from a real public website form submission. The frontend validates the submission, stores the submitted data, and saves useful intake metadata such as source, campaign, landing page, submitter name, submitter email, and submitter phone when available.
 
 This section also powers internal workflow:
 
@@ -55,6 +55,7 @@ Expected website result:
 
 - treat submitted answers as intake evidence and keep them unchanged
 - always assign an owner when a submission needs active follow-up
+- use the searchable submitter phone field for callback workflows while treating the original submitted value as read-only evidence
 - use internal notes for coordination, not for rewriting the original visitor message
 - keep statuses current so the queue reflects real operational work
 - check `linkedReview` and `promotionError` when the submission came from a review form

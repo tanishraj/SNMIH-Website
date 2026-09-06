@@ -8,6 +8,10 @@ export const formFieldTypeOptions = [
     value: 'email',
   },
   {
+    label: 'Phone',
+    value: 'phone',
+  },
+  {
     label: 'Textarea',
     value: 'textarea',
   },
@@ -65,11 +69,59 @@ export type FormSubmissionMetadata = {
 export const FORM_HONEYPOT_FIELD_NAME = 'website'
 export const FORM_RATE_LIMIT_MAX_SUBMISSIONS = 5
 export const FORM_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
+export const FORM_PHONE_MAX_DIGITS = 15
+export const FORM_PHONE_MAX_INPUT_LENGTH = 25
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const phoneCharactersPattern = /^\+?[\d][\d\s()./-]*$/
+const phoneDigitPattern = /\d/
+const phoneFormattingCharacterPattern = /[\s()./-]/
+
+export const sanitizePhoneNumberInput = (value: string): string => {
+  let digitCount = 0
+  let sanitizedValue = ''
+
+  for (const character of value) {
+    if (sanitizedValue.length >= FORM_PHONE_MAX_INPUT_LENGTH) {
+      break
+    }
+
+    if (phoneDigitPattern.test(character)) {
+      if (digitCount < FORM_PHONE_MAX_DIGITS) {
+        sanitizedValue += character
+        digitCount += 1
+      }
+
+      continue
+    }
+
+    if (character === '+' && sanitizedValue.length === 0) {
+      sanitizedValue += character
+      continue
+    }
+
+    if (digitCount > 0 && phoneFormattingCharacterPattern.test(character)) {
+      sanitizedValue += character
+    }
+  }
+
+  return sanitizedValue
+}
+
+export const isValidPhoneNumber = (value: string): boolean => {
+  const normalizedValue = value.trim()
+
+  if (!phoneCharactersPattern.test(normalizedValue)) {
+    return false
+  }
+
+  const digitCount = normalizedValue.replace(/\D/g, '').length
+
+  return digitCount >= 7 && digitCount <= 15
+}
 
 export const isTextLikeFormFieldType = (type: FormFieldType): boolean => {
-  return type === 'text' || type === 'email' || type === 'textarea'
+  return type === 'text' || type === 'email' || type === 'phone' || type === 'textarea'
 }
 
 export const isSelectFormFieldType = (type: FormFieldType): boolean => {
@@ -96,9 +148,7 @@ export const isValidFormFieldName = (value: string): boolean => {
   return /^[A-Za-z][A-Za-z0-9_]*$/.test(value)
 }
 
-export const validateFormFieldDefinitions = (
-  value: unknown,
-): true | string => {
+export const validateFormFieldDefinitions = (value: unknown): true | string => {
   if (!Array.isArray(value) || value.length === 0) {
     return 'Add at least one field.'
   }
@@ -154,6 +204,50 @@ export const validateFormFieldDefinitions = (
   return true
 }
 
+const reviewSubmissionProvidedFieldNames = new Set([
+  'isGenuineExperience',
+  'rating',
+  'reviewBody',
+  'reviewerEmail',
+  'reviewerName',
+  'reviewTitle',
+  'subjectLabel',
+])
+
+export const validateFormFieldDefinitionsForIntent = ({
+  fields,
+  submissionIntent,
+}: {
+  fields: unknown
+  submissionIntent: unknown
+}): true | string => {
+  const fieldValidation = validateFormFieldDefinitions(fields)
+
+  if (
+    fieldValidation !== true ||
+    !Array.isArray(fields) ||
+    !isReviewFormSubmissionIntent(submissionIntent)
+  ) {
+    return fieldValidation
+  }
+
+  const unsupportedRequiredField = fields.find((field): field is { name: string; required: true } =>
+    Boolean(
+      field &&
+      typeof field === 'object' &&
+      'required' in field &&
+      field.required === true &&
+      'name' in field &&
+      typeof field.name === 'string' &&
+      !reviewSubmissionProvidedFieldNames.has(normalizeFormFieldName(field.name)),
+    ),
+  )
+
+  return unsupportedRequiredField
+    ? `Review Submission cannot render required field "${normalizeFormFieldName(unsupportedRequiredField.name)}".`
+    : true
+}
+
 const normalizeCheckboxValue = (value: unknown): boolean => {
   return value === true || value === 'true' || value === 'on' || value === '1' || value === 1
 }
@@ -202,6 +296,11 @@ export const validateFormSubmission = ({
       continue
     }
 
+    if (field.type === 'phone' && normalizedValue && !isValidPhoneNumber(normalizedValue)) {
+      errors[field.name] = `${field.label} must be a valid phone number.`
+      continue
+    }
+
     if (field.type === 'select' && normalizedValue) {
       const allowedValues = new Set((field.options ?? []).map((option) => option.value))
 
@@ -243,6 +342,7 @@ export const getSubmissionContactMetadata = (
 ): {
   email?: string
   name?: string
+  phone?: string
 } => {
   const email = getFirstNormalizedStringValue(values, ['submitterEmail', 'reviewerEmail', 'email'])
   const name = getFirstNormalizedStringValue(values, [
@@ -251,10 +351,18 @@ export const getSubmissionContactMetadata = (
     'fullName',
     'name',
   ])
+  const phone = getFirstNormalizedStringValue(values, [
+    'submitterPhone',
+    'phone',
+    'phoneNumber',
+    'telephone',
+    'mobile',
+  ])
 
   return {
     email,
     name,
+    phone,
   }
 }
 

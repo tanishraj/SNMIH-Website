@@ -20,6 +20,7 @@ import {
 } from '@/lib/mediaUsage'
 import { preventMediaDeletionWhileInUse } from '@/hooks/preventMediaDeletionWhileInUse'
 import { syncMediaToWorkQueue } from '@/hooks/syncMediaToWorkQueue'
+import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 const mediaAssetTypeOptions = [
   {
@@ -121,7 +122,7 @@ export const Media: CollectionConfig = {
     update: requireFeature('media'),
   },
   hooks: {
-    afterChange: [syncMediaToWorkQueue],
+    afterChange: [revalidateGlobalsCache, syncMediaToWorkQueue],
     afterRead: [populateMediaUsage],
     beforeDelete: [preventMediaDeletionWhileInUse],
     beforeValidate: [beforeValidate],
