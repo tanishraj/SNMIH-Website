@@ -16,7 +16,9 @@ Contact Form binds a published general/lead Form with the exact core fields `nam
 (Email), `subject` (Select), and `message` (Textarea). An optional exact-name `phone` field using the
 Phone type renders as an international-friendly telephone input and may be required; Forms without it
 retain the existing four-field presentation. Client and submission-route validation share the same
-phone rule. When present, Phone and Topic stack in that order on phones and share the second equal-width
+phone rule. The controlled input removes unsupported characters while typing or pasting, accepts a
+single leading `+` plus common phone-number separators, and caps values at 15 digits and 25 total
+characters. When present, Phone and Topic stack in that order on phones and share the second equal-width
 form row from the small-screen breakpoint upward; Topic remains full-width when Phone is absent. Review
 Submission retains its fixed review-field experience, and review-intent Form validation rejects
 additional required fields that this renderer cannot display.

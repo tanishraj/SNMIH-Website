@@ -22,9 +22,9 @@ export const CMS_CACHE_TAGS = {
   redirects: 'cms-redirects',
 } as const
 
-// In Next.js 16+, revalidateTag requires a second `profile` argument.
-// Passing 'max' instructs Next.js to revalidate cache entries of any lifetime.
-const REVALIDATE_PROFILE = 'max'
+// Admin publications require read-your-writes behavior on the next public request.
+// `expire: 0` prevents stale-while-revalidate from serving the previous version once.
+const REVALIDATE_PROFILE = { expire: 0 } as const
 
 export const SKIP_CACHE_REVALIDATION_CONTEXT = 'skipCacheRevalidation' as const
 
@@ -121,30 +121,39 @@ export const revalidateDeletedNewsEventClassificationCache: CollectionAfterDelet
 }
 
 /**
- * Revalidates the globals cache (header, footer, theme, settings).
- * Busts pages too since header/footer/theme changes affect all pages.
- * Used by both collections (Headers, Footers, ReusableSections) and globals.
+ * Revalidates shared shell and Page data after a published relationship-backed
+ * record changes. This covers headers, footers, reusable sections, Forms,
+ * navigation links, media, gallery albums, office locations, and system pages.
  */
-export const revalidateGlobalsCache: CollectionAfterChangeHook = ({ doc }) => {
-  revalidateTags(CMS_CACHE_TAGS.globals, CMS_CACHE_TAGS.pages)
+export const revalidateGlobalsCache: CollectionAfterChangeHook = ({ doc, previousDoc }) => {
+  if (isOrWasPublished(doc, previousDoc)) {
+    revalidateTags(CMS_CACHE_TAGS.globals, CMS_CACHE_TAGS.pages)
+  }
+
   return doc
 }
 
 /**
  * Same as revalidateGlobalsCache but typed for Payload global afterChange hooks.
  */
-export const revalidateGlobalsCacheForGlobal: GlobalAfterChangeHook = ({ doc }) => {
-  revalidateTags(CMS_CACHE_TAGS.globals, CMS_CACHE_TAGS.pages)
+export const revalidateGlobalsCacheForGlobal: GlobalAfterChangeHook = ({ doc, previousDoc }) => {
+  if (isOrWasPublished(doc, previousDoc)) {
+    revalidateTags(CMS_CACHE_TAGS.globals, CMS_CACHE_TAGS.pages)
+  }
+
   return doc
 }
 
-export const revalidateSiteSettingsCache: GlobalAfterChangeHook = ({ doc }) => {
-  revalidateTags(
-    CMS_CACHE_TAGS.globals,
-    CMS_CACHE_TAGS.pages,
-    CMS_CACHE_TAGS.siteSettings,
-    CMS_CACHE_TAGS.calendar,
-  )
+export const revalidateSiteSettingsCache: GlobalAfterChangeHook = ({ doc, previousDoc }) => {
+  if (isOrWasPublished(doc, previousDoc)) {
+    revalidateTags(
+      CMS_CACHE_TAGS.globals,
+      CMS_CACHE_TAGS.pages,
+      CMS_CACHE_TAGS.siteSettings,
+      CMS_CACHE_TAGS.calendar,
+    )
+  }
+
   return doc
 }
 

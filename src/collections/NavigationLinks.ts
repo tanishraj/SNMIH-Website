@@ -7,6 +7,7 @@ import {
   requireFeature,
 } from '@/access/featureAccess'
 import { createDraftPublishQueueHook } from '@/hooks/syncDraftPublishToWorkQueue'
+import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 const validateRequiredLinkField =
   (linkType: 'page' | 'custom', message: string) =>
@@ -132,6 +133,7 @@ export const NavigationLinks: CollectionConfig = {
   },
   hooks: {
     afterChange: [
+      revalidateGlobalsCache,
       createDraftPublishQueueHook({
         isActionable: (doc) => (doc as { sourceType?: string | null })?.sourceType !== 'pageSynced',
         sourceAdminPathPrefix: '/admin/collections/navigation-links',

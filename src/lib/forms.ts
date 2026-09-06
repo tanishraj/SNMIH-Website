@@ -69,9 +69,44 @@ export type FormSubmissionMetadata = {
 export const FORM_HONEYPOT_FIELD_NAME = 'website'
 export const FORM_RATE_LIMIT_MAX_SUBMISSIONS = 5
 export const FORM_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
+export const FORM_PHONE_MAX_DIGITS = 15
+export const FORM_PHONE_MAX_INPUT_LENGTH = 25
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const phoneCharactersPattern = /^\+?[\d][\d\s()./-]*$/
+const phoneDigitPattern = /\d/
+const phoneFormattingCharacterPattern = /[\s()./-]/
+
+export const sanitizePhoneNumberInput = (value: string): string => {
+  let digitCount = 0
+  let sanitizedValue = ''
+
+  for (const character of value) {
+    if (sanitizedValue.length >= FORM_PHONE_MAX_INPUT_LENGTH) {
+      break
+    }
+
+    if (phoneDigitPattern.test(character)) {
+      if (digitCount < FORM_PHONE_MAX_DIGITS) {
+        sanitizedValue += character
+        digitCount += 1
+      }
+
+      continue
+    }
+
+    if (character === '+' && sanitizedValue.length === 0) {
+      sanitizedValue += character
+      continue
+    }
+
+    if (digitCount > 0 && phoneFormattingCharacterPattern.test(character)) {
+      sanitizedValue += character
+    }
+  }
+
+  return sanitizedValue
+}
 
 export const isValidPhoneNumber = (value: string): boolean => {
   const normalizedValue = value.trim()
