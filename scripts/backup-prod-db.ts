@@ -8,6 +8,7 @@ import { config } from 'dotenv'
 
 import {
   buildProdBackupObjectKey,
+  buildProdMongoDumpArguments,
   normalizeR2BackupEndpoint,
   planProdBackupPruning,
   PROD_DATABASE_NAME,
@@ -96,12 +97,9 @@ const runProdDatabaseBackup = async (): Promise<void> => {
 
   try {
     console.log(`Creating a compressed backup of the ${PROD_DATABASE_NAME} database...`)
-    runCommand(
-      'mongodump',
-      'mongodump',
-      ['--uri', mongodbURI, '--db', PROD_DATABASE_NAME, '--archive', archivePath, '--gzip'],
-      { stdio: ['ignore', 'inherit', 'inherit'] },
-    )
+    runCommand('mongodump', 'mongodump', buildProdMongoDumpArguments(mongodbURI, archivePath), {
+      stdio: ['ignore', 'inherit', 'inherit'],
+    })
 
     chmodSync(archivePath, 0o600)
     const archiveSize = statSync(archivePath).size
