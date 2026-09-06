@@ -32,8 +32,12 @@ React Server Components load public CMS data. Focused client components own inte
 - Page-compatible blocks may expose stable editor-authored fragment IDs. Production and authenticated
   live preview use the same document-order anchor wrapper, including blocks inside Reusable Sections
   and the News & Events detail template. Root scrolling accounts for the sticky Admin, announcement,
-  and Header shell and becomes immediate under `prefers-reduced-motion`. Next.js temporarily disables
-  smooth scrolling for full route transitions, while same-page fragment navigation remains smooth.
+  and Header shell and becomes immediate under `prefers-reduced-motion`. The frontend route-transition
+  guard suppresses Next.js scroll management while the outgoing page is visible. A remounting App
+  Router template signals only after the outgoing route has been replaced, then the guard positions
+  the committed destination immediately. Sticky desktop dropdown triggers suppress pointer-induced
+  focus scrolling, and dropdown link dismissal does not restore trigger focus before navigation;
+  same-page fragment navigation remains smooth.
 - `/search`, `/api/search`, feeds, sitemap, robots, and Open Graph image routes implement discovery.
   Generated Open Graph routes keep their page-specific cards when their published record and public
   media logo are available, and return the code-owned SNMIH preview when a required record or the

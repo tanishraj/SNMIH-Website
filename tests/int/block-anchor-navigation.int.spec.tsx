@@ -139,6 +139,7 @@ describe('Page block anchor navigation', () => {
   it('keeps anchor scrolling smooth without animating full route transitions', () => {
     const globalStyles = readFileSync('src/styles/globals.css', 'utf8')
     const frontendLayout = readFileSync('src/app/(frontend)/layout.tsx', 'utf8')
+    const frontendTemplate = readFileSync('src/app/(frontend)/template.tsx', 'utf8')
 
     expect(globalStyles).toContain('scroll-behavior: smooth')
     expect(globalStyles).toContain('scroll-padding-top: var(--block-anchor-offset, 1rem)')
@@ -148,5 +149,7 @@ describe('Page block anchor navigation', () => {
     expect(frontendLayout).toContain("'--block-anchor-offset': blockAnchorOffset")
     expect(frontendLayout).toContain('isGlobalHeaderSticky(activeHeader)')
     expect(frontendLayout).toContain('data-scroll-behavior="smooth"')
+    expect(frontendLayout).toContain('<RouteTransitionScrollGuard />')
+    expect(frontendTemplate).toContain('<RouteTransitionCommitSignal />')
   })
 })
