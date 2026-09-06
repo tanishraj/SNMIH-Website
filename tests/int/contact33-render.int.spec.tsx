@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { regularBlockMobilePaddingClasses } from '@/blocks/shared/blockSpacing'
 import { Contact33BlockComponent } from '@/blocks/Contact33/Component'
+import { FORM_PHONE_MAX_INPUT_LENGTH } from '@/lib/forms'
 
 const contactForm = {
   fields: [
@@ -44,6 +45,21 @@ const contactForm = {
   submitButtonLabel: 'Send inquiry',
   successMessage: 'Thanks. We will reply soon.',
   title: 'Contact',
+}
+
+const contactFormWithPhone = {
+  ...contactForm,
+  fields: [
+    ...contactForm.fields.slice(0, 2),
+    {
+      label: 'Phone number',
+      name: 'phone',
+      placeholder: '+91 98765 43210',
+      required: true,
+      type: 'phone',
+    },
+    ...contactForm.fields.slice(2),
+  ],
 }
 
 afterEach(() => {
@@ -167,12 +183,60 @@ describe('contact33 block', () => {
     expect(html).toContain('min-h-32 rounded-control')
   })
 
-  it('submits values and attribution metadata through the existing endpoint', async () => {
-    window.history.replaceState(
-      {},
-      '',
-      '/contact?utm_source=newsletter&utm_campaign=summer',
+  it('renders and validates an optional phone field with telephone input semantics', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      json: vi.fn().mockResolvedValue({ message: 'Thanks.' }),
+      ok: true,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    render(
+      <Contact33BlockComponent
+        form={contactFormWithPhone as never}
+        image={{ alt: 'Contact', url: '/contact.jpg' } as never}
+        imageAlt="Contact team"
+        title="Contact us"
+      />,
     )
+
+    const phoneInput = screen.getByLabelText(/Phone number/) as HTMLInputElement
+    const subjectInput = screen.getByLabelText(/Topic/)
+    const secondaryRow = phoneInput.closest('[data-contact33-secondary-row="phone-subject"]')
+
+    expect(phoneInput.type).toBe('tel')
+    expect(phoneInput.inputMode).toBe('tel')
+    expect(phoneInput.autocomplete).toBe('tel')
+    expect(phoneInput.maxLength).toBe(FORM_PHONE_MAX_INPUT_LENGTH)
+    expect(phoneInput.required).toBe(true)
+    expect(secondaryRow).toBeTruthy()
+    expect(secondaryRow?.className).toContain('sm:grid-cols-2')
+    expect(secondaryRow?.querySelector('#contact33-phone')).toBe(phoneInput)
+    expect(secondaryRow?.querySelector('#contact33-subject')).toBe(subjectInput)
+
+    fireEvent.change(screen.getByLabelText(/Full name/), {
+      target: { value: 'Jane Doe' },
+    })
+    fireEvent.change(screen.getByLabelText(/Work email/), {
+      target: { value: 'jane@example.com' },
+    })
+    fireEvent.change(phoneInput, { target: { value: 'Call +91abc 98765 43210' } })
+    expect(phoneInput.value).toBe('+91 98765 43210')
+    fireEvent.change(phoneInput, { target: { value: '123456789012345678901234' } })
+    expect(phoneInput.value).toBe('123456789012345')
+    fireEvent.change(phoneInput, { target: { value: '+91 98765 43210' } })
+    fireEvent.change(screen.getByLabelText(/Your message/), {
+      target: { value: 'Please call me.' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Send inquiry' }))
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
+    const request = JSON.parse(fetchMock.mock.calls[0][1].body as string)
+    expect(request.values.phone).toBe('+91 98765 43210')
+    expect(phoneInput.value).toBe('')
+  })
+
+  it('submits values and attribution metadata through the existing endpoint', async () => {
+    window.history.replaceState({}, '', '/contact?utm_source=newsletter&utm_campaign=summer')
     const fetchMock = vi.fn().mockResolvedValue({
       json: vi.fn().mockResolvedValue({
         message: 'Thanks. We will reply soon.',
@@ -224,9 +288,7 @@ describe('contact33 block', () => {
         website: '',
       },
     })
-    expect((await screen.findByRole('status')).textContent).toContain(
-      'Thanks. We will reply soon.',
-    )
+    expect((await screen.findByRole('status')).textContent).toContain('Thanks. We will reply soon.')
     expect((screen.getByLabelText(/Full name/) as HTMLInputElement).value).toBe('')
   })
 
@@ -264,16 +326,12 @@ describe('contact33 block', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Send inquiry' }))
 
+    expect(await screen.findByText('Work email must be a valid email address.')).toBeTruthy()
     expect(
-      await screen.findByText('Work email must be a valid email address.'),
-    ).toBeTruthy()
-    expect(
-      screen.getByText('Please correct the highlighted fields and try again.')
-        .textContent,
+      screen.getByText('Please correct the highlighted fields and try again.').textContent,
     ).toContain('Please correct the highlighted fields and try again.')
     expect(
-      (screen.getByRole('button', { name: 'Send inquiry' }) as HTMLButtonElement)
-        .disabled,
+      (screen.getByRole('button', { name: 'Send inquiry' }) as HTMLButtonElement).disabled,
     ).toBe(false)
   })
 })

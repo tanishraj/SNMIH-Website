@@ -55,9 +55,7 @@ const validateContactForm: RelationshipFieldSingleValidation = async (value, { r
   }
 
   const formID =
-    typeof value === 'object' && value !== null && 'value' in value
-      ? value.value
-      : value
+    typeof value === 'object' && value !== null && 'value' in value ? value.value : value
   const form = await req.payload.findByID({
     collection: 'forms',
     depth: 0,
@@ -96,7 +94,11 @@ export const Contact33Block: Block = {
               type: 'textarea',
             },
             createContentActionsField({ label: 'Section Actions', maxRows: 2 }),
-            createContentActionsField({ name: 'footerActions', label: 'Footer Actions', maxRows: 2 }),
+            createContentActionsField({
+              name: 'footerActions',
+              label: 'Footer Actions',
+              maxRows: 2,
+            }),
             {
               name: 'image',
               type: 'upload',
@@ -124,7 +126,7 @@ export const Contact33Block: Block = {
               validate: validateContactForm,
               admin: {
                 description:
-                  'Select a published general or lead form with name (Text), email (Email), subject (Select), and message (Textarea) fields.',
+                  'Select a published general or lead form with name (Text), email (Email), subject (Select), and message (Textarea) fields. An optional phone field must use the Phone type.',
               },
             },
           ],

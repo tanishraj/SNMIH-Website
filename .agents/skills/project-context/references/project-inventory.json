@@ -2740,6 +2740,7 @@
       "tests/int/footer-minimal.int.spec.tsx",
       "tests/int/footer-spacing.int.spec.ts",
       "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/form-notifications.int.spec.ts",
       "tests/int/forms-submission.int.spec.ts",
       "tests/int/frontend-layout-cache.int.spec.ts",
       "tests/int/frontend-session.int.spec.tsx",
@@ -2868,7 +2869,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "608c88fb24c8f1ad60020963fc9e2bec37ead772f1c7fd2492f32237edef2494"
+    "sha256": "c3a309edd616ad1b23e0bfc4bee630a35f16f59cb437226e13a60df1d1d72605"
   },
   "surfaces": {
     "access": [
@@ -3087,6 +3088,7 @@
       "tests/int/footer-minimal.int.spec.tsx",
       "tests/int/footer-spacing.int.spec.ts",
       "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/form-notifications.int.spec.ts",
       "tests/int/forms-submission.int.spec.ts",
       "tests/int/frontend-layout-cache.int.spec.ts",
       "tests/int/frontend-session.int.spec.tsx",
