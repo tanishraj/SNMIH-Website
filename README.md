@@ -146,6 +146,7 @@ See [docs/architecture/content-model-map.md](docs/architecture/content-model-map
 - [Complete feature inventory](docs/architecture/feature-inventory.md)
 - [Editorial governance](docs/operations/editorial-governance.md)
 - [MongoDB deployment](docs/operations/mongodb-deployment.md)
+- [Production database backups](docs/operations/database-backups.md)
 - [Runtime and providers](docs/operations/runtime-and-providers.md)
 - [Developer workflows](docs/operations/developer-workflows.md)
 
