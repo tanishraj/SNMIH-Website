@@ -3,11 +3,14 @@ import type { Field } from 'payload'
 
 import { FormSubmissions } from '@/collections/FormSubmissions'
 import { updateFormSubmissionActivity } from '@/hooks/updateFormSubmissionActivity'
+import { formFieldTypeOptions, validateFormFieldDefinitionsForIntent } from '@/lib/forms'
+import { reviewRatingOptions } from '@/lib/reviews'
 
 const payloadMocks = vi.hoisted(() => {
   return {
     create: vi.fn(),
     find: vi.fn(),
+    findGlobal: vi.fn(),
     loggerError: vi.fn(),
     sendEmail: vi.fn(),
     update: vi.fn(),
@@ -33,6 +36,7 @@ vi.mock('payload', () => ({
   getPayload: vi.fn(async () => ({
     create: payloadMocks.create,
     find: payloadMocks.find,
+    findGlobal: payloadMocks.findGlobal,
     logger: {
       error: payloadMocks.loggerError,
     },
@@ -104,6 +108,7 @@ describe('form submission model', () => {
     const submissionIntentField = getField('submissionIntent')
     const submittedAtField = getField('submittedAt')
     const submitterEmailField = getField('submitterEmail')
+    const submitterPhoneField = getField('submitterPhone')
     const linkedReviewField = getField('linkedReview')
     const ownerField = getField('owner')
     const internalNotesField = getField('internalNotes')
@@ -111,14 +116,9 @@ describe('form submission model', () => {
 
     expect(statusField.type).toBe('select')
     expect(statusField.defaultValue).toBe('new')
-    expect(statusField.options?.map((option) => (typeof option === 'string' ? option : option.value))).toEqual([
-      'new',
-      'in_review',
-      'qualified',
-      'won',
-      'rejected',
-      'archived',
-    ])
+    expect(
+      statusField.options?.map((option) => (typeof option === 'string' ? option : option.value)),
+    ).toEqual(['new', 'in_review', 'qualified', 'won', 'rejected', 'archived'])
     expect(submissionIntentField.type).toBe('select')
     expect(submissionIntentField.defaultValue).toBe('general')
     expect(submissionIntentField.admin?.readOnly).toBe(true)
@@ -128,11 +128,77 @@ describe('form submission model', () => {
     expect(emailField.admin?.readOnly).toBe(true)
     expect(submitterEmailField.type).toBe('email')
     expect(submitterEmailField.admin?.readOnly).toBe(true)
+    expect(submitterPhoneField.type).toBe('text')
+    expect(submitterPhoneField.admin?.readOnly).toBe(true)
     expect(linkedReviewField.type).toBe('relationship')
     expect(submittedAtField.type).toBe('date')
     expect(submittedAtField.admin?.readOnly).toBe(true)
     expect(lastActionAtField.type).toBe('date')
     expect(lastActionAtField.admin?.readOnly).toBe(true)
+  })
+
+  it('offers phone as a first-class form field type', () => {
+    expect(formFieldTypeOptions).toContainEqual({
+      label: 'Phone',
+      value: 'phone',
+    })
+  })
+
+  it('keeps phone available to contact forms while rejecting it as a required review-only field', () => {
+    const phoneField = {
+      label: 'Phone',
+      name: 'phone',
+      required: true,
+      type: 'phone',
+    }
+
+    expect(
+      validateFormFieldDefinitionsForIntent({
+        fields: [phoneField],
+        submissionIntent: 'lead',
+      }),
+    ).toBe(true)
+    expect(
+      validateFormFieldDefinitionsForIntent({
+        fields: [phoneField],
+        submissionIntent: 'review',
+      }),
+    ).toBe('Review Submission cannot render required field "phone".')
+  })
+
+  it('allows the required values that Review Submission supplies itself', () => {
+    expect(
+      validateFormFieldDefinitionsForIntent({
+        fields: [
+          {
+            label: 'Rating',
+            name: 'rating',
+            options: reviewRatingOptions.map((option) => ({ ...option })),
+            required: true,
+            type: 'select',
+          },
+          {
+            label: 'Review',
+            name: 'reviewBody',
+            required: true,
+            type: 'textarea',
+          },
+          {
+            label: 'Name',
+            name: 'reviewerName',
+            required: true,
+            type: 'text',
+          },
+          {
+            label: 'Genuine experience',
+            name: 'isGenuineExperience',
+            required: true,
+            type: 'checkbox',
+          },
+        ],
+        submissionIntent: 'review',
+      }),
+    ).toBe(true)
   })
 
   it('enriches persisted submissions and emits the starter event seam with ops metadata', async () => {
@@ -151,6 +217,12 @@ describe('form submission model', () => {
               name: 'fullName',
               required: true,
               type: 'text',
+            },
+            {
+              label: 'Phone',
+              name: 'phone',
+              required: true,
+              type: 'phone',
             },
           ],
           id: 42,
@@ -179,6 +251,7 @@ describe('form submission model', () => {
           values: {
             email: 'lead@example.com',
             fullName: 'Taylor Lead',
+            phone: '+91 98765 43210',
             website: '',
           },
         }),
@@ -212,6 +285,7 @@ describe('form submission model', () => {
           data: {
             email: 'lead@example.com',
             fullName: 'Taylor Lead',
+            phone: '+91 98765 43210',
           },
           email: 'lead@example.com',
           form: 42,
@@ -222,6 +296,7 @@ describe('form submission model', () => {
           submittedAt: expect.any(String),
           submitterEmail: 'lead@example.com',
           submitterName: 'Taylor Lead',
+          submitterPhone: '+91 98765 43210',
         }),
         overrideAccess: true,
       }),
@@ -242,13 +317,66 @@ describe('form submission model', () => {
       submissionIntent: 'lead',
       submitterEmail: 'lead@example.com',
       submitterName: 'Taylor Lead',
+      submitterPhone: '+91 98765 43210',
       values: {
         email: 'lead@example.com',
         fullName: 'Taylor Lead',
+        phone: '+91 98765 43210',
       },
     })
     expect(payloadMocks.sendEmail).not.toHaveBeenCalled()
     expect(payloadMocks.update).not.toHaveBeenCalled()
+  })
+
+  it('rejects an invalid phone number before creating a submission', async () => {
+    payloadMocks.find.mockResolvedValue({
+      docs: [
+        {
+          fields: [
+            {
+              label: 'Phone',
+              name: 'phone',
+              required: true,
+              type: 'phone',
+            },
+          ],
+          id: 42,
+          notificationRecipients: [],
+          slug: 'contact',
+          submissionIntent: 'lead',
+          successMessage: 'Thanks.',
+          title: 'Contact',
+        },
+      ],
+    })
+
+    const { POST } = await loadRouteModule()
+    const response = await POST(
+      new Request('http://localhost/api/forms/contact/submit', {
+        body: JSON.stringify({
+          values: {
+            phone: 'not-a-phone-number',
+            website: '',
+          },
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      }),
+      {
+        params: Promise.resolve({ slug: 'contact' }),
+      },
+    )
+
+    expect(response.status).toBe(400)
+    await expect(response.json()).resolves.toEqual({
+      errors: {
+        phone: 'Phone must be a valid phone number.',
+      },
+      message: 'Please correct the highlighted fields and try again.',
+    })
+    expect(payloadMocks.create).not.toHaveBeenCalled()
   })
 
   it('stamps lastActionAt when operators change status, owner, or notes', async () => {

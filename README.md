@@ -84,8 +84,8 @@ Production containers require a durable external MongoDB database and `MEDIA_PRO
 
 **Forms and lead capture**
 
-- forms with field definitions, submission intent routing, spam protection, and assignment
-- team notification emails and optional submitter confirmation email (CMS-configured subject + message)
+- forms with text, email, phone, textarea, select, and checkbox fields, submission intent routing, spam protection, and assignment
+- responsive branded team notification emails with site-timezone dates and optional submitter confirmation email (CMS-configured subject + message)
 - form submissions with follow-up state, assignment, and optional review promotion
 
 **Security and accessibility**

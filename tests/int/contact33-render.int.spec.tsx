@@ -46,6 +46,21 @@ const contactForm = {
   title: 'Contact',
 }
 
+const contactFormWithPhone = {
+  ...contactForm,
+  fields: [
+    ...contactForm.fields.slice(0, 2),
+    {
+      label: 'Phone number',
+      name: 'phone',
+      placeholder: '+91 98765 43210',
+      required: true,
+      type: 'phone',
+    },
+    ...contactForm.fields.slice(2),
+  ],
+}
+
 afterEach(() => {
   cleanup()
   window.history.replaceState({}, '', '/')
@@ -167,12 +182,50 @@ describe('contact33 block', () => {
     expect(html).toContain('min-h-32 rounded-control')
   })
 
-  it('submits values and attribution metadata through the existing endpoint', async () => {
-    window.history.replaceState(
-      {},
-      '',
-      '/contact?utm_source=newsletter&utm_campaign=summer',
+  it('renders and validates an optional phone field with telephone input semantics', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      json: vi.fn().mockResolvedValue({ message: 'Thanks.' }),
+      ok: true,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    render(
+      <Contact33BlockComponent
+        form={contactFormWithPhone as never}
+        image={{ alt: 'Contact', url: '/contact.jpg' } as never}
+        imageAlt="Contact team"
+        title="Contact us"
+      />,
     )
+
+    const phoneInput = screen.getByLabelText(/Phone number/) as HTMLInputElement
+    expect(phoneInput.type).toBe('tel')
+    expect(phoneInput.inputMode).toBe('tel')
+    expect(phoneInput.autocomplete).toBe('tel')
+    expect(phoneInput.required).toBe(true)
+
+    fireEvent.change(screen.getByLabelText(/Full name/), {
+      target: { value: 'Jane Doe' },
+    })
+    fireEvent.change(screen.getByLabelText(/Work email/), {
+      target: { value: 'jane@example.com' },
+    })
+    fireEvent.change(phoneInput, {
+      target: { value: '+91 98765 43210' },
+    })
+    fireEvent.change(screen.getByLabelText(/Your message/), {
+      target: { value: 'Please call me.' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Send inquiry' }))
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
+    const request = JSON.parse(fetchMock.mock.calls[0][1].body as string)
+    expect(request.values.phone).toBe('+91 98765 43210')
+    expect(phoneInput.value).toBe('')
+  })
+
+  it('submits values and attribution metadata through the existing endpoint', async () => {
+    window.history.replaceState({}, '', '/contact?utm_source=newsletter&utm_campaign=summer')
     const fetchMock = vi.fn().mockResolvedValue({
       json: vi.fn().mockResolvedValue({
         message: 'Thanks. We will reply soon.',
@@ -224,9 +277,7 @@ describe('contact33 block', () => {
         website: '',
       },
     })
-    expect((await screen.findByRole('status')).textContent).toContain(
-      'Thanks. We will reply soon.',
-    )
+    expect((await screen.findByRole('status')).textContent).toContain('Thanks. We will reply soon.')
     expect((screen.getByLabelText(/Full name/) as HTMLInputElement).value).toBe('')
   })
 
@@ -264,16 +315,12 @@ describe('contact33 block', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Send inquiry' }))
 
+    expect(await screen.findByText('Work email must be a valid email address.')).toBeTruthy()
     expect(
-      await screen.findByText('Work email must be a valid email address.'),
-    ).toBeTruthy()
-    expect(
-      screen.getByText('Please correct the highlighted fields and try again.')
-        .textContent,
+      screen.getByText('Please correct the highlighted fields and try again.').textContent,
     ).toContain('Please correct the highlighted fields and try again.')
     expect(
-      (screen.getByRole('button', { name: 'Send inquiry' }) as HTMLButtonElement)
-        .disabled,
+      (screen.getByRole('button', { name: 'Send inquiry' }) as HTMLButtonElement).disabled,
     ).toBe(false)
   })
 })

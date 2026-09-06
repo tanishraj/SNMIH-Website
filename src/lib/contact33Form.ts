@@ -1,6 +1,7 @@
 import type { Form } from '@/payload-types'
 
-export type Contact33FieldName = 'email' | 'message' | 'name' | 'subject'
+export type Contact33FieldName = 'email' | 'message' | 'name' | 'phone' | 'subject'
+type Contact33CoreFieldName = Exclude<Contact33FieldName, 'phone'>
 
 export type Contact33FormLike = Pick<
   Form,
@@ -13,10 +14,14 @@ export type Contact33FieldDefinition = {
   options?: Array<{ label: string; value: string }>
   placeholder?: string
   required: boolean
-  type: 'email' | 'select' | 'text' | 'textarea'
+  type: 'email' | 'phone' | 'select' | 'text' | 'textarea'
 }
 
-const fallbackFields: Record<Contact33FieldName, Contact33FieldDefinition> = {
+export type Contact33FieldDefinitions = Record<Contact33CoreFieldName, Contact33FieldDefinition> & {
+  phone?: Contact33FieldDefinition
+}
+
+const fallbackFields: Record<Contact33CoreFieldName, Contact33FieldDefinition> = {
   name: {
     label: 'Name',
     name: 'name',
@@ -56,6 +61,7 @@ const expectedTypes = {
 
 const typeLabels = {
   email: 'Email',
+  phone: 'Phone',
   select: 'Select',
   text: 'Text',
   textarea: 'Textarea',
@@ -67,7 +73,7 @@ export function validateContact33FormDefinition(
   const fields = form?.fields ?? []
 
   for (const [name, expectedType] of Object.entries(expectedTypes) as Array<
-    [Contact33FieldName, (typeof expectedTypes)[Contact33FieldName]]
+    [Contact33CoreFieldName, (typeof expectedTypes)[Contact33CoreFieldName]]
   >) {
     const field = fields.find((candidate) => candidate.name === name)
 
@@ -84,8 +90,14 @@ export function validateContact33FormDefinition(
     }
   }
 
+  const phoneField = fields.find((candidate) => candidate.name === 'phone')
+
+  if (phoneField && phoneField.type !== 'phone') {
+    return 'Contact form field "phone" must use the Phone type.'
+  }
+
   const unsupportedRequiredField = fields.find(
-    (field) => field.required && !(field.name in expectedTypes),
+    (field) => field.required && field.name !== 'phone' && !(field.name in expectedTypes),
   )
 
   return unsupportedRequiredField
@@ -95,9 +107,9 @@ export function validateContact33FormDefinition(
 
 export function getContact33FieldDefinitions(
   form: Pick<Contact33FormLike, 'fields'> | null | undefined,
-): Record<Contact33FieldName, Contact33FieldDefinition> {
-  return Object.fromEntries(
-    (Object.keys(fallbackFields) as Contact33FieldName[]).map((name) => {
+): Contact33FieldDefinitions {
+  const definitions = Object.fromEntries(
+    (Object.keys(fallbackFields) as Contact33CoreFieldName[]).map((name) => {
       const fallback = fallbackFields[name]
       const field = form?.fields?.find((candidate) => candidate.name === name)
       const options =
@@ -119,5 +131,23 @@ export function getContact33FieldDefinitions(
         },
       ]
     }),
-  ) as Record<Contact33FieldName, Contact33FieldDefinition>
+  ) as Record<Contact33CoreFieldName, Contact33FieldDefinition>
+  const phoneField = form?.fields?.find(
+    (candidate) => candidate.name === 'phone' && candidate.type === 'phone',
+  )
+
+  return {
+    ...definitions,
+    ...(phoneField
+      ? {
+          phone: {
+            label: phoneField.label?.trim() || 'Phone',
+            name: 'phone' as const,
+            placeholder: phoneField.placeholder?.trim() || undefined,
+            required: phoneField.required ?? false,
+            type: 'phone' as const,
+          },
+        }
+      : {}),
+  }
 }

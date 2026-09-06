@@ -219,10 +219,10 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
 - Public submission only loads published Forms.
 - The hidden honeypot key is `website`; suspected bots receive a neutral success response.
 - The built-in limiter allows five attempts per IP and form slug per ten minutes. It is per process, in memory, and is not a durable distributed rate limiter.
-- Required, email, select-option, and checkbox-acceptance validation derive from the Form schema.
+- Required, email, phone, select-option, and checkbox-acceptance validation derive from the Form schema. Phone validation accepts common international display punctuation and requires 7 to 15 digits.
 - Source, campaign, and landing-page metadata are captured when supplied.
-- General/lead Forms can notify internal recipients and optionally send a submitter confirmation. Contact email lookup prefers `submitterEmail`, then `reviewerEmail`, then `email`.
-- Review-intent Forms can create or update a pending draft Review and record its relationship or promotion error.
+- General/lead Forms can optionally expose a dedicated `phone` input in Contact Form, store searchable submitter phone metadata, notify internal recipients, and send a submitter confirmation. Internal and confirmation messages use one responsive branded shell; internal dates render in the Site Identity timezone. Contact email lookup prefers `submitterEmail`, then `reviewerEmail`, then `email`.
+- Review-intent Forms can create or update a pending draft Review and record its relationship or promotion error. Form validation rejects additional required fields that the fixed Review Submission UI cannot render.
 - Notification, confirmation, downstream-event, and promotion failures are logged without changing the visitor's successful submission response after storage succeeds.
 
 ## SEO, Search, Feeds, And Caching
