@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   buildProdBackupObjectKey,
+  buildProdMongoDumpArguments,
   normalizeR2BackupEndpoint,
   planProdBackupPruning,
   PROD_DATABASE_NAME,
@@ -33,6 +34,20 @@ describe('production database backup policy', () => {
     expect(() =>
       normalizeR2BackupEndpoint('https://account-id.r2.cloudflarestorage.com/a-path'),
     ).toThrow()
+  })
+
+  it('passes mongodump values using unambiguous equals-form options', () => {
+    expect(
+      buildProdMongoDumpArguments(
+        'mongodb+srv://cluster.example.com',
+        '/tmp/prod-backup.archive.gz',
+      ),
+    ).toEqual([
+      '--uri=mongodb+srv://cluster.example.com',
+      '--db=prod',
+      '--archive=/tmp/prod-backup.archive.gz',
+      '--gzip',
+    ])
   })
 
   it('keeps the newest 30 archives and prunes paired or orphaned checksums', () => {
