@@ -2054,6 +2054,7 @@
     },
     "name": "payload-cms-next-tailwind-shadcn-starter-kit",
     "scripts": [
+      "backup:prod-db",
       "build",
       "dev",
       "devsafe",
@@ -2115,6 +2116,7 @@
       "docs/guides/trash-and-recovery.md",
       "docs/guides/users.md",
       "docs/guides/work-queue.md",
+      "docs/operations/database-backups.md",
       "docs/operations/developer-workflows.md",
       "docs/operations/editorial-governance.md",
       "docs/operations/mongodb-deployment.md",
@@ -2802,6 +2804,7 @@
       "tests/int/page-settings-system-mode.int.spec.ts",
       "tests/int/pg-fee-structure.int.spec.tsx",
       "tests/int/preview-access.int.spec.ts",
+      "tests/int/prod-db-backup.int.spec.ts",
       "tests/int/profile-carousel.int.spec.ts",
       "tests/int/program-matrix.int.spec.tsx",
       "tests/int/project-context-lib.int.spec.ts",
@@ -2862,7 +2865,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "69b776558bd022d50cb7042ccd6f074c8f8ca11734f9847dc29a37e586f2df84"
+    "sha256": "829a312e78e7e8ad74ff42d3070149b05f2bf159d12ab015d9f217af326b9399"
   },
   "surfaces": {
     "access": [
@@ -3146,6 +3149,7 @@
       "tests/int/page-settings-system-mode.int.spec.ts",
       "tests/int/pg-fee-structure.int.spec.tsx",
       "tests/int/preview-access.int.spec.ts",
+      "tests/int/prod-db-backup.int.spec.ts",
       "tests/int/profile-carousel.int.spec.ts",
       "tests/int/program-matrix.int.spec.tsx",
       "tests/int/project-context-lib.int.spec.ts",

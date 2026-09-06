@@ -44,6 +44,10 @@ Install MongoDB Database Tools first. Treat archives as sensitive production dat
 approved encrypted external storage, keep them out of source control, and verify a restore procedure
 separately before relying on them.
 
+The scheduled production-only R2 workflow is separate from this local export command. See
+[Production Database Backups](database-backups.md) for its private bucket, GitHub secrets, 30-archive
+retention policy, and recovery drill.
+
 Deleting an archive from the working tree does not remove it from Git history. If an archive was ever
 tracked, inspect its contents, rotate any affected credentials, notify collaborators, and schedule a
 coordinated history rewrite separately. Do not rewrite shared history as part of an ordinary export or

@@ -16,13 +16,18 @@ describe('repository hygiene', () => {
   })
 
   it('keeps database archives out of Git', () => {
-    const trackedArchives = execFileSync('git', ['ls-files', 'backups/*.archive'], {
-      encoding: 'utf8',
-    }).trim()
+    const trackedArchives = execFileSync(
+      'git',
+      ['ls-files', '--', '*.archive', '*.archive.gz', '*.dump'],
+      {
+        encoding: 'utf8',
+      },
+    ).trim()
     const gitignore = readFileSync('.gitignore', 'utf8')
 
     expect(trackedArchives).toBe('')
     expect(gitignore).toContain('/backups/')
     expect(gitignore).toContain('*.archive')
+    expect(gitignore).toContain('*.archive.gz')
   })
 })

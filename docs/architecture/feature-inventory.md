@@ -259,6 +259,9 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
 - Payload commands generate types/import maps or expose the Payload CLI.
 - `pnpm generate:block-thumbnails` captures admin block-picker previews.
 - `pnpm export:db` uses `mongodump` to create a compressed archive under `backups/`.
+- `pnpm backup:prod-db` exports only the `prod` database to the private
+  `snmih-prod-db-backups/prod-db-backup/` R2 destination. Its daily/manual GitHub workflow verifies
+  each upload and keeps the newest 30 managed archives.
 - `pnpm migrate:offices` migrates legacy office data.
 - Vitest covers schema, hooks, helpers, route behavior, rendering, providers, and documentation vocabulary; Playwright covers core Admin and frontend journeys.
 - GitHub Actions verifies project context, generated Payload types, TypeScript, lint, integration
