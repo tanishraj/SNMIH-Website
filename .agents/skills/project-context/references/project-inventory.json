@@ -2153,6 +2153,7 @@
       "src/app/(frontend)/reviews/category/[slug]/page.tsx",
       "src/app/(frontend)/search/SearchInput.tsx",
       "src/app/(frontend)/search/page.tsx",
+      "src/app/(frontend)/template.tsx",
       "src/app/(payload)/admin/[[...segments]]/not-found.tsx",
       "src/app/(payload)/admin/[[...segments]]/page.tsx",
       "src/app/(payload)/api/[...slug]/route.ts",
@@ -2471,6 +2472,7 @@
       "src/components/global/GlobalAnnouncement.tsx",
       "src/components/global/GlobalFooter.tsx",
       "src/components/global/GlobalHeader.tsx",
+      "src/components/global/RouteTransitionScrollGuard.tsx",
       "src/components/global/SearchDialog.tsx",
       "src/components/header/HeaderMobileMenu.tsx",
       "src/components/header/HeaderNavMenu.tsx",
@@ -2830,6 +2832,7 @@
       "tests/int/reviews.int.spec.ts",
       "tests/int/rich-text-presentation.int.spec.tsx",
       "tests/int/rotating-announcement.int.spec.ts",
+      "tests/int/route-transition-scroll-guard.int.spec.tsx",
       "tests/int/runtime-config.int.spec.ts",
       "tests/int/scrollable-content-tab-rail.int.spec.tsx",
       "tests/int/search-dialog-design.int.spec.ts",
@@ -2865,7 +2868,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "9fec2c23b7edc8e5f556ea64d7f52afc93d6e6bd0c2e5a6f9a41294c8b8da942"
+    "sha256": "608c88fb24c8f1ad60020963fc9e2bec37ead772f1c7fd2492f32237edef2494"
   },
   "surfaces": {
     "access": [
@@ -3175,6 +3178,7 @@
       "tests/int/reviews.int.spec.ts",
       "tests/int/rich-text-presentation.int.spec.tsx",
       "tests/int/rotating-announcement.int.spec.ts",
+      "tests/int/route-transition-scroll-guard.int.spec.tsx",
       "tests/int/runtime-config.int.spec.ts",
       "tests/int/scrollable-content-tab-rail.int.spec.tsx",
       "tests/int/search-dialog-design.int.spec.ts",

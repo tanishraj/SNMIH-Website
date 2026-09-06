@@ -1,3 +1,5 @@
+'use client'
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -61,7 +63,12 @@ export function HeaderNavMenu({ menuItems, size }: HeaderNavMenuProps) {
               <NavigationMenuItem className="relative" key={`${item.label}-${item.href}`}>
                 {hasChildren ? (
                   <>
-                    <NavigationMenuTrigger className={triggerContainerClasses[size]}>
+                    <NavigationMenuTrigger
+                      className={triggerContainerClasses[size]}
+                      onPointerDown={(event) => {
+                        if (event.pointerType === 'mouse') event.preventDefault()
+                      }}
+                    >
                       <span className={triggerLinkClasses[size]}>{item.label}</span>
                     </NavigationMenuTrigger>
 
