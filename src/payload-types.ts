@@ -2288,6 +2288,10 @@ export interface QaAccordionBlock {
   splitProportion?: ('balanced' | 'sectionFocus' | 'qaFocus') | null;
   accordionPlacement?: ('left' | 'right') | null;
   sectionVerticalAlignment?: ('top' | 'center' | 'bottom') | null;
+  /**
+   * Positions Contact Prompt links and buttons within the section-content column on desktop. On smaller screens, they follow the supporting content.
+   */
+  supportingActionsPosition?: ('inline' | 'bottom') | null;
   size: 'none' | 'compact' | 'default' | 'comfortable';
   defaultOpenFirst?: boolean | null;
   /**
@@ -9864,6 +9868,7 @@ export interface QaAccordionBlockSelect<T extends boolean = true> {
   splitProportion?: T;
   accordionPlacement?: T;
   sectionVerticalAlignment?: T;
+  supportingActionsPosition?: T;
   size?: T;
   defaultOpenFirst?: T;
   anchorId?: T;
