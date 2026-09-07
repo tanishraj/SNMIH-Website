@@ -369,6 +369,14 @@ and rule rhythm. The shared preset suppresses Payload's empty `<p><br></p>` outp
 keeps regular mono labels while values use the normal text family; only date values use tabular
 numerals.
 
+Q&A Accordion introductions use the full available width for Left, Center, and Right alignment.
+In Split mode, supporting profiles, contact copy, and actions follow that alignment too. Use
+**Theme Settings → Supporting Actions Position → Bottom of Column** to place Contact Prompt links
+or buttons at the foot of the section-content column on desktop. **After Content** keeps them with
+the supporting copy and is the default for existing content. On smaller screens, supporting actions
+follow the content before the questions; Stacked mode hides supporting content. Section Actions
+remain separate and follow any bottom-positioned supporting actions.
+
 Headers use the `Header Navbar 12` block, Footers use `Footer 56`, and System Pages use exactly one matching `System 404`, `System Maintenance`, or `System Coming Soon` block. Those structural blocks are not selectable in normal Page layouts.
 
 ## Choosing Data-Owned Blocks

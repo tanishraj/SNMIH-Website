@@ -131,14 +131,21 @@ The outer eyebrow follows the section appearance; the existing inner eyebrow fol
 surface. Documents without valid outer content retain the legacy render branch.
 
 Q&A Accordion separates composition from proportion. `stacked` places the section introduction above
-Q&A and ignores optional supporting content. `split` offers Balanced 50/50, Section Content Focus
-60/40, and Q&A Focus 40/60 proportions; Q&A Position swaps desktop sides while DOM/mobile order
+Q&A and ignores optional supporting content. The introduction fills its available width, with
+Left/Center/Right alignment shared by its text and actions; Split supporting content follows the
+same alignment. Empty introductions and empty supporting-copy wrappers are omitted.
+`split` offers Balanced 50/50, Section Content Focus 60/40, and Q&A Focus 40/60 proportions;
+Q&A Position swaps desktop sides while DOM/mobile order
 remains section content first. Top, Center, and Bottom align the section-content group within its
 flexible large-screen column. Profile and Contact Prompt remain part of that group and are available
-only in Split mode. Section-level actions stay in normal flow and anchor to the bottom of the Split
-column independently from the content-group alignment; compact layouts and Stacked retain their
-natural action flow. The first Split question removes its large-screen top padding so its label aligns
-with the section heading; compact layouts and Stacked retain regular row padding. The renderer
+only in Split mode. Supporting Actions Position defaults to After Content; Bottom of Column moves
+Contact Prompt links and buttons below the flexible content group on desktop. Section-level actions
+anchor to the bottom of the Split column independently from the content-group alignment, following
+any bottom-positioned supporting actions. These action rows retain minimum spacing and remain in
+normal flow as answers expand or collapse; compact layouts retain their natural reading order and
+Stacked keeps section actions in its introduction. Long section and supporting action labels wrap
+inside their column. The first Split question removes its large-screen top padding so its label
+aligns with the section heading; compact layouts and Stacked retain regular row padding. The renderer
 normalizes legacy layout values without rewriting stored content.
 
 The generated inventory contains every current export under [src/blocks/shared](../../../../src/blocks/shared).
