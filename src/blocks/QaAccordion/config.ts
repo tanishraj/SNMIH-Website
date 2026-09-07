@@ -192,6 +192,21 @@ export const QaAccordionBlock: Block = {
               required: true,
             } satisfies SelectField,
             {
+              name: 'supportingActionsPosition',
+              label: 'Supporting Actions Position',
+              type: 'select',
+              defaultValue: 'inline',
+              options: [
+                { label: 'After Content', value: 'inline' },
+                { label: 'Bottom of Column', value: 'bottom' },
+              ],
+              admin: {
+                condition: hasSplitLayout,
+                description:
+                  'Positions Contact Prompt links and buttons within the section-content column on desktop. On smaller screens, they follow the supporting content.',
+              },
+            } satisfies SelectField,
+            {
               name: 'size',
               label: 'Section Padding',
               type: 'select',

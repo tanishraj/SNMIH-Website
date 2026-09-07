@@ -73,6 +73,7 @@ type QaAccordionBlockLike = QaAccordionLayoutInput & {
     profile?: QaAccordionProfile | null
   } | null
   size?: 'none' | 'comfortable' | 'compact' | 'default' | null
+  supportingActionsPosition?: 'bottom' | 'inline' | null
 }
 
 const contentAlignmentClasses = {
@@ -177,6 +178,18 @@ function QaAccordionContent({
   )
 }
 
+function QaContentActions({ className, ...props }: React.ComponentProps<typeof ContentActions>) {
+  return (
+    <ContentActions
+      {...props}
+      className={cn(
+        '[&_a]:max-w-full [&_a]:whitespace-normal [&_a]:[overflow-wrap:anywhere] [&_[data-slot=button]]:h-auto [&_[data-slot=button]]:min-h-10 [&_[data-slot=button]]:py-2',
+        className,
+      )}
+    />
+  )
+}
+
 export function QaAccordionBlockComponent({
   accentTitle,
   actions,
@@ -193,9 +206,10 @@ export function QaAccordionBlockComponent({
   sideColumn,
   size = 'default',
   splitProportion,
+  supportingActionsPosition,
 }: QaAccordionBlockLike) {
   const appearanceClasses = resolveBlockAppearanceClasses(appearance)
-  const resolvedContentAlignment = contentAlignment ?? 'left'
+  const resolvedContentAlignment = contentAlignment ?? 'center'
   const resolvedAccordionPlacement = accordionPlacement ?? 'right'
   const resolvedSize = size ?? 'default'
   const validItems = (items ?? []).flatMap((item) => {
@@ -217,7 +231,8 @@ export function QaAccordionBlockComponent({
     return null
   }
 
-  const resolvedAccentTitle = accentTitle?.trim() || undefined
+  const resolvedTitle = title?.trim()
+  const resolvedAccentTitle = accentTitle?.trim()
   const profile = sideColumn?.profile
   const contact = sideColumn?.contact
   const profileImage = getMediaImageProps({
@@ -238,27 +253,42 @@ export function QaAccordionBlockComponent({
     resolvedAccordionPlacement === 'left' ? leftQaProportionClasses : rightQaProportionClasses
   const hasProfile =
     isSplitLayout && Boolean(profileImage || profile?.name?.trim() || profile?.title?.trim())
-  const hasContact =
-    isSplitLayout &&
-    Boolean(contact?.title?.trim() || contact?.description?.trim() || contactActions.length > 0)
-  const hasSideColumn = hasProfile || hasContact
+  const hasContactCopy =
+    isSplitLayout && Boolean(contact?.title?.trim() || contact?.description?.trim())
+  const hasContactActions = isSplitLayout && contactActions.length > 0
+  const hasSideColumn = hasProfile || hasContactCopy || hasContactActions
+  const pinSupportingActions = hasContactActions && supportingActionsPosition === 'bottom'
+  const hasInlineSupportingContent =
+    hasProfile || hasContactCopy || (hasContactActions && !pinSupportingActions)
+  const hasIntroduction = Boolean(
+    resolvedTitle ||
+    resolvedAccentTitle ||
+    description?.trim() ||
+    (!isSplitLayout && resolvedHeaderActions.length > 0),
+  )
 
-  const supportingContent = hasSideColumn ? (
-    <aside className="space-y-8 text-left lg:space-y-12" data-qa-accordion-side-column="true">
-      <div className="space-y-8 lg:space-y-12">
-        {hasProfile ? (
-          <div className="flex items-start gap-3 sm:gap-4">
-            {profileImage ? (
-              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-card sm:h-16 sm:w-16">
-                <Image
-                  fill
-                  alt={profileImage.alt}
-                  className="object-cover"
-                  src={profileImage.src}
-                  sizes="64px"
-                />
-              </div>
-            ) : null}
+  const supportingContent = hasInlineSupportingContent ? (
+    <aside
+      className={cn(
+        'flex flex-col gap-8 lg:gap-12',
+        contentAlignmentClasses[resolvedContentAlignment],
+      )}
+      data-qa-accordion-side-column="true"
+    >
+      {hasProfile ? (
+        <div className="flex items-start gap-3 sm:gap-4">
+          {profileImage ? (
+            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-card sm:h-16 sm:w-16">
+              <Image
+                fill
+                alt={profileImage.alt}
+                className="object-cover"
+                src={profileImage.src}
+                sizes="64px"
+              />
+            </div>
+          ) : null}
+          {profile?.name?.trim() || profile?.title?.trim() ? (
             <div className="min-w-0">
               {profile?.name?.trim() ? (
                 <p className="mb-1 text-sm font-semibold text-current sm:text-base">
@@ -269,94 +299,127 @@ export function QaAccordionBlockComponent({
                 <p className="text-sm text-current/70 sm:text-base">{profile.title.trim()}</p>
               ) : null}
             </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
+      ) : null}
 
-        {hasContact ? (
-          <div className="space-y-4 lg:space-y-6">
-            {contact?.title?.trim() ? (
-              <p className="text-lg leading-tight font-semibold text-current sm:text-xl">
-                {contact.title.trim()}
-              </p>
-            ) : null}
-            {contact?.description?.trim() ? (
-              <p className="text-sm leading-relaxed text-current/70 sm:text-base">
-                {contact.description.trim()}
-              </p>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
+      {hasContactCopy ? (
+        <div className="w-full space-y-4 lg:space-y-6">
+          {contact?.title?.trim() ? (
+            <p className="text-lg leading-tight font-semibold text-current sm:text-xl">
+              {contact.title.trim()}
+            </p>
+          ) : null}
+          {contact?.description?.trim() ? (
+            <p className="text-sm leading-relaxed text-current/70 sm:text-base">
+              {contact.description.trim()}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
 
-      <ContentActions
-        actions={contactActions}
-        alignment="left"
-        data-qa-accordion-contact-actions="true"
-      />
+      {!pinSupportingActions ? (
+        <QaContentActions
+          actions={contactActions}
+          alignment={resolvedContentAlignment}
+          data-qa-accordion-contact-actions="true"
+        />
+      ) : null}
     </aside>
   ) : null
 
-  const sectionContentGroup = (
-    <div
-      className={cn(
-        'flex flex-col gap-8 lg:gap-12',
-        isSplitLayout && [
-          'lg:flex-1',
-          sectionVerticalAlignmentClasses[resolvedLayout.sectionVerticalAlignment],
-        ],
-      )}
-      data-qa-accordion-content-group="true"
-    >
-      <div className={cn(contentIntroClasses, contentAlignmentClasses[resolvedContentAlignment])}>
-        <h2 className={contentSectionHeadingClasses}>
-          {resolvedAccentTitle ? (
-            <>
-              <span className="block font-[inherit]">{title}</span>
-              <em className="block font-[inherit]">{resolvedAccentTitle}</em>
-            </>
-          ) : (
-            title
-          )}
-        </h2>
-        {description?.trim() ? (
-          <p className={contentSectionDescriptionClasses}>{description.trim()}</p>
+  const sectionContentGroup =
+    hasIntroduction || hasInlineSupportingContent ? (
+      <div
+        className={cn(
+          'flex flex-col gap-8 lg:gap-12',
+          isSplitLayout && [
+            'lg:flex-1',
+            sectionVerticalAlignmentClasses[resolvedLayout.sectionVerticalAlignment],
+          ],
+        )}
+        data-qa-accordion-content-group="true"
+      >
+        {hasIntroduction ? (
+          <div
+            className={cn(
+              contentIntroClasses,
+              'w-full max-w-none',
+              contentAlignmentClasses[resolvedContentAlignment],
+            )}
+            data-qa-accordion-intro="true"
+          >
+            {resolvedTitle || resolvedAccentTitle ? (
+              <h2 className={contentSectionHeadingClasses}>
+                {resolvedAccentTitle ? (
+                  <>
+                    {resolvedTitle ? (
+                      <span className="block font-[inherit]">{resolvedTitle}</span>
+                    ) : null}
+                    <em className="block font-[inherit]">{resolvedAccentTitle}</em>
+                  </>
+                ) : (
+                  resolvedTitle
+                )}
+              </h2>
+            ) : null}
+            {description?.trim() ? (
+              <p className={contentSectionDescriptionClasses}>{description.trim()}</p>
+            ) : null}
+            {!isSplitLayout ? (
+              <QaContentActions
+                actions={resolvedHeaderActions}
+                alignment={resolvedContentAlignment}
+                data-qa-accordion-header-actions="true"
+              />
+            ) : null}
+          </div>
         ) : null}
-        {!isSplitLayout ? (
-          <ContentActions
-            actions={resolvedHeaderActions}
-            alignment={resolvedContentAlignment}
-            data-qa-accordion-header-actions="true"
-          />
+
+        {supportingContent}
+      </div>
+    ) : null
+
+  const sectionContent =
+    isSplitLayout || sectionContentGroup ? (
+      <div
+        className={cn(
+          'order-1',
+          isSplitLayout
+            ? [sidePlacementClasses[resolvedAccordionPlacement], 'lg:h-full']
+            : 'mb-10 w-full lg:mb-16',
+          'flex flex-col',
+        )}
+        data-qa-accordion-section-content="true"
+      >
+        {sectionContentGroup}
+        {isSplitLayout && (pinSupportingActions || resolvedHeaderActions.length > 0) ? (
+          <div
+            className={cn(
+              'flex flex-col gap-4',
+              sectionContentGroup && 'mt-8',
+              'lg:mt-auto',
+              sectionContentGroup && 'lg:pt-8',
+            )}
+            data-qa-accordion-bottom-actions="true"
+          >
+            {pinSupportingActions ? (
+              <QaContentActions
+                actions={contactActions}
+                alignment={resolvedContentAlignment}
+                data-qa-accordion-contact-actions="true"
+              />
+            ) : null}
+            <QaContentActions
+              actions={resolvedHeaderActions}
+              alignment={resolvedContentAlignment}
+              data-qa-accordion-header-actions="true"
+              data-qa-accordion-section-actions="true"
+            />
+          </div>
         ) : null}
       </div>
-
-      {supportingContent}
-    </div>
-  )
-
-  const sectionContent = (
-    <div
-      className={cn(
-        'order-1',
-        isSplitLayout
-          ? [sidePlacementClasses[resolvedAccordionPlacement], 'lg:h-full']
-          : 'mb-10 w-full lg:mb-16',
-        'flex flex-col',
-      )}
-      data-qa-accordion-section-content="true"
-    >
-      {sectionContentGroup}
-      {isSplitLayout ? (
-        <ContentActions
-          actions={resolvedHeaderActions}
-          alignment={resolvedContentAlignment}
-          className="mt-4 lg:mt-auto"
-          data-qa-accordion-header-actions="true"
-          data-qa-accordion-section-actions="true"
-        />
-      ) : null}
-    </div>
-  )
+    ) : null
 
   const accordionContent = (
     <div
@@ -412,6 +475,7 @@ export function QaAccordionBlockComponent({
       data-qa-accordion-side-column={hasSideColumn ? 'true' : 'false'}
       data-qa-accordion-size={resolvedSize}
       data-qa-accordion-split-proportion={resolvedLayout.splitProportion}
+      data-qa-accordion-supporting-actions-position={pinSupportingActions ? 'bottom' : 'inline'}
     >
       <div className={regularBlockContainerClasses}>
         <div className="w-full">
