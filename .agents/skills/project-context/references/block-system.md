@@ -1,6 +1,6 @@
 # Block System
 
-## Registries
+## Registries 
 
 [blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 57 blocks and Reusable Sections expose the 56 non-recursive choices.
 
