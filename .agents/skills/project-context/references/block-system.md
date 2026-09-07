@@ -87,6 +87,10 @@ Production Page blocks are wrapped in `BlockErrorBoundary`, so one broken block 
 - `bannerCtaFields.ts` and `bannerCtaPresentation.ts`: banner layout controls and class resolution.
 - `siteSocialLinks.ts`: normalized CMS social destinations.
 
+About Section content uses the full width available in its layout. Split variants fill their text
+column without an additional reading-width cap; centered and text-only variants fill the regular
+block container. Edge-to-edge layouts retain their outer alignment boundary and existing padding.
+
 ## Automatic Motion
 
 Hero Carousel, Rotating Announcement, and Marquee Announcement share one visitor-facing automatic
