@@ -422,7 +422,7 @@ export function AboutSectionBlockComponent({
                       edgeContentPaddingClasses,
                     )}
                   >
-                    <div className="mr-auto w-full max-w-xl text-left">{textContent}</div>
+                    <div className="w-full text-left">{textContent}</div>
                   </div>
                 </div>
               ) : (
@@ -432,7 +432,7 @@ export function AboutSectionBlockComponent({
                     edgeContentPaddingClasses,
                   )}
                 >
-                  <div className="mr-auto w-full max-w-xl text-left">{textContent}</div>
+                  <div className="w-full text-left">{textContent}</div>
                 </div>
               )}
             </div>
@@ -459,7 +459,7 @@ export function AboutSectionBlockComponent({
                 filledContentPaddingClasses,
               )}
             >
-              <div className="w-full max-w-xl text-left">{textContent}</div>
+              <div className="w-full text-left">{textContent}</div>
             </div>
           </div>
           <BlockFooterActions actions={footerActions} />
@@ -471,13 +471,13 @@ export function AboutSectionBlockComponent({
               <div className={cn(splitOrder.media, 'md:h-full')} data-about-media-frame="contained">
                 {containedImageContent}
               </div>
-              <div className={cn(splitOrder.content, 'w-full max-w-xl text-left')}>
+              <div className={cn(splitOrder.content, 'w-full text-left')}>
                 {textContent}
               </div>
             </div>
           ) : resolvedVariant === 'centered' ? (
-            <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 text-center">
-              <div className="flex flex-col items-center gap-5">
+            <div className="flex w-full flex-col items-center gap-8 text-center">
+              <div className="flex w-full flex-col items-center gap-5">
                 {eyebrow?.trim() ? (
                   <SectionEyebrow surface={appearanceClasses.background}>
                     {eyebrow.trim()}
@@ -522,7 +522,7 @@ export function AboutSectionBlockComponent({
               ) : null}
             </div>
           ) : (
-            <div className="mx-auto max-w-3xl">{textContent}</div>
+            <div className="w-full">{textContent}</div>
           )}
           <BlockFooterActions actions={footerActions} />
         </div>
