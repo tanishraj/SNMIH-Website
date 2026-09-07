@@ -108,6 +108,10 @@ describe('Q&A Accordion block', () => {
       'sectionVerticalAlignment',
     ) as SelectField
     const supportingContent = getNamedField(contentTab.fields, 'sideColumn')
+    const supportingActionsPosition = getNamedField(
+      themeTab.fields,
+      'supportingActionsPosition',
+    ) as SelectField
 
     expect(layoutMode.defaultValue).toBe('split')
     expect(layoutMode.options).toEqual([
@@ -135,8 +139,19 @@ describe('Q&A Accordion block', () => {
     expect('label' in supportingContent ? supportingContent.label : undefined).toBe(
       'Supporting Content',
     )
+    expect(supportingActionsPosition.defaultValue).toBe('inline')
+    expect(supportingActionsPosition.options).toEqual([
+      { label: 'After Content', value: 'inline' },
+      { label: 'Bottom of Column', value: 'bottom' },
+    ])
 
-    for (const field of [splitProportion, placement, verticalAlignment, supportingContent]) {
+    for (const field of [
+      splitProportion,
+      placement,
+      verticalAlignment,
+      supportingContent,
+      supportingActionsPosition,
+    ]) {
       const condition = 'admin' in field ? field.admin?.condition : undefined
 
       expect(condition?.({}, { layoutMode: 'split' }, {} as never)).toBe(true)
@@ -202,7 +217,8 @@ describe('Q&A Accordion block', () => {
     expect(html).toContain('data-qa-accordion-content-group="true"')
     expect(html).toContain('lg:justify-center')
     expect(html).toContain('data-qa-accordion-section-actions="true"')
-    expect(html).toContain('mt-4 lg:mt-auto')
+    expect(html).toContain('data-qa-accordion-bottom-actions="true"')
+    expect(html).toContain('lg:mt-auto lg:pt-8')
     expect(countOccurrences(html, 'href="/questions"')).toBe(1)
     expect(html.indexOf('data-qa-accordion-content-group="true"')).toBeLessThan(
       html.indexOf('data-qa-accordion-section-actions="true"'),
@@ -218,13 +234,162 @@ describe('Q&A Accordion block', () => {
         title: 'Library questions',
       }),
     )
-    const sectionTag = html.match(
-      /<div class="([^"]*)" data-qa-accordion-section-content="true">/,
-    )
+    const sectionTag = html.match(/<div class="([^"]*)" data-qa-accordion-section-content="true">/)
 
     expect(sectionTag?.[1]).not.toContain('lg:h-full')
     expect(html).not.toContain('data-qa-accordion-section-actions="true"')
     expect(countOccurrences(html, 'href="/questions"')).toBe(1)
+  })
+
+  it.each(['inline', 'bottom', undefined, null] as const)(
+    'places supporting actions in %s flow without duplicating either action group',
+    (supportingActionsPosition) => {
+      const html = renderToStaticMarkup(
+        createElement(QaAccordionBlockComponent, {
+          actions: [{ label: 'All questions', linkType: 'custom', url: '/questions' }],
+          items: [{ answer: createRichText('Answer'), question: 'Question' }],
+          layoutMode: 'split',
+          sideColumn: {
+            contact: {
+              title: 'Contact our team',
+              actions: [
+                { label: 'Email us', linkType: 'custom', url: 'mailto:library@example.com' },
+                { label: 'Visit us', linkType: 'custom', mode: 'button', url: '/visit' },
+              ],
+            },
+            profile: { name: 'Library team' },
+          },
+          supportingActionsPosition,
+          title: 'Library questions',
+        }),
+      )
+      const doc = new DOMParser().parseFromString(html, 'text/html')
+      const contactActions = doc.querySelector('[data-qa-accordion-contact-actions]')!
+      const sectionActions = doc.querySelector('[data-qa-accordion-section-actions]')!
+
+      expect(doc.querySelectorAll('[data-qa-accordion-contact-actions]')).toHaveLength(1)
+      expect(contactActions.querySelectorAll('a')).toHaveLength(2)
+      expect(sectionActions.closest('[data-qa-accordion-bottom-actions]')).not.toBeNull()
+      expect(countOccurrences(html, 'href="/questions"')).toBe(1)
+      if (supportingActionsPosition === 'bottom') {
+        expect(contactActions.closest('[data-qa-accordion-bottom-actions]')).not.toBeNull()
+        expect(contactActions.closest('aside')).toBeNull()
+      } else {
+        expect(contactActions.closest('aside')).not.toBeNull()
+        expect(contactActions.closest('[data-qa-accordion-bottom-actions]')).toBeNull()
+      }
+      expect(html.indexOf('Library team')).toBeLessThan(html.indexOf('mailto:library@example.com'))
+      expect(html.indexOf('mailto:library@example.com')).toBeLessThan(
+        html.indexOf('href="/questions"'),
+      )
+    },
+  )
+
+  it.each(['stacked', 'fullWidth'] as const)(
+    'ignores saved bottom supporting actions in %s layouts',
+    (layoutMode) => {
+      const html = renderToStaticMarkup(
+        createElement(QaAccordionBlockComponent, {
+          actions: [{ label: 'All questions', linkType: 'custom', url: '/questions' }],
+          items: [{ answer: createRichText('Answer'), question: 'Question' }],
+          layoutMode,
+          sideColumn: {
+            contact: {
+              actions: [{ label: 'Contact', linkType: 'custom', url: '/contact' }],
+            },
+          },
+          supportingActionsPosition: 'bottom',
+        }),
+      )
+      const doc = new DOMParser().parseFromString(html, 'text/html')
+
+      expect(doc.querySelector('h2')).toBeNull()
+      expect(doc.querySelector('[data-qa-accordion-bottom-actions]')).toBeNull()
+      expect(doc.querySelector('[data-qa-accordion-contact-actions]')).toBeNull()
+      expect(doc.querySelector('[data-qa-accordion-intro] a')?.getAttribute('href')).toBe(
+        '/questions',
+      )
+    },
+  )
+
+  it('renders a link-only contact prompt without empty supporting-copy wrappers', () => {
+    const html = renderToStaticMarkup(
+      createElement(QaAccordionBlockComponent, {
+        items: [{ answer: createRichText('Answer'), question: 'Question' }],
+        layoutMode: 'split',
+        sideColumn: {
+          contact: { actions: [{ label: 'Contact', linkType: 'custom', url: '/contact' }] },
+        },
+        title: 'Library questions',
+      }),
+    )
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+    const support = doc.querySelector('aside')!
+
+    expect(support.children).toHaveLength(1)
+    expect(support.firstElementChild?.hasAttribute('data-qa-accordion-contact-actions')).toBe(true)
+    expect(doc.querySelector('[data-qa-accordion-bottom-actions]')).toBeNull()
+  })
+
+  it('renders bottom supporting actions without an empty introduction or aside', () => {
+    const html = renderToStaticMarkup(
+      createElement(QaAccordionBlockComponent, {
+        items: [{ answer: createRichText('Answer'), question: 'Question' }],
+        layoutMode: 'split',
+        sideColumn: {
+          contact: { actions: [{ label: 'Contact', linkType: 'custom', url: '/contact' }] },
+        },
+        supportingActionsPosition: 'bottom',
+      }),
+    )
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+
+    expect(doc.querySelector('h2, aside, [data-qa-accordion-intro]')).toBeNull()
+    expect(doc.querySelector('[data-qa-accordion-bottom-actions] a')?.getAttribute('href')).toBe(
+      '/contact',
+    )
+  })
+
+  it('omits the Stacked introduction when every optional field is empty', () => {
+    const html = renderToStaticMarkup(
+      createElement(QaAccordionBlockComponent, {
+        title: '  ',
+        description: '  ',
+        items: [{ answer: createRichText('Answer'), question: 'Question' }],
+        layoutMode: 'stacked',
+      }),
+    )
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+
+    expect(doc.querySelector('h2, [data-qa-accordion-section-content]')).toBeNull()
+    expect(doc.querySelector('[data-qa-accordion-main]')).not.toBeNull()
+  })
+
+  it('does not reserve bottom space for unresolved supporting actions', () => {
+    const html = renderToStaticMarkup(
+      createElement(QaAccordionBlockComponent, {
+        items: [{ answer: createRichText('Answer'), question: 'Question' }],
+        layoutMode: 'split',
+        sideColumn: { contact: { actions: [{ label: 'Contact', linkType: 'custom', url: '' }] } },
+        supportingActionsPosition: 'bottom',
+        title: 'Library questions',
+      }),
+    )
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+
+    expect(doc.querySelector('aside, [data-qa-accordion-bottom-actions]')).toBeNull()
+  })
+
+  it('uses the configured default alignment for null content alignment', () => {
+    const html = renderToStaticMarkup(
+      createElement(QaAccordionBlockComponent, {
+        contentAlignment: null,
+        items: [{ answer: createRichText('Answer'), question: 'Question' }],
+        title: 'Library questions',
+      }),
+    )
+
+    expect(html).toContain('data-qa-accordion-content-alignment="center"')
   })
 
   it.each([
@@ -236,13 +401,7 @@ describe('Q&A Accordion block', () => {
       'lg:order-1',
       'lg:order-2',
     ],
-    [
-      'right',
-      'qaFocus',
-      'lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]',
-      'lg:order-1',
-      'lg:order-2',
-    ],
+    ['right', 'qaFocus', 'lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]', 'lg:order-1', 'lg:order-2'],
     [
       'left',
       'sectionFocus',
@@ -250,13 +409,7 @@ describe('Q&A Accordion block', () => {
       'lg:order-2',
       'lg:order-1',
     ],
-    [
-      'left',
-      'qaFocus',
-      'lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]',
-      'lg:order-2',
-      'lg:order-1',
-    ],
+    ['left', 'qaFocus', 'lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]', 'lg:order-2', 'lg:order-1'],
   ] as const)(
     'renders %s Q&A with %s tracks and content-first DOM order',
     (accordionPlacement, splitProportion, trackClass, sectionOrder, qaOrder) => {
@@ -297,15 +450,11 @@ describe('Q&A Accordion block', () => {
         title: 'Frequently asked questions',
       }),
     )
-    const sectionTag = html.match(
-      /<div class="([^"]*)" data-qa-accordion-section-content="true">/,
-    )
+    const sectionTag = html.match(/<div class="([^"]*)" data-qa-accordion-section-content="true">/)
     const contentGroupTag = html.match(
       /<div class="([^"]*)" data-qa-accordion-content-group="true">/,
     )
-    const supportTag = html.match(
-      /<aside class="([^"]*)" data-qa-accordion-side-column="true">/,
-    )
+    const supportTag = html.match(/<aside class="([^"]*)" data-qa-accordion-side-column="true">/)
 
     expect(sectionTag?.[1]).toContain('lg:h-full')
     expect(contentGroupTag?.[1]).toContain('lg:flex-1')
@@ -344,22 +493,19 @@ describe('Q&A Accordion block', () => {
     ['fullWidth', 'stacked', 'balanced'],
     ['fiftyFifty', 'split', 'balanced'],
     ['oneThird', 'split', 'qaFocus'],
-  ] as const)(
-    'renders legacy %s without stored-content mutation',
-    (legacy, mode, proportion) => {
-      const props = {
-        items: [{ answer: createRichText('Answer'), question: 'Question' }],
-        layoutMode: legacy,
-        title: 'Legacy Q&A',
-      }
-      const html = renderToStaticMarkup(createElement(QaAccordionBlockComponent, props))
+  ] as const)('renders legacy %s without stored-content mutation', (legacy, mode, proportion) => {
+    const props = {
+      items: [{ answer: createRichText('Answer'), question: 'Question' }],
+      layoutMode: legacy,
+      title: 'Legacy Q&A',
+    }
+    const html = renderToStaticMarkup(createElement(QaAccordionBlockComponent, props))
 
-      expect(html).toContain(`data-qa-accordion-layout="${mode}"`)
-      expect(html).toContain(`data-qa-accordion-split-proportion="${proportion}"`)
-      expect(html).toContain('data-qa-accordion-section-vertical-alignment="top"')
-      expect(props.layoutMode).toBe(legacy)
-    },
-  )
+    expect(html).toContain(`data-qa-accordion-layout="${mode}"`)
+    expect(html).toContain(`data-qa-accordion-split-proportion="${proportion}"`)
+    expect(html).toContain('data-qa-accordion-section-vertical-alignment="top"')
+    expect(props.layoutMode).toBe(legacy)
+  })
 
   it('renders a one-third layout with the Q&A accordion on the right', () => {
     const html = renderToStaticMarkup(
@@ -428,9 +574,7 @@ describe('Q&A Accordion block', () => {
     expect(html).toContain('prose-li:my-1')
     expect(html).not.toContain('prose-h2:text-3xl')
     expect(html).toContain('Reach the admissions team for personalized guidance.')
-    expect(html).toContain(
-      'grid gap-10 lg:gap-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]',
-    )
+    expect(html).toContain('grid gap-10 lg:gap-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]')
     expect(html).toContain('data-qa-accordion-section-content="true"')
     expect(html).toContain('order-1 lg:order-1')
     expect(html).toContain('data-qa-accordion-main="true"')
