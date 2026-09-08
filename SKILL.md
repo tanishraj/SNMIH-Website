@@ -1,6 +1,6 @@
 ---
 name: payload-cms-starter-kit
-description: Compatibility entry point for repository-specific work in this Payload CMS and Next.js starter.
+description: Compatibility entry point for repository-specific work in this Payload CMS and Next.js starters.
 ---
 
 # Project Skill Moved
