@@ -33,9 +33,13 @@ React Server Components load public CMS data. Focused client components own inte
   live preview use the same document-order anchor wrapper, including blocks inside Reusable Sections
   and the News & Events detail template. Root scrolling accounts for the sticky Admin, announcement,
   and Header shell and becomes immediate under `prefers-reduced-motion`. The frontend route-transition
-  guard suppresses Next.js scroll management while the outgoing page is visible. A remounting App
-  Router template signals only after the outgoing route has been replaced, then the guard positions
-  the committed destination immediately. Sticky desktop dropdown triggers suppress pointer-induced
+  guard suppresses Next.js scroll management while the outgoing page is visible. A Suspense-wrapped
+  commit signal observes pathname and search changes inside the frontend template, including nested
+  routes where that template remains mounted. The guard uses the final URL to position the committed
+  page at its fragment target or at the top when no fragment/target exists. Programmatic, query, and
+  Back/Forward navigation follow the same rule; browser scroll restoration is manual while mounted.
+  Same-page links without a fragment return to the top immediately. The 15-second safety timer only
+  restores scroll styles and never prevents a later destination reset. Sticky desktop dropdown triggers suppress pointer-induced
   focus scrolling, and dropdown link dismissal does not restore trigger focus before navigation;
   same-page fragment navigation remains smooth.
 - `/search`, `/api/search`, feeds, sitemap, robots, and Open Graph image routes implement discovery.
