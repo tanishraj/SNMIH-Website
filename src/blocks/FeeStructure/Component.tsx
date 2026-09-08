@@ -12,17 +12,13 @@ import {
 import { ContentActions } from '@/components/ContentActions'
 import { SectionEyebrow } from '@/components/SectionEyebrow'
 import { resolveCmsActions } from '@/lib/cmsLinks'
-import { getMediaAbsoluteUrl } from '@/lib/media'
+import { resolveFeeDocumentPanel } from '@/blocks/shared/feeDocumentAction'
 import { cn } from '@/lib/utils'
 
 import { FeeStructureClient } from './FeeStructureClient'
-import { FeeStructureDownload, resolveDownloadButtonVariant } from './FeeStructureDownload'
+import { FeeStructureDownload } from './FeeStructureDownload'
 import { normalizeFeeCategories, normalizeProgrammeDetails } from './normalizeFeeStructure'
-import type {
-  FeeStructureBlockLike,
-  FeeStructureLayout,
-  ResolvedFeeStructureDownload,
-} from './types'
+import type { FeeStructureBlockLike, FeeStructureLayout } from './types'
 
 export function FeeStructureBlockComponent({
   academicSession,
@@ -38,6 +34,7 @@ export function FeeStructureBlockComponent({
   eyebrow,
   feeCategories,
   feeDocument,
+  feeDocumentAction,
   footerActions,
   layout,
   programmeDetails,
@@ -65,20 +62,15 @@ export function FeeStructureBlockComponent({
   const resolvedTitle = title?.trim()
   const resolvedAccentTitle = accentTitle?.trim()
   const resolvedDescription = description?.trim()
-  const fileURL = getMediaAbsoluteUrl(feeDocument)
-  const fileLabel = downloadLabel?.trim() || 'Download Fee Structure'
-  const resolvedDownloadMode = downloadActionMode === 'link' ? 'link' : 'button'
-  const resolvedDownloadVariant = resolveDownloadButtonVariant(downloadButtonVariant)
-  const resolvedDownload: ResolvedFeeStructureDownload | undefined = fileURL
-    ? {
-        appearance: downloadAppearance,
-        buttonVariant: resolvedDownloadVariant,
-        label: fileLabel,
-        mode: resolvedDownloadMode,
-        sectionBackground: appearanceClasses.background,
-        url: fileURL,
-      }
-    : undefined
+  const resolvedDownload = resolveFeeDocumentPanel({
+    feeDocument,
+    feeDocumentAction,
+    downloadLabel,
+    downloadActionMode,
+    downloadButtonVariant,
+    downloadAppearance,
+    sectionBackground: appearanceClasses.background,
+  })
   const hasHeader = Boolean(
     resolvedEyebrow || resolvedTitle || resolvedDescription || resolvedActions.length,
   )

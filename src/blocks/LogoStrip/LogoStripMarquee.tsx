@@ -109,7 +109,7 @@ export function LogoStripMarquee({ grayscale, logoHeightClass, logos, showLabels
 
   return (
     <div
-      className="flex w-full overflow-hidden"
+      className="flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

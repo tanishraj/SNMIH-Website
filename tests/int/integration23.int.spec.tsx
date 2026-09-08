@@ -51,7 +51,7 @@ describe('Partner Directory', () => {
       expect(content.contains(screen.getByRole('link', { name: 'Section action' }))).toBe(true)
       expect(layout.contains(footer)).toBe(false)
       expect(footer.contains(screen.getByRole('link', { name: 'Footer action' }))).toBe(true)
-      expect(content.className).not.toMatch(/max-w-/)
+      expect(content.className).toContain('max-w-3xl')
     },
   )
 
@@ -126,12 +126,12 @@ describe('Partner Directory', () => {
     }
   })
 
-  it('removes the outer frame and vertical dividers for ruled entries', () => {
+  it('keeps horizontal and vertical dividers without an outer frame for ruled entries', () => {
     const { container } = render(<Integration23BlockComponent gridStyle="ruled" items={items} />)
     const grid = container.querySelector('[data-integration23-grid]')!
     expect(grid.classList.contains('border')).toBe(false)
     for (const item of grid.querySelectorAll('li')) {
-      expect(item.classList.contains('border-r')).toBe(false)
+      expect(item.classList.contains('border-r')).toBe(true)
       expect(item.classList.contains('border-b')).toBe(true)
     }
   })
