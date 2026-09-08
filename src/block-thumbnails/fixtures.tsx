@@ -69,6 +69,8 @@ import { FeeStructureBlockComponent } from '@/blocks/FeeStructure/Component'
 import { PGFeeStructureBlockComponent } from '@/blocks/PGFeeStructure/Component'
 import { IconCardShowcaseBlockComponent } from '@/blocks/IconCardShowcase/Component'
 import { IconGridBlockComponent } from '@/blocks/IconGrid/Component'
+import { Integration23BlockComponent } from '@/blocks/Integration23/Component'
+import { Logos20BlockComponent } from '@/blocks/Logos20/Component'
 import { LogoStripBlockComponent } from '@/blocks/LogoStrip/Component'
 import { MediaCarouselBlockComponent } from '@/blocks/MediaCarousel/Component'
 import { NumberedStepsBlockComponent } from '@/blocks/NumberedSteps/Component'
@@ -2490,6 +2492,59 @@ export const blockThumbnailFixtures = {
       iconSize="large"
       size="compact"
       title="What we stand for"
+    />
+  ),
+  integration23: (
+    <Integration23BlockComponent
+      appearance={{ background: 'subtle', border: 'none' }}
+      columns="4"
+      contentAlignment="center"
+      eyebrow="Our network"
+      title="Insurance partners"
+      description="Find insurer information and contact our team for assistance."
+      items={[
+        'Northstar',
+        'Horizon',
+        'Meridian',
+        'Apex',
+        'Veritas',
+        'Centurion',
+        'Summit',
+        'Pioneer',
+      ].map((name) => ({
+        id: name,
+        name: `${name} Insurance`,
+        logo: fakeMedia(brandMark, `${name} logo`, 200, 80),
+        description: 'Example directory entry. Add your own insurer details in the CMS.',
+      }))}
+      footerActions={[
+        { label: 'Contact our team', linkType: 'custom', url: '/contact', mode: 'link' },
+      ]}
+      size="compact"
+    />
+  ),
+  logos20: (
+    <Logos20BlockComponent
+      appearance={{ background: 'subtle' }}
+      title="Our partners"
+      eyebrow="Working together"
+      description="A shared commitment to education, research, and community care."
+      rows={[
+        {
+          logos: ['Northstar', 'Horizon', 'Meridian', 'Apex'].map((name) => ({
+            name,
+            image: fakeMedia(brandMark, name, 200, 80),
+          })),
+        },
+        {
+          logos: ['Veritas', 'Summit', 'Pioneer', 'Centurion'].map((name) => ({
+            name,
+            image: fakeMedia(brandMark, name, 200, 80),
+          })),
+        },
+      ]}
+      showLabels
+      size="compact"
     />
   ),
   logoStrip: (
