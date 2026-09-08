@@ -39,6 +39,8 @@ import { RichTextBlockComponent } from './RichTextBlock/Component'
 import { VideoEmbedBlockComponent } from './VideoEmbed/Component'
 import { MediaCarouselBlockComponent } from './MediaCarousel/Component'
 import { ProgramMatrixBlockComponent } from './ProgramMatrix/Component'
+import { Integration23BlockComponent } from './Integration23/Component'
+import { Logos20BlockComponent } from './Logos20/Component'
 import { LogoStripBlockComponent } from './LogoStrip/Component'
 import { PageHeaderBlockComponent } from './PageHeader/Component'
 import { BreadcrumbBlockComponent } from './Breadcrumb/Component'
@@ -177,6 +179,10 @@ function renderPageBlockContent(
       return wrap(<MediaCarouselBlockComponent {...block} />)
     case 'programMatrix':
       return wrap(<ProgramMatrixBlockComponent {...block} />)
+    case 'integration23':
+      return wrap(<Integration23BlockComponent {...block} />)
+    case 'logos20':
+      return wrap(<Logos20BlockComponent {...block} />)
     case 'logoStrip':
       return wrap(<LogoStripBlockComponent {...block} />)
     case 'pageHeader':

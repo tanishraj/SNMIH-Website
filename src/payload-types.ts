@@ -238,6 +238,8 @@ export interface Page {
         | MediaCarouselBlock
         | ProgramMatrixBlock
         | LogoStripBlock
+        | Logos20Block
+        | Integration23Block
         | BreadcrumbBlock
         | TimelineBlock
         | IconCardShowcaseBlock
@@ -673,6 +675,8 @@ export interface ReusableSection {
         | MediaCarouselBlock
         | ProgramMatrixBlock
         | LogoStripBlock
+        | Logos20Block
+        | Integration23Block
         | BreadcrumbBlock
         | TimelineBlock
         | IconCardShowcaseBlock
@@ -5790,6 +5794,311 @@ export interface LogoStripBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos20Block".
+ */
+export interface Logos20Block {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Logos in display order. Empty rows are omitted.
+   */
+  topRow?:
+    | {
+        name: string;
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Logos in display order. Empty rows are omitted.
+   */
+  bottomRow?:
+    | {
+        name: string;
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Add and reorder more rows below the first two. Directions alternate left, right, left, right. Empty rows are omitted.
+   */
+  additionalRows?:
+    | {
+        /**
+         * Logos in display order. Empty rows are omitted.
+         */
+        logos?:
+          | {
+              name: string;
+              image: string | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  /**
+   * Aligns the heading, description, and section/footer actions. Logo rows always span the container.
+   */
+  contentAlignment: 'left' | 'center' | 'right';
+  /**
+   * Rows scroll in opposite directions and pause on hover. Visitors can pause both rows. Reduced-motion preferences always show static logos.
+   */
+  enableMotion?: boolean | null;
+  speed?: ('slow' | 'normal' | 'fast') | null;
+  logoHeight?: ('sm' | 'md' | 'lg') | null;
+  showLabels?: boolean | null;
+  grayscale?: boolean | null;
+  size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logos20';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Integration23Block".
+ */
+export interface Integration23Block {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Ordered directory entries. Names remain visible even without a logo.
+   */
+  items: {
+    name: string;
+    /**
+     * Optional logo. Missing images use the name initials.
+     */
+    logo?: (string | null) | Media;
+    /**
+     * Optional information shown when the visitor opens this entry.
+     */
+    description?: string | null;
+    actions?:
+      | {
+          label: string;
+          linkType?: ('page' | 'custom' | 'file') | null;
+          page?: (string | null) | Page;
+          /**
+           * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+           */
+          url?: string | null;
+          openInNewTab?: boolean | null;
+          /**
+           * Choose the Media asset this action should view or download.
+           */
+          file?: (string | null) | Media;
+          fileBehavior?: ('view' | 'download') | null;
+          openFileInNewTab?: boolean | null;
+          mode?: ('link' | 'button') | null;
+          /**
+           * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+           */
+          variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+          /**
+           * Adds a trailing arrow when this action is displayed as a button.
+           */
+          showArrow?: boolean | null;
+          /**
+           * Shows an animated down arrow for this file download.
+           */
+          showFileIcon?: boolean | null;
+          fileIconPosition?: ('left' | 'right') | null;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  /**
+   * Split places section content beside the directory on desktop. Compact screens stack content above the grid.
+   */
+  layoutMode?: ('stacked' | 'split') | null;
+  splitProportion?: ('balanced' | 'directoryFocus' | 'sectionFocus') | null;
+  gridPosition?: ('left' | 'right') | null;
+  sectionVerticalAlignment?: ('top' | 'center' | 'bottom') | null;
+  /**
+   * Aligns the eyebrow, heading, description, and actions within their available width in both layouts.
+   */
+  contentAlignment: 'left' | 'center' | 'right';
+  /**
+   * Maximum columns. Smaller screens and narrower split panels automatically use fewer columns.
+   */
+  columns: '1' | '2' | '3' | '4' | '6';
+  /**
+   * Controls each directory entry in both Stacked and Split section layouts.
+   */
+  itemLayout?: ('block' | 'inline') | null;
+  /**
+   * Aligns each logo and name together, independently of the section heading.
+   */
+  itemAlignment?: ('left' | 'center') | null;
+  /**
+   * Ruled removes the outer frame and vertical dividers, keeping horizontal rules between rows.
+   */
+  gridStyle?: ('grid' | 'ruled') | null;
+  /**
+   * Entries with details or actions open a dialog. Other entries remain static.
+   */
+  enableDetails?: boolean | null;
+  size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'integration23';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BreadcrumbBlock".
  */
 export interface BreadcrumbBlock {
@@ -8833,6 +9142,8 @@ export interface PagesSelect<T extends boolean = true> {
         mediaCarousel?: T | MediaCarouselBlockSelect<T>;
         programMatrix?: T | ProgramMatrixBlockSelect<T>;
         logoStrip?: T | LogoStripBlockSelect<T>;
+        logos20?: T | Logos20BlockSelect<T>;
+        integration23?: T | Integration23BlockSelect<T>;
         breadcrumb?: T | BreadcrumbBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         iconCardShowcase?: T | IconCardShowcaseBlockSelect<T>;
@@ -11902,6 +12213,186 @@ export interface LogoStripBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos20Block_select".
+ */
+export interface Logos20BlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  topRow?:
+    | T
+    | {
+        name?: T;
+        image?: T;
+        id?: T;
+      };
+  bottomRow?:
+    | T
+    | {
+        name?: T;
+        image?: T;
+        id?: T;
+      };
+  additionalRows?:
+    | T
+    | {
+        logos?:
+          | T
+          | {
+              name?: T;
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  contentAlignment?: T;
+  enableMotion?: T;
+  speed?: T;
+  logoHeight?: T;
+  showLabels?: T;
+  grayscale?: T;
+  size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Integration23Block_select".
+ */
+export interface Integration23BlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        description?: T;
+        actions?:
+          | T
+          | {
+              label?: T;
+              linkType?: T;
+              page?: T;
+              url?: T;
+              openInNewTab?: T;
+              file?: T;
+              fileBehavior?: T;
+              openFileInNewTab?: T;
+              mode?: T;
+              variant?: T;
+              showArrow?: T;
+              showFileIcon?: T;
+              fileIconPosition?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  layoutMode?: T;
+  splitProportion?: T;
+  gridPosition?: T;
+  sectionVerticalAlignment?: T;
+  contentAlignment?: T;
+  columns?: T;
+  itemLayout?: T;
+  itemAlignment?: T;
+  gridStyle?: T;
+  enableDetails?: T;
+  size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BreadcrumbBlock_select".
  */
 export interface BreadcrumbBlockSelect<T extends boolean = true> {
@@ -13071,6 +13562,8 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         mediaCarousel?: T | MediaCarouselBlockSelect<T>;
         programMatrix?: T | ProgramMatrixBlockSelect<T>;
         logoStrip?: T | LogoStripBlockSelect<T>;
+        logos20?: T | Logos20BlockSelect<T>;
+        integration23?: T | Integration23BlockSelect<T>;
         breadcrumb?: T | BreadcrumbBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         iconCardShowcase?: T | IconCardShowcaseBlockSelect<T>;
@@ -14076,6 +14569,8 @@ export interface NewsEventsDetailTemplate {
         | MediaCarouselBlock
         | ProgramMatrixBlock
         | LogoStripBlock
+        | Logos20Block
+        | Integration23Block
         | BreadcrumbBlock
         | TimelineBlock
         | IconCardShowcaseBlock
@@ -14365,6 +14860,8 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         mediaCarousel?: T | MediaCarouselBlockSelect<T>;
         programMatrix?: T | ProgramMatrixBlockSelect<T>;
         logoStrip?: T | LogoStripBlockSelect<T>;
+        logos20?: T | Logos20BlockSelect<T>;
+        integration23?: T | Integration23BlockSelect<T>;
         breadcrumb?: T | BreadcrumbBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         iconCardShowcase?: T | IconCardShowcaseBlockSelect<T>;
