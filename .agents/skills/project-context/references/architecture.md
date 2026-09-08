@@ -100,6 +100,15 @@ the best six or eight records, applying display limits after relevance ranking. 
 publication filtering, searched fields, API rate limits, and minimum query length remain unchanged.
 Search cost scales with the number of matching records; there is no external search index.
 
+## Media Downloads
+
+Absolute Media File Download URLs use `/api/media-download/[id]`. The endpoint reads only published
+Media with access enforcement, accepts stored URLs only on the configured asset origin or the
+configured site’s Payload file path, rejects redirects, and streams an attachment response with a
+sanitized Unicode filename. It forwards no browser cookies to storage, uses a 60-second upstream
+timeout, and returns private no-store responses. Shared actions and Download List use the same
+client-safe URL helper. Relative local downloads and File View retain direct URLs.
+
 ## Caching and Delivery Safety
 
 The shared frontend globals cache populates linked Pages with navigation fields only (`slug`,
