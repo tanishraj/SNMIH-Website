@@ -123,7 +123,8 @@ describe('project context parser', () => {
     expect(inventory.knowledgeGraph).toBeNull()
     expect(inventory.payload.collections).toHaveLength(21)
     expect(inventory.payload.globals).toHaveLength(9)
-    expect(inventory.blocks.page).toHaveLength(57)
+    expect(inventory.blocks.page).toHaveLength(59)
+    expect(inventory.blocks.page).toEqual(expect.arrayContaining(['logos20', 'integration23']))
     expect(inventory.blocks.page).toContain('pgFeeStructure')
     expect(inventory.blocks.reusableSection).toEqual(
       inventory.blocks.page.filter((slug: string) => slug !== 'reusableSection'),
