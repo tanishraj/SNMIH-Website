@@ -32,6 +32,8 @@ import { IconCardShowcaseBlock } from '@/blocks/IconCardShowcase/config'
 import { IconGridBlock } from '@/blocks/IconGrid/config'
 import { ImageMosaicBlock } from '@/blocks/ImageMosaic/config'
 import { LeadershipProfilesBlock } from '@/blocks/LeadershipProfiles/config'
+import { Integration23Block } from '@/blocks/Integration23/config'
+import { Logos20Block } from '@/blocks/Logos20/config'
 import { LogoStripBlock } from '@/blocks/LogoStrip/config'
 import { MediaCarouselBlock } from '@/blocks/MediaCarousel/config'
 import { NewsEventsContentBlock } from '@/blocks/NewsEventsContent/config'
@@ -162,6 +164,8 @@ export const pageBlockGroupDefinitions = [
       MediaCarouselBlock,
       ProgramMatrixBlock,
       LogoStripBlock,
+      Logos20Block,
+      Integration23Block,
       BreadcrumbBlock,
       TimelineBlock,
       IconCardShowcaseBlock,
