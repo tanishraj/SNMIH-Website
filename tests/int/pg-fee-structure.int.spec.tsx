@@ -161,11 +161,7 @@ describe('PG Fee Structure normalization', () => {
         valueMode: 'shared',
       },
     ])
-    expect(normalized[0]?.departments[0]?.cells).toEqual([
-      '₹28,00,000',
-      '₹3,15,000',
-      '₹2,00,000',
-    ])
+    expect(normalized[0]?.departments[0]?.cells).toEqual(['₹28,00,000', '₹3,15,000', '₹2,00,000'])
   })
 
   it('uses an em dash only as a missing-value fallback and detects authored numeric strings', () => {
@@ -399,9 +395,7 @@ describe('PGFeeStructureBlockComponent', () => {
     expect(container.querySelector('[data-pg-fee-table-scroll]')).toBeNull()
     expect(container.querySelector('[data-pg-fee-department-card]')).toBeNull()
 
-    for (const chapter of container.querySelectorAll(
-      '[data-pg-fee-department-chapter="true"]',
-    )) {
+    for (const chapter of container.querySelectorAll('[data-pg-fee-department-chapter="true"]')) {
       expect(chapter.textContent).toContain('Tuition (Per Annum)')
       expect(chapter.textContent).toContain('Hostel (Per Annum)')
       expect(chapter.textContent).toContain('Security (One Time)')
@@ -445,6 +439,45 @@ describe('PGFeeStructureBlockComponent', () => {
     expect(screen.getByText('Radiology')).toBeTruthy()
     expect(screen.getByText('NRI tuition remains in the published currency.')).toBeTruthy()
     expect(screen.queryByText('General Surgery')).toBeNull()
+  })
+
+  it.each([
+    ['view', 'button'],
+    ['view', 'link'],
+    ['download', 'button'],
+    ['download', 'link'],
+  ] as const)('renders the official file as %s with %s presentation', (fileBehavior, mode) => {
+    const { container } = render(
+      <PGFeeStructureBlockComponent
+        programmeName="Postgraduate Medical Courses"
+        academicSession="2026-27"
+        feeCategories={[generalCategory]}
+        feeDocumentAction={[
+          {
+            label: 'Official fees',
+            linkType: 'file',
+            file: {
+              id: 'fees',
+              url: '/media/current-fees.pdf',
+              filename: 'current-fees.pdf',
+            } as Media,
+            fileBehavior,
+            mode,
+            variant: 'outline',
+            openFileInNewTab: true,
+          },
+        ]}
+      />,
+    )
+    const action = screen.getByRole('link', { name: 'Official fees' })
+    expect(action.getAttribute('href')).toBe('/media/current-fees.pdf')
+    expect(action.getAttribute('download')).toBe(
+      fileBehavior === 'download' ? 'current-fees.pdf' : null,
+    )
+    expect(action.getAttribute('target')).toBe(fileBehavior === 'view' ? '_blank' : null)
+    expect(
+      container.querySelector('[data-fee-download-mode]')?.getAttribute('data-fee-download-mode'),
+    ).toBe(mode)
   })
 
   it('uses semantic brand surfaces and the shared official-document Link or Button presenter', () => {
@@ -527,9 +560,7 @@ describe('PGFeeStructureBlockComponent', () => {
     const atlas = container.querySelector('[data-pg-fee-atlas="true"]')
     const summary = container.querySelector('[data-pg-fee-atlas-summary="true"]')
     const statement = container.querySelector('[data-pg-fee-atlas-statement="true"]')
-    const chapters = container.querySelectorAll(
-      'article[data-pg-fee-department-chapter="true"]',
-    )
+    const chapters = container.querySelectorAll('article[data-pg-fee-department-chapter="true"]')
 
     expect(chapters).toHaveLength(2)
     expect(container.querySelectorAll('dl[data-pg-fee-grid="true"]')).toHaveLength(2)

@@ -177,11 +177,11 @@ export const Integration23Block: Block = {
               defaultValue: 'grid',
               options: [
                 { label: 'Bordered Grid', value: 'grid' },
-                { label: 'Ruled — Horizontal Dividers', value: 'ruled' },
+                { label: 'Ruled — Internal Dividers', value: 'ruled' },
               ],
               admin: {
                 description:
-                  'Ruled removes the outer frame and vertical dividers, keeping horizontal rules between rows.',
+                  'Ruled keeps horizontal and vertical dividers between items without an outer container border.',
               },
             } satisfies SelectField,
             {

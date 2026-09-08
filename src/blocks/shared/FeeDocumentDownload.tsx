@@ -1,43 +1,23 @@
-import { Download, FileText } from 'lucide-react'
-
-import type { BlockAppearance } from '@/blocks/shared/blockAppearance'
+import { FileText } from 'lucide-react'
 import { resolveBlockAppearanceClasses } from '@/blocks/shared/blockAppearance'
-import { Button, buttonVariants } from '@/components/ui/button'
-import type { CmsActionVariant } from '@/lib/cmsLinks'
+import { resolveCardSurface } from '@/blocks/shared/cardSurface'
+import { ContentActions } from '@/components/ContentActions'
 import { cn } from '@/lib/utils'
+import type { ResolvedFeeDocumentDownload } from './feeDocumentAction'
 
-export type FeeDocumentDownloadActionMode = 'button' | 'link'
-export type FeeDocumentDownloadButtonVariant = Exclude<CmsActionVariant, 'link'>
-
-export type ResolvedFeeDocumentDownload = {
-  appearance?: BlockAppearance | null
-  buttonVariant: FeeDocumentDownloadButtonVariant
-  label: string
-  mode: FeeDocumentDownloadActionMode
-  sectionBackground?: BlockAppearance['background'] | null
-  url: string
-}
-
-const downloadButtonVariants = new Set<CmsActionVariant>([
-  'default',
-  'primary',
-  'secondary',
-  'outline',
-  'white',
-  'whiteOutline',
-])
-
-export const resolveFeeDocumentButtonVariant = (
-  value?: FeeDocumentDownloadButtonVariant | null,
-): FeeDocumentDownloadButtonVariant =>
-  downloadButtonVariants.has(value as CmsActionVariant)
-    ? (value as FeeDocumentDownloadButtonVariant)
-    : 'outline'
+export { resolveFeeDocumentButtonVariant } from './feeDocumentAction'
+export type {
+  FeeDocumentDownloadActionMode,
+  FeeDocumentDownloadButtonVariant,
+  ResolvedFeeDocumentDownload,
+} from './feeDocumentAction'
 
 export function FeeDocumentDownload({ download }: { download: ResolvedFeeDocumentDownload }) {
   const appearance = resolveBlockAppearanceClasses(download.appearance)
-  const surface = appearance.background === 'none' ? download.sectionBackground : appearance.surface
-
+  const background =
+    appearance.background === 'none' ? download.sectionBackground : appearance.background
+  const surface = resolveCardSurface('default', background ?? undefined)
+  const isBrand = background === 'brand' || background === 'gradient-brand'
   return (
     <div
       className={cn(
@@ -51,37 +31,18 @@ export function FeeDocumentDownload({ download }: { download: ResolvedFeeDocumen
         <FileText aria-hidden="true" className="size-5" />
         <p className="font-semibold">Official fee structure</p>
       </div>
-      {download.mode === 'link' ? (
-        <a
-          className={cn(
-            buttonVariants({ variant: 'link' }),
-            'group/button h-auto gap-2 px-0 py-0 text-sm font-semibold text-current no-underline hover:text-current/80 hover:no-underline',
-          )}
-          data-fee-download-mode="link"
-          download
-          href={download.url}
-        >
-          <span className="underline decoration-current decoration-2 underline-offset-4">
-            {download.label}
-          </span>
-          <Download aria-hidden="true" data-icon="inline-end" />
-        </a>
-      ) : (
-        <Button
-          asChild
-          className={cn(
-            surface === 'brand' &&
-              download.buttonVariant === 'outline' &&
-              'border-current/70 text-current hover:border-current hover:bg-current/10',
-          )}
-          variant={download.buttonVariant}
-        >
-          <a data-fee-download-mode="button" download href={download.url}>
-            <Download aria-hidden="true" data-icon="inline-start" />
-            {download.label}
-          </a>
-        </Button>
-      )}
+      <ContentActions
+        actions={[download.action]}
+        className="sm:w-auto [&_a]:max-w-full [&_a]:whitespace-normal"
+        data-fee-download-mode={download.action.mode}
+        buttonClassNames={{
+          ...surface.button,
+          ...(isBrand
+            ? { outline: 'border-current/70 text-current hover:border-current hover:bg-current/10' }
+            : {}),
+        }}
+        linkClassName={surface.link}
+      />
     </div>
   )
 }

@@ -1377,8 +1377,7 @@
       },
       {
         "exports": [
-          "FeeDocumentDownload",
-          "resolveFeeDocumentButtonVariant"
+          "FeeDocumentDownload"
         ],
         "file": "src/blocks/shared/FeeDocumentDownload.tsx"
       },
@@ -1511,6 +1510,21 @@
           "normalizeContentTabVariant"
         ],
         "file": "src/blocks/shared/contentTabRail.ts"
+      },
+      {
+        "exports": [
+          "resolveFeeDocumentActions",
+          "resolveFeeDocumentButtonVariant",
+          "resolveFeeDocumentPanel"
+        ],
+        "file": "src/blocks/shared/feeDocumentAction.ts"
+      },
+      {
+        "exports": [
+          "createFeeDocumentActionField",
+          "hasFeeDocumentAction"
+        ],
+        "file": "src/blocks/shared/feeDocumentActionFields.ts"
       },
       {
         "exports": [
@@ -2464,6 +2478,8 @@
       "src/blocks/shared/contentActionsFields.ts",
       "src/blocks/shared/contentStyles.ts",
       "src/blocks/shared/contentTabRail.ts",
+      "src/blocks/shared/feeDocumentAction.ts",
+      "src/blocks/shared/feeDocumentActionFields.ts",
       "src/blocks/shared/iconField.ts",
       "src/blocks/shared/mediaOverlayFields.ts",
       "src/blocks/shared/mediaOverlayPresentation.ts",
@@ -2796,6 +2812,7 @@
       "tests/int/feature-access-matrix.int.spec.ts",
       "tests/int/feature-matrix.int.spec.ts",
       "tests/int/feature-spotlight.int.spec.ts",
+      "tests/int/fee-document-action.int.spec.ts",
       "tests/int/fee-structure.int.spec.tsx",
       "tests/int/font-delivery.int.spec.ts",
       "tests/int/footer-minimal.int.spec.tsx",
@@ -2915,6 +2932,7 @@
       "tests/int/starter-contract.int.spec.ts",
       "tests/int/starter-productization.int.spec.ts",
       "tests/int/stats-strip-render.int.spec.ts",
+      "tests/int/strip-internal-media-fields.int.spec.ts",
       "tests/int/student-experience.int.spec.tsx",
       "tests/int/system-page-blocks.int.spec.ts",
       "tests/int/system-page-rendering.int.spec.ts",
@@ -2932,7 +2950,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "e76b40e888c49a1895c84e5d0795a32a18f7645d350934c72050d2b3fd9ea330"
+    "sha256": "c2dabb1a323be662c023e05898056f1be69e5a2b1b0eca658e84ffb3544223ed"
   },
   "surfaces": {
     "access": [
@@ -3146,6 +3164,7 @@
       "tests/int/feature-access-matrix.int.spec.ts",
       "tests/int/feature-matrix.int.spec.ts",
       "tests/int/feature-spotlight.int.spec.ts",
+      "tests/int/fee-document-action.int.spec.ts",
       "tests/int/fee-structure.int.spec.tsx",
       "tests/int/font-delivery.int.spec.ts",
       "tests/int/footer-minimal.int.spec.tsx",
@@ -3264,6 +3283,7 @@
       "tests/int/starter-contract.int.spec.ts",
       "tests/int/starter-productization.int.spec.ts",
       "tests/int/stats-strip-render.int.spec.ts",
+      "tests/int/strip-internal-media-fields.int.spec.ts",
       "tests/int/student-experience.int.spec.tsx",
       "tests/int/system-page-blocks.int.spec.ts",
       "tests/int/system-page-rendering.int.spec.ts",

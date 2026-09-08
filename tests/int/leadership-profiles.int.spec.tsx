@@ -5,6 +5,9 @@ import { describe, expect, it } from 'vitest'
 
 import { LeadershipProfilesBlockComponent } from '@/blocks/LeadershipProfiles/Component'
 import { LeadershipProfilesBlock } from '@/blocks/LeadershipProfiles/config'
+import { Pages } from '@/collections/Pages'
+import { ReusableSections } from '@/collections/ReusableSections'
+import { NewsEventsDetailTemplate } from '@/globals/NewsEventsDetailTemplate'
 
 type InspectableField = {
   admin?: {
@@ -572,12 +575,7 @@ describe('Leadership Profiles block', () => {
     expect(source).not.toContain('useEffect')
   })
 
-  it('is registered across every Page-compatible schema and both renderers', async () => {
-    const [{ Pages }, { ReusableSections }, { NewsEventsDetailTemplate }] = await Promise.all([
-      import('@/collections/Pages'),
-      import('@/collections/ReusableSections'),
-      import('@/globals/NewsEventsDetailTemplate'),
-    ])
+  it('is registered across every Page-compatible schema and both renderers', () => {
     const collectSlugs = (fields: InspectableField[]): string[] =>
       fields.flatMap((field) => {
         if (field.type === 'blocks') {
