@@ -2529,14 +2529,20 @@ export const blockThumbnailFixtures = {
       title="Our partners"
       eyebrow="Working together"
       description="A shared commitment to education, research, and community care."
-      topRow={['Northstar', 'Horizon', 'Meridian', 'Apex'].map((name) => ({
-        name,
-        image: fakeMedia(brandMark, name, 200, 80),
-      }))}
-      bottomRow={['Veritas', 'Summit', 'Pioneer', 'Centurion'].map((name) => ({
-        name,
-        image: fakeMedia(brandMark, name, 200, 80),
-      }))}
+      rows={[
+        {
+          logos: ['Northstar', 'Horizon', 'Meridian', 'Apex'].map((name) => ({
+            name,
+            image: fakeMedia(brandMark, name, 200, 80),
+          })),
+        },
+        {
+          logos: ['Veritas', 'Summit', 'Pioneer', 'Centurion'].map((name) => ({
+            name,
+            image: fakeMedia(brandMark, name, 200, 80),
+          })),
+        },
+      ]}
       showLabels
       size="compact"
     />

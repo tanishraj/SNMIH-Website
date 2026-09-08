@@ -10,7 +10,8 @@ type MotionToggleProps = {
   contextLabel: string
   isPaused: boolean
   onToggle: () => void
-  variant?: 'ghost' | 'secondary'
+  size?: 'icon-sm' | 'icon' | 'icon-lg' | 'icon-xl' | 'icon-2xl' | 'icon-3xl'
+  variant?: 'default' | 'ghost' | 'secondary'
 }
 
 export function MotionToggle({
@@ -18,6 +19,7 @@ export function MotionToggle({
   contextLabel,
   isPaused,
   onToggle,
+  size,
   variant = 'secondary',
 }: MotionToggleProps) {
   const action = isPaused ? 'Play' : 'Pause'
@@ -26,9 +28,9 @@ export function MotionToggle({
   return (
     <Button
       aria-label={`${action} ${contextLabel}`}
-      className={cn('size-11 touch-manipulation', className)}
+      className={cn('touch-manipulation', !size && 'size-11', className)}
       onClick={onToggle}
-      size="icon-lg"
+      size={size ?? 'icon-lg'}
       type="button"
       variant={variant}
     >

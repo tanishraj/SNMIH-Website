@@ -3,13 +3,18 @@ import type { ArrayField, Block, SelectField } from 'payload'
 import { getBlockThumbnailAdmin } from '@/block-thumbnails/definitions'
 import { createBlockAppearanceFields } from '@/blocks/shared/blockAppearanceFields'
 import { createContentActionsField } from '@/blocks/shared/contentActionsFields'
+import { resolveLogoRows } from './rows'
 
 const logoRow = (name: string, label: string): ArrayField => ({
   name,
   label,
   type: 'array',
   maxRows: 40,
-  admin: { initCollapsed: true, description: 'Logos in display order. Empty rows are omitted.' },
+  labels: { singular: 'Logo', plural: 'Logos' },
+  admin: {
+    initCollapsed: true,
+    components: { RowLabel: '/blocks/Logos20/RowLabels#LogoItemLabel' },
+  },
   fields: [
     { name: 'name', label: 'Organisation Name', type: 'text', required: true },
     {
@@ -40,18 +45,34 @@ export const Logos20Block: Block = {
             { name: 'accentTitle', label: 'Accent Title (Italic)', type: 'text' },
             { name: 'description', type: 'textarea' },
             createContentActionsField({ label: 'Section Actions' }),
-            logoRow('topRow', 'Top Row — Scrolls Left'),
-            logoRow('bottomRow', 'Bottom Row — Scrolls Right'),
+            {
+              name: 'rows',
+              label: 'Logo Rows',
+              type: 'array',
+              labels: { singular: 'Row', plural: 'Rows' },
+              admin: {
+                initCollapsed: false,
+                components: { RowLabel: '/blocks/Logos20/RowLabels#LogoRowLabel' },
+                description:
+                  'Add a row, then add logos inside it. Drag rows or logos to reorder them. Rows alternate scrolling left and right; empty rows are omitted.',
+              },
+              hooks: {
+                afterRead: [
+                  ({ value, siblingData }) => resolveLogoRows({ ...siblingData, rows: value }),
+                ],
+                beforeValidate: [
+                  ({ value, siblingData }) => resolveLogoRows({ ...siblingData, rows: value }),
+                ],
+              },
+              fields: [logoRow('logos', 'Logos')],
+            },
+            // Retain stored fields for older blocks; editors work only with the unified rows above.
+            { ...logoRow('topRow', 'Top Row'), admin: { hidden: true } },
+            { ...logoRow('bottomRow', 'Bottom Row'), admin: { hidden: true } },
             {
               name: 'additionalRows',
-              label: 'Additional Rows',
               type: 'array',
-              labels: { singular: 'Logo Row', plural: 'Logo Rows' },
-              admin: {
-                initCollapsed: true,
-                description:
-                  'Add and reorder more rows below the first two. Directions alternate left, right, left, right. Empty rows are omitted.',
-              },
+              admin: { hidden: true },
               fields: [logoRow('logos', 'Logos')],
             },
             createContentActionsField({ name: 'footerActions', label: 'Footer Actions' }),
@@ -84,7 +105,18 @@ export const Logos20Block: Block = {
               defaultValue: true,
               admin: {
                 description:
-                  'Rows scroll in opposite directions and pause on hover. Visitors can pause all rows. Reduced-motion preferences always show static logos.',
+                  'Rows scroll in opposite directions and pause on hover. Reduced-motion preferences always show static logos.',
+              },
+            },
+            {
+              name: 'showPauseControl',
+              label: 'Show Pause / Play Control',
+              type: 'checkbox',
+              defaultValue: true,
+              admin: {
+                condition: (_data, siblingData) => siblingData?.enableMotion !== false,
+                description:
+                  'Shows an icon button that pauses or plays all rows. Its size follows Section Padding.',
               },
             },
             {

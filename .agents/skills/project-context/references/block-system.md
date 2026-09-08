@@ -11,6 +11,8 @@ optional. Missing or failed logos show initials. Only entries with descriptions 
 open accessible Radix dialogs, and Theme Settings can disable all dialogs. There is no OAuth or
 insurance-eligibility logic. The bordered grid uses 1, 2, 3, 4, or 6 desktop columns, responsive compact
 columns, full-container introduction alignment, and shared semantic appearance, padding, and actions.
+The description shares Logo Marquee’s 48rem (`max-w-3xl`) cap, follows section alignment, and
+fills any narrower split column; the header wrapper and directory retain their full allocated width.
 Stacked remains the default and fallback. Split defaults to a reversible 50/50 desktop composition,
 with optional 40% content / 60% directory or 60% content / 40% directory proportions and independent
 horizontal and vertical section-content alignment. Its directory uses
@@ -24,13 +26,23 @@ selects Bordered Grid (the default) or Ruled: horizontal row separators without 
 vertical dividers. One- and two-column choices work in both section layouts.
 
 Logo Marquee (`logos20`) adapts Shadcnblocks Logos 20 into independently authored logo rows
-moving in alternating directions. Top Row and Bottom Row retain their saved fields; an optional
-Additional Rows array appends reorderable rows without a fixed row-count limit. Every row permits
-up to 40 logos. Additional directions alternate by saved position, including empty row positions,
-and existing two-row blocks need no migration. It belongs to Advanced Library, uses a full-width stacked introduction
-only, and shares section/footer actions, typography, appearance, alignment, and padding. Editors can
+moving in alternating directions. A single Logo Rows array contains nested Logos arrays with
+native Add Row/Add Logo and drag-to-reorder controls. Row labels show position and logo count;
+logo labels use organisation names. There is no fixed row-count limit, and every row permits 40 logos.
+The client-safe `rows.ts` normalizer supplies both the adapter and the field afterRead/beforeValidate
+hooks. Hidden legacy Top/Bottom/Additional fields remain readable: missing unified rows are hydrated
+from those fields and saved on the next edit. Explicit empty arrays or null suppress legacy fallback,
+so clearing the block never resurrects old logos. Scroll directions follow saved row positions,
+including empty positions. It belongs to Advanced Library, uses a full-width stacked introduction
+only, and shares section/footer actions, typography, appearance, alignment, and padding. Its
+description has a 48rem (`max-w-3xl`) width cap with left/center/right alignment while logo rows
+span the full container. Editors can
 set scrolling speed, disable scrolling, choose logo height, show organisation names, and apply
-grayscale. Visitors can pause all rows; hover pauses the hovered row. Reduced-motion preferences
+grayscale. Show Pause / Play Control defaults on and uses the shared icon-only MotionToggle
+with accessible Play/Pause labels. Section Padding selects the control size: None/Compact 44px,
+Default 48px, Comfortable 56px. Disabling the control keeps scrolling active, including a previously
+paused live preview. Other MotionToggle consumers keep their existing 44px default. Hover pauses
+the hovered row. Reduced-motion preferences
 render complete static wrapping lists, including during SSR, with preference changes handled live.
 Animated duplicates are decorative while each authored name appears once per row for assistive
 technology. Missing/incomplete entries are omitted; failed images fall back to organisation names.

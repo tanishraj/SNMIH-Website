@@ -1,7 +1,6 @@
 'use client'
 
 // Adapted from @shadcnblocks/logos20: rows moving in alternating directions.
-import { Pause, Play } from 'lucide-react'
 import Image from 'next/image'
 import { useState, useSyncExternalStore } from 'react'
 import Marquee from 'react-fast-marquee'
@@ -22,7 +21,7 @@ import {
 } from '@/blocks/shared/contentStyles'
 import { ContentActions } from '@/components/ContentActions'
 import { SectionEyebrow } from '@/components/SectionEyebrow'
-import { Button } from '@/components/ui/button'
+import { MotionToggle } from '@/components/motion/MotionToggle'
 import { resolveCmsActions, type CmsActionValue } from '@/lib/cmsLinks'
 import { cn } from '@/lib/utils'
 
@@ -33,11 +32,10 @@ export type Logos20Item = {
 }
 
 type Logos20Props = {
-  additionalRows?: { id: string; logos: Logos20Item[] }[]
+  rows: { id: string; logos: Logos20Item[] }[]
   accentTitle?: string | null
   actions?: CmsActionValue[] | null
   appearance?: BlockAppearance | null
-  bottomRow: Logos20Item[]
   contentAlignment?: 'left' | 'center' | 'right' | null
   description?: string | null
   enableMotion?: boolean | null
@@ -46,10 +44,10 @@ type Logos20Props = {
   grayscale?: boolean | null
   logoHeight?: 'sm' | 'md' | 'lg' | null
   showLabels?: boolean | null
+  showPauseControl?: boolean | null
   size?: RegularBlockSize | null
   speed?: 'slow' | 'normal' | 'fast' | null
   title?: string | null
-  topRow: Logos20Item[]
 }
 
 const motionQuery = '(prefers-reduced-motion: reduce)'
@@ -68,6 +66,12 @@ const alignmentClasses = {
 } as const
 const heightClasses = { sm: 'h-8', md: 'h-12', lg: 'h-16' } as const
 const speeds = { slow: 25, normal: 40, fast: 65 } as const
+const controlSizes = {
+  none: 'icon-xl',
+  compact: 'icon-xl',
+  default: 'icon-2xl',
+  comfortable: 'icon-3xl',
+} as const satisfies Record<RegularBlockSize, 'icon-xl' | 'icon-2xl' | 'icon-3xl'>
 
 type LogoProps = {
   logo: Logos20Item
@@ -169,11 +173,10 @@ function MarqueeRow({
 }
 
 export function Logos20({
-  additionalRows,
+  rows,
   accentTitle,
   actions,
   appearance,
-  bottomRow,
   contentAlignment,
   description,
   enableMotion,
@@ -182,10 +185,10 @@ export function Logos20({
   grayscale,
   logoHeight,
   showLabels,
+  showPauseControl,
   size,
   speed,
   title,
-  topRow,
 }: Logos20Props) {
   const [paused, setPaused] = useState(false)
   const reducedMotion = useSyncExternalStore(subscribeMotion, readMotion, serverMotion)
@@ -203,7 +206,7 @@ export function Logos20({
     headerActions.length > 0
   const rowProps = {
     animated,
-    paused,
+    paused: showPauseControl !== false && paused,
     speed: speeds[speed ?? 'normal'],
     grayscale: grayscale ?? false,
     height: heightClasses[logoHeight ?? 'md'],
@@ -238,7 +241,9 @@ export function Logos20({
               </h2>
             ) : null}
             {description?.trim() ? (
-              <p className={cn(contentSectionDescriptionClasses, 'text-current/80')}>
+              <p
+                className={cn(contentSectionDescriptionClasses, 'w-full max-w-3xl text-current/80')}
+              >
                 {description.trim()}
               </p>
             ) : null}
@@ -251,9 +256,7 @@ export function Logos20({
           </div>
         ) : null}
         <div className="flex min-w-0 flex-col gap-8">
-          <MarqueeRow logos={topRow} direction="left" {...rowProps} />
-          <MarqueeRow logos={bottomRow} direction="right" {...rowProps} />
-          {additionalRows?.map((row, index) => (
+          {rows.map((row, index) => (
             <MarqueeRow
               key={row.id}
               logos={row.logos}
@@ -261,21 +264,16 @@ export function Logos20({
               {...rowProps}
             />
           ))}
-          {animated ? (
+          {animated && showPauseControl !== false ? (
             <div className="flex justify-center">
-              <Button
-                type="button"
-                size="sm"
+              <MotionToggle
+                contextLabel="logos"
+                isPaused={paused}
+                size={controlSizes[size ?? 'default']}
+                variant="default"
                 className={surface.button.default}
-                onClick={() => setPaused((value) => !value)}
-              >
-                {paused ? (
-                  <Play data-icon="inline-start" aria-hidden="true" />
-                ) : (
-                  <Pause data-icon="inline-start" aria-hidden="true" />
-                )}
-                {paused ? 'Resume logos' : 'Pause logos'}
-              </Button>
+                onToggle={() => setPaused((value) => !value)}
+              />
             </div>
           ) : null}
         </div>

@@ -5835,8 +5835,20 @@ export interface Logos20Block {
       }[]
     | null;
   /**
-   * Logos in display order. Empty rows are omitted.
+   * Add a row, then add logos inside it. Drag rows or logos to reorder them. Rows alternate scrolling left and right; empty rows are omitted.
    */
+  rows?:
+    | {
+        logos?:
+          | {
+              name: string;
+              image: string | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   topRow?:
     | {
         name: string;
@@ -5844,9 +5856,6 @@ export interface Logos20Block {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Logos in display order. Empty rows are omitted.
-   */
   bottomRow?:
     | {
         name: string;
@@ -5854,14 +5863,8 @@ export interface Logos20Block {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Add and reorder more rows below the first two. Directions alternate left, right, left, right. Empty rows are omitted.
-   */
   additionalRows?:
     | {
-        /**
-         * Logos in display order. Empty rows are omitted.
-         */
         logos?:
           | {
               name: string;
@@ -5914,9 +5917,13 @@ export interface Logos20Block {
    */
   contentAlignment: 'left' | 'center' | 'right';
   /**
-   * Rows scroll in opposite directions and pause on hover. Visitors can pause all rows. Reduced-motion preferences always show static logos.
+   * Rows scroll in opposite directions and pause on hover. Reduced-motion preferences always show static logos.
    */
   enableMotion?: boolean | null;
+  /**
+   * Shows an icon button that pauses or plays all rows. Its size follows Section Padding.
+   */
+  showPauseControl?: boolean | null;
   speed?: ('slow' | 'normal' | 'fast') | null;
   logoHeight?: ('sm' | 'md' | 'lg') | null;
   showLabels?: boolean | null;
@@ -12238,6 +12245,18 @@ export interface Logos20BlockSelect<T extends boolean = true> {
         fileIconPosition?: T;
         id?: T;
       };
+  rows?:
+    | T
+    | {
+        logos?:
+          | T
+          | {
+              name?: T;
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   topRow?:
     | T
     | {
@@ -12290,6 +12309,7 @@ export interface Logos20BlockSelect<T extends boolean = true> {
       };
   contentAlignment?: T;
   enableMotion?: T;
+  showPauseControl?: T;
   speed?: T;
   logoHeight?: T;
   showLabels?: T;
