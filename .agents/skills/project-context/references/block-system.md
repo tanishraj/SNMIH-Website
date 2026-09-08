@@ -4,7 +4,7 @@
 
 [blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 59 blocks and Reusable Sections expose the 58 non-recursive choices.
 
-Partner Directory (`integration23`) adapts Shadcnblocks Integration 23 into an editorial insurer/partner
+Partner Directory (`integration23`) adapts Shadcnblocks Integration 23 into an editorial insurer/partner 
 directory in Advanced Library. The shared client-safe adapter normalizes up to 100 ordered entries
 for production and preview. Names are required; Media logos, descriptions, and shared actions are
 optional. Missing or failed logos show initials. Only entries with descriptions or resolved actions
