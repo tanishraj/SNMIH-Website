@@ -11,7 +11,7 @@ import { BlockFooterActions } from '@/blocks/shared/BlockFooterActions'
 import { ContentActions } from '@/components/ContentActions'
 import { SectionEyebrow } from '@/components/SectionEyebrow'
 import { resolveCmsActions, type CmsActionValue } from '@/lib/cmsLinks'
-import { getMediaAbsoluteUrl, isMediaDoc } from '@/lib/media'
+import { getMediaAbsoluteUrl, getMediaDownloadUrl, isMediaDoc } from '@/lib/media'
 import type { Media } from '@/payload-types'
 import { cn } from '@/lib/utils'
 import { DownloadListClient } from './DownloadListClient'
@@ -145,7 +145,7 @@ export function DownloadListBlockComponent({
     const fileUrl = isMediaDoc(item.file) ? getMediaAbsoluteUrl(item.file) : undefined
     const externalViewUrl = item.externalUrl?.trim() || undefined
     const viewHref = externalViewUrl ?? fileUrl
-    const downloadHref = fileUrl
+    const downloadHref = getMediaDownloadUrl(item.file)
     const documentActions = resolveDocumentActions({
       customActions: item.customAction,
       documentActions: item.documentActions,

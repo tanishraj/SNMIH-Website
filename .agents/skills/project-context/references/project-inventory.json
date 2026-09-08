@@ -2230,6 +2230,7 @@
       "src/app/api/calendar-events/route.ts",
       "src/app/api/forms/[slug]/submit/route.ts",
       "src/app/api/frontend-session/route.ts",
+      "src/app/api/media-download/[id]/route.ts",
       "src/app/api/news-events-tabs/route.ts",
       "src/app/api/operations/media/reconcile-storage/route.ts",
       "src/app/api/public-redirects/route.ts",
@@ -2847,6 +2848,7 @@
       "tests/int/managed-cms-page.int.spec.tsx",
       "tests/int/manual-news-events-page-route.int.spec.tsx",
       "tests/int/marquee-announcement.int.spec.ts",
+      "tests/int/media-download.int.spec.ts",
       "tests/int/media-governance.int.spec.ts",
       "tests/int/media-overlay.int.spec.ts",
       "tests/int/media-public-url.int.spec.ts",
@@ -2950,7 +2952,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "c2dabb1a323be662c023e05898056f1be69e5a2b1b0eca658e84ffb3544223ed"
+    "sha256": "dd75f6a5830a58654db7e8fc4f45ba4097e3b62d8da17cbba6b63cfe0ef1c093"
   },
   "surfaces": {
     "access": [
@@ -3085,6 +3087,7 @@
       "src/app/api/calendar-events/route.ts",
       "src/app/api/forms/[slug]/submit/route.ts",
       "src/app/api/frontend-session/route.ts",
+      "src/app/api/media-download/[id]/route.ts",
       "src/app/api/news-events-tabs/route.ts",
       "src/app/api/operations/media/reconcile-storage/route.ts",
       "src/app/api/public-redirects/route.ts",
@@ -3198,6 +3201,7 @@
       "tests/int/managed-cms-page.int.spec.tsx",
       "tests/int/manual-news-events-page-route.int.spec.tsx",
       "tests/int/marquee-announcement.int.spec.ts",
+      "tests/int/media-download.int.spec.ts",
       "tests/int/media-governance.int.spec.ts",
       "tests/int/media-overlay.int.spec.ts",
       "tests/int/media-public-url.int.spec.ts",

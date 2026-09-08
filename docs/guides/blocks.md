@@ -198,6 +198,9 @@ left-aligned period labels and values, matched two-half spacing, and semantic Pr
 New blocks start Additional Programme Details with an editable **Programme Duration** / **4.5 Years**
 row; editors can change or remove it, and existing saved blocks are not backfilled.
 Both fee blocks use an optional **Fee Document Action** with the shared File action controls.
+Remote Media downloads use a same-origin attachment endpoint so files on a separate asset domain
+download instead of opening in the current tab. The Media record must be published; View keeps
+the direct file URL. Local relative file URLs continue to use the browser's download attribute.
 Choose **View** or **Download**, set the label, use an underlined Link or configured Button, and
 choose whether View opens in a new tab. The outlined document container retains its shared
 semantic background settings. Existing fee documents, labels, and styles populate this action
