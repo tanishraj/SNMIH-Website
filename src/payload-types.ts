@@ -5914,7 +5914,7 @@ export interface Logos20Block {
    */
   contentAlignment: 'left' | 'center' | 'right';
   /**
-   * Rows scroll in opposite directions and pause on hover. Visitors can pause both rows. Reduced-motion preferences always show static logos.
+   * Rows scroll in opposite directions and pause on hover. Visitors can pause all rows. Reduced-motion preferences always show static logos.
    */
   enableMotion?: boolean | null;
   speed?: ('slow' | 'normal' | 'fast') | null;
