@@ -243,6 +243,13 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
 
 ## Media Governance
 
+- Shared File Download actions and Download List route absolute Media URLs through
+  `/api/media-download/[id]`. This public endpoint resolves a published Media record with access
+  enforcement and streams the file with `Content-Disposition: attachment`. Sources are restricted
+  to the configured `S3_PUBLIC_URL` or the configured site's Payload file endpoint; redirects are
+  rejected. Responses are not cached, and upstream requests have a 60-second timeout. Relative local
+  downloads and direct File View URLs retain their existing behavior.
+
 - Images require alt text. Logo, Hero, and SEO asset types require image MIME types.
 - Media detail views calculate references from governed collections and globals. Referenced assets cannot be deleted.
 - Storage status is `unchecked`, `healthy`, `missing`, `check_failed`, or `local_only`.
