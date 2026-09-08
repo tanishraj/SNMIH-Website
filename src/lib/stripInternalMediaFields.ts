@@ -49,8 +49,16 @@ function isMediaDocument(obj: Record<string, unknown>): boolean {
 }
 
 function isPageDocument(obj: Record<string, unknown>): boolean {
-  // Headers and Footers also have `slug` + `layout`; only Pages own a parent chain.
-  return typeof obj.slug === 'string' && 'layout' in obj && 'parent' in obj
+  // Top-level Pages can omit the optional parent field entirely. Use their
+  // routing/SEO fields too; Headers and Footers also have slug + layout.
+  return (
+    typeof obj.slug === 'string' &&
+    'layout' in obj &&
+    ('parent' in obj ||
+      'includeInSitemap' in obj ||
+      'robotsMode' in obj ||
+      'publicUrlPreview' in obj)
+  )
 }
 
 /**
