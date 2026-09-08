@@ -218,7 +218,9 @@ export function Integration23({
                 </h2>
               ) : null}
               {description?.trim() ? (
-                <p className={cn(contentSectionDescriptionClasses, 'text-current/80')}>
+                <p
+                  className={cn(contentSectionDescriptionClasses, 'w-full max-w-3xl text-current/80')}
+                >
                   {description.trim()}
                 </p>
               ) : null}

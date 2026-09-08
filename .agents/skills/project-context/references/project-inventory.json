@@ -564,7 +564,9 @@
         "configPath": "src/blocks/Logos20/config.ts",
         "files": [
           "src/blocks/Logos20/Component.tsx",
-          "src/blocks/Logos20/config.ts"
+          "src/blocks/Logos20/RowLabels.tsx",
+          "src/blocks/Logos20/config.ts",
+          "src/blocks/Logos20/rows.ts"
         ],
         "interfaceName": "Logos20Block",
         "presentationPath": null,
@@ -2347,7 +2349,9 @@
       "src/blocks/LogoStrip/LogoStripMarquee.tsx",
       "src/blocks/LogoStrip/config.ts",
       "src/blocks/Logos20/Component.tsx",
+      "src/blocks/Logos20/RowLabels.tsx",
       "src/blocks/Logos20/config.ts",
+      "src/blocks/Logos20/rows.ts",
       "src/blocks/MediaCarousel/Component.tsx",
       "src/blocks/MediaCarousel/MediaCarouselClient.tsx",
       "src/blocks/MediaCarousel/config.ts",
@@ -2928,7 +2932,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "bb19ac82250f08ff6516bd6e9281eb731ff5a375bed7ae978d760c15fe208d76"
+    "sha256": "ca7d4fd1a81250e58500af6fa156354f3a4a47faf086520a2ce81c312840bda8"
   },
   "surfaces": {
     "access": [

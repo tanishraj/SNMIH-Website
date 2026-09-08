@@ -411,6 +411,8 @@ section content beside the directory on desktop. Split Proportion defaults to Ba
 Directory Focus (40 / 60) and Section Content Focus (60 / 40) are also available. Directory Position
 can be Left or Right, and Section Content Vertical Alignment can be Top, Center, or Bottom. Section Content Alignment
 controls left/center/right alignment within the header in either layout and also aligns footer actions.
+The description shares Logo Marquee’s `max-w-3xl` (48rem) cap and fills narrower split columns.
+The heading and directory retain their allocated container width.
 Section actions stay with the header; footer actions follow the entire composition. Compact screens
 always stack the header before the grid. Column selection is a maximum: split panels reduce their
 column count according to the available panel width. Without any header content, Split falls back to
@@ -434,18 +436,24 @@ The block is adapted from `@shadcnblocks/integration23`; its SaaS OAuth demo is 
 ## Logo Marquee (Logos 20)
 
 Add **Logo Marquee** from **Advanced Library**. The Content tab owns the optional heading, eyebrow,
-italic accent, description, section/footer actions, Top Row, Bottom Row, and a repeatable **Additional Rows** list.
-Use **Add Logo Row** to append rows and drag to reorder additional rows. There is no fixed limit
-on the number of additional rows; each row supports up to 40 logos.
-Each entry requires an organisation name and a Media logo. The top row moves left and the bottom row
-moves right. Additional rows alternate left and right by their saved position. Existing two-row
-blocks work without migration. Empty rows and incomplete draft entries are omitted; an entirely empty block renders
-nothing. Failed images fall back to the organisation name.
+italic accent, description, section/footer actions, and a single **Logo Rows** list.
+Click **Add Row**, then **Add Logo** inside that row. Drag any row or logo to reorder it.
+Collapsed row labels show the row number and logo count; collapsed logo entries show the organisation name.
+There is no fixed row-count limit; each row supports up to 40 logos. Each logo requires an
+organisation name and a Media image. Rows alternate left and right by their saved position.
+Existing Top/Bottom/Additional content is combined into the new editor when read and saved in the
+unified format on the next edit. Clearing every row stays empty even when legacy fields still exist.
+Empty rows and incomplete draft entries are omitted; an entirely empty block renders nothing.
+Failed images fall back to the organisation name.
 
 Theme Settings provides standard section appearance, left/center/right content alignment and padding,
 plus scrolling on/off, Slow/Normal/Fast speed, logo height, optional organisation labels, and grayscale.
 The section always stacks the full-width heading above its logo rows; it has no Split layout.
-Visitors can pause/resume all rows or hover to pause an individual row. Reduced-motion preferences
+The description is capped at `max-w-3xl` (48rem) and follows the selected section alignment;
+logo rows continue to span the full container.
+The **Show Pause / Play Control** setting defaults on and displays an icon-only button for all rows.
+Its size follows Section Padding: None/Compact 44px, Default 48px, Comfortable 56px. Hidden controls
+leave scrolling active. Visitors can hover to pause an individual row. Reduced-motion preferences
 and disabled scrolling show all logos as wrapping static rows. Screen readers receive each authored
 name once rather than the repeated animation copies. Logos do not navigate; section/footer actions
 use the shared Page, Custom URL, and Media link controls.
