@@ -2706,7 +2706,9 @@
       "src/lib/reviewRatingShared.ts",
       "src/lib/reviewRatingSummary.ts",
       "src/lib/reviews.ts",
+      "src/lib/search.ts",
       "src/lib/searchPagePaths.ts",
+      "src/lib/searchRanking.ts",
       "src/lib/searchSuggestions.ts",
       "src/lib/seo.ts",
       "src/lib/siteOffices.ts",
@@ -2922,6 +2924,7 @@
       "tests/int/search-hierarchical-routes.int.spec.tsx",
       "tests/int/search-page-design.int.spec.ts",
       "tests/int/search-page-paths.int.spec.ts",
+      "tests/int/search-ranking.int.spec.ts",
       "tests/int/search-settings-access.int.spec.ts",
       "tests/int/search-suggestions.int.spec.ts",
       "tests/int/section-eyebrow.int.spec.tsx",
@@ -2952,7 +2955,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "dd75f6a5830a58654db7e8fc4f45ba4097e3b62d8da17cbba6b63cfe0ef1c093"
+    "sha256": "18b14b6fd155355c83969ae54113323aacf28d6fe30fdf62bb0be02ddd9a684f"
   },
   "surfaces": {
     "access": [
@@ -3042,7 +3045,9 @@
       "src/lib/reviewRatingShared.ts",
       "src/lib/reviewRatingSummary.ts",
       "src/lib/reviews.ts",
+      "src/lib/search.ts",
       "src/lib/searchPagePaths.ts",
+      "src/lib/searchRanking.ts",
       "src/lib/searchSuggestions.ts",
       "src/lib/seo.ts",
       "src/lib/siteOffices.ts",
@@ -3275,6 +3280,7 @@
       "tests/int/search-hierarchical-routes.int.spec.tsx",
       "tests/int/search-page-design.int.spec.ts",
       "tests/int/search-page-paths.int.spec.ts",
+      "tests/int/search-ranking.int.spec.ts",
       "tests/int/search-settings-access.int.spec.ts",
       "tests/int/search-suggestions.int.spec.ts",
       "tests/int/section-eyebrow.int.spec.tsx",

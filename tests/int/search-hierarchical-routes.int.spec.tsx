@@ -135,4 +135,71 @@ describe('hierarchical Page search URLs', () => {
       expect.arrayContaining([expect.objectContaining({ href: '/child' })]),
     )
   })
+
+  it('uses the same title-first ordering in the dialog API and full search page', async () => {
+    const titles = [
+      'Public Disclosure',
+      'Academic Courses',
+      'Fee Structure',
+      'Campus Life',
+      'Library',
+      'Contact',
+      'Admission Enquiry',
+      'Admission Eligibility',
+      'PG Admission',
+      'MBBS Admission',
+    ]
+    mocks.find.mockImplementation(async ({ collection, page }) => {
+      if (collection !== 'pages') return { docs: [] }
+      const selected = page === 1 ? titles.slice(0, 6) : titles.slice(6)
+      return {
+        docs: selected.map((title) => ({
+          id: title,
+          title,
+          parent: null,
+          slug: title.toLowerCase().replaceAll(' ', '-'),
+          metaDescription: 'Admission information',
+        })),
+        hasNextPage: page === 1,
+      }
+    })
+    const response = await GET(
+      new Request('http://localhost/api/search?q=Admission', {
+        headers: { 'x-real-ip': 'search-ranking-test' },
+      }),
+    )
+    const body = await response.json()
+    const expected = [
+      'Admission Eligibility',
+      'Admission Enquiry',
+      'MBBS Admission',
+      'PG Admission',
+    ]
+    expect(body.results).toHaveLength(6)
+    expect(body.results.slice(0, 4).map((item: { title: string }) => item.title)).toEqual(expected)
+
+    const html = renderToStaticMarkup(
+      await SearchPage({ searchParams: Promise.resolve({ q: 'Admission' }) }),
+    )
+    const positions = expected.map((title) =>
+      html.indexOf(`href="/${title.toLowerCase().replaceAll(' ', '-')}"`),
+    )
+    expect(positions.every((position) => position >= 0)).toBe(true)
+    expect(positions).toEqual([...positions].sort((a, b) => a - b))
+    expect(positions[3]).toBeLessThan(html.indexOf('href="/academic-courses"'))
+    expect(mocks.find).toHaveBeenCalledWith(
+      expect.objectContaining({
+        collection: 'pages',
+        page: 2,
+        limit: 100,
+        sort: 'id',
+        where: {
+          and: [
+            { _status: { equals: 'published' } },
+            { or: [{ title: { like: 'Admission' } }, { metaDescription: { like: 'Admission' } }] },
+          ],
+        },
+      }),
+    )
+  })
 })
