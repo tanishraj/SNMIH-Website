@@ -1096,6 +1096,26 @@ describe('FeeStructureBlockComponent', () => {
     ).toBe(mode)
   })
 
+  it('uses an attachment endpoint for a fee document hosted on the asset domain', () => {
+    render(
+      <FeeStructureBlockComponent
+        programmeName="MBBS"
+        academicSession="2026-27"
+        feeCategories={[generalCategory]}
+        feeDocumentAction={[{
+          label: 'Download official fees',
+          linkType: 'file',
+          fileBehavior: 'download',
+          file: { id: 'remote-fees', filename: 'fees.pdf', url: 'https://assets.snmih.in/fees.pdf' } as Media,
+          mode: 'button',
+        }]}
+      />,
+    )
+    expect(screen.getByRole('link', { name: 'Download official fees' }).getAttribute('href')).toBe(
+      '/api/media-download/remote-fees',
+    )
+  })
+
   it('renders a valid Media download after categories and before footer actions', () => {
     const html = renderToStaticMarkup(
       <FeeStructureBlockComponent
