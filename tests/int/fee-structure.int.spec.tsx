@@ -324,7 +324,7 @@ describe('FeeStructureBlock schema', () => {
       ),
     ).toBe(true)
     expect(downloadAppearance).toMatchObject({
-      label: 'Download Container Appearance',
+      label: 'Document Container Appearance',
       type: 'group',
     })
     expect(downloadAppearance.fields).toHaveLength(1)
@@ -1055,6 +1055,45 @@ describe('FeeStructureBlockComponent', () => {
     expect(placeholders.length).toBeGreaterThan(0)
     expect(placeholders.every((element) => !element.className.includes('tabular-nums'))).toBe(true)
     expect(numericValues.every((element) => element.className.includes('tabular-nums'))).toBe(true)
+  })
+
+  it.each([
+    ['view', 'button'],
+    ['view', 'link'],
+    ['download', 'button'],
+    ['download', 'link'],
+  ] as const)('renders the official file as %s with %s presentation', (fileBehavior, mode) => {
+    const { container } = render(
+      <FeeStructureBlockComponent
+        programmeName="MBBS"
+        academicSession="2026-27"
+        feeCategories={[generalCategory]}
+        feeDocumentAction={[
+          {
+            label: 'Official fees',
+            linkType: 'file',
+            file: {
+              id: 'fees',
+              url: '/media/current-fees.pdf',
+              filename: 'current-fees.pdf',
+            } as Media,
+            fileBehavior,
+            mode,
+            variant: 'outline',
+            openFileInNewTab: true,
+          },
+        ]}
+      />,
+    )
+    const action = screen.getByRole('link', { name: 'Official fees' })
+    expect(action.getAttribute('href')).toBe('/media/current-fees.pdf')
+    expect(action.getAttribute('download')).toBe(
+      fileBehavior === 'download' ? 'current-fees.pdf' : null,
+    )
+    expect(action.getAttribute('target')).toBe(fileBehavior === 'view' ? '_blank' : null)
+    expect(
+      container.querySelector('[data-fee-download-mode]')?.getAttribute('data-fee-download-mode'),
+    ).toBe(mode)
   })
 
   it('renders a valid Media download after categories and before footer actions', () => {

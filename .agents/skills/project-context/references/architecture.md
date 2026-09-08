@@ -92,6 +92,13 @@ managed archives. This logical export supplements rather than replaces Atlas poi
 
 ## Caching and Delivery Safety
 
+The shared frontend globals cache populates linked Pages with navigation fields only (`slug`,
+`parent`, `title`, and `publicUrlPreview`) in Site Identity and active Header/Footer queries.
+Menu links and legal destinations never require complete Page layouts. The shared payload cleanup
+also recognizes top-level Pages whose optional `parent` field is absent, preserving root Page and
+Header/Footer layouts while stripping nested Page content and internal Media fields. This keeps
+relationship expansion from exhausting the Next.js per-entry data cache limit.
+
 Layout globals, the News & Events detail template, Pages, fixed Calendar month projections, and redirects use tagged caching and focused invalidation hooks. Admin publication and takedown hooks expire affected tags immediately, so the next public request blocks for fresh data instead of receiving one stale-while-revalidate response. Published relationship-backed records embedded in Page or shell data—including Forms, navigation links, media, gallery albums, office locations, reusable sections, headers, footers, and system pages—also invalidate those parent caches; draft-only saves do not. The anonymous shell stays cacheable because editor-session and analytics-consent cookies are evaluated only by post-hydration client boundaries. Calendar Upcoming data uses five-minute freshness and stays independent of month, view, and classification filtering inside the selected scope. Site timezone, News/Event classification, and News/Event publication changes invalidate Calendar projections. Page, Article, Review, News/Event, and Redirect hooks invalidate both publication and takedown transitions, including published deletion. Feeds, robots, and sitemap use explicit time revalidation. Article and Review helpers also use request-level deduplication. Preserve draft/public filtering and cache invalidation together when changing queries or hooks.
 
 CMS-backed remote images resolved through the shared media image-props helper append a validated

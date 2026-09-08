@@ -1,5 +1,5 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, type PopulateType } from 'payload'
 import { unstable_cache } from 'next/cache'
 import { IBM_Plex_Mono, Inter, Playfair_Display } from 'next/font/google'
 import React from 'react'
@@ -52,6 +52,11 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 const defaultSiteURL = getSiteURL()
 
+// Linked pages supply destinations, not page content, to the shared shell.
+const frontendGlobalsPopulate = {
+  pages: { slug: true, parent: true, title: true, publicUrlPreview: true },
+} satisfies PopulateType
+
 const _getFrontendGlobals = async () => {
   const payload = await getPayload({
     config: configPromise,
@@ -67,7 +72,7 @@ const _getFrontendGlobals = async () => {
   ] = await Promise.all([
     payload.findGlobal({ slug: 'theme-settings', depth: 0 }),
     payload.findGlobal({ slug: 'seo-settings', depth: 1 }),
-    payload.findGlobal({ slug: 'site-settings', depth: 1 }),
+    payload.findGlobal({ slug: 'site-settings', depth: 1, populate: frontendGlobalsPopulate }),
     payload.findGlobal({ slug: 'page-settings', depth: 0 }),
     payload.findGlobal({ slug: 'analytics-settings', depth: 0 }),
     payload.findGlobal({ slug: 'cookie-consent-settings', depth: 0 }),
@@ -100,6 +105,7 @@ const _getFrontendGlobals = async () => {
             ],
           },
           depth: 2,
+          populate: frontendGlobalsPopulate,
           limit: 1,
         })
 
@@ -131,6 +137,7 @@ const _getFrontendGlobals = async () => {
             ],
           },
           depth: 2,
+          populate: frontendGlobalsPopulate,
           limit: 1,
         })
 
@@ -154,10 +161,14 @@ const _getFrontendGlobals = async () => {
   })
 }
 
-const getFrontendGlobals = unstable_cache(_getFrontendGlobals, ['frontend-globals'], {
-  tags: [CMS_CACHE_TAGS.globals],
-  revalidate: false,
-})
+const getFrontendGlobals = unstable_cache(
+  _getFrontendGlobals,
+  ['frontend-globals', 'navigation-only-v2'],
+  {
+    tags: [CMS_CACHE_TAGS.globals],
+    revalidate: false,
+  },
+)
 
 const defaultSiteTitle = 'Payload Blank Template'
 const defaultSiteDescription = 'A blank template using Payload in a Next.js app.'

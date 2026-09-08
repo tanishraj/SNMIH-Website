@@ -87,6 +87,7 @@ export type PGFeeStructureBlockLike = {
   downloadLabel?: string | null
   eyebrow?: string | null
   feeCategories?: PGFeeCategoryValue[] | null
+  feeDocumentAction?: CmsActionValue[] | null
   feeDocument?: Media | string | number | null
   footerActions?: CmsActionValue[] | null
   programmeName?: string | null
