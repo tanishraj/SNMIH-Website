@@ -19,6 +19,18 @@ const defineThumbnail = <const Definition extends BlockThumbnailDefinitionInput>
 
 export const blockThumbnailDefinitions = [
   defineThumbnail({
+    alt: 'Logo Marquee two-row partner logo preview',
+    filename: 'logos20.jpg',
+    label: 'Logo Marquee',
+    slug: 'logos20',
+  }),
+  defineThumbnail({
+    alt: 'Partner Directory bordered logo grid preview',
+    filename: 'integration23.jpg',
+    label: 'Partner Directory',
+    slug: 'integration23',
+  }),
+  defineThumbnail({
     alt: 'Announcement block preview',
     filename: 'announcement.jpg',
     label: 'Announcement',

@@ -889,7 +889,7 @@ describe('Program Matrix catalogs', () => {
   })
 
   it('is recorded in architecture and operator documentation', () => {
-    expect(featureInventorySource).toContain('Normal Pages register all 57 choices')
+    expect(featureInventorySource).toContain('Normal Pages register all 59 choices')
     expect(featureInventorySource).toContain('Program Matrix')
     expect(featureInventorySource).toContain('introduction remains first in document order')
     expect(featureInventorySource).toContain('top, center, or bottom')

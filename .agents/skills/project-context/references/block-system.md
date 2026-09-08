@@ -2,13 +2,58 @@
 
 ## Registries 
 
-[blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 57 blocks and Reusable Sections expose the 56 non-recursive choices.
+[blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 59 blocks and Reusable Sections expose the 58 non-recursive choices.
+
+Partner Directory (`integration23`) adapts Shadcnblocks Integration 23 into an editorial insurer/partner
+directory in Advanced Library. The shared client-safe adapter normalizes up to 100 ordered entries
+for production and preview. Names are required; Media logos, descriptions, and shared actions are
+optional. Missing or failed logos show initials. Only entries with descriptions or resolved actions
+open accessible Radix dialogs, and Theme Settings can disable all dialogs. There is no OAuth or
+insurance-eligibility logic. The bordered grid uses 1, 2, 3, 4, or 6 desktop columns, responsive compact
+columns, full-container introduction alignment, and shared semantic appearance, padding, and actions.
+The description shares Logo Marquee’s 48rem (`max-w-3xl`) cap, follows section alignment, and
+fills any narrower split column; the header wrapper and directory retain their full allocated width.
+Stacked remains the default and fallback. Split defaults to a reversible 50/50 desktop composition,
+with optional 40% content / 60% directory or 60% content / 40% directory proportions and independent
+horizontal and vertical section-content alignment. Its directory uses
+container queries to reduce columns within narrower panels. Mobile reading order is always content
+then directory. Footer actions follow the complete composition; header actions stay with the content.
+A split block without any header content returns to the full-width stacked grid.
+Item Layout independently selects Block (logo above text, the default) or Inline (compact logo beside
+wrapping text). Item Alignment selects Left or Center for the complete logo/name group independently
+of section-content alignment. Both apply equally to static tiles and dialog triggers. Directory Style
+selects Bordered Grid (the default) or Ruled: horizontal row separators without an outer frame or
+vertical dividers. One- and two-column choices work in both section layouts.
+
+Logo Marquee (`logos20`) adapts Shadcnblocks Logos 20 into independently authored logo rows
+moving in alternating directions. A single Logo Rows array contains nested Logos arrays with
+native Add Row/Add Logo and drag-to-reorder controls. Row labels show position and logo count;
+logo labels use organisation names. There is no fixed row-count limit, and every row permits 40 logos.
+The client-safe `rows.ts` normalizer supplies both the adapter and the field afterRead/beforeValidate
+hooks. Hidden legacy Top/Bottom/Additional fields remain readable: missing unified rows are hydrated
+from those fields and saved on the next edit. Explicit empty arrays or null suppress legacy fallback,
+so clearing the block never resurrects old logos. Scroll directions follow saved row positions,
+including empty positions. It belongs to Advanced Library, uses a full-width stacked introduction
+only, and shares section/footer actions, typography, appearance, alignment, and padding. Its
+description has a 48rem (`max-w-3xl`) width cap with left/center/right alignment while logo rows
+span the full container. Editors can
+set scrolling speed, disable scrolling, choose logo height, show organisation names, and apply
+grayscale. Show Pause / Play Control defaults on and uses the shared icon-only MotionToggle
+with accessible Play/Pause labels. Section Padding selects the control size: None/Compact 44px,
+Default 48px, Comfortable 56px. Disabling the control keeps scrolling active, including a previously
+paused live preview. Other MotionToggle consumers keep their existing 44px default. Hover pauses
+the hovered row. Reduced-motion preferences
+render complete static wrapping lists, including during SSR, with preference changes handled live.
+Animated duplicates are decorative while each authored name appears once per row for assistive
+technology. Missing/incomplete entries are omitted; failed images fall back to organisation names.
+Empty rows disappear, and a block with no valid logos renders nothing. Production and live preview
+share the same client-safe adapter and presentation component.
 
 Calendar is an Explore block backed only by selected active Event-behavior News & Events classifications. Editors choose one to five ordered classifications, while each classification centrally owns its semantic Calendar color. The complete toolbar, month/timeline panel, and Upcoming panel inherit the selected section surface; framed Tabs and Select controls share a true 44px height, and adjacent-month dates can be muted or hidden. The server renders the configured `Asia/Kolkata`-first current month and stable next-four Upcoming snapshot; visitor times remain timezone-correct but omit technical GMT/UTC suffixes. Desktop starts with a Sunday-first six-week grid, phones receive Timeline-first output, and `/api/calendar-events` supplies validated public or authenticated-draft month projections. Multi-day/all-day ranges are inclusive, day cells cap at two links before `+N more`, filtering never changes Upcoming, and production/live preview share the same serializable presentation contract. Editors may configure one sidebar action targeting a Page, Custom URL, or File and choose Button or Link presentation, while the existing document label remains the panel heading. Upcoming, its legend, and the action share one semantic sidebar; the rail matches the desktop calendar height and pins the action region to its bottom, while compact layouts keep natural source order and height. The sidebar action remains outside the month snapshot and cache identity.
 
 Annual Calendar is the twelve-month Explore companion to Calendar. It uses the same strict one-to-five active Event-classification scope, site timezone, semantic calendar tones, section appearance/actions/alignment/spacing, and next-four Upcoming semantics. Editors use either the current calendar year or two day-only date pickers whose selected months define exactly twelve consecutive inclusive months; selected days are ignored. One shared normalizer owns production query bounds, persistent cache keys, authenticated preview scopes, the derived period label, and twelve month keys, while invalid custom periods fail closed before querying News & Events. Visitors receive a chronological Year Stream with a semantic spine, 10px square month markers, inset semantic month dividers, compact Current and event-count metadata, linked event cards, and lightweight empty-month copy. Coming Next remains independent of the selected period and stays beside the stream on desktop and below it on smaller screens. Calendar and Annual Calendar share one sidebar Download Panel field composer and resolver. The visible PDF Document Label remains `calendarPdfTitle`, while one canonical shared action supports Page, Custom URL, File View, or File Download destinations and Button or editorial Link presentation. Explicit variants, new-tab behavior, navigation arrows, and download-icon settings pass through unchanged. A non-empty new action is authoritative; rows saved by the preceding restricted schema use Button only as their missing-mode compatibility fallback. Hidden legacy PDF Media/label fields remain a no-migration fallback only when the new action is empty. The semantic panel stays at the bottom of the full-height desktop sidebar and renders through the canonical shared Content Actions system. Embedded Upcoming/action regions avoid nested landmarks and borders, and Annual Calendar intentionally gives up its former sticky sidebar to satisfy this full-height contract. Compact layouts retain natural flow, long labels wrap within the 20rem rail, and unresolved destinations produce no public link. Event queries, response snapshots, and cache identity remain unchanged. The block intentionally exposes no visitor navigation, view, filter, or pagination controls, and the uncommitted Month/Year controls require no migration.
 
-[Pages.ts](../../../../src/collections/Pages.ts) consumes the complete 56-block Page registry. [ReusableSections.ts](../../../../src/collections/ReusableSections.ts) consumes the same registry without `reusableSection`, preventing direct recursion. [NewsEventsDetailTemplate.ts](../../../../src/globals/NewsEventsDetailTemplate.ts) consumes the Page registry plus `newsEventsContent`, which appears first under Template Core. The [block operator guide](../../../../docs/guides/blocks.md) owns the editor-facing group membership and per-deployment customization instructions.
+[Pages.ts](../../../../src/collections/Pages.ts) consumes the complete 59-block Page registry. [ReusableSections.ts](../../../../src/collections/ReusableSections.ts) consumes the same registry without `reusableSection`, preventing direct recursion. [NewsEventsDetailTemplate.ts](../../../../src/globals/NewsEventsDetailTemplate.ts) consumes the Page registry plus `newsEventsContent`, which appears first under Template Core. The [block operator guide](../../../../docs/guides/blocks.md) owns the editor-facing group membership and per-deployment customization instructions.
 
 The catalog imports schema config only. Production and live-preview renderer switches remain explicit and separate so server/client boundaries are not mixed.
 

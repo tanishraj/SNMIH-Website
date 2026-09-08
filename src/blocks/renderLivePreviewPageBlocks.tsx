@@ -43,6 +43,8 @@ import { RichTextBlockComponent } from './RichTextBlock/Component'
 import { VideoEmbedBlockComponent } from './VideoEmbed/Component'
 import { MediaCarouselBlockComponent } from './MediaCarousel/Component'
 import { ProgramMatrixBlockComponent } from './ProgramMatrix/Component'
+import { Integration23BlockComponent } from './Integration23/Component'
+import { Logos20BlockComponent } from './Logos20/Component'
 import { LogoStripBlockComponent } from './LogoStrip/Component'
 import { PageHeaderBlockComponent } from './PageHeader/Component'
 import { BreadcrumbBlockComponent } from './Breadcrumb/Component'
@@ -191,6 +193,10 @@ function renderLivePreviewPageBlockContent(
       return <MediaCarouselBlockComponent key={key} {...block} />
     case 'programMatrix':
       return <ProgramMatrixBlockComponent key={key} {...block} />
+    case 'integration23':
+      return <Integration23BlockComponent key={key} {...block} />
+    case 'logos20':
+      return <Logos20BlockComponent key={key} {...block} />
     case 'logoStrip':
       return <LogoStripBlockComponent key={key} {...block} />
     case 'pageHeader':
