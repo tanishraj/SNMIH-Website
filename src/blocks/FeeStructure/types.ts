@@ -109,6 +109,7 @@ export type FeeStructureBlockLike = {
   downloadLabel?: string | null
   eyebrow?: string | null
   feeCategories?: FeeStructureCategoryValue[] | null
+  feeDocumentAction?: CmsActionValue[] | null
   feeDocument?: Media | string | number | null
   footerActions?: CmsActionValue[] | null
   layout?: FeeStructureLayout | null

@@ -6088,7 +6088,7 @@ export interface Integration23Block {
    */
   itemAlignment?: ('left' | 'center') | null;
   /**
-   * Ruled removes the outer frame and vertical dividers, keeping horizontal rules between rows.
+   * Ruled keeps horizontal and vertical dividers between items without an outer container border.
    */
   gridStyle?: ('grid' | 'ruled') | null;
   /**
@@ -6872,9 +6872,33 @@ export interface FeeStructureBlock {
       | null;
     id?: string | null;
   }[];
-  /**
-   * Optional official file visitors can download.
-   */
+  feeDocumentAction?:
+    | {
+        label: string;
+        linkType?: 'file' | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
   feeDocument?: (string | null) | Media;
   downloadLabel?: string | null;
   footerActions?:
@@ -7038,9 +7062,33 @@ export interface PGFeeStructureBlock {
       | null;
     id?: string | null;
   }[];
-  /**
-   * Optional official file visitors can download.
-   */
+  feeDocumentAction?:
+    | {
+        label: string;
+        linkType?: 'file' | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
   feeDocument?: (string | null) | Media;
   downloadLabel?: string | null;
   footerActions?:
@@ -12871,6 +12919,21 @@ export interface FeeStructureBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  feeDocumentAction?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
   feeDocument?: T;
   downloadLabel?: T;
   footerActions?:
@@ -12975,6 +13038,21 @@ export interface PGFeeStructureBlockSelect<T extends boolean = true> {
               emphasis?: T;
               id?: T;
             };
+        id?: T;
+      };
+  feeDocumentAction?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
         id?: T;
       };
   feeDocument?: T;

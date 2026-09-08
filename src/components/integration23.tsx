@@ -15,6 +15,7 @@ import {
 } from '@/blocks/shared/blockSpacing'
 import { resolveCardSurface } from '@/blocks/shared/cardSurface'
 import {
+  contentIntroClasses,
   contentSectionDescriptionClasses,
   contentSectionHeadingClasses,
 } from '@/blocks/shared/contentStyles'
@@ -85,9 +86,9 @@ const verticalAlignmentClasses = {
 } as const
 
 const alignmentClasses = {
-  left: 'items-start text-left',
-  center: 'items-center text-center',
-  right: 'items-end text-right',
+  left: 'items-start justify-self-start text-left',
+  center: 'items-center justify-self-center text-center',
+  right: 'items-end justify-self-end text-right',
 } as const
 
 function PartnerLogo({
@@ -197,7 +198,8 @@ export function Integration23({
             <div
               data-integration23-content="true"
               className={cn(
-                'flex w-full min-w-0 flex-col gap-4 [overflow-wrap:anywhere]',
+                contentIntroClasses,
+                'w-full min-w-0 [overflow-wrap:anywhere]',
                 alignmentClasses[alignment],
                 isSplit && verticalAlignmentClasses[sectionVerticalAlignment ?? 'top'],
                 isSplit && gridOnLeft && 'lg:col-start-2 lg:row-start-1',
@@ -244,8 +246,7 @@ export function Integration23({
           >
             <ul
               className={cn(
-                '-mb-px grid grid-cols-1',
-                !isRuled && '-mr-px',
+                '-mb-px -mr-px grid grid-cols-1',
                 (isSplit ? splitGridClasses : gridClasses)[columns ?? '4'],
               )}
             >
@@ -283,7 +284,7 @@ export function Integration23({
                 return (
                   <li
                     data-integration23-item-layout={isInline ? 'inline' : 'block'}
-                    className={cn('min-w-0 border-b border-current/15', !isRuled && 'border-r')}
+                    className="min-w-0 border-r border-b border-current/15"
                     key={item.id}
                   >
                     {interactive ? (

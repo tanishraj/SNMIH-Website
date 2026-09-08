@@ -108,8 +108,8 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Quote Block              | Quotation or pull quote                      | Quote and attribution                                                                                                                                                                                                                                                                                                                                |
 | Tabs Content             | Grouped tab panels                           | Client tab interaction                                                                                                                                                                                                                                                                                                                               |
 | Download List            | Files and document libraries                 | Stacked or responsive 40/60 split introduction, four document layouts, one shared 1–8 Columns setting, optional file icons, controlled file-type labels, and up to two ordered per-document Download, View, or Custom actions                                                                                                                        |
-| Fee Structure            | Programme fee schedule                       | Default responsive table/cards or a 50/50 Programme Cost Atlas, one to four category tabs, fee-only notes, and a file-locked Link or Button download                                                                                                                                                                                                 |
-| PG Fee Structure         | Department-based postgraduate fees           | A responsive 50/50 Primary/Card department atlas with category-owned departments, shared or department-varying fee columns, category notes, and an official file Link or Button download                                                                                                                                                             |
+| Fee Structure            | Programme fee schedule                       | Default responsive table/cards or a 50/50 Programme Cost Atlas, one to four category tabs, fee-only notes, and a File action with View or Download behavior                                                                                                                                                                                                 |
+| PG Fee Structure         | Department-based postgraduate fees           | A responsive 50/50 Primary/Card department atlas with category-owned departments, shared or department-varying fee columns, category notes, and an official File action with View or Download behavior                                                                                                                                                             |
 | Bank Details             | Official payment account information         | One to six purpose-specific accounts in an admin-selected Text or locally generated Scanner presentation, with mirrored 36/64 panels, editable ledger labels, adaptive tabs, and exact-value copy controls                                                                                                                                           |
 | Numbered Steps           | Ordered process                              | Backgrounds apply to numbered Cards, not connected/alternating layouts                                                                                                                                                                                                                                                                               |
 | Bento Grid               | Mixed-size feature cards                     | Grid layout and semantic background controls                                                                                                                                                                                                                                                                                                         |
@@ -189,7 +189,7 @@ which keeps the programme/session context band, semantic desktop table, and one 
 period. **Programme Cost Atlas** instead creates a 50/50 Primary/Card editorial composition on large
 screens and stacks it on smaller screens. Its left summary contains programme details, the first
 authored Total row as Annual totals, category notes, a required category-owned Complete programme
-expense, and the file download. Complete programme expense is manually authored and required for
+expense, and the file action. Complete programme expense is manually authored and required for
 every Atlas category; it is never calculated from Annual totals. The right statement shows each remaining fee head once with all of
 its authored period values; later Total rows remain there. The statement heading displays the
 authored category label verbatim beneath the **Statement breakdown** eyebrow. Atlas does not calculate or reorganize
@@ -197,9 +197,11 @@ values beyond moving that first authored Total row. Atlas uses standard sans-ser
 left-aligned period labels and values, matched two-half spacing, and semantic Primary/Card colors.
 New blocks start Additional Programme Details with an editable **Programme Duration** / **4.5 Years**
 row; editors can change or remove it, and existing saved blocks are not backfilled.
-The optional Media upload produces one official
-file download; its presentation can be an underlined Link or a configured Button, and its outlined
-container can use shared semantic backgrounds. Multiple-category tabs can use **Content Width**,
+Both fee blocks use an optional **Fee Document Action** with the shared File action controls.
+Choose **View** or **Download**, set the label, use an underlined Link or configured Button, and
+choose whether View opens in a new tab. The outlined document container retains its shared
+semantic background settings. Existing fee documents, labels, and styles populate this action
+as downloads until edited; removing the action keeps it removed after saving. Multiple-category tabs can use **Content Width**,
 **Centered Auto Width**, or **Equal Full Width**. Centered Auto Width shrink-wraps and centers the
 category tabs when they fit, then returns them to the inline start inside the existing horizontal
 scroller when long labels or narrow viewports overflow. In the table layout, standard desktop fee-name
@@ -406,13 +408,14 @@ as supplied by the hospital; the block does not infer coverage or eligibility.
 Theme Settings provides the standard section background, borders, alignment, and padding, plus
 1, 2, 3, 4, or 6 desktop columns and Enable Detail Dialogs. Smaller screens reduce the columns.
 
-Stacked is the default layout and keeps the header and grid at full container width. Split places
+Stacked is the default layout, with an introduction above the full-width directory grid. Split places
 section content beside the directory on desktop. Split Proportion defaults to Balanced (50 / 50);
 Directory Focus (40 / 60) and Section Content Focus (60 / 40) are also available. Directory Position
 can be Left or Right, and Section Content Vertical Alignment can be Top, Center, or Bottom. Section Content Alignment
 controls left/center/right alignment within the header in either layout and also aligns footer actions.
-The description shares Logo Marquee’s `max-w-3xl` (48rem) cap and fills narrower split columns.
-The heading and directory retain their allocated container width.
+The whole introduction uses the shared `max-w-3xl` (48rem) cap: heading, description, and
+section actions follow the selected alignment. It fills narrower split columns, while the directory
+keeps its allocated width.
 Section actions stay with the header; footer actions follow the entire composition. Compact screens
 always stack the header before the grid. Column selection is a maximum: split panels reduce their
 column count according to the available panel width. Without any header content, Split falls back to
@@ -424,8 +427,8 @@ for the logo and name together, independently of Section Content Alignment. Long
 without shrinking the logo. A one-column selection stays one column; two columns fit inside the
 directory panel when space allows and collapse on narrow screens.
 
-Directory Style selects Bordered Grid (the default) or Ruled. Ruled shows horizontal separators
-between rows without the outer frame or vertical dividers. Both styles support all column counts,
+Directory Style selects Bordered Grid (the default) or Ruled. Ruled shows horizontal and vertical
+dividers between items without an outer container border. Both styles support all column counts,
 item layouts, and alignments.
 
 With dialogs enabled, only entries with details or valid actions
