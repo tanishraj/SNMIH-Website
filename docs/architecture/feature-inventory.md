@@ -227,6 +227,13 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
 
 ## SEO, Search, Feeds, And Caching
 
+- Dialog and full-page search share one published-content search service. Within each content type,
+  exact title matches rank first, followed by title prefixes, title phrases, all query words in the
+  title, and metadata-only matches. Case, Unicode compatibility, and repeated whitespace are
+  normalized for ranking; equal ranks sort by title then ID. Matching documents are scanned in
+  batches of 100 while retaining the best six results/type for the dialog or eight for the full
+  page, so the display limit cannot exclude stronger matches from later database batches.
+
 - SEO fields support route title/description/image, canonical, robots, and sitemap decisions with publish-time validation.
 - Layout emits Organization and WebSite/SearchAction structured data. SearchAction describes onsite search; Google retired its Sitelinks Search Box result in November 2024.
 - Sitemap fetches all result pages in batches of 500 and includes published Pages, Articles, Reviews, News & Events, the News & Events index, used article/review topic routes, used article tag routes, and eligible topic/tag routes used by indexable published News & Events entries. It does not generate filter-combination or pagination URLs.
