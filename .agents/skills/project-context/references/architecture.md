@@ -90,6 +90,16 @@ MongoDB source credential to export only `prod`, verifies the compressed archive
 to the private `snmih-prod-db-backups` R2 bucket under `prod-db-backup/`, and retains the newest 30
 managed archives. This logical export supplements rather than replaces Atlas point-in-time recovery.
 
+## Search Ranking
+
+`src/lib/search.ts` owns the shared published-content queries, classification labels, and hierarchical
+Page URLs for the dialog API and full Search page. `searchRanking.ts` ranks exact titles, prefixes,
+contained phrases, all query words in titles, then metadata-only matches, with normalized title and
+ID tie-breakers. Each collection scans matches in stable ID order in batches of 100 and retains only
+the best six or eight records, applying display limits after relevance ranking. Content groups,
+publication filtering, searched fields, API rate limits, and minimum query length remain unchanged.
+Search cost scales with the number of matching records; there is no external search index.
+
 ## Media Downloads
 
 Absolute Media File Download URLs use `/api/media-download/[id]`. The endpoint reads only published

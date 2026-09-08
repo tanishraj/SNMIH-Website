@@ -24,14 +24,21 @@ Search matches against:
 
 | Content type | Fields searched |
 |---|---|
-| Pages | Title |
+| Pages | Title, meta description |
 | Articles | Title, excerpt, author name |
 | Reviews | Title, review title, reviewer name |
-| News and Events | Title, excerpt |
+| News and Events | Title, excerpt, author name |
 
 Search requires at least two characters before returning results.
 
 The dialog returns at most six matches per content type and is protected by an in-memory limit of 20 requests per IP per ten seconds. The full Page returns at most eight matches per content type, so `View all results` means the broader results surface rather than an unbounded export.
+
+Both views rank matches within each content type before applying those limits: exact title,
+title starting with the query, title containing the query phrase, title containing all query words,
+then matches found only in descriptions or other searchable fields. Ties use alphabetical title
+order and then record ID. Ranking ignores capitalization and repeated whitespace. For example,
+`Admission Enquiry` and `Admission Eligibility` appear above pages that only mention admission in
+their descriptions. Admission Enquiry is not manually pinned; every query uses the same rules.
 
 ## Suggested Searches And Result Labels
 
