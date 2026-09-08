@@ -4,6 +4,13 @@ This is the maintained technical map of the starter. It records what is register
 
 ## Runtime Architecture
 
+- Frontend route changes reset to the top when the final URL has no section fragment. Nested News
+  & Events detail routes, query changes, programmatic navigation, and Back/Forward follow the same
+  rule. The route-commit signal observes pathname and search parameters even when a parent template
+  stays mounted. Section URLs resolve their target after the route commits, missing targets fall
+  back to the top, and same-page section links retain smooth scrolling. Links to the current page
+  without a fragment also return to the top; normal reading scroll is never continuously reset.
+
 - Payload CMS 3.85.2 and Next.js 16 share one App Router application.
 - React Server Components load public CMS data; focused client components provide carousels, dialogs, tabs, consent, forms, and gallery interaction.
 - The public shell uses tagged CMS caches and does not read request cookies or authenticate a Payload user. A private no-store `/api/frontend-session` lookup mounts the editor toolbar after hydration when a CMS session exists.

@@ -1,17 +1,13 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 
 const RESTORE_TIMEOUT_MS = 15_000
 
-type PendingNavigation = {
-  hash: string
-}
-
 const ROUTE_COMMIT_EVENT = 'snmih:frontend-route-commit'
 
-const getCrossPageDestination = (event: MouseEvent, anchor: HTMLAnchorElement): URL | null => {
+const getNavigationDestination = (event: MouseEvent, anchor: HTMLAnchorElement): URL | null => {
   if (
     event.defaultPrevented ||
     event.button !== 0 ||
@@ -40,7 +36,9 @@ const getCrossPageDestination = (event: MouseEvent, anchor: HTMLAnchorElement): 
     destinationURL.pathname.startsWith('/_next/') ||
     destinationURL.pathname === '/admin' ||
     destinationURL.pathname.startsWith('/admin/') ||
-    destinationURL.pathname === currentURL.pathname
+    (destinationURL.pathname === currentURL.pathname &&
+      destinationURL.search === currentURL.search &&
+      Boolean(destinationURL.hash))
   ) {
     return null
   }
@@ -52,7 +50,7 @@ export function RouteTransitionScrollGuard() {
   const router = useRouter()
   const previousScrollBehaviorRef = useRef<string | null>(null)
   const restoreTimerRef = useRef<number | null>(null)
-  const pendingNavigationRef = useRef<PendingNavigation | null>(null)
+  const committedRouteRef = useRef<string | null>(null)
 
   const restoreScrollBehavior = useCallback(() => {
     if (restoreTimerRef.current !== null) {
@@ -78,42 +76,55 @@ export function RouteTransitionScrollGuard() {
   }, [])
 
   const cancelPendingNavigation = useCallback(() => {
-    pendingNavigationRef.current = null
     restoreScrollBehavior()
   }, [restoreScrollBehavior])
+
+  const positionDestination = useCallback(
+    (hash: string) => {
+      const root = document.documentElement
+      if (previousScrollBehaviorRef.current === null) {
+        previousScrollBehaviorRef.current = root.style.scrollBehavior
+      }
+      root.style.scrollBehavior = 'auto'
+      root.getClientRects()
+
+      const hashID = hash.slice(1)
+      let decodedHashID = hashID
+
+      try {
+        decodedHashID = decodeURIComponent(hashID)
+      } catch {
+        // Keep the encoded value when a CMS-authored fragment is malformed.
+      }
+
+      const hashTarget = decodedHashID
+        ? (document.getElementById(decodedHashID) ?? document.getElementsByName(decodedHashID)[0])
+        : null
+
+      if (hashTarget) {
+        hashTarget.scrollIntoView({ behavior: 'auto', block: 'start' })
+      } else {
+        window.scrollTo({ behavior: 'auto', left: 0, top: 0 })
+      }
+
+      restoreScrollBehavior()
+    },
+    [restoreScrollBehavior],
+  )
 
   const positionCommittedDestination = useCallback(() => {
-    const pendingNavigation = pendingNavigationRef.current
-
-    if (!pendingNavigation) {
-      return
-    }
-
-    pendingNavigationRef.current = null
-
-    const hashID = pendingNavigation.hash.slice(1)
-    let decodedHashID = hashID
-
-    try {
-      decodedHashID = decodeURIComponent(hashID)
-    } catch {
-      // Keep the encoded value when a CMS-authored fragment is malformed.
-    }
-
-    const hashTarget = decodedHashID
-      ? (document.getElementById(decodedHashID) ?? document.getElementsByName(decodedHashID)[0])
-      : null
-
-    if (hashTarget) {
-      hashTarget.scrollIntoView({ behavior: 'auto', block: 'start' })
-    } else {
-      window.scrollTo({ behavior: 'auto', left: 0, top: 0 })
-    }
-
-    restoreScrollBehavior()
-  }, [restoreScrollBehavior])
+    const route = `${window.location.pathname}${window.location.search}`
+    if (committedRouteRef.current === route) return
+    committedRouteRef.current = route
+    // Read the final URL, including any redirect, rather than the clicked URL.
+    positionDestination(window.location.hash)
+  }, [positionDestination])
 
   useEffect(() => {
+    committedRouteRef.current = `${window.location.pathname}${window.location.search}`
+    const previousScrollRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+
     const handleClick = (event: MouseEvent) => {
       const target = event.target
 
@@ -122,13 +133,24 @@ export function RouteTransitionScrollGuard() {
       }
 
       const anchor = target.closest<HTMLAnchorElement>('a[href]')
-      const destinationURL = anchor ? getCrossPageDestination(event, anchor) : null
+      const destinationURL = anchor ? getNavigationDestination(event, anchor) : null
 
       if (!destinationURL) {
         return
       }
 
       event.preventDefault()
+
+      // A link back to the current page without a fragment still means its top.
+      // It may not cause a React route commit, so position it immediately.
+      if (
+        destinationURL.pathname === window.location.pathname &&
+        destinationURL.search === window.location.search
+      ) {
+        positionDestination('')
+        router.push(`${destinationURL.pathname}${destinationURL.search}`, { scroll: false })
+        return
+      }
 
       if (
         anchor &&
@@ -151,9 +173,6 @@ export function RouteTransitionScrollGuard() {
         window.clearTimeout(restoreTimerRef.current)
       }
 
-      pendingNavigationRef.current = {
-        hash: destinationURL.hash,
-      }
       restoreTimerRef.current = window.setTimeout(cancelPendingNavigation, RESTORE_TIMEOUT_MS)
 
       router.push(`${destinationURL.pathname}${destinationURL.search}${destinationURL.hash}`, {
@@ -168,16 +187,21 @@ export function RouteTransitionScrollGuard() {
       document.removeEventListener('click', handleClick, true)
       window.removeEventListener(ROUTE_COMMIT_EVENT, positionCommittedDestination)
       cancelPendingNavigation()
+      window.history.scrollRestoration = previousScrollRestoration
     }
-  }, [cancelPendingNavigation, positionCommittedDestination, router])
+  }, [cancelPendingNavigation, positionCommittedDestination, positionDestination, router])
 
   return null
 }
 
 export function RouteTransitionCommitSignal() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const search = searchParams.toString()
+
   useLayoutEffect(() => {
     window.dispatchEvent(new Event(ROUTE_COMMIT_EVENT))
-  }, [])
+  }, [pathname, search])
 
   return null
 }
