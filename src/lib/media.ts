@@ -12,6 +12,18 @@ type ResolvedMediaImage = {
 
 const defaultSiteURL = getSiteURL()
 
+// Browsers ignore the download attribute for a different origin. Remote files
+// must pass through our attachment response; relative local URLs work directly.
+export const getMediaDownloadUrl = (
+  media: string | number | Media | null | undefined,
+): string | undefined => {
+  const href = getMediaAbsoluteUrl(media)
+  if (!href || !isMediaDoc(media)) return undefined
+  if (href.startsWith('/')) return href
+  if (media.id == null) return undefined
+  return `/api/media-download/${encodeURIComponent(String(media.id))}`
+}
+
 export const isMediaDoc = (value: string | number | Media | null | undefined): value is Media => {
   return typeof value === 'object' && value !== null
 }

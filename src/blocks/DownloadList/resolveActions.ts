@@ -1,4 +1,4 @@
-import { getMediaAbsoluteUrl, isMediaDoc } from '@/lib/media'
+import { getMediaDownloadUrl } from '@/lib/media'
 import {
   resolveCmsActions,
   resolveCmsLink,
@@ -58,7 +58,7 @@ const resolveManualActions = (
     if (!label) return []
 
     if (action.actionType === 'download') {
-      const href = isMediaDoc(action.file) ? getMediaAbsoluteUrl(action.file) : undefined
+      const href = getMediaDownloadUrl(action.file)
       return href
         ? [
             createResolvedAction({

@@ -1,6 +1,6 @@
 import type { Media, NavigationLink, Page } from '@/payload-types'
 
-import { getMediaAbsoluteUrl, isMediaDoc } from './media'
+import { getMediaAbsoluteUrl, getMediaDownloadUrl, isMediaDoc } from './media'
 import { resolveNavigationLink } from './navigationLinks'
 import { getPageHref } from './pagePaths'
 
@@ -54,10 +54,10 @@ export type ResolvedCmsLink = {
 
 export const resolveCmsLink = (value: CmsLinkValue): ResolvedCmsLink => {
   if (value.linkType === 'file') {
-    const href = getMediaAbsoluteUrl(value.file)
+    const downloadsFile = value.fileBehavior === 'download'
+    const href = downloadsFile ? getMediaDownloadUrl(value.file) : getMediaAbsoluteUrl(value.file)
     if (!href) return {}
 
-    const downloadsFile = value.fileBehavior === 'download'
     const filename = isMediaDoc(value.file) ? value.file.filename?.trim() : undefined
 
     return {
