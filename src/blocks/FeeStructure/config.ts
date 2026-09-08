@@ -8,6 +8,10 @@ import type {
 } from 'payload'
 
 import { getBlockThumbnailAdmin } from '@/block-thumbnails/definitions'
+import {
+  createFeeDocumentActionField,
+  hasFeeDocumentAction,
+} from '@/blocks/shared/feeDocumentActionFields'
 import { createBlockAppearanceFields } from '@/blocks/shared/blockAppearanceFields'
 import {
   buttonVariantOptions,
@@ -299,13 +303,14 @@ export const FeeStructureBlock: Block = {
               ],
             },
             feeCategoriesField,
+            createFeeDocumentActionField(),
             {
               name: 'feeDocument',
               label: 'Official Fee Structure File',
               type: 'upload',
               relationTo: 'media',
               admin: {
-                description: 'Optional official file visitors can download.',
+                hidden: true,
               },
             },
             {
@@ -314,6 +319,7 @@ export const FeeStructureBlock: Block = {
               type: 'text',
               defaultValue: 'Download Fee Structure',
               admin: {
+                hidden: true,
                 condition: (_data, siblingData: FeeStructureSiblingData) =>
                   Boolean(siblingData?.feeDocument),
               },
@@ -394,6 +400,7 @@ export const FeeStructureBlock: Block = {
                 { label: 'Button', value: 'button' },
               ],
               admin: {
+                hidden: true,
                 condition: hasFeeDocument,
               },
             } satisfies SelectField,
@@ -405,13 +412,14 @@ export const FeeStructureBlock: Block = {
               required: true,
               options: buttonVariantOptions,
               admin: {
+                hidden: true,
                 condition: usesDownloadButton,
               },
             } satisfies SelectField,
             createBlockAppearanceFields({
-              condition: hasFeeDocument,
+              condition: hasFeeDocumentAction,
               includeBorder: false,
-              label: 'Download Container Appearance',
+              label: 'Document Container Appearance',
               name: 'downloadAppearance',
             }),
             {

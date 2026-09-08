@@ -10,9 +10,9 @@ for production and preview. Names are required; Media logos, descriptions, and s
 optional. Missing or failed logos show initials. Only entries with descriptions or resolved actions
 open accessible Radix dialogs, and Theme Settings can disable all dialogs. There is no OAuth or
 insurance-eligibility logic. The bordered grid uses 1, 2, 3, 4, or 6 desktop columns, responsive compact
-columns, full-container introduction alignment, and shared semantic appearance, padding, and actions.
-The description shares Logo Marquee’s 48rem (`max-w-3xl`) cap, follows section alignment, and
-fills any narrower split column; the header wrapper and directory retain their full allocated width.
+columns and shared semantic appearance, padding, and actions. The complete introduction uses
+`contentIntroClasses` with its 48rem (`max-w-3xl`) cap and left/center/right grid alignment. It fills
+narrower split columns; the directory retains its allocated width.
 Stacked remains the default and fallback. Split defaults to a reversible 50/50 desktop composition,
 with optional 40% content / 60% directory or 60% content / 40% directory proportions and independent
 horizontal and vertical section-content alignment. Its directory uses
@@ -22,8 +22,11 @@ A split block without any header content returns to the full-width stacked grid.
 Item Layout independently selects Block (logo above text, the default) or Inline (compact logo beside
 wrapping text). Item Alignment selects Left or Center for the complete logo/name group independently
 of section-content alignment. Both apply equally to static tiles and dialog triggers. Directory Style
-selects Bordered Grid (the default) or Ruled: horizontal row separators without an outer frame or
-vertical dividers. One- and two-column choices work in both section layouts.
+selects Bordered Grid (the default) or Ruled: horizontal and vertical separators between items
+without an outer container border. Right and bottom perimeter strokes are clipped at the grid edge. One- and two-column choices work in both section layouts.
+
+Logo Strip’s scrolling mode uses the same transparent 8% edge mask as Logo Marquee on both sides,
+so the fade blends with any section surface. Its static grid remains unmasked.
 
 Logo Marquee (`logos20`) adapts Shadcnblocks Logos 20 into independently authored logo rows
 moving in alternating directions. A single Logo Rows array contains nested Logos arrays with
@@ -362,8 +365,11 @@ The table layout's programme/session band follows the shared `max-w-3xl` introdu
 fee-name cells use normal weight, Total rows are bold, and every body-row cell shares the same opaque
 Card/Accent or Primary/Primary Foreground base and hover surface so the sticky fee-name column remains
 visually continuous and follows the active theme. The
-optional fee document remains the fixed download destination; editors can present it as a Link or
-semantic Button and apply the shared section backgrounds to its outlined container. The table layout
+optional `feeDocumentAction` uses the shared File action schema and presenter in both fee blocks,
+including View/Download, new-tab behavior, Link/Button styling, and file icons. Editors can apply
+the shared section backgrounds to its outlined container. `feeDocumentActionFields` hydrates
+legacy fee document, label, mode, and variant fields on read/validation; explicit empty actions
+remain empty so clearing cannot resurrect a legacy download. The table layout
 places it after the categories; Atlas places it at the bottom of the active left summary.
 
 PG Fee Structure independently models department-based postgraduate fees without changing Fee
