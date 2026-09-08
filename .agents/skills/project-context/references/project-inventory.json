@@ -531,6 +531,20 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/Integration23/Component.tsx",
+        "configPath": "src/blocks/Integration23/config.ts",
+        "files": [
+          "src/blocks/Integration23/Component.tsx",
+          "src/blocks/Integration23/config.ts"
+        ],
+        "interfaceName": "Integration23Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "integration23",
+        "symbol": "Integration23Block"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/LeadershipProfiles/Component.tsx",
         "configPath": "src/blocks/LeadershipProfiles/config.ts",
         "files": [
@@ -543,6 +557,20 @@
         "previewComponentPath": null,
         "slug": "leadershipProfiles",
         "symbol": "LeadershipProfilesBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/Logos20/Component.tsx",
+        "configPath": "src/blocks/Logos20/config.ts",
+        "files": [
+          "src/blocks/Logos20/Component.tsx",
+          "src/blocks/Logos20/config.ts"
+        ],
+        "interfaceName": "Logos20Block",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "logos20",
+        "symbol": "Logos20Block"
       },
       {
         "clientFiles": [],
@@ -1036,8 +1064,10 @@
       "IconCardShowcaseBlock",
       "IconGridBlock",
       "ImageMosaicBlock",
+      "Integration23Block",
       "LeadershipProfilesBlock",
       "LogoStripBlock",
+      "Logos20Block",
       "MediaCarouselBlock",
       "NewsEventsContentBlock",
       "NewsEventsHighlightsBlock",
@@ -1110,6 +1140,8 @@
       "videoEmbed",
       "mediaCarousel",
       "programMatrix",
+      "integration23",
+      "logos20",
       "logoStrip",
       "pageHeader",
       "breadcrumb",
@@ -1175,6 +1207,8 @@
       "mediaCarousel",
       "programMatrix",
       "logoStrip",
+      "logos20",
+      "integration23",
       "breadcrumb",
       "timeline",
       "iconCardShowcase",
@@ -1228,6 +1262,8 @@
       "videoEmbed",
       "mediaCarousel",
       "programMatrix",
+      "integration23",
+      "logos20",
       "logoStrip",
       "pageHeader",
       "breadcrumb",
@@ -1292,6 +1328,8 @@
       "mediaCarousel",
       "programMatrix",
       "logoStrip",
+      "logos20",
+      "integration23",
       "breadcrumb",
       "timeline",
       "iconCardShowcase",
@@ -1564,8 +1602,10 @@
         "public/block-thumbnails/icon-card-showcase.jpg",
         "public/block-thumbnails/icon-grid.jpg",
         "public/block-thumbnails/image-mosaic.jpg",
+        "public/block-thumbnails/integration23.jpg",
         "public/block-thumbnails/leadership-profiles.jpg",
         "public/block-thumbnails/logo-strip.jpg",
+        "public/block-thumbnails/logos20.jpg",
         "public/block-thumbnails/media-carousel.jpg",
         "public/block-thumbnails/news-events-highlights.jpg",
         "public/block-thumbnails/news-events-tabs.jpg",
@@ -1596,6 +1636,14 @@
         "public/block-thumbnails/video-embed.jpg"
       ],
       "definitions": [
+        {
+          "filename": "logos20.jpg",
+          "slug": "logos20"
+        },
+        {
+          "filename": "integration23.jpg",
+          "slug": "integration23"
+        },
         {
           "filename": "announcement.jpg",
           "slug": "announcement"
@@ -1900,6 +1948,8 @@
         "bankDetails",
         "iconGrid",
         "iconCardShowcase",
+        "integration23",
+        "logos20",
         "logoStrip",
         "mediaCarousel",
         "numberedSteps",
@@ -2288,12 +2338,16 @@
       "src/blocks/ImageMosaic/Presentation.tsx",
       "src/blocks/ImageMosaic/PreviewComponent.tsx",
       "src/blocks/ImageMosaic/config.ts",
+      "src/blocks/Integration23/Component.tsx",
+      "src/blocks/Integration23/config.ts",
       "src/blocks/LeadershipProfiles/Component.tsx",
       "src/blocks/LeadershipProfiles/config.ts",
       "src/blocks/LeadershipProfiles/types.ts",
       "src/blocks/LogoStrip/Component.tsx",
       "src/blocks/LogoStrip/LogoStripMarquee.tsx",
       "src/blocks/LogoStrip/config.ts",
+      "src/blocks/Logos20/Component.tsx",
+      "src/blocks/Logos20/config.ts",
       "src/blocks/MediaCarousel/Component.tsx",
       "src/blocks/MediaCarousel/MediaCarouselClient.tsx",
       "src/blocks/MediaCarousel/config.ts",
@@ -2481,9 +2535,11 @@
       "src/components/image-mosaic-album-grid.tsx",
       "src/components/image-mosaic-presentation.ts",
       "src/components/image-mosaic.tsx",
+      "src/components/integration23.tsx",
       "src/components/live-preview/ArticleLivePreview.tsx",
       "src/components/live-preview/NewsEventLivePreview.tsx",
       "src/components/live-preview/PageLivePreview.tsx",
+      "src/components/logos20.tsx",
       "src/components/motion/MotionToggle.tsx",
       "src/components/motion/useControllableMotion.ts",
       "src/components/navbar12.tsx",
@@ -2526,6 +2582,7 @@
       "src/components/ui/card.tsx",
       "src/components/ui/carousel.tsx",
       "src/components/ui/checkbox.tsx",
+      "src/components/ui/dialog.tsx",
       "src/components/ui/empty.tsx",
       "src/components/ui/field.tsx",
       "src/components/ui/input.tsx",
@@ -2759,11 +2816,13 @@
       "tests/int/icon-card-showcase.int.spec.tsx",
       "tests/int/icon-grid-ruled-columns.int.spec.tsx",
       "tests/int/image-mosaic.int.spec.tsx",
+      "tests/int/integration23.int.spec.tsx",
       "tests/int/leadership-profiles.int.spec.tsx",
       "tests/int/legal-page-paths.int.spec.ts",
       "tests/int/legal-pages-migration.int.spec.ts",
       "tests/int/live-preview-import-boundary.int.spec.ts",
       "tests/int/live-preview-renderer.int.spec.tsx",
+      "tests/int/logos20.int.spec.tsx",
       "tests/int/managed-cms-page.int.spec.tsx",
       "tests/int/manual-news-events-page-route.int.spec.tsx",
       "tests/int/marquee-announcement.int.spec.ts",
@@ -2869,7 +2928,7 @@
       "tests/int/work-queue.int.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "d8d02ddeee7793939b7ce9b972ef951ff61eaaa310316ca3920c725aff0ca027"
+    "sha256": "c6e4ce56336832c4513a635e6615069eb44707bd7818e29949d184bef3f0ccd8"
   },
   "surfaces": {
     "access": [
@@ -3106,11 +3165,13 @@
       "tests/int/icon-card-showcase.int.spec.tsx",
       "tests/int/icon-grid-ruled-columns.int.spec.tsx",
       "tests/int/image-mosaic.int.spec.tsx",
+      "tests/int/integration23.int.spec.tsx",
       "tests/int/leadership-profiles.int.spec.tsx",
       "tests/int/legal-page-paths.int.spec.ts",
       "tests/int/legal-pages-migration.int.spec.ts",
       "tests/int/live-preview-import-boundary.int.spec.ts",
       "tests/int/live-preview-renderer.int.spec.tsx",
+      "tests/int/logos20.int.spec.tsx",
       "tests/int/managed-cms-page.int.spec.tsx",
       "tests/int/manual-news-events-page-route.int.spec.tsx",
       "tests/int/marquee-announcement.int.spec.ts",
