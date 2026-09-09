@@ -10,6 +10,7 @@ Registration order in [payload.config.ts](../../../../src/payload.config.ts) is 
 4. Media: Media, GalleryAlbums.
 5. Intake: Forms, FormSubmissions.
 6. Administration: WorkQueue (Action Queue), OperationalAuditEvents (Audit Log), Users.
+7. Internal: TwoFactorCredentials, denied to all client CRUD access and excluded from Admin, GraphQL and Trash.
 
 Exact symbols and files are generated in [project-inventory.json](project-inventory.json). Collections receive Trash through [withTrash.ts](../../../../src/plugins/withTrash.ts), except NewsEventClassifications: classification deletion remains a guarded hard delete. An in-use delete identifies the first referencing News & Events entry, Page, Reusable Section, Calendar/Annual Calendar/Tabs container, or Detail Page Template so the editor can remove or replace that relationship; classifications that must remain connected are archived instead. Content and structural presets opt into drafts/versions in their own configs; operational records and users are not public content.
 
@@ -59,6 +60,18 @@ Governed content uses Payload's native `_status` as its only draft/publication s
 Read [adminFeatures.ts](../../../../src/access/adminFeatures.ts), [featureAccess.ts](../../../../src/access/featureAccess.ts), [enforcePublicationPolicy.ts](../../../../src/hooks/enforcePublicationPolicy.ts), [enforceReviewModeration.ts](../../../../src/hooks/enforceReviewModeration.ts), and the [editorial governance runbook](../../../../docs/operations/editorial-governance.md) together before changing this model.
 
 ## Shared Fields and Hook Safety
+
+### Optional account two-factor authentication
+
+Users can enroll themselves from their account's UI-only TwoFactorSettings field. TwoFactorCredentials
+owns encrypted TOTP seeds, expiring pending enrollment, hashed single-use recovery codes, persistent
+attempt windows, revision-based concurrency control and session cutoffs. It adds no Admin feature or
+role. Users beforeLogin enforces the factor for login and password reset, regardless of transport or
+Local API access overrides. The settings endpoint re-verifies passwords through Payload and aborts
+the temporary login before token issuance. Security state writes intentionally commit independently
+of rejected login transactions; permanent user deletion cleans up credentials using the parent req.
+Users afterRead filters pre-cutoff sessions before native JWT authentication validates session IDs.
+See `docs/operations/editorial-governance.md` for recovery, key rotation and integration contracts.
 
 - [bodyEditorConfig.ts](../../../../src/fields/bodyEditorConfig.ts) defines one complete fixed-toolbar
   Lexical editor used explicitly by Article bodies, News/Event bodies, Rich Text blocks, Q&A answers,

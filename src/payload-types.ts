@@ -88,6 +88,7 @@ export interface Config {
     'work-queue': WorkQueue;
     'operational-audit-events': OperationalAuditEvent;
     users: User;
+    'two-factor-credentials': TwoFactorCredential;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -116,6 +117,7 @@ export interface Config {
     'work-queue': WorkQueueSelect<false> | WorkQueueSelect<true>;
     'operational-audit-events': OperationalAuditEventsSelect<false> | OperationalAuditEventsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'two-factor-credentials': TwoFactorCredentialsSelect<false> | TwoFactorCredentialsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -8994,6 +8996,26 @@ export interface OperationalAuditEvent {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "two-factor-credentials".
+ */
+export interface TwoFactorCredential {
+  id: string;
+  userID: string;
+  revision: number;
+  state:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -9099,6 +9121,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'two-factor-credentials';
+        value: string | TwoFactorCredential;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -14345,6 +14371,17 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "two-factor-credentials_select".
+ */
+export interface TwoFactorCredentialsSelect<T extends boolean = true> {
+  userID?: T;
+  revision?: T;
+  state?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -6,6 +6,7 @@ import sharp from 'sharp'
 import { Articles } from './collections/Articles'
 import { Categories } from './collections/Categories'
 import { Users } from './collections/Users'
+import { TwoFactorCredentials } from './collections/TwoFactorCredentials'
 import { Footers } from './collections/Footers'
 import { FormSubmissions } from './collections/FormSubmissions'
 import { Forms } from './collections/Forms'
@@ -61,6 +62,9 @@ export default buildConfig({
     },
     components: {
       beforeDashboard: ['@/components/admin/DashboardOverview#DashboardOverview'],
+      views: {
+        login: { Component: '@/components/admin/TwoFactorLoginView#TwoFactorLoginView', path: '/login' },
+      },
     },
   },
   collections: [
@@ -91,6 +95,7 @@ export default buildConfig({
     WorkQueue,
     OperationalAuditEvents,
     Users,
+    TwoFactorCredentials,
   ],
   globals: [
     // Settings (frequently adjusted)
