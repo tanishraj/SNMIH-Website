@@ -120,6 +120,7 @@ The CMS separates content, taxonomy, structure, media, intake, administration, a
 - `forms` and `form-submissions` own intake and lead operations
 - `work-queue`, `operational-audit-events`, and `users` own administration
 - 9 globals own identity, appearance, SEO, analytics, consent, layout defaults, the News & Events detail template, search suggestions, and maintenance modes
+- Optional per-account authenticator-app 2FA with single-use recovery codes; setup lives under `/admin/account`. See [account security](docs/guides/users.md#two-factor-authentication).
 
 ## Admin Information Architecture
 

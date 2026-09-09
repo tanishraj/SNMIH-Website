@@ -13,6 +13,44 @@ An Admin may create any number of Admins and Site Managers. New Site Managers be
 grants. Changing a role or feature grant clears that user's active sessions so revocation takes effect
 immediately. The last active Admin cannot be demoted, trashed, or permanently deleted.
 
+## Account authentication
+
+Optional per-account TOTP is implemented by the Users `beforeLogin` hook, including native REST,
+GraphQL and Local API login and password-reset operations. REST clients send `twoFactorCode` in the
+JSON body; GraphQL and Local API callers may use the `x-two-factor-code` request header. Password-only
+accounts remain unchanged. Recovery codes are single-use substitutes for TOTP, not for the password.
+
+`two-factor-credentials` is an internal collection: it has no Admin destination, GraphQL API, Trash,
+or client CRUD access, including for Admins. Its user ID is unique. AES-256-GCM encrypts TOTP seeds
+with a key derived from Payload's runtime secret and binds ciphertext to its account. Recovery codes
+contain 128 random bits and are stored only as SHA-256 hashes. Preserve the original `PAYLOAD_SECRET`
+with encrypted backups: rotating it without re-enrollment or a deliberate re-encryption migration
+makes enrolled authenticator seeds unreadable.
+
+Revision-conditional database writes atomically reserve attempts, consume codes and change settings.
+Those writes intentionally live outside the Users login transaction so rejected logins cannot roll
+back rate limits or code consumption. A separate collection avoids contending with the native session
+write. A session cutoff on Users reads invalidates old sessions, including password-only logins that
+were in flight during enrollment. Native authentication still owns password verification, tokens,
+cookies, and session refresh. The password-confirmation path aborts its temporary login before token
+issuance; it does not create an additional authenticated session.
+
+The account endpoint accepts only the authenticated account, same-origin JSON mutations, and current
+password confirmation. Enabling requires proof of the pending secret; disabling or replacing recovery
+codes also requires the existing factor. Setup secrets expire after ten minutes. Enrollment, disable,
+and recovery-code replacement create Admin-only audit events. Permanent user deletion removes the
+credential document in the same transaction.
+
+There is no remote Admin bypass for lost factors. An operator-assisted reset requires verifying the
+account owner's identity and a controlled database change that disables that account's factor, removes
+its secrets/recovery hashes, advances its revision and session cutoff, and records the intervention.
+Do not delete the credential document to reset an account: its cutoff must remain to invalidate old sessions.
+
+Run `pnpm test:two-factor` for the isolated browser journey. It uses a disposable MongoDB replica set
+and a standalone production build of a temporary application copy, refuses an existing server on port 3011, and never loads the site's
+`.env` into that copy. The real-Payload authentication regression suite is
+`tests/int/two-factor-auth.int.spec.ts`.
+
 ## Site Manager Features
 
 Each checkbox corresponds to one Payload Admin destination. A grant controls both navigation and
