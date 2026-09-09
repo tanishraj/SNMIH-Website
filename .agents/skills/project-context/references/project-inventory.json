@@ -2068,6 +2068,10 @@
       {
         "source": "src/collections/Users.ts",
         "symbol": "Users"
+      },
+      {
+        "source": "src/collections/TwoFactorCredentials.ts",
+        "symbol": "TwoFactorCredentials"
       }
     ],
     "globals": [
@@ -2138,7 +2142,8 @@
       "test",
       "test:e2e",
       "test:int",
-      "test:project-context"
+      "test:project-context",
+      "test:two-factor"
     ],
     "version": "1.0.0"
   },
@@ -2222,6 +2227,7 @@
       "src/app/(frontend)/template.tsx",
       "src/app/(payload)/admin/[[...segments]]/not-found.tsx",
       "src/app/(payload)/admin/[[...segments]]/page.tsx",
+      "src/app/(payload)/admin/reset/[token]/page.tsx",
       "src/app/(payload)/api/[...slug]/route.ts",
       "src/app/(payload)/api/graphql-playground/route.ts",
       "src/app/(payload)/api/graphql/route.ts",
@@ -2508,6 +2514,7 @@
       "src/collections/Reviews.ts",
       "src/collections/SystemPages.ts",
       "src/collections/Tags.ts",
+      "src/collections/TwoFactorCredentials.ts",
       "src/collections/Users.ts",
       "src/collections/WorkQueue.ts",
       "src/components/ActionArrow.tsx",
@@ -2523,6 +2530,10 @@
       "src/components/admin/PageCreateView.tsx",
       "src/components/admin/PageRecipeSetup.scss",
       "src/components/admin/PageRecipeSetup.tsx",
+      "src/components/admin/TwoFactor.scss",
+      "src/components/admin/TwoFactorAuthForm.tsx",
+      "src/components/admin/TwoFactorLoginView.tsx",
+      "src/components/admin/TwoFactorSettings.tsx",
       "src/components/analytics/ConsentAwareAnalytics.tsx",
       "src/components/announcement/AnnouncementBar.tsx",
       "src/components/announcement/MarqueeAnnouncementContent.tsx",
@@ -2626,6 +2637,7 @@
       "src/config/starterContract.ts",
       "src/config/uploadLimits.ts",
       "src/endpoints/createPageFromRecipe.ts",
+      "src/endpoints/twoFactor.ts",
       "src/fields/bodyEditorConfig.ts",
       "src/fields/buildSEOFields.ts",
       "src/fields/cmsLinkFields.ts",
@@ -2721,6 +2733,8 @@
       "src/lib/systemPageTypes.ts",
       "src/lib/taxonomy.ts",
       "src/lib/themes/websiteThemes.ts",
+      "src/lib/twoFactor.ts",
+      "src/lib/twoFactorCrypto.ts",
       "src/lib/utils.ts",
       "src/lib/workQueue.ts",
       "src/migrations/20260829_000000_rename_snmih_theme_values.ts",
@@ -2748,6 +2762,7 @@
       "tests/helpers/seedHomepage.ts",
       "tests/helpers/seedUser.ts",
       "tests/helpers/server-only.ts",
+      "tests/helpers/twoFactorBrowserServer.ts",
       "tests/int/about-section.int.spec.tsx",
       "tests/int/academic-programmes-client.int.spec.tsx",
       "tests/int/academic-programmes.int.spec.tsx",
@@ -2950,12 +2965,15 @@
       "tests/int/theme-contracts.int.spec.ts",
       "tests/int/theme-settings.int.spec.ts",
       "tests/int/theme-value-migration.int.spec.ts",
+      "tests/int/two-factor-auth.int.spec.ts",
+      "tests/int/two-factor-crypto.int.spec.ts",
       "tests/int/two-role-feature-permissions-migration.int.spec.ts",
       "tests/int/user-feature-administration.int.spec.ts",
       "tests/int/work-queue.int.spec.ts",
+      "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "b693f46a9b0ec7c3b908343b680750e63bd9f6c8f08ae100e8133b9a598aab97"
+    "sha256": "35c617b3c2adaba5c3c1d0c52a8cface8139a104706b9ceacb1641521cc78691"
   },
   "surfaces": {
     "access": [
@@ -3060,6 +3078,8 @@
       "src/lib/systemPageTypes.ts",
       "src/lib/taxonomy.ts",
       "src/lib/themes/websiteThemes.ts",
+      "src/lib/twoFactor.ts",
+      "src/lib/twoFactorCrypto.ts",
       "src/lib/utils.ts",
       "src/lib/workQueue.ts"
     ],
@@ -3085,6 +3105,7 @@
       "src/app/(frontend)/reviews/category/[slug]/page.tsx",
       "src/app/(frontend)/search/page.tsx",
       "src/app/(payload)/admin/[[...segments]]/page.tsx",
+      "src/app/(payload)/admin/reset/[token]/page.tsx",
       "src/app/(payload)/api/[...slug]/route.ts",
       "src/app/(payload)/api/graphql-playground/route.ts",
       "src/app/(payload)/api/graphql/route.ts",
@@ -3306,9 +3327,12 @@
       "tests/int/theme-contracts.int.spec.ts",
       "tests/int/theme-settings.int.spec.ts",
       "tests/int/theme-value-migration.int.spec.ts",
+      "tests/int/two-factor-auth.int.spec.ts",
+      "tests/int/two-factor-crypto.int.spec.ts",
       "tests/int/two-role-feature-permissions-migration.int.spec.ts",
       "tests/int/user-feature-administration.int.spec.ts",
-      "tests/int/work-queue.int.spec.ts"
+      "tests/int/work-queue.int.spec.ts",
+      "tests/security/two-factor.e2e.spec.ts"
     ],
     "themes": [
       "src/styles/themes/theme-snmih-blue.css",

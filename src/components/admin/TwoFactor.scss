@@ -1,0 +1,145 @@
+.two-factor {
+  color: var(--theme-text);
+  max-width: 40rem;
+
+  h1,
+  h2,
+  h3 {
+    margin: 0 0 16px;
+  }
+  p {
+    line-height: 1.6;
+  }
+  &--auth {
+    width: 100%;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+  &--auth > a {
+    display: inline-block;
+    margin-top: 24px;
+  }
+  &--settings {
+    margin: 24px 0 40px;
+    padding: 24px 0;
+    border-block: 1px solid var(--theme-elevation-200);
+  }
+  &__help {
+    color: var(--theme-elevation-650);
+    margin: 0 0 16px;
+  }
+  &__fields {
+    display: grid;
+    gap: 12px;
+    border: 0;
+    padding: 0;
+    margin: 24px 0 0;
+    min-width: 0;
+  }
+  label {
+    display: grid;
+    gap: 8px;
+    font-weight: 600;
+  }
+  input {
+    min-height: 44px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--theme-elevation-300);
+    border-radius: 4px;
+    padding: 10px 12px;
+    background: var(--theme-input-bg);
+    color: var(--theme-text);
+    font: inherit;
+  }
+  input:focus-visible,
+  button:focus-visible,
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--theme-text);
+    outline-offset: 3px;
+  }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 8px 0;
+  }
+  &__button {
+    min-height: 44px;
+    border: 1px solid var(--theme-elevation-800);
+    border-radius: 4px;
+    padding: 10px 16px;
+    background: var(--theme-elevation-800);
+    color: var(--theme-elevation-0);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  &__button:hover {
+    background: var(--theme-elevation-900);
+  }
+  &__button--secondary {
+    background: var(--theme-elevation-0);
+    color: var(--theme-text);
+    border-color: var(--theme-elevation-300);
+  }
+  &__button--secondary:hover {
+    background: var(--theme-elevation-100);
+  }
+  button:disabled,
+  fieldset:disabled button {
+    cursor: wait;
+    opacity: 0.65;
+  }
+  &__error {
+    color: var(--theme-error-650);
+    margin: 8px 0;
+  }
+  &__setup,
+  &__recovery {
+    margin-block: 16px;
+  }
+  &__qr {
+    background: #fff;
+    width: fit-content;
+    max-width: 100%;
+    margin: 20px 0;
+  }
+  &__qr svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  summary {
+    cursor: pointer;
+    padding-block: 10px;
+  }
+  &__secret {
+    overflow-wrap: anywhere;
+    user-select: all;
+  }
+  &__recovery ul {
+    list-style: none;
+    padding: 16px;
+    border: 1px solid var(--theme-elevation-200);
+    line-height: 2;
+  }
+  &__recovery code {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+    user-select: all;
+  }
+  &__continue {
+    display: inline-block;
+    margin-top: 24px;
+    padding-block: 12px;
+    font-weight: 600;
+  }
+}
+.two-factor-reset {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+}
