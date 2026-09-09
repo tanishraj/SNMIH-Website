@@ -84,6 +84,14 @@ Exact current route paths live in [project-inventory.json](project-inventory.jso
 
 ## Providers and Runtime Contract
 
+Optional per-account two-factor authentication extends the native Users login hook. The Admin login
+view and explicit `/admin/reset/[token]` route collect an optional authenticator/recovery code and
+submit to Payload's native auth endpoints. `/api/users/two-factor` serves private status and
+password-confirmed, same-origin account settings. A private credential collection owns persistent
+attempt/replay state independently of the login transaction. A Users read hook filters sessions older
+than the last security change, so REST, GraphQL, Admin and preview share session revocation.
+The isolated browser suite runs through `pnpm test:two-factor` using its own MongoDB and temporary app copy.
+
 [runtime.ts](../../../../src/config/runtime.ts) reads environment behavior, [starterContract.ts](../../../../src/config/starterContract.ts) rejects unsupported deployment combinations, and [providers.ts](../../../../src/config/providers.ts) constructs MongoDB, optional Resend email, and local/S3 storage. `DATABASE_NAME` optionally selects the MongoDB database through Mongoose connection options and takes precedence over a database embedded in `MONGODB_URI`; omitting it preserves URI-based selection. S3-compatible storage can supply a validated public HTTPS origin: Payload then generates encoded direct-media URLs and Next.js allows that exact remote image host, while authenticated uploads, deletes, and reconciliation continue through the private S3 endpoint. Direct-origin objects bypass Payload media access checks and are restricted to public-safe content.
 
 MongoDB is the supported database. Local Docker Compose pins MongoDB 8.0.29 and isolates its files in the version-specific
