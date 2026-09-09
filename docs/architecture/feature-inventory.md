@@ -47,8 +47,9 @@ This is the maintained technical map of the starter. It records what is register
 | Administration | Action Queue (`work-queue`)            | Deduplicated CMS-generated approval, moderation, follow-up, publishing, media, and system work                       |
 | Administration | Audit Log (`operational-audit-events`) | Immutable selected operational events and actor metadata                                                             |
 | Administration | Users                                  | Payload authentication, Admin/Site Manager roles, and Site Manager feature grants                                    |
+| Internal       | Two Factor Credentials                 | Private encrypted enrollment, recovery hashes, attempt counters and session cutoff; no client CRUD access          |
 
-All collections use timestamps and Trash. Draft/version support is enabled where the individual config declares it; operational records and users are not public content.
+All collections use timestamps. Two Factor Credentials and News & Events Classifications do not use Trash. Draft/version support is enabled where the individual config declares it; operational records and users are not public content.
 
 ## Payload Globals
 

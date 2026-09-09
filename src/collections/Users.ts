@@ -26,6 +26,12 @@ import {
   isAdmin,
 } from '@/access/featureAccess'
 import { recordOperationalAuditEvent } from '@/lib/operationalAudit'
+import {
+  deleteTwoFactorCredentials,
+  enforceTwoFactorLogin,
+  filterTwoFactorSessions,
+} from '@/lib/twoFactor'
+import { twoFactorSettingsEndpoint, twoFactorStatusEndpoint } from '@/endpoints/twoFactor'
 
 type UserAccessDocument = {
   deletedAt?: string | null
@@ -299,7 +305,8 @@ export const Users: CollectionConfig = {
     hidden: hideFromNonAdmin,
     useAsTitle: 'email',
   },
-  auth: true,
+  auth: { useSessions: true },
+  endpoints: [twoFactorStatusEndpoint, twoFactorSettingsEndpoint],
   access: {
     create: adminOrFirstUserAccess,
     delete: adminOnlyAccess,
@@ -310,12 +317,18 @@ export const Users: CollectionConfig = {
   },
   hooks: {
     afterChange: [auditUserAuthorizationChange],
-    afterDelete: [auditUserDeletion],
-    afterRead: [sanitizeAssignmentUser],
+    afterDelete: [auditUserDeletion, deleteTwoFactorCredentials],
+    afterRead: [sanitizeAssignmentUser, filterTwoFactorSessions],
+    beforeLogin: [enforceTwoFactorLogin],
     beforeChange: [normalizeUserAccessFields],
     beforeDelete: [preventLastAdminDelete],
   },
   fields: [
+    {
+      name: 'twoFactorSettings',
+      type: 'ui',
+      admin: { components: { Field: '@/components/admin/TwoFactorSettings#TwoFactorSettings' } },
+    },
     {
       name: 'role',
       type: 'select',
