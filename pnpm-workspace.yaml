@@ -1,6 +1,5 @@
 packages:
   - '.'
-  
 allowBuilds:
   bufferutil: true
   esbuild: true
