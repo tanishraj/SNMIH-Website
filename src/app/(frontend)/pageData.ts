@@ -67,6 +67,7 @@ const _getPublishedPageByID = async ({
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'pages',
     where: {
       and: [{ id: { equals: id } }, { _status: { equals: 'published' } }],
@@ -89,6 +90,7 @@ const _getPageBySlug = async (slug: string): Promise<Page | null> => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'pages',
     where: {
       and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
@@ -116,6 +118,7 @@ const _getPageByPathname = async (pathname: string): Promise<Page | null> => {
 
   const leafSlug = segments[segments.length - 1]
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'pages',
     where: {
       and: [{ slug: { equals: leafSlug } }, { _status: { equals: 'published' } }],
@@ -300,6 +303,7 @@ const getPublishedSystemPageByID = async ({
   }
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'system-pages',
     where: {
       and: andConditions,

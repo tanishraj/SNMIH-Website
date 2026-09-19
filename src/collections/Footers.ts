@@ -10,7 +10,7 @@ import { Footer56Block } from '@/blocks/Footer56/config'
 import { FooterMinimalBlock } from '@/blocks/FooterMinimal/config'
 import { projectSlugField } from '@/fields/projectSlugField'
 import { createDraftPublishQueueHook } from '@/hooks/syncDraftPublishToWorkQueue'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 export const Footers: CollectionConfig = {
   slug: 'footers',
@@ -34,6 +34,7 @@ export const Footers: CollectionConfig = {
     update: requireFeature('footers'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [
       revalidateGlobalsCache,
       createDraftPublishQueueHook({

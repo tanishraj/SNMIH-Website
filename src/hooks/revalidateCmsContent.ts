@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
@@ -41,6 +41,41 @@ const revalidateTags = (...tags: Array<(typeof CMS_CACHE_TAGS)[keyof typeof CMS_
   for (const tag of tags) {
     revalidateTag(tag, REVALIDATE_PROFILE)
   }
+  // Blocks and related-content lists can embed any editorial collection. Expire
+  // the public route tree as well as data tags, including cached 404s and loaders
+  // using React cache (which only deduplicates within a render). Regeneration is
+  // lazy: only pages visited after this publication are rebuilt.
+  if (tags.some((tag) => tag !== CMS_CACHE_TAGS.redirects && tag !== CMS_CACHE_TAGS.sitemap)) {
+    revalidatePath('/(frontend)', 'layout')
+  }
+}
+
+// Taxonomy records are public immediately and do not have draft versions.
+export const revalidateTaxonomyCache: CollectionAfterChangeHook = ({ doc }) => {
+  revalidateTags(
+    CMS_CACHE_TAGS.pages,
+    CMS_CACHE_TAGS.articles,
+    CMS_CACHE_TAGS.reviews,
+    CMS_CACHE_TAGS.newsEvents,
+    CMS_CACHE_TAGS.sitemap,
+  )
+  return doc
+}
+
+export const revalidateDeletedTaxonomyCache: CollectionAfterDeleteHook = ({ doc }) => {
+  revalidateTags(
+    CMS_CACHE_TAGS.pages,
+    CMS_CACHE_TAGS.articles,
+    CMS_CACHE_TAGS.reviews,
+    CMS_CACHE_TAGS.newsEvents,
+    CMS_CACHE_TAGS.sitemap,
+  )
+  return doc
+}
+
+export const revalidateDeletedGlobalsCache: CollectionAfterDeleteHook = ({ doc }) => {
+  if (isOrWasPublished(doc)) revalidateTags(CMS_CACHE_TAGS.globals, CMS_CACHE_TAGS.pages)
+  return doc
 }
 
 /**
