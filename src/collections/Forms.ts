@@ -8,7 +8,7 @@ import {
   requireFeature,
 } from '@/access/featureAccess'
 import { projectSlugField } from '@/fields/projectSlugField'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 import {
   formFieldTypeOptions,
   formSubmissionIntentOptions,
@@ -42,6 +42,7 @@ export const Forms: CollectionConfig = {
     drafts: true,
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [revalidateGlobalsCache],
   },
   timestamps: true,

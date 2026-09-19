@@ -7,7 +7,7 @@ import {
   requireFeature,
 } from '@/access/featureAccess'
 import { projectSlugField } from '@/fields/projectSlugField'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 export const GalleryAlbums: CollectionConfig = {
   slug: 'gallery-albums',
@@ -30,6 +30,7 @@ export const GalleryAlbums: CollectionConfig = {
     update: requireFeature('galleryAlbums'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [revalidateGlobalsCache],
   },
   versions: {

@@ -123,6 +123,21 @@ client-safe URL helper. Relative local downloads and File View retain direct URL
 
 ## Caching and Delivery Safety
 
+Public Page, Article, Review, News/Event and taxonomy routes prebuild published paths using
+`src/lib/staticParams.ts`, with anonymous access checks and batched routing-field queries.
+New paths generate on demand; the frontend layout sets a five-minute ISR interval for
+clock-dependent block content. Publication/takedown hooks invalidate both data tags and the
+`/(frontend)` layout route tree, including cached 404s. This conservative public-tree invalidation
+covers cross-collection blocks and React-cache-only loaders; regeneration happens on visits.
+Unversioned taxonomy updates/deletions and published shared-record deletions also invalidate.
+Article and News/Event previews now live at `/preview/articles/[slug]` and
+`/preview/news-events/[slug]`, with authentication, access-enforced draft reads, no-store dynamic
+rendering and noindex metadata. Legacy query-based previews redirect through the request proxy.
+See `docs/operations/static-generation.md` for build requirements and cache deployment behavior.
+`pnpm test:ssg` verifies real production prerendering and on-demand updates in a temporary app copy
+with disposable MongoDB; it never loads application environment files or uses the dev server.
+
+
 The shared frontend globals cache populates linked Pages with navigation fields only (`slug`,
 `parent`, `title`, and `publicUrlPreview`) in Site Identity and active Header/Footer queries.
 Menu links and legal destinations never require complete Page layouts. The shared payload cleanup

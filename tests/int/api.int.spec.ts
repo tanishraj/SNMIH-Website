@@ -7,6 +7,7 @@ import { createTestMongoServer } from '../helpers/mongoMemoryServer'
 vi.mock('next/cache', async (importOriginal) => ({
   ...(await importOriginal<typeof import('next/cache')>()),
   revalidateTag: vi.fn(),
+  revalidatePath: vi.fn(),
 }))
 
 let payload: Payload

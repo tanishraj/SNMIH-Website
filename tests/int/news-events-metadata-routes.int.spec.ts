@@ -21,7 +21,11 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock('@payload-config', () => ({ default: {} }))
 vi.mock('next/headers', () => ({ headers: vi.fn().mockResolvedValue(new Headers()) }))
-vi.mock('next/navigation', () => ({ notFound: vi.fn(() => new Error('Not found')) }))
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(() => {
+    throw new Error('Not found')
+  }),
+}))
 vi.mock('payload', () => ({ getPayload: mocks.getPayload }))
 vi.mock('@/components/live-preview/NewsEventLivePreview', () => ({
   NewsEventLivePreview: (props: unknown) => {
@@ -60,6 +64,8 @@ vi.mock('@/lib/reviewPreviewSnapshot', () => ({
 vi.mock('@/lib/siteOffices', () => ({
   getDraftSiteOfficeLocations: mocks.getDraftSiteOfficeLocations,
 }))
+
+import NewsEventPreviewPage from '@/app/(frontend)/preview/news-events/[slug]/page'
 
 import NewsEventEntryPage, {
   generateMetadata as generateDetailMetadata,
@@ -105,7 +111,6 @@ describe('News & Events metadata routes', () => {
     await expect(
       generateDetailMetadata({
         params: Promise.resolve({ slug: 'example' }),
-        searchParams: Promise.resolve({}),
       }),
     ).resolves.toEqual({ title: 'Detail metadata' })
     expect(mocks.getNewsEventDetailMetadata).toHaveBeenCalledWith(entry, 'noindex,follow')
@@ -117,13 +122,22 @@ describe('News & Events metadata routes', () => {
 
     const result = await NewsEventEntryPage({
       params: Promise.resolve({ slug: 'example' }),
-      searchParams: Promise.resolve({}),
     })
     const markup = renderToStaticMarkup(result)
 
     expect(mocks.getNewsEventDetailTemplate).toHaveBeenCalledOnce()
     expect(mocks.getNewsEventStructuredData).toHaveBeenCalledWith(entry, 'Management, SNMIH')
     expect(markup).toContain('Example')
+    expect(mocks.auth).not.toHaveBeenCalled()
+  })
+
+  it('rejects anonymous previews before loading any draft data', async () => {
+    mocks.auth.mockResolvedValue({ user: null })
+    await expect(
+      NewsEventPreviewPage({ params: Promise.resolve({ slug: 'draft' }) }),
+    ).rejects.toThrow('Not found')
+    expect(mocks.getNewsEventPreviewBySlug).not.toHaveBeenCalled()
+    expect(mocks.loadNewsEventsPreviewSnapshot).not.toHaveBeenCalled()
   })
 
   it('server-loads detail preview snapshots and passes them to the client-safe renderer', async () => {
@@ -164,9 +178,8 @@ describe('News & Events metadata routes', () => {
     mocks.getDraftSiteOfficeLocations.mockResolvedValue(officeLocations)
     mocks.getDraftEventGalleryAlbums.mockResolvedValue(eventGalleryAlbums)
 
-    const result = await NewsEventEntryPage({
+    const result = await NewsEventPreviewPage({
       params: Promise.resolve({ slug: 'draft-example' }),
-      searchParams: Promise.resolve({ preview: 'true' }),
     })
     const markup = renderToStaticMarkup(result)
 

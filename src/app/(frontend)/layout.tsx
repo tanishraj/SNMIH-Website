@@ -1,3 +1,6 @@
+// Refresh time-sensitive block projections even when no editor publishes a change.
+export const revalidate = 300
+
 import configPromise from '@payload-config'
 import { getPayload, type PopulateType } from 'payload'
 import { unstable_cache } from 'next/cache'
