@@ -2143,6 +2143,7 @@
       "test:e2e",
       "test:int",
       "test:project-context",
+      "test:ssg",
       "test:two-factor"
     ],
     "version": "1.0.0"
@@ -2193,6 +2194,7 @@
       "docs/operations/mongodb-deployment.md",
       "docs/operations/runtime-and-providers.md",
       "docs/operations/starter-clone-checklist.md",
+      "docs/operations/static-generation.md",
       "next.config.ts",
       "package.json",
       "src/access/adminFeatures.ts",
@@ -2218,6 +2220,8 @@
       "src/app/(frontend)/opengraph-image.tsx",
       "src/app/(frontend)/page.tsx",
       "src/app/(frontend)/pageData.ts",
+      "src/app/(frontend)/preview/articles/[slug]/page.tsx",
+      "src/app/(frontend)/preview/news-events/[slug]/page.tsx",
       "src/app/(frontend)/preview/page/[id]/page.tsx",
       "src/app/(frontend)/reviews/[slug]/opengraph-image.tsx",
       "src/app/(frontend)/reviews/[slug]/page.tsx",
@@ -2728,6 +2732,7 @@
       "src/lib/siteTimeZone.server.ts",
       "src/lib/siteTimeZone.ts",
       "src/lib/siteUrl.ts",
+      "src/lib/staticParams.ts",
       "src/lib/stripInternalMediaFields.ts",
       "src/lib/systemPageActions.ts",
       "src/lib/systemPageTypes.ts",
@@ -2762,6 +2767,7 @@
       "tests/helpers/seedHomepage.ts",
       "tests/helpers/seedUser.ts",
       "tests/helpers/server-only.ts",
+      "tests/helpers/ssgSmokeTest.ts",
       "tests/helpers/twoFactorBrowserServer.ts",
       "tests/int/about-section.int.spec.tsx",
       "tests/int/academic-programmes-client.int.spec.tsx",
@@ -2951,6 +2957,7 @@
       "tests/int/speed-insights.int.spec.ts",
       "tests/int/starter-contract.int.spec.ts",
       "tests/int/starter-productization.int.spec.ts",
+      "tests/int/static-params.int.spec.ts",
       "tests/int/stats-strip-render.int.spec.ts",
       "tests/int/strip-internal-media-fields.int.spec.ts",
       "tests/int/student-experience.int.spec.tsx",
@@ -2973,7 +2980,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "35c617b3c2adaba5c3c1d0c52a8cface8139a104706b9ceacb1641521cc78691"
+    "sha256": "6c3906b297e3d551db472dd868f97313e7b5344d95bf6c14ad6f170ce57f4a67"
   },
   "surfaces": {
     "access": [
@@ -3073,6 +3080,7 @@
       "src/lib/siteTimeZone.server.ts",
       "src/lib/siteTimeZone.ts",
       "src/lib/siteUrl.ts",
+      "src/lib/staticParams.ts",
       "src/lib/stripInternalMediaFields.ts",
       "src/lib/systemPageActions.ts",
       "src/lib/systemPageTypes.ts",
@@ -3099,6 +3107,8 @@
       "src/app/(frontend)/news-events/page.tsx",
       "src/app/(frontend)/opengraph-image.tsx",
       "src/app/(frontend)/page.tsx",
+      "src/app/(frontend)/preview/articles/[slug]/page.tsx",
+      "src/app/(frontend)/preview/news-events/[slug]/page.tsx",
       "src/app/(frontend)/preview/page/[id]/page.tsx",
       "src/app/(frontend)/reviews/[slug]/opengraph-image.tsx",
       "src/app/(frontend)/reviews/[slug]/page.tsx",
@@ -3313,6 +3323,7 @@
       "tests/int/speed-insights.int.spec.ts",
       "tests/int/starter-contract.int.spec.ts",
       "tests/int/starter-productization.int.spec.ts",
+      "tests/int/static-params.int.spec.ts",
       "tests/int/stats-strip-render.int.spec.ts",
       "tests/int/strip-internal-media-fields.int.spec.ts",
       "tests/int/student-experience.int.spec.tsx",

@@ -1,3 +1,4 @@
+import { revalidateTaxonomyCache, revalidateDeletedTaxonomyCache } from '@/hooks/revalidateCmsContent'
 import { type CollectionConfig } from 'payload'
 
 import {
@@ -32,6 +33,8 @@ export const Tags: CollectionConfig = {
     update: requireFeature('tags'),
   },
   hooks: {
+    afterChange: [revalidateTaxonomyCache],
+    afterDelete: [revalidateDeletedTaxonomyCache],
     beforeChange: [validateSEOContract()],
   },
   timestamps: true,

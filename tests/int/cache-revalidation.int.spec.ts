@@ -2,10 +2,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mocks = vi.hoisted(() => ({
   revalidateTag: vi.fn(),
+  revalidatePath: vi.fn(),
 }))
 
 vi.mock('next/cache', () => ({
   revalidateTag: mocks.revalidateTag,
+  revalidatePath: mocks.revalidatePath,
 }))
 
 import {
@@ -95,11 +97,29 @@ describe('CMS cache revalidation', () => {
   })
 
   it('does not invalidate editorial caches for draft-only updates', () => {
-    for (const hook of [revalidateArticlesCache, revalidateReviewsCache, revalidateNewsEventsCache]) {
+    for (const hook of [
+      revalidateArticlesCache,
+      revalidateReviewsCache,
+      revalidateNewsEventsCache,
+    ]) {
       afterChange(hook as never, 'draft', 'draft')
     }
 
     expect(mocks.revalidateTag).not.toHaveBeenCalled()
+    expect(mocks.revalidatePath).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    revalidatePagesCache,
+    revalidateArticlesCache,
+    revalidateReviewsCache,
+    revalidateNewsEventsCache,
+  ])('expires generated HTML and cached missing paths after publication and takedown', (hook) => {
+    afterChange(hook as never, 'published', 'draft')
+    expect(mocks.revalidatePath).toHaveBeenCalledWith('/(frontend)', 'layout')
+    mocks.revalidatePath.mockClear()
+    afterChange(hook as never, 'draft', 'published')
+    expect(mocks.revalidatePath).toHaveBeenCalledWith('/(frontend)', 'layout')
   })
 
   it('invalidates Redirect caches when a redirect is unpublished', () => {

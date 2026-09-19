@@ -8,6 +8,7 @@ const { revalidateTagMock } = vi.hoisted(() => ({
 }))
 
 vi.mock('next/cache', () => ({
+  revalidatePath: vi.fn(),
   revalidateTag: revalidateTagMock,
 }))
 

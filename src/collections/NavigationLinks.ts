@@ -7,7 +7,7 @@ import {
   requireFeature,
 } from '@/access/featureAccess'
 import { createDraftPublishQueueHook } from '@/hooks/syncDraftPublishToWorkQueue'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 const validateRequiredLinkField =
   (linkType: 'page' | 'custom', message: string) =>
@@ -132,6 +132,7 @@ export const NavigationLinks: CollectionConfig = {
     update: requireFeature('navigationLinks'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [
       revalidateGlobalsCache,
       createDraftPublishQueueHook({

@@ -1,8 +1,17 @@
+import { getStaticSlugParams } from '@/lib/staticParams'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { ArticleArchivePage } from '@/components/articles/ArticleArchivePage'
 import { getArticleTagArchiveBySlug, getArticleTagArchiveMetadataBySlug } from '@/lib/contentEntries'
+
+// Prebuild known content; newly published paths are generated on their first visit.
+export const dynamic = 'force-static'
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  return getStaticSlugParams('tags')
+}
 
 type PageProps = {
   params: Promise<{

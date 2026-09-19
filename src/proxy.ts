@@ -31,6 +31,17 @@ async function loadRedirects(baseUrl: string): Promise<Map<string, RedirectEntry
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  // Preserve bookmarked Admin preview URLs without making public pages read
+  // request-specific query parameters (which would disable static rendering).
+  if (
+    request.nextUrl.searchParams.get('preview') === 'true' &&
+    /^\/(articles|news-events)\/[^/]+\/?$/.test(pathname)
+  ) {
+    const destination = request.nextUrl.clone()
+    destination.pathname = `/preview${pathname}`
+    destination.searchParams.delete('preview')
+    return NextResponse.redirect(destination)
+  }
   const baseUrl = `${request.nextUrl.protocol}//${request.nextUrl.host}`
 
   const redirects = await loadRedirects(baseUrl)
