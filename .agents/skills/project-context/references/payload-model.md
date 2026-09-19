@@ -87,3 +87,8 @@ by default. Use `overrideAccess: false` when acting for a user. Pass `req` into 
 they share transactions. Use request context flags when a hook writes data that could trigger itself.
 Run `pnpm generate:types` after schema changes and keep
 [payload-types.ts](../../../../src/payload-types.ts) synchronized.
+
+Public publication hooks invalidate the frontend route tree as well as CMS data tags for ISR.
+Topics and Tags invalidate immediately on changes/deletions because they have no draft versions;
+published shared-record deletions also expire dependent public content. Article and News/Event
+Admin live previews target their dedicated authenticated `/preview/` routes.

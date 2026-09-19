@@ -9,7 +9,7 @@ import {
 import { HeaderNavbar12Block } from '@/blocks/HeaderNavbar12/config'
 import { projectSlugField } from '@/fields/projectSlugField'
 import { createDraftPublishQueueHook } from '@/hooks/syncDraftPublishToWorkQueue'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 export const Headers: CollectionConfig = {
   slug: 'headers',
@@ -33,6 +33,7 @@ export const Headers: CollectionConfig = {
     update: requireFeature('headers'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [
       revalidateGlobalsCache,
       createDraftPublishQueueHook({

@@ -9,7 +9,7 @@ import {
 import { buildSEOFields } from '@/fields/buildSEOFields'
 import { publicationMetadataFields } from '@/fields/publicationMetadataFields'
 import { projectSlugField } from '@/fields/projectSlugField'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 import { enforcePublicationPolicy } from '@/hooks/enforcePublicationPolicy'
 import { createCollectionAuditHook } from '@/hooks/logOperationalAuditEvent'
 import { validateSEOContract } from '@/hooks/validateSEOContract'
@@ -81,6 +81,7 @@ export const SystemPages: CollectionConfig = {
     update: requireFeature('systemPages'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [
       revalidateGlobalsCache,
       createCollectionAuditHook({
