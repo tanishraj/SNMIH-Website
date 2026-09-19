@@ -24,6 +24,7 @@
     "test:project-context": "vitest run --config ./vitest.config.mts tests/int/project-context-lib.int.spec.ts tests/int/project-context-repository.int.spec.ts",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "test:ssg": "tsx tests/helpers/ssgSmokeTest.ts",
     "test:two-factor": "playwright test --config=playwright.two-factor.config.ts"
   },
   "dependencies": {

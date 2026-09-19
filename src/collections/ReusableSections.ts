@@ -9,7 +9,7 @@ import {
   requireFeature,
 } from '@/access/featureAccess'
 import { createCollectionAuditHook } from '@/hooks/logOperationalAuditEvent'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 
 export const ReusableSections: CollectionConfig = {
   slug: 'reusable-sections',
@@ -33,6 +33,7 @@ export const ReusableSections: CollectionConfig = {
     update: requireFeature('reusableSections'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [
       revalidateGlobalsCache,
       createCollectionAuditHook({

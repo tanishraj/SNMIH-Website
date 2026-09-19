@@ -6,7 +6,7 @@ import {
   hideUnlessFeature,
   requireFeature,
 } from '@/access/featureAccess'
-import { revalidateGlobalsCache } from '@/hooks/revalidateCmsContent'
+import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 import { validateHttpsUrl } from '@/lib/siteOfficesShared'
 
 export const OfficeLocations: CollectionConfig = {
@@ -32,6 +32,7 @@ export const OfficeLocations: CollectionConfig = {
     update: requireFeature('officeLocations'),
   },
   hooks: {
+    afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [revalidateGlobalsCache],
   },
   versions: {

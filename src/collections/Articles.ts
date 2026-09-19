@@ -62,7 +62,7 @@ export const Articles: CollectionConfig = {
 
         const appURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-        return `${appURL}/articles/${data.slug}?preview=true`
+        return `${appURL}/preview/articles/${encodeURIComponent(data.slug)}`
       },
     },
   },

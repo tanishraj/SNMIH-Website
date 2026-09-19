@@ -139,11 +139,11 @@ const toManagedEntryMetadata = async ({
 export async function getArticlePreviewBySlug(slug: string, user: User): Promise<Article | null> {
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'articles',
     depth: 2,
     draft: true,
     limit: 1,
-    overrideAccess: false,
     user,
     where: { slug: { equals: slug } },
   })
@@ -156,6 +156,7 @@ export const getArticleBySlug = cache(async (slug: string): Promise<Article | nu
   })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'articles',
     where: {
       and: [
@@ -219,6 +220,7 @@ const getCategoryBySlug = cache(async (slug: string): Promise<TaxonomyArchiveTer
   })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'categories',
     where: {
       slug: {
@@ -238,6 +240,7 @@ const getTagBySlug = cache(async (slug: string): Promise<TaxonomyArchiveTerm | n
   })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'tags',
     where: {
       slug: {
@@ -319,6 +322,7 @@ const getPublishedArticles = cache(async (): Promise<Article[]> => {
   })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'articles',
     where: {
       _status: {
@@ -338,6 +342,7 @@ const getPublishedReviews = cache(async (): Promise<Review[]> => {
   })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'reviews',
     where: {
       _status: {
@@ -459,6 +464,7 @@ export const getReviewBySlug = cache(async (slug: string): Promise<Review | null
   })
 
   const result = await payload.find({
+    overrideAccess: false,
     collection: 'reviews',
     where: {
       and: [

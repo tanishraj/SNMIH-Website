@@ -51,7 +51,7 @@ export const NewsEvents: CollectionConfig = {
 
         const appURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-        return `${appURL}/news-events/${data.slug}?preview=true`
+        return `${appURL}/preview/news-events/${encodeURIComponent(data.slug)}`
       },
     },
   },
