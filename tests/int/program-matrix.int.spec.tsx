@@ -62,6 +62,9 @@ describe('resolveLucideIcon', () => {
     ['graduation_cap', GraduationCap],
     ['graduation cap icon', GraduationCap],
     ['users', Users],
+    ['UserGroup', Users],
+    ['user-group', Users],
+    ['user group icon', Users],
   ])('resolves %s', (name, expectedIcon) => {
     expect(resolveLucideIcon(name)).toBe(expectedIcon)
   })

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "backup:prod-db": "tsx scripts/backup-prod-db.ts",
-    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
+    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:block-thumbnails": "tsx scripts/generate-block-thumbnails.ts",
