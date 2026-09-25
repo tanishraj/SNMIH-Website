@@ -2852,6 +2852,7 @@
       "tests/int/global-announcement.int.spec.ts",
       "tests/int/global-footer.int.spec.ts",
       "tests/int/global-header.int.spec.ts",
+      "tests/int/header-mobile-menu.int.spec.tsx",
       "tests/int/header-navbar-render.int.spec.ts",
       "tests/int/header-presets.int.spec.ts",
       "tests/int/helpers/generatedPayloadInterface.ts",
@@ -2980,7 +2981,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "6c3906b297e3d551db472dd868f97313e7b5344d95bf6c14ad6f170ce57f4a67"
+    "sha256": "0c1e085021522aacc63366fea0cb34f73abd1a86fdc3d03b6257b4a253659cd2"
   },
   "surfaces": {
     "access": [
@@ -3219,6 +3220,7 @@
       "tests/int/global-announcement.int.spec.ts",
       "tests/int/global-footer.int.spec.ts",
       "tests/int/global-header.int.spec.ts",
+      "tests/int/header-mobile-menu.int.spec.tsx",
       "tests/int/header-navbar-render.int.spec.ts",
       "tests/int/header-presets.int.spec.ts",
       "tests/int/hero-banner-preload.int.spec.tsx",

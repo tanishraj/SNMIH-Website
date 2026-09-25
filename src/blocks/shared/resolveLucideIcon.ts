@@ -14,11 +14,17 @@ const iconLookup = new Map<string, LucideIcon>(
   ]),
 )
 
+const iconAliases = new Map<string, string>([
+  ['usergroup', 'users'],
+])
+
 export function resolveLucideIcon(name?: string | null): LucideIcon | undefined {
   if (typeof name !== 'string') {
     return undefined
   }
 
   const normalizedName = normalizeLucideIconName(name)
-  return normalizedName ? iconLookup.get(normalizedName) : undefined
+  const resolvedName = iconAliases.get(normalizedName) ?? normalizedName
+
+  return resolvedName ? iconLookup.get(resolvedName) : undefined
 }

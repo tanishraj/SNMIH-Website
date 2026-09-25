@@ -36,6 +36,7 @@ export function HeaderMobileMenu({ ctas, menuItems }: HeaderMobileMenuProps) {
   const [open, setOpen] = useState(false)
   const [sheetTopOffset, setSheetTopOffset] = useState('0px')
   const triggerRef = useRef<HTMLDivElement | null>(null)
+  const closeMenu = () => setOpen(false)
 
   useEffect(() => {
     if (!open) {
@@ -144,6 +145,7 @@ export function HeaderMobileMenu({ ctas, menuItems }: HeaderMobileMenuProps) {
                                 className={childLinkClasses}
                                 href={child.href}
                                 key={`${child.label}-${child.href}`}
+                                onClick={closeMenu}
                                 rel={child.newTab ? 'noreferrer' : undefined}
                                 target={child.newTab ? '_blank' : undefined}
                               >
@@ -162,6 +164,7 @@ export function HeaderMobileMenu({ ctas, menuItems }: HeaderMobileMenuProps) {
                         className={topLevelLinkClasses}
                         href={item.href}
                         key={`${item.label}-${item.href}-${index}`}
+                        onClick={closeMenu}
                         rel={item.newTab ? 'noreferrer' : undefined}
                         target={item.newTab ? '_blank' : undefined}
                       >
@@ -185,6 +188,7 @@ export function HeaderMobileMenu({ ctas, menuItems }: HeaderMobileMenuProps) {
                         href={item.href}
                         key={`${item.label}-${item.href}`}
                         label={item.label}
+                        onClick={closeMenu}
                         openInNewTab={item.newTab}
                       />
                     ) : (
@@ -196,6 +200,7 @@ export function HeaderMobileMenu({ ctas, menuItems }: HeaderMobileMenuProps) {
                       >
                         <a
                           href={item.href}
+                          onClick={closeMenu}
                           rel={item.newTab ? 'noreferrer' : undefined}
                           target={item.newTab ? '_blank' : undefined}
                         >
