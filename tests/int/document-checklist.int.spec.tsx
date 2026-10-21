@@ -272,6 +272,43 @@ describe('Document Checklist block', () => {
     expect(render('topStatic')).toContain('lg:self-start')
   })
 
+  it('can place section actions at the bottom of the layout', () => {
+    const action = {
+      label: 'Download prospectus',
+      linkType: 'custom' as const,
+      url: 'https://example.edu/prospectus.pdf',
+    }
+    const render = (
+      actionsPosition: 'intro' | 'bottom',
+      layoutMode: 'split' | 'stacked' = 'split',
+    ) =>
+      renderToStaticMarkup(
+        <DocumentChecklistBlockComponent
+          actions={[action]}
+          actionsPosition={actionsPosition}
+          items={items}
+          layoutMode={layoutMode}
+          title="Documents"
+        />,
+      )
+
+    const intro = render('intro')
+    expect(intro).toContain('data-document-checklist-actions="intro"')
+    expect(intro.indexOf('Download prospectus')).toBeLessThan(intro.indexOf('<ol'))
+
+    // Split: once at the foot of the intro column (large screens), once after the list (small screens).
+    const split = render('bottom')
+    expect(split).toContain('data-document-checklist-intro-bottom="true"')
+    expect(split).toContain('lg:self-stretch')
+    expect(split.split('Download prospectus')).toHaveLength(3)
+    expect(split.lastIndexOf('Download prospectus')).toBeGreaterThan(split.indexOf('</ol>'))
+
+    const stacked = render('bottom', 'stacked')
+    expect(stacked).not.toContain('data-document-checklist-intro-bottom')
+    expect(stacked.split('Download prospectus')).toHaveLength(2)
+    expect(stacked.indexOf('Download prospectus')).toBeGreaterThan(stacked.indexOf('</ol>'))
+  })
+
   it('renders nothing without a heading or a valid item', () => {
     expect(renderToStaticMarkup(<DocumentChecklistBlockComponent items={items} />)).toBe('')
     expect(

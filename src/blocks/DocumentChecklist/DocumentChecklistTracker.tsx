@@ -32,6 +32,8 @@ export type DocumentChecklistLayout = {
 type DocumentChecklistTrackerProps = {
   columns: DocumentChecklistColumns
   enableTracking: boolean
+  /** Rendered at the bottom of the introduction column in Split, or after the checklist when stacked. */
+  bottomContent?: ReactNode
   header: ReactNode
   items: DocumentChecklistItem[]
   layout: DocumentChecklistLayout
@@ -134,6 +136,7 @@ function ChecklistMarker({
 export function DocumentChecklistTracker({
   columns,
   enableTracking,
+  bottomContent,
   header,
   items,
   layout,
@@ -546,14 +549,22 @@ export function DocumentChecklistTracker({
       </div>
     ) : null)
 
-  const checklist = looseNotes ? (
-    <div className={cn('flex min-w-0 flex-col', isLedger ? 'gap-8' : 'gap-4')}>
-      {list}
-      {looseNotes}
-    </div>
-  ) : (
-    list
-  )
+  // In Split, bottom content lives in the introduction column on large screens and follows the
+  // checklist on small screens, where the columns stack.
+  const checklistBottom = bottomContent ? (
+    <div className={cn(isSplit && 'lg:hidden')}>{bottomContent}</div>
+  ) : null
+
+  const checklist =
+    looseNotes || checklistBottom ? (
+      <div className={cn('flex min-w-0 flex-col', isLedger ? 'gap-8' : 'gap-4')}>
+        {list}
+        {looseNotes}
+        {checklistBottom}
+      </div>
+    ) : (
+      list
+    )
 
   const sidebar = hasSidebar ? (
     <aside
@@ -640,6 +651,49 @@ export function DocumentChecklistTracker({
       ) : null}
     </aside>
   ) : null
+
+  if (isSplit && bottomContent) {
+    // The column stretches to the checklist's height so its last item can sit at the bottom. The
+    // header keeps its own alignment area above it, so a sticky header never slides over the link.
+    return (
+      <div
+        className={cn(
+          'grid min-w-0 grid-cols-1 items-start gap-10 lg:gap-12',
+          splitGridClasses(layout),
+        )}
+        data-document-checklist-layout="split"
+      >
+        <div
+          className={cn(
+            'flex min-w-0 flex-col gap-8 lg:self-stretch',
+            layout.checklistPosition === 'left' && 'lg:col-start-2 lg:row-start-1',
+          )}
+        >
+          <div
+            className={cn(
+              'flex min-w-0 flex-1 flex-col',
+              layout.verticalAlignment === 'center' && 'lg:justify-center',
+              layout.verticalAlignment === 'bottom' && 'lg:justify-end',
+            )}
+          >
+            <div
+              className={cn(
+                'flex min-w-0 flex-col gap-8',
+                layout.verticalAlignment === 'top' && 'lg:sticky lg:top-24',
+              )}
+            >
+              {header}
+              {sidebar}
+            </div>
+          </div>
+          <div className="hidden lg:block" data-document-checklist-intro-bottom="true">
+            {bottomContent}
+          </div>
+        </div>
+        {checklist}
+      </div>
+    )
+  }
 
   if (isSplit) {
     return (

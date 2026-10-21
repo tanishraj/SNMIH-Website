@@ -259,7 +259,10 @@ Progress & Notes Panel Background uses the shared card backgrounds and defaults 
 **Presentation** chooses the look: Tracker (default) is a bordered checklist card; Editorial
 Ledger drops the card for hairline rules, italic serif numerals, condition tags set in italic at
 the right, and notes as footnotes, sitting directly on the section background (including Brand).
-Every other option works with both. For the calmest ledger, turn off visitor ticking and the
+Every other option works with both. **Section Actions Position** keeps Section Actions with the
+introduction (default) or moves them to the bottom: in Split, the foot of the introduction column,
+level with the end of the checklist; when stacked or on small screens, after the checklist. Footer
+Actions still sit below the whole section. For the calmest ledger, turn off visitor ticking and the
 progress panel.
 
 Numbering offers Roman numerals, numbers, or check icons. Checklist Columns offers one, two, or

@@ -7432,6 +7432,10 @@ export interface DocumentChecklistBlock {
    */
   contentAlignment: 'left' | 'center' | 'right';
   /**
+   * At the bottom places Section Actions at the foot of the introduction column in Split (level with the end of the checklist), or after the checklist when stacked or on small screens. Footer Actions still appear below the whole section.
+   */
+  actionsPosition?: ('intro' | 'bottom') | null;
+  /**
    * Shows checkboxes and a progress count. Ticks are saved only in the visitor’s browser.
    */
   enableTracking?: boolean | null;
@@ -13608,6 +13612,7 @@ export interface DocumentChecklistBlockSelect<T extends boolean = true> {
   checklistPosition?: T;
   sectionVerticalAlignment?: T;
   contentAlignment?: T;
+  actionsPosition?: T;
   enableTracking?: T;
   showProgressPanel?: T;
   showPrintButton?: T;

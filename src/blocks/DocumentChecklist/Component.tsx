@@ -34,6 +34,7 @@ type ContentAlignment = 'left' | 'center' | 'right'
 type DocumentChecklistBlockLike = {
   accentTitle?: string | null
   actions?: CmsActionValue[] | null
+  actionsPosition?: 'intro' | 'bottom' | null
   appearance?: BlockAppearance | null
   checklistPosition?: 'left' | 'right' | null
   columns?: 'one' | 'two' | 'three' | null
@@ -67,6 +68,7 @@ const alignmentClasses: Record<ContentAlignment, string> = {
 export function DocumentChecklistBlockComponent({
   accentTitle,
   actions,
+  actionsPosition = 'intro',
   appearance,
   checklistPosition = 'right',
   columns = 'two',
@@ -106,6 +108,17 @@ export function DocumentChecklistBlockComponent({
     verticalAlignment: sectionVerticalAlignment ?? 'top',
   }
 
+  const actionsAtBottom = actionsPosition === 'bottom' && resolvedActions.length > 0
+  const sectionActions =
+    resolvedActions.length > 0 ? (
+      <ContentActions
+        actions={resolvedActions}
+        alignment={alignment}
+        className={actionsAtBottom ? undefined : 'mt-2'}
+        data-document-checklist-actions={actionsAtBottom ? 'bottom' : 'intro'}
+      />
+    ) : null
+
   const header = (
     <div
       className={cn(
@@ -130,9 +143,7 @@ export function DocumentChecklistBlockComponent({
       {description?.trim() ? (
         <p className={contentSectionDescriptionClasses}>{description.trim()}</p>
       ) : null}
-      {resolvedActions.length > 0 ? (
-        <ContentActions actions={resolvedActions} alignment={alignment} className="mt-2" />
-      ) : null}
+      {actionsAtBottom ? null : sectionActions}
     </div>
   )
 
@@ -145,6 +156,7 @@ export function DocumentChecklistBlockComponent({
         <DocumentChecklistTracker
           columns={normalizeChecklistColumns(columns)}
           enableTracking={enableTracking !== false}
+          bottomContent={actionsAtBottom ? sectionActions : undefined}
           header={header}
           items={resolvedItems}
           layout={layout}

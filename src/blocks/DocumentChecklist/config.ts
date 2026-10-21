@@ -212,6 +212,20 @@ export const DocumentChecklistBlock: Block = {
               required: true,
             } satisfies SelectField,
             {
+              name: 'actionsPosition',
+              label: 'Section Actions Position',
+              type: 'select',
+              defaultValue: 'intro',
+              options: [
+                { label: 'With the introduction', value: 'intro' },
+                { label: 'At the bottom', value: 'bottom' },
+              ],
+              admin: {
+                description:
+                  'At the bottom places Section Actions at the foot of the introduction column in Split (level with the end of the checklist), or after the checklist when stacked or on small screens. Footer Actions still appear below the whole section.',
+              },
+            } satisfies SelectField,
+            {
               name: 'enableTracking',
               label: 'Let visitors tick off documents',
               type: 'checkbox',
