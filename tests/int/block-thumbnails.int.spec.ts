@@ -154,6 +154,21 @@ describe('block thumbnail metadata', () => {
       stageAlignment: 'top',
       url: '/block-thumbnails/bank-details.jpg',
     })
+    expect(getBlockThumbnailDefinition('documentChecklist')).toMatchObject({
+      alt: 'Document Checklist block preview',
+      filename: 'document-checklist.jpg',
+      label: 'Document Checklist',
+      slug: 'documentChecklist',
+      stageAlignment: 'top',
+      url: '/block-thumbnails/document-checklist.jpg',
+    })
+    expect(getBlockThumbnailDefinition('contactNumbers')).toMatchObject({
+      alt: 'Contact Numbers block preview',
+      filename: 'contact-numbers.jpg',
+      label: 'Contact Numbers',
+      slug: 'contactNumbers',
+      url: '/block-thumbnails/contact-numbers.jpg',
+    })
     expect(getBlockThumbnailDefinition('profileCarousel')).toMatchObject({
       filename: 'profile-carousel.jpg',
       label: 'Profile Carousel',
