@@ -282,7 +282,7 @@ describe('ProgramMatrixBlockComponent', () => {
     )
     expect(html).not.toContain('font-serif')
     expect(html).toContain('max-w-[70ch] text-base leading-7 text-current/70')
-    expect(html).toContain('p-6 text-left md:p-8 bg-transparent text-current border-current/10')
+    expect(html).toContain('p-6 text-left md:p-8 bg-transparent text-current border-border')
     expect(html).toContain('mb-4 size-5 shrink-0')
     expect(html).toContain('font-sans text-lg font-semibold leading-snug text-current')
     expect(html).toContain('mt-2 font-mono text-xs font-semibold uppercase tracking-[0.24em]')
@@ -892,7 +892,7 @@ describe('Program Matrix catalogs', () => {
   })
 
   it('is recorded in architecture and operator documentation', () => {
-    expect(featureInventorySource).toContain('Normal Pages register all 59 choices')
+    expect(featureInventorySource).toContain('Normal Pages register all 61 choices')
     expect(featureInventorySource).toContain('Program Matrix')
     expect(featureInventorySource).toContain('introduction remains first in document order')
     expect(featureInventorySource).toContain('top, center, or bottom')

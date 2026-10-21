@@ -251,6 +251,8 @@ export interface Page {
         | FeeStructureBlock
         | PGFeeStructureBlock
         | BankDetailsBlock
+        | DocumentChecklistBlock
+        | ContactNumbersBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -688,6 +690,8 @@ export interface ReusableSection {
         | FeeStructureBlock
         | PGFeeStructureBlock
         | BankDetailsBlock
+        | DocumentChecklistBlock
+        | ContactNumbersBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -7300,6 +7304,323 @@ export interface BankDetailsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DocumentChecklistBlock".
+ */
+export interface DocumentChecklistBlock {
+  eyebrow?: string | null;
+  title: string;
+  accentTitle?: string | null;
+  /**
+   * Introductory instruction shown above the checklist.
+   */
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Items are numbered automatically in the order shown here.
+   */
+  items: {
+    /**
+     * e.g. "Caste Certificate" or "Mark sheets of MBBS (I, II & III Parts)"
+     */
+    label: string;
+    /**
+     * Optional short tag shown beside the document, e.g. "If required".
+     */
+    qualifier?: string | null;
+    /**
+     * Optional supporting text, e.g. "As per para-7(B) of the prospectus".
+     */
+    details?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Notes shown in the sidebar beside the checklist.
+   */
+  notes?:
+    | {
+        label?: string | null;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Heading above the progress count when visitor tracking is enabled.
+   */
+  progressLabel?: string | null;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  /**
+   * Editorial Ledger sits directly on the section with no card. For its calmest look, turn off the progress panel and visitor ticking.
+   */
+  presentation: 'tracker' | 'ledger';
+  /**
+   * Split places section content, progress, and notes beside the checklist on desktop. Compact screens stack content above the checklist.
+   */
+  layoutMode?: ('stacked' | 'split') | null;
+  splitProportion?: ('balanced' | 'checklistFocus' | 'sectionFocus') | null;
+  checklistPosition?: ('left' | 'right') | null;
+  sectionVerticalAlignment?: ('topStatic' | 'top' | 'center' | 'bottom') | null;
+  /**
+   * Aligns the eyebrow, heading, description, and actions within their available width in both layouts.
+   */
+  contentAlignment: 'left' | 'center' | 'right';
+  /**
+   * Shows checkboxes and a progress count. Ticks are saved only in the visitor’s browser.
+   */
+  enableTracking?: boolean | null;
+  /**
+   * The coloured panel with progress, Print, and notes. When hidden, progress and Print move into the checklist header and notes appear below the checklist.
+   */
+  showProgressPanel?: boolean | null;
+  showPrintButton?: boolean | null;
+  /**
+   * Default Card inherits the section background. Other choices use the active theme and automatically adjust contrast.
+   */
+  sidebarBackground?: ('default' | 'primary' | 'secondary' | 'muted' | 'accent') | null;
+  markerStyle?: ('lowerRoman' | 'decimal' | 'check') | null;
+  /**
+   * Applies in Stacked and Split layouts. Items read top to bottom in aligned rows; columns are added only when the checklist has room (two from about 576px wide, three from about 768px).
+   */
+  columns?: ('one' | 'two' | 'three') | null;
+  size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'documentChecklist';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactNumbersBlock".
+ */
+export interface ContactNumbersBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Each number becomes a tap-to-call link. Visitors can also copy it.
+   */
+  contacts: {
+    /**
+     * Shown exactly as typed, e.g. "+91 91990 44557".
+     */
+    phone: string;
+    /**
+     * e.g. "Admission Panel"
+     */
+    label?: string | null;
+    /**
+     * Optional name shown on cards and in the directory.
+     */
+    desk?: string | null;
+    /**
+     * Department Directory layout only: contacts with the same group share a tab.
+     */
+    group?: string | null;
+    email?: string | null;
+    whatsapp?: boolean | null;
+    /**
+     * Optional. With days and times set, visitors see whether this line is open now.
+     */
+    hours?: {
+      days?: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')[] | null;
+      opens?: string | null;
+      closes?: string | null;
+      /**
+       * Optional override, e.g. "Mon–Sat · 9:30 AM – 5:30 PM".
+       */
+      summary?: string | null;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Optional line shown with the numbers, e.g. "Calls are answered in order".
+   */
+  availabilityNote?: string | null;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  layout: 'switchboard' | 'callDesk' | 'deskCards' | 'ribbon' | 'directory';
+  /**
+   * Compact screens always place section content above the numbers.
+   */
+  contentPosition?: ('left' | 'right' | 'top') | null;
+  /**
+   * Tabs appear only when contacts use more than one Directory Group.
+   */
+  tabStyle?: ('underline' | 'pill' | 'contained') | null;
+  cardColumns?: ('2' | '3' | '4') | null;
+  /**
+   * Aligns the eyebrow, heading, description, and actions within their available width.
+   */
+  contentAlignment: 'left' | 'center' | 'right';
+  showCopyButtons?: boolean | null;
+  /**
+   * Uses each contact’s days and times.
+   */
+  showOpenStatus?: boolean | null;
+  /**
+   * Opening times are read in this timezone, whatever the visitor’s location.
+   */
+  timeZone?:
+    | (
+        | 'Asia/Kolkata'
+        | 'UTC'
+        | 'Asia/Dubai'
+        | 'Europe/London'
+        | 'America/New_York'
+        | 'America/Los_Angeles'
+        | 'Australia/Sydney'
+      )
+    | null;
+  size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactNumbers';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NumberedStepsBlock".
  */
 export interface NumberedStepsBlock {
@@ -9234,6 +9555,8 @@ export interface PagesSelect<T extends boolean = true> {
         feeStructure?: T | FeeStructureBlockSelect<T>;
         pgFeeStructure?: T | PGFeeStructureBlockSelect<T>;
         bankDetails?: T | BankDetailsBlockSelect<T>;
+        documentChecklist?: T | DocumentChecklistBlockSelect<T>;
+        contactNumbers?: T | ContactNumbersBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
@@ -13214,6 +13537,174 @@ export interface BankDetailsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DocumentChecklistBlock_select".
+ */
+export interface DocumentChecklistBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        label?: T;
+        qualifier?: T;
+        details?: T;
+        id?: T;
+      };
+  notes?:
+    | T
+    | {
+        label?: T;
+        text?: T;
+        id?: T;
+      };
+  progressLabel?: T;
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  presentation?: T;
+  layoutMode?: T;
+  splitProportion?: T;
+  checklistPosition?: T;
+  sectionVerticalAlignment?: T;
+  contentAlignment?: T;
+  enableTracking?: T;
+  showProgressPanel?: T;
+  showPrintButton?: T;
+  sidebarBackground?: T;
+  markerStyle?: T;
+  columns?: T;
+  size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactNumbersBlock_select".
+ */
+export interface ContactNumbersBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  contacts?:
+    | T
+    | {
+        phone?: T;
+        label?: T;
+        desk?: T;
+        group?: T;
+        email?: T;
+        whatsapp?: T;
+        hours?:
+          | T
+          | {
+              days?: T;
+              opens?: T;
+              closes?: T;
+              summary?: T;
+            };
+        id?: T;
+      };
+  availabilityNote?: T;
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  layout?: T;
+  contentPosition?: T;
+  tabStyle?: T;
+  cardColumns?: T;
+  contentAlignment?: T;
+  showCopyButtons?: T;
+  showOpenStatus?: T;
+  timeZone?: T;
+  size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NumberedStepsBlock_select".
  */
 export interface NumberedStepsBlockSelect<T extends boolean = true> {
@@ -13697,6 +14188,8 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         feeStructure?: T | FeeStructureBlockSelect<T>;
         pgFeeStructure?: T | PGFeeStructureBlockSelect<T>;
         bankDetails?: T | BankDetailsBlockSelect<T>;
+        documentChecklist?: T | DocumentChecklistBlockSelect<T>;
+        contactNumbers?: T | ContactNumbersBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
@@ -14715,6 +15208,8 @@ export interface NewsEventsDetailTemplate {
         | FeeStructureBlock
         | PGFeeStructureBlock
         | BankDetailsBlock
+        | DocumentChecklistBlock
+        | ContactNumbersBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -15006,6 +15501,8 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         feeStructure?: T | FeeStructureBlockSelect<T>;
         pgFeeStructure?: T | PGFeeStructureBlockSelect<T>;
         bankDetails?: T | BankDetailsBlockSelect<T>;
+        documentChecklist?: T | DocumentChecklistBlockSelect<T>;
+        contactNumbers?: T | ContactNumbersBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;

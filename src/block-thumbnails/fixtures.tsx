@@ -63,6 +63,8 @@ import { AboutSectionBlockComponent } from '@/blocks/AboutSection/Component'
 import { AccreditationCardsBlockComponent } from '@/blocks/AccreditationCards/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { BankDetailsBlockComponent } from '@/blocks/BankDetails/Component'
+import { DocumentChecklistBlockComponent } from '@/blocks/DocumentChecklist/Component'
+import { ContactNumbersBlockComponent } from '@/blocks/ContactNumbers/Component'
 import { BentoGridBlockComponent } from '@/blocks/BentoGrid/Component'
 import { DownloadListBlockComponent } from '@/blocks/DownloadList/Component'
 import { FeeStructureBlockComponent } from '@/blocks/FeeStructure/Component'
@@ -2433,6 +2435,51 @@ export const blockThumbnailFixtures = {
       panelPosition="right"
       panelTitle="Example transfer details"
       size="compact"
+    />
+  ),
+  contactNumbers: (
+    <ContactNumbersBlockComponent
+      appearance={{ background: 'brand', border: 'none' }}
+      contacts={[
+        { id: 'admissions', label: 'Admission Panel', phone: '+91 00000 00001' },
+        { id: 'counselling', label: 'Admission Panel', phone: '+91 00000 00002' },
+        { id: 'documents', label: 'Admission Panel', phone: '+91 00000 00003' },
+      ]}
+      description="Our admissions team is available to answer your questions and guide you through the admission process."
+      eyebrow="Stuck on applications"
+      layout="switchboard"
+      showOpenStatus={false}
+      size="compact"
+      title="Need Help with Admissions?"
+    />
+  ),
+  documentChecklist: (
+    <DocumentChecklistBlockComponent
+      appearance={{ background: 'none', border: 'none' }}
+      description="Upload every applicable certificate while downloading the allotment order, then bring the originals for verification."
+      items={[
+        { id: 'residential', label: 'Residential Certificate' },
+        { id: 'caste', label: 'Caste Certificate' },
+        { id: 'leaving', label: 'College Leaving Certificate' },
+        { id: 'internship', label: 'Internship Completion Certificate' },
+        { id: 'passing', label: 'Degree Passing Certificate' },
+        { id: 'registration', label: 'Medical Registration Certificate' },
+        { id: 'noc', label: 'No Objection Certificate', qualifier: 'If required' },
+        { id: 'matric', label: 'Matric Certificate' },
+        { id: 'admit', label: 'Admit Card' },
+        { id: 'identity', label: 'Identity Card' },
+        { id: 'dq', label: 'DQ Certificate', qualifier: 'If required' },
+        { id: 'photos', label: 'Six photographs' },
+      ]}
+      markerStyle="lowerRoman"
+      notes={[
+        {
+          label: 'Note',
+          text: 'Merge supporting certificates into a single PDF and bring the originals to verification.',
+        },
+      ]}
+      size="compact"
+      title="Documents required"
     />
   ),
   iconGrid: (
