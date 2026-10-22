@@ -23,6 +23,7 @@ That shared example shows how pages, content, structure, forms, settings, and op
 
 - [Pages](./pages.md)
 - [Reusable Sections](./reusable-sections.md)
+- [Celebrations](./celebrations.md)
 - [Articles](./articles.md)
 - [News & Events](./news-events.md)
 - [Reviews](./reviews.md)

@@ -64,6 +64,7 @@ import { AccreditationCardsBlockComponent } from '@/blocks/AccreditationCards/Co
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { BankDetailsBlockComponent } from '@/blocks/BankDetails/Component'
 import { DocumentChecklistBlockComponent } from '@/blocks/DocumentChecklist/Component'
+import { CelebrationPreview } from '@/components/celebration/CelebrationPreview'
 import { ContactNumbersBlockComponent } from '@/blocks/ContactNumbers/Component'
 import { BentoGridBlockComponent } from '@/blocks/BentoGrid/Component'
 import { DownloadListBlockComponent } from '@/blocks/DownloadList/Component'
@@ -2435,6 +2436,28 @@ export const blockThumbnailFixtures = {
       panelPosition="right"
       panelTitle="Example transfer details"
       size="compact"
+    />
+  ),
+  celebration: (
+    <CelebrationPreview
+      view={{
+        badgeLabel: 'Celebrating today',
+        confetti: { enabled: true, shots: 8, speed: 'slow' },
+        dateLabel: { day: '22', month: 'October', year: '2026' },
+        endKey: '2026-10-22',
+        eyebrow: 'Today we celebrate',
+        frequency: 'oncePerDay',
+        heading: 'Happy',
+        accentHeading: "Founder's Day",
+        id: 'preview',
+        imageOnly: false,
+        message: 'Join the SNMIH family for the ceremony, cultural programme, and alumni meet.',
+        openDelayMs: 0,
+        showReopenBadge: true,
+        startKey: '2026-10-22',
+        style: 'aurora',
+        timesPerDay: 1,
+      }}
     />
   ),
   contactNumbers: (

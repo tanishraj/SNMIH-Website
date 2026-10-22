@@ -40,7 +40,7 @@ Production containers require a durable external MongoDB database and `MEDIA_PRO
 - articles with lexical rich text, taxonomies (categories + tags), SEO fields, and live preview
 - moderated reviews promoted from form submissions into public editorial content
 - classification-backed news and events with live preview, manually prioritized eligible Events in Highlights, complete News & Events Tabs directories, and gallery albums
-- 61 selectable Page blocks covering editorial, events, Calendar and Annual Calendar, media, forms, reviews, galleries, offices, and reusable sections
+- 62 selectable Page blocks covering editorial, events, Calendar and Annual Calendar, media, forms, reviews, galleries, offices, and reusable sections
 - production Page block error boundaries that prevent one broken layout block from crashing the remaining Page
 
 **SEO and discoverability**
@@ -114,6 +114,7 @@ The first account is always an Admin. Admins may create additional Admins or Sit
 The CMS separates content, taxonomy, structure, media, intake, administration, and site-wide defaults:
 
 - `pages`, `reusable-sections`, `articles`, `news-events`, and `reviews` own public content
+- `celebrations` owns scheduled site-wide or page-level celebration modals
 - `categories` (shown as Topics) and `tags` own taxonomy
 - `navigation-links`, `redirects`, `headers`, `footers`, `office-locations`, and `system-pages` own navigation and structure
 - `media` and `gallery-albums` own governed assets and albums
@@ -156,10 +157,11 @@ See [docs/architecture/content-model-map.md](docs/architecture/content-model-map
 - [Analytics & Tracking](docs/guides/analytics.md) — GTM, GA4, and consent gating
 - [Site Search](docs/guides/search.md) — Cmd+K dialog and /search page
 - [Reusable Sections](docs/guides/reusable-sections.md) — shared block templates
+- [Celebrations](docs/guides/celebrations.md) — scheduled celebration modals with confetti
 - [Redirects](docs/guides/redirects.md) — CMS-managed URL redirects
 - [Forms](docs/guides/forms.md) — form definitions and submitter confirmation email
 - [News & Events](docs/guides/news-events.md) — entry authoring, Page-backed listings, live preview, and feed
-- [Page Blocks](docs/guides/blocks.md) — all 61 Page layout choices and their data dependencies
+- [Page Blocks](docs/guides/blocks.md) — all 62 Page layout choices and their data dependencies
 - [Cookie Consent Banner](docs/guides/cookie-consent.md) — consent variants, copy, and analytics behavior
 
 ## Environment

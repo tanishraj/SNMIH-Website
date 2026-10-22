@@ -5,6 +5,7 @@ import sharp from 'sharp'
 
 import { Articles } from './collections/Articles'
 import { Categories } from './collections/Categories'
+import { Celebrations } from './collections/Celebrations'
 import { Users } from './collections/Users'
 import { TwoFactorCredentials } from './collections/TwoFactorCredentials'
 import { Footers } from './collections/Footers'
@@ -75,6 +76,7 @@ export default buildConfig({
     NewsEventClassifications,
     Reviews,
     ReusableSections,
+    Celebrations,
     // Taxonomy
     Categories,
     Tags,

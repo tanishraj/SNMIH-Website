@@ -73,6 +73,7 @@ export interface Config {
     'news-event-classifications': NewsEventClassification;
     reviews: Review;
     'reusable-sections': ReusableSection;
+    celebrations: Celebration;
     categories: Category;
     tags: Tag;
     'navigation-links': NavigationLink;
@@ -102,6 +103,7 @@ export interface Config {
     'news-event-classifications': NewsEventClassificationsSelect<false> | NewsEventClassificationsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'reusable-sections': ReusableSectionsSelect<false> | ReusableSectionsSelect<true>;
+    celebrations: CelebrationsSelect<false> | CelebrationsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'navigation-links': NavigationLinksSelect<false> | NavigationLinksSelect<true>;
@@ -253,6 +255,7 @@ export interface Page {
         | BankDetailsBlock
         | DocumentChecklistBlock
         | ContactNumbersBlock
+        | CelebrationBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -692,6 +695,7 @@ export interface ReusableSection {
         | BankDetailsBlock
         | DocumentChecklistBlock
         | ContactNumbersBlock
+        | CelebrationBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -7625,6 +7629,129 @@ export interface ContactNumbersBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CelebrationBlock".
+ */
+export interface CelebrationBlock {
+  /**
+   * Shows this celebration as a modal on this page during its dates. It takes priority over a site-wide celebration on the same day and adds nothing to the page layout itself. Create and schedule celebrations under Content → Celebrations.
+   */
+  celebration: string | Celebration;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'celebration';
+}
+/**
+ * Scheduled celebration modals with confetti. Each appears on its own dates, on every page or only where a Celebration block is added.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "celebrations".
+ */
+export interface Celebration {
+  id: string;
+  /**
+   * For editors only, e.g. "Founder's Day 2027".
+   */
+  title: string;
+  /**
+   * Switch off to hide this celebration everywhere without deleting it.
+   */
+  enabled?: boolean | null;
+  placement: 'everyPage' | 'selectedPages';
+  /**
+   * Read in the site timezone (Site Settings).
+   */
+  startDate: string;
+  /**
+   * Leave blank for a single day.
+   */
+  endDate?: string | null;
+  lastDay?: string | null;
+  /**
+   * Show just the image (for example a festival poster). Text below is then used only for screen readers.
+   */
+  imageOnly?: boolean | null;
+  /**
+   * Portrait for Aurora Halo, picture for Glass Bloom and Ticket, poster for Floating Poster.
+   */
+  image?: (string | null) | Media;
+  /**
+   * e.g. "A warm welcome".
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  accentHeading?: string | null;
+  message?: string | null;
+  /**
+   * Large gold text in the Medallion, e.g. "25".
+   */
+  highlight?: string | null;
+  /**
+   * e.g. "With warm wishes".
+   */
+  signature?: string | null;
+  /**
+   * e.g. "The Principal, SNMIH".
+   */
+  signatureRole?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  style: 'aurora' | 'ticket' | 'poster' | 'glass' | 'medallion';
+  /**
+   * Remembered in each visitor's browser. After closing, a small badge lets them reopen it.
+   */
+  frequency: 'oncePerDay' | 'everyPageLoad' | 'oncePerVisitor' | 'timesPerDay';
+  timesPerDay?: number | null;
+  openDelay?: number | null;
+  showReopenBadge?: boolean | null;
+  badgeLabel?: string | null;
+  /**
+   * Full-screen confetti when the modal opens. Skipped for visitors who prefer reduced motion.
+   */
+  confettiEnabled?: boolean | null;
+  confettiShots?: number | null;
+  confettiSpeed?: ('slow' | 'medium' | 'lively') | null;
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NumberedStepsBlock".
  */
 export interface NumberedStepsBlock {
@@ -8107,6 +8234,10 @@ export interface User {
      * Create, edit, version, trash, and restore Reusable Sections.
      */
     reusableSections?: boolean | null;
+    /**
+     * Schedule, edit, preview, publish, enable or disable, trash, and restore celebration modals.
+     */
+    celebrations?: boolean | null;
     /**
      * Create, edit, preview, publish, version, trash, and restore News & Events.
      */
@@ -9153,6 +9284,7 @@ export interface WorkQueue {
     | 'articles'
     | 'reviews'
     | 'reusableSections'
+    | 'celebrations'
     | 'newsEvents'
     | 'newsEventClassifications'
     | 'newsEventsDetailTemplate'
@@ -9280,6 +9412,7 @@ export interface OperationalAuditEvent {
         | 'articles'
         | 'reviews'
         | 'reusableSections'
+        | 'celebrations'
         | 'newsEvents'
         | 'newsEventClassifications'
         | 'newsEventsDetailTemplate'
@@ -9387,6 +9520,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reusable-sections';
         value: string | ReusableSection;
+      } | null)
+    | ({
+        relationTo: 'celebrations';
+        value: string | Celebration;
       } | null)
     | ({
         relationTo: 'categories';
@@ -9562,6 +9699,7 @@ export interface PagesSelect<T extends boolean = true> {
         bankDetails?: T | BankDetailsBlockSelect<T>;
         documentChecklist?: T | DocumentChecklistBlockSelect<T>;
         contactNumbers?: T | ContactNumbersBlockSelect<T>;
+        celebration?: T | CelebrationBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
@@ -13711,6 +13849,16 @@ export interface ContactNumbersBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CelebrationBlock_select".
+ */
+export interface CelebrationBlockSelect<T extends boolean = true> {
+  celebration?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NumberedStepsBlock_select".
  */
 export interface NumberedStepsBlockSelect<T extends boolean = true> {
@@ -14196,11 +14344,64 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         bankDetails?: T | BankDetailsBlockSelect<T>;
         documentChecklist?: T | DocumentChecklistBlockSelect<T>;
         contactNumbers?: T | ContactNumbersBlockSelect<T>;
+        celebration?: T | CelebrationBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "celebrations_select".
+ */
+export interface CelebrationsSelect<T extends boolean = true> {
+  title?: T;
+  enabled?: T;
+  placement?: T;
+  startDate?: T;
+  endDate?: T;
+  lastDay?: T;
+  imageOnly?: T;
+  image?: T;
+  eyebrow?: T;
+  heading?: T;
+  accentHeading?: T;
+  message?: T;
+  highlight?: T;
+  signature?: T;
+  signatureRole?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  style?: T;
+  frequency?: T;
+  timesPerDay?: T;
+  openDelay?: T;
+  showReopenBadge?: T;
+  badgeLabel?: T;
+  confettiEnabled?: T;
+  confettiShots?: T;
+  confettiSpeed?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
@@ -14827,6 +15028,7 @@ export interface UsersSelect<T extends boolean = true> {
         articles?: T;
         reviews?: T;
         reusableSections?: T;
+        celebrations?: T;
         newsEvents?: T;
         newsEventClassifications?: T;
         newsEventsDetailTemplate?: T;
@@ -15217,6 +15419,7 @@ export interface NewsEventsDetailTemplate {
         | BankDetailsBlock
         | DocumentChecklistBlock
         | ContactNumbersBlock
+        | CelebrationBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -15510,6 +15713,7 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         bankDetails?: T | BankDetailsBlockSelect<T>;
         documentChecklist?: T | DocumentChecklistBlockSelect<T>;
         contactNumbers?: T | ContactNumbersBlockSelect<T>;
+        celebration?: T | CelebrationBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;

@@ -162,6 +162,12 @@ describe('block thumbnail metadata', () => {
       stageAlignment: 'top',
       url: '/block-thumbnails/document-checklist.jpg',
     })
+    expect(getBlockThumbnailDefinition('celebration')).toMatchObject({
+      filename: 'celebration.jpg',
+      label: 'Celebration',
+      slug: 'celebration',
+      url: '/block-thumbnails/celebration.jpg',
+    })
     expect(getBlockThumbnailDefinition('contactNumbers')).toMatchObject({
       alt: 'Contact Numbers block preview',
       filename: 'contact-numbers.jpg',

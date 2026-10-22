@@ -13,6 +13,7 @@ import type { Metadata } from 'next'
 import { DeferredAdminSessionBar } from '@/components/admin/DeferredAdminSessionBar'
 import { ConsentAwareAnalytics } from '@/components/analytics/ConsentAwareAnalytics'
 import { BackToTopButton } from '@/components/global/BackToTopButton'
+import { CelebrationHost } from '@/components/celebration/CelebrationHost'
 import { CookieConsentBanner } from '@/components/global/CookieConsentBanner'
 import { RouteTransitionScrollGuard } from '@/components/global/RouteTransitionScrollGuard'
 import { SearchDialog } from '@/components/global/SearchDialog'
@@ -30,6 +31,8 @@ import { getSiteURL } from '@/lib/siteUrl'
 import { normalizeWebsiteTheme } from '@/lib/themes/websiteThemes'
 import type { Footer, Header } from '@/payload-types'
 import { CMS_CACHE_TAGS } from '@/hooks/revalidateCmsContent'
+import { getSiteWideCelebrations } from '@/lib/celebrations/celebrations.server'
+import { getSiteTimeZone } from '@/lib/siteTimeZone.server'
 import { stripInternalMediaFields } from '@/lib/stripInternalMediaFields'
 
 const inter = Inter({
@@ -228,7 +231,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
-  const frontendGlobals = await getFrontendGlobals()
+  const [frontendGlobals, siteCelebrations, siteTimeZone] = await Promise.all([
+    getFrontendGlobals(),
+    // A celebration must never take the site down, so failures fall back to none.
+    getSiteWideCelebrations().catch(() => []),
+    getSiteTimeZone(),
+  ])
   const {
     activeFooter,
     activeHeader,
@@ -418,6 +426,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           gtmContainerId={analyticsSettings.gtmContainerId}
         />
         <SearchDialog />
+        {siteCelebrations.length > 0 ? (
+          <CelebrationHost celebrations={siteCelebrations} priority="site" timeZone={siteTimeZone} />
+        ) : null}
       </body>
     </html>
   )

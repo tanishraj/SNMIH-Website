@@ -60,6 +60,7 @@ import { FeeStructureBlockComponent } from './FeeStructure/Component'
 import { PGFeeStructureBlockComponent } from './PGFeeStructure/Component'
 import { BankDetailsBlockComponent } from './BankDetails/Component'
 import { DocumentChecklistBlockComponent } from './DocumentChecklist/Component'
+import { CelebrationBlockPreview } from './Celebration/PreviewComponent'
 import { ContactNumbersBlockComponent } from './ContactNumbers/Component'
 import { NumberedStepsBlockComponent } from './NumberedSteps/Component'
 import { BentoGridBlockComponent } from './BentoGrid/Component'
@@ -237,6 +238,8 @@ function renderLivePreviewPageBlockContent(
       return <BankDetailsBlockComponent key={key} {...block} />
     case 'documentChecklist':
       return <DocumentChecklistBlockComponent key={key} {...block} />
+    case 'celebration':
+      return <CelebrationBlockPreview key={key} celebration={block.celebration} />
     case 'contactNumbers':
       return <ContactNumbersBlockComponent key={key} {...block} />
     case 'numberedSteps':

@@ -52,7 +52,8 @@ const collectTabLabels = (fields: unknown[]): string[] =>
 
 const registeredBlocks = [Pages, Headers, Footers, SystemPages]
   .flatMap((collection) => collectBlocks(collection.fields))
-  .filter((block) => block.slug !== 'reusableSection')
+  // Reference-only blocks are a single picker with no visual settings of their own.
+  .filter((block) => block.slug !== 'reusableSection' && block.slug !== 'celebration')
 
 describe('block Content and Theme Settings tabs', () => {
   it('uses the same top-level tabs for every configurable visual block', () => {

@@ -62,6 +62,7 @@ server-side access through Admin, REST, GraphQL, preview, and user-scoped Local 
 | Content        | Articles              | Create, read, edit, preview, publish/unpublish, version, trash, and restore |
 | Content        | Reviews               | Manage staff Reviews and approve/reject public review submissions           |
 | Content        | Reusable Sections     | Create, edit, version, trash, and restore                                   |
+| Content        | Celebrations          | Schedule, edit, preview, publish, enable or disable, trash, and restore     |
 | News & Events  | News & Events         | Create, edit, preview, publish/unpublish, version, trash, and restore       |
 | News & Events  | Classifications       | Create, edit, and archive; deletion remains Admin-only                      |
 | News & Events  | Detail Page Template  | Edit, preview, version, and publish the shared detail layout                |

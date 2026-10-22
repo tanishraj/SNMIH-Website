@@ -4,9 +4,9 @@ import { ADMIN_FEATURES, ADMIN_FEATURE_KEYS, getFeatureForResource } from '@/acc
 import { hasDependencyRead, hasFeature, hideUnlessFeature, isAdmin } from '@/access/featureAccess'
 
 describe('admin feature registry', () => {
-  it('defines the complete 29-destination permission contract once', () => {
-    expect(ADMIN_FEATURE_KEYS).toHaveLength(29)
-    expect(new Set(ADMIN_FEATURE_KEYS).size).toBe(29)
+  it('defines the complete 30-destination permission contract once', () => {
+    expect(ADMIN_FEATURE_KEYS).toHaveLength(30)
+    expect(new Set(ADMIN_FEATURE_KEYS).size).toBe(30)
     expect(Object.keys(ADMIN_FEATURES)).toEqual([...ADMIN_FEATURE_KEYS])
 
     for (const feature of Object.values(ADMIN_FEATURES)) {
