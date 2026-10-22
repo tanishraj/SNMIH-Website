@@ -323,9 +323,10 @@ export function ProgramMatrixBlockComponent({
 
           <div
             className={cn(
-              'grid overflow-hidden rounded-card border bg-transparent text-current',
+              'grid overflow-hidden rounded-card border',
               programMatrixGridClasses[resolvedColumns],
-              isBrandSurface ? 'border-current/15' : 'border-current/10',
+              'bg-transparent text-current',
+              isBrandSurface ? 'border-current/15' : 'border-border',
               usesSplitHeader &&
                 resolvedHeaderPosition === 'right' &&
                 'lg:col-start-1 lg:row-start-1',
@@ -336,6 +337,11 @@ export function ProgramMatrixBlockComponent({
             {resolvedItems.map((item, index) => {
               const Icon = item.Icon
               const surface = resolveCardSurface(item.cardBackground, resolvedSectionBackground)
+              // Default cells on light sections use theme tokens; coloured cards keep their own.
+              const usesPanelTokens = !isBrandSurface && surface.value === 'default'
+              const secondaryTextClassName = usesPanelTokens
+                ? 'text-muted-foreground'
+                : surface.secondary
               const isLastItem = index === resolvedItems.length - 1
               const tabletPosition = resolveGridCellPosition(
                 index,
@@ -354,7 +360,7 @@ export function ProgramMatrixBlockComponent({
                   className={cn(
                     'flex min-w-0 flex-col p-6 text-left md:p-8',
                     surface.className,
-                    surface.divider,
+                    usesPanelTokens ? 'border-border' : surface.divider,
                     !isLastItem && 'border-b',
                     tabletPosition.isLastRow ? 'md:border-b-0' : 'md:border-b',
                     tabletPosition.isRowEnd ? 'md:border-r-0' : 'md:border-r',
@@ -384,14 +390,16 @@ export function ProgramMatrixBlockComponent({
                     <p
                       className={cn(
                         'mt-2 font-mono text-xs font-semibold uppercase tracking-[0.24em]',
-                        surface.secondary,
+                        secondaryTextClassName,
                       )}
                     >
                       {item.metadata}
                     </p>
                   ) : null}
                   {item.description ? (
-                    <p className={cn('mt-4 max-w-[65ch] text-sm leading-6', surface.secondary)}>
+                    <p
+                      className={cn('mt-4 max-w-[65ch] text-sm leading-6', secondaryTextClassName)}
+                    >
                       {item.description}
                     </p>
                   ) : null}

@@ -2,7 +2,7 @@
 
 ## Registries 
 
-[blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 59 blocks and Reusable Sections expose the 58 non-recursive choices.
+[blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 61 blocks and Reusable Sections expose the 60 non-recursive choices.
 
 Partner Directory (`integration23`) adapts Shadcnblocks Integration 23 into an editorial insurer/partner
 directory in Advanced Library. The shared client-safe adapter normalizes up to 100 ordered entries
@@ -56,7 +56,7 @@ Calendar is an Explore block backed only by selected active Event-behavior News 
 
 Annual Calendar is the twelve-month Explore companion to Calendar. It uses the same strict one-to-five active Event-classification scope, site timezone, semantic calendar tones, section appearance/actions/alignment/spacing, and next-four Upcoming semantics. Editors use either the current calendar year or two day-only date pickers whose selected months define exactly twelve consecutive inclusive months; selected days are ignored. One shared normalizer owns production query bounds, persistent cache keys, authenticated preview scopes, the derived period label, and twelve month keys, while invalid custom periods fail closed before querying News & Events. Visitors receive a chronological Year Stream with a semantic spine, 10px square month markers, inset semantic month dividers, compact Current and event-count metadata, linked event cards, and lightweight empty-month copy. Coming Next remains independent of the selected period and stays beside the stream on desktop and below it on smaller screens. Calendar and Annual Calendar share one sidebar Download Panel field composer and resolver. The visible PDF Document Label remains `calendarPdfTitle`, while one canonical shared action supports Page, Custom URL, File View, or File Download destinations and Button or editorial Link presentation. Explicit variants, new-tab behavior, navigation arrows, and download-icon settings pass through unchanged. A non-empty new action is authoritative; rows saved by the preceding restricted schema use Button only as their missing-mode compatibility fallback. Hidden legacy PDF Media/label fields remain a no-migration fallback only when the new action is empty. The semantic panel stays at the bottom of the full-height desktop sidebar and renders through the canonical shared Content Actions system. Embedded Upcoming/action regions avoid nested landmarks and borders, and Annual Calendar intentionally gives up its former sticky sidebar to satisfy this full-height contract. Compact layouts retain natural flow, long labels wrap within the 20rem rail, and unresolved destinations produce no public link. Event queries, response snapshots, and cache identity remain unchanged. The block intentionally exposes no visitor navigation, view, filter, or pagination controls, and the uncommitted Month/Year controls require no migration.
 
-[Pages.ts](../../../../src/collections/Pages.ts) consumes the complete 59-block Page registry. [ReusableSections.ts](../../../../src/collections/ReusableSections.ts) consumes the same registry without `reusableSection`, preventing direct recursion. [NewsEventsDetailTemplate.ts](../../../../src/globals/NewsEventsDetailTemplate.ts) consumes the Page registry plus `newsEventsContent`, which appears first under Template Core. The [block operator guide](../../../../docs/guides/blocks.md) owns the editor-facing group membership and per-deployment customization instructions.
+[Pages.ts](../../../../src/collections/Pages.ts) consumes the complete 61-block Page registry. [ReusableSections.ts](../../../../src/collections/ReusableSections.ts) consumes the same registry without `reusableSection`, preventing direct recursion. [NewsEventsDetailTemplate.ts](../../../../src/globals/NewsEventsDetailTemplate.ts) consumes the Page registry plus `newsEventsContent`, which appears first under Template Core. The [block operator guide](../../../../docs/guides/blocks.md) owns the editor-facing group membership and per-deployment customization instructions.
 
 The catalog imports schema config only. Production and live-preview renderer switches remain explicit and separate so server/client boundaries are not mixed.
 
@@ -371,6 +371,38 @@ the shared section backgrounds to its outlined container. `feeDocumentActionFiel
 legacy fee document, label, mode, and variant fields on read/validation; explicit empty actions
 remain empty so clearing cannot resurrect a legacy download. The table layout
 places it after the categories; Atlas places it at the bottom of the active left summary.
+
+Document Checklist (`documentChecklist`) is an Advanced Library block for admission and
+verification document lists. The server component normalizes 1–60 ordered items (required label,
+optional condition tag and details; keyed by Payload row id) and 0–6 notes in the client-safe
+`normalizeDocumentChecklist.ts`, renders the shared intro (eyebrow, title, accent title, description,
+actions with Left/Center/Right alignment), and returns nothing without a heading and one valid item.
+`DocumentChecklistTracker.tsx` is the client island: optional visitor tracking uses Radix checkboxes
+and `useSyncExternalStore` over `localStorage` key `document-checklist:<block id>`, keeps unknown keys
+out of the count, falls back to in-visit state when storage is unavailable, and never sends data to
+the server. The sidebar (progress, Print, Clear ticks, notes) uses `resolveCardSurface` with
+`sidebarBackground` (default Primary). Layout Mode follows Partner Directory: Stacked, or Split with
+proportion, checklist position, and vertical alignment (Top is sticky). `showProgressPanel` hides the
+sidebar; progress, Print, and Clear then render in the list header and notes below the list.
+`presentation` selects Tracker (bordered card) or Editorial Ledger (no card; per-column hairline
+rules from `ledgerItem`, gutters instead of vertical rules, italic display numerals, footnote notes,
+surface-aware accents and checkbox fill). Both share the same state, grid, and panel behaviour.
+`getChecklistGridLayout` provides one/two/three columns in both layouts with container queries
+(`@xl` two, `@3xl` three) and `grid-flow-col` with per-breakpoint row counts, so reading order stays
+top-to-bottom while rows align; each item computes its own bottom/left rules per active column count.
+
+Contact Numbers (`contactNumbers`) is an Advanced Library block for helplines and desk numbers.
+`normalizeContactNumbers.ts` (client-safe) trims 1–24 contacts, drops rows without a dialable
+number, builds `tel:` links from "+" and digits, optional `wa.me` links, and validates HH:MM hours;
+a schedule needs days and a closing time after its opening time. Layout selects one of five
+presentations from the same data: Switchboard (ruled rows), Call Desk (card of tap-to-call rows),
+Desk Cards (2–4 columns), Help Ribbon (compact chips), and Department Directory (tabs from the
+Directory Group field, using the shared content tab rail, only when more than one group exists).
+Switchboard, Call Desk, and Directory place section content left, right, or above. Client islands
+in `ContactNumbersClient.tsx` provide clipboard copy with a polite live region and an "Open now"
+badge computed through `useSyncExternalStore` against the block's Hours Timezone; it renders nothing
+on the server so cached pages never show stale status. The block reads its timezone from its own
+field rather than Site Settings so it stays synchronous for thumbnails and live preview.
 
 PG Fee Structure independently models department-based postgraduate fees without changing Fee
 Structure or its saved content. Each block owns one programme and academic session plus one to four

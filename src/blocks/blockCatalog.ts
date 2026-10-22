@@ -13,9 +13,11 @@ import { CalendarBlock } from '@/blocks/Calendar/config'
 import { AnnualCalendarBlock } from '@/blocks/AnnualCalendar/config'
 import { Contact24Block } from '@/blocks/Contact24/config'
 import { Contact33Block } from '@/blocks/Contact33/config'
+import { ContactNumbersBlock } from '@/blocks/ContactNumbers/config'
 import { ContentHighlightsBlock } from '@/blocks/ContentHighlights/config'
 import { Cta39Block } from '@/blocks/Cta39/config'
 import { DepartmentProfilesBlock } from '@/blocks/DepartmentProfiles/config'
+import { DocumentChecklistBlock } from '@/blocks/DocumentChecklist/config'
 import { DownloadListBlock } from '@/blocks/DownloadList/config'
 import { EditorialReasonsBlock } from '@/blocks/EditorialReasons/config'
 import { EventGalleryBlock } from '@/blocks/EventGallery/config'
@@ -175,6 +177,8 @@ export const pageBlockGroupDefinitions = [
       FeeStructureBlock,
       PGFeeStructureBlock,
       BankDetailsBlock,
+      DocumentChecklistBlock,
+      ContactNumbersBlock,
       NumberedStepsBlock,
       BentoGridBlock,
       TestimonialGridBlock,

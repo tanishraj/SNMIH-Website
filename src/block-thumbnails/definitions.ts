@@ -353,6 +353,19 @@ export const blockThumbnailDefinitions = [
     stageAlignment: 'top',
   }),
   defineThumbnail({
+    alt: 'Document Checklist block preview',
+    filename: 'document-checklist.jpg',
+    label: 'Document Checklist',
+    slug: 'documentChecklist',
+    stageAlignment: 'top',
+  }),
+  defineThumbnail({
+    alt: 'Contact Numbers block preview',
+    filename: 'contact-numbers.jpg',
+    label: 'Contact Numbers',
+    slug: 'contactNumbers',
+  }),
+  defineThumbnail({
     alt: 'Icon Grid block preview',
     filename: 'icon-grid.jpg',
     label: 'Icon Grid',

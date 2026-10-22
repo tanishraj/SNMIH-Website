@@ -97,8 +97,8 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Video Embed              | External video                               | Valid provider/embed URL                                                                                                                                                                                                                                                                                                                             |
 | Media Carousel           | Scrollable media slides                      | Client carousel behavior and independent slide-card backgrounds                                                                                                                                                                                                                                                                                      |
 | Program Matrix           | Academic programmes or structured offerings  | Stacked or 40/60 split introduction beside a seamless matrix with one to four responsive matrix columns, left/right placement, top, center, or bottom vertical positioning, flexible Lucide icons, semantic card backgrounds, and one optional per-card Link or Button action                                                                        |
-| Partner Directory        | Insurer and partner logo directory          | Integration 23 bordered grid; optional logos, detail dialogs, and shared actions; found in Advanced Library. |
-| Logo Marquee             | Scrolling rows of partner logos                   | Logos 20 opposing marquees with pause, static reduced-motion fallback, and editable rows; no split layout. |
+| Partner Directory        | Insurer and partner logo directory           | Integration 23 bordered grid; optional logos, detail dialogs, and shared actions; found in Advanced Library.                                                                                                                                                                                                                                         |
+| Logo Marquee             | Scrolling rows of partner logos              | Logos 20 opposing marquees with pause, static reduced-motion fallback, and editable rows; no split layout.                                                                                                                                                                                                                                           |
 | Logo Strip               | Partner/accreditation logos                  | Optional marquee behavior                                                                                                                                                                                                                                                                                                                            |
 | Page Header              | Inner-page heading                           | Eyebrow/title/description/actions                                                                                                                                                                                                                                                                                                                    |
 | Breadcrumb               | Standalone page trail                        | Uses automatic hierarchy or editor-authored breadcrumb items                                                                                                                                                                                                                                                                                         |
@@ -108,9 +108,11 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Quote Block              | Quotation or pull quote                      | Quote and attribution                                                                                                                                                                                                                                                                                                                                |
 | Tabs Content             | Grouped tab panels                           | Client tab interaction                                                                                                                                                                                                                                                                                                                               |
 | Download List            | Files and document libraries                 | Stacked or responsive 40/60 split introduction, four document layouts, one shared 1–8 Columns setting, optional file icons, controlled file-type labels, and up to two ordered per-document Download, View, or Custom actions                                                                                                                        |
-| Fee Structure            | Programme fee schedule                       | Default responsive table/cards or a 50/50 Programme Cost Atlas, one to four category tabs, fee-only notes, and a File action with View or Download behavior                                                                                                                                                                                                 |
-| PG Fee Structure         | Department-based postgraduate fees           | A responsive 50/50 Primary/Card department atlas with category-owned departments, shared or department-varying fee columns, category notes, and an official File action with View or Download behavior                                                                                                                                                             |
+| Fee Structure            | Programme fee schedule                       | Default responsive table/cards or a 50/50 Programme Cost Atlas, one to four category tabs, fee-only notes, and a File action with View or Download behavior                                                                                                                                                                                          |
+| PG Fee Structure         | Department-based postgraduate fees           | A responsive 50/50 Primary/Card department atlas with category-owned departments, shared or department-varying fee columns, category notes, and an official File action with View or Download behavior                                                                                                                                               |
 | Bank Details             | Official payment account information         | One to six purpose-specific accounts in an admin-selected Text or locally generated Scanner presentation, with mirrored 36/64 panels, editable ledger labels, adaptive tabs, and exact-value copy controls                                                                                                                                           |
+| Document Checklist       | Required documents and certificates          | Visitor tracker: ticked checklist rows with saved-on-device progress, Print and Clear, notes in a themeable sidebar; Stacked or Split layout, Roman/number/check markers, condition tags                                                                                                                                                             |
+| Contact Numbers          | Helplines and desk phone numbers             | Five layouts (Switchboard, Call Desk, Desk Cards, Help Ribbon, Department Directory) with tap-to-call, Copy, optional WhatsApp/email, and "Open now" from each contact's hours                                                                                                                                                                       |
 | Numbered Steps           | Ordered process                              | Backgrounds apply to numbered Cards, not connected/alternating layouts                                                                                                                                                                                                                                                                               |
 | Bento Grid               | Mixed-size feature cards                     | Grid layout and semantic background controls                                                                                                                                                                                                                                                                                                         |
 | Testimonial Grid         | Curated testimonials                         | Backgrounds apply to Grid and Featured cards                                                                                                                                                                                                                                                                                                         |
@@ -236,6 +238,57 @@ when the column count is odd. Large layouts retain the adaptive fee grid. One ca
 directly; multiple categories use the shared Underline, Pills, or Boxed tabs with Content Width,
 Centered Auto Width, or Equal Full Width and switch the complete atlas. The block exposes no
 alternate layout selector, calculated-total fields, or payment-account fields.
+
+Document Checklist lists the certificates and documents an applicant must upload or bring for
+verification. Editors add up to 60 ordered items, each with a required document name, an optional
+short condition tag such as "If required", and optional supporting details, plus up to six notes.
+By default visitors can tick documents off as they collect them: a sidebar shows "N of M ready", a
+progress bar, Print checklist, and Clear ticks. Ticks are stored only in that visitor's browser,
+keyed to the block and each item, so reordering items keeps them and removed items stop counting;
+nothing is sent to the site. Editors can turn tracking or the Print button off under **Theme
+Settings**, which leaves a static numbered list. **Show progress panel** controls the coloured
+panel; when it is hidden, the progress count, Print, and Clear move into the checklist header and
+notes appear below the checklist.
+
+The block shares the standard section options: eyebrow, title, Accent Title, description, Section
+and Footer Actions, appearance, Section Anchor, Left/Center/Right content alignment, and padding.
+Stacked places the introduction above the checklist and sidebar; Split places the introduction and
+sidebar beside the checklist with Balanced, Checklist Focus, or Section Content Focus proportions,
+a left or right checklist, and Top, Top (stays in view while scrolling), Center, or Bottom alignment. The
+Progress & Notes Panel Background uses the shared card backgrounds and defaults to Primary.
+**Presentation** chooses the look: Tracker (default) is a bordered checklist card; Editorial
+Ledger drops the card for hairline rules, italic serif numerals, condition tags set in italic at
+the right, and notes as footnotes, sitting directly on the section background (including Brand).
+Every other option works with both. **Section Actions Position** keeps Section Actions with the
+introduction (default) or moves them to the bottom: in Split, the foot of the introduction column,
+level with the end of the checklist; when stacked or on small screens, after the checklist. Footer
+Actions still sit below the whole section. For the calmest ledger, turn off visitor ticking and the
+progress panel.
+
+Numbering offers Roman numerals, numbers, or check icons. Checklist Columns offers one, two, or
+three columns in both Stacked and Split layouts: items read top to bottom in rows aligned across
+columns, and columns are added only when the checklist itself has room (two from about 576px wide,
+three from about 768px), so phones and narrow split columns fall back automatically. Three columns
+in Split need the Checklist Focus proportion on desktop. Blank items and notes are omitted, and
+the block renders nothing without a heading and at least one item.
+
+Contact Numbers lists helpline and desk numbers. Each contact needs a phone number, shown exactly
+as typed and linked for tap-to-call, and can add a label, desk or person name, Directory Group,
+email, an "Also on WhatsApp" switch, and hours (days plus 24-hour opening and closing times, or a
+free-text Hours Text). Choose the presentation under **Theme Settings → Layout**:
+
+- **Switchboard**: large numbers in ruled rows with Copy and Call buttons.
+- **Call Desk**: a card of tap-to-call rows with the Availability Note in its footer.
+- **Desk Cards**: one card per desk with hours, status, Call, and Copy; 2, 3, or 4 columns.
+- **Help Ribbon**: a compact strip of number chips for use between sections or above the footer.
+- **Department Directory**: rows with number, email, WhatsApp, and Copy, tabbed by Directory Group.
+
+Switchboard, Call Desk, and Directory can place the section content left of, right of, or above the
+numbers. When a contact has days and times, visitors see "Open now" or "Closed now", calculated in
+the block's Hours Timezone (default Asia/Kolkata) and updated each minute. Copy buttons and the
+status badge can each be turned off. The block also has the standard section options: eyebrow,
+title, Accent Title, description, Section and Footer Actions, appearance, Section Anchor,
+Left/Center/Right alignment, and padding.
 
 Bank Details is the dedicated home for official transfer information. Editors add one to six bank
 accounts in visitor order and give each account a unique payment purpose, account holder, account
