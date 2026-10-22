@@ -59,10 +59,11 @@ type DocumentChecklistBlockLike = {
   title?: string | null
 }
 
+// Auto margins position the width-capped intro itself, in flex and grid containers alike.
 const alignmentClasses: Record<ContentAlignment, string> = {
-  left: 'items-start justify-self-start text-left',
-  center: 'items-center justify-self-center text-center',
-  right: 'items-end justify-self-end text-right',
+  left: 'mr-auto items-start text-left',
+  center: 'mx-auto items-center text-center',
+  right: 'ml-auto items-end text-right',
 }
 
 export function DocumentChecklistBlockComponent({

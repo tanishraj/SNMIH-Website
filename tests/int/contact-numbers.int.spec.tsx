@@ -176,6 +176,14 @@ describe('Contact Numbers block', () => {
     expect(container.querySelector('[data-contact-status]')).toBeNull()
   })
 
+  it('centres the width-capped introduction itself', () => {
+    const html = renderToStaticMarkup(
+      <ContactNumbersBlockComponent contacts={contacts} contentAlignment="center" title="Help" />,
+    )
+
+    expect(html).toContain('mx-auto items-center text-center')
+  })
+
   it('renders nothing without a dialable number', () => {
     expect(renderToStaticMarkup(<ContactNumbersBlockComponent contacts={[{ phone: ' ' }]} />)).toBe(
       '',
