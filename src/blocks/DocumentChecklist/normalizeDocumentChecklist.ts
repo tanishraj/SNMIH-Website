@@ -4,6 +4,7 @@ export type DocumentChecklistMarkerStyle = 'check' | 'decimal' | 'lowerRoman'
 
 export type DocumentChecklistItemInput = {
   details?: string | null
+  icon?: string | null
   id?: string | null
   label?: string | null
   qualifier?: string | null
@@ -17,6 +18,7 @@ export type DocumentChecklistNoteInput = {
 
 export type DocumentChecklistItem = {
   details?: string
+  icon?: string
   key: string
   label: string
   qualifier?: string
@@ -76,6 +78,7 @@ export const normalizeChecklistItems = (
     return [
       {
         details: item.details?.trim() || undefined,
+        icon: item.icon?.trim() || undefined,
         key: item.id?.trim() || `item-${index}`,
         label,
         qualifier: item.qualifier?.trim() || undefined,
@@ -177,7 +180,7 @@ export const getChecklistGridLayout = (count: number, columns: DocumentChecklist
   return { container, item, ledgerItem, style, usesThree, usesTwo }
 }
 
-export type DocumentChecklistPresentation = 'ledger' | 'tracker'
+export type DocumentChecklistPresentation = 'composition' | 'ledger' | 'tracker'
 
 export const normalizeChecklistPresentation = (value: unknown): DocumentChecklistPresentation =>
-  value === 'ledger' ? 'ledger' : 'tracker'
+  value === 'ledger' || value === 'composition' ? value : 'tracker'

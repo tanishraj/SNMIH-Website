@@ -259,7 +259,14 @@ Progress & Notes Panel Background uses the shared card backgrounds and defaults 
 **Presentation** chooses the look: Tracker (default) is a bordered checklist card; Editorial
 Ledger drops the card for hairline rules, italic serif numerals, condition tags set in italic at
 the right, and notes as footnotes, sitting directly on the section background (including Brand).
-Every other option works with both. **Section Actions Position** keeps Section Actions with the
+**Composition** opens with a large serif headline beside an illustrated stack of certificates and a
+green seal (Illustration Title, Seal Label, and an optional Seal Caption such as "2026" appear in
+the Content tab), followed by a ruled icon list. Each document can name a Lucide icon in its
+**Icon** field (for example `ScrollText`, `IdCard`, `Ticket`, `ClipboardCheck`, `ShieldCheck`,
+`Images`, `House`, `Files`); unknown or blank names show a document icon. With ticking on, the
+icon square turns green when ticked. Composition ignores Layout Mode and the progress panel;
+progress, Clear, and Print sit on one line above the list. Every other option works with all
+presentations. **Section Actions Position** keeps Section Actions with the
 introduction (default) or moves them to the bottom: in Split, the foot of the introduction column,
 level with the end of the checklist; when stacked or on small screens, after the checklist. Footer
 Actions still sit below the whole section. For the calmest ledger, turn off visitor ticking and the

@@ -1,5 +1,8 @@
+import { FileText } from 'lucide-react'
+
 import {
   resolveBlockAppearanceClasses,
+  resolveBlockSurface,
   type BlockAppearance,
 } from '@/blocks/shared/blockAppearance'
 import {
@@ -13,11 +16,13 @@ import {
   contentSectionDescriptionClasses,
   contentSectionHeadingClasses,
 } from '@/blocks/shared/contentStyles'
+import { resolveLucideIcon } from '@/blocks/shared/resolveLucideIcon'
 import { ContentActions } from '@/components/ContentActions'
 import { SectionEyebrow } from '@/components/SectionEyebrow'
 import { resolveCmsActions, type CmsActionValue } from '@/lib/cmsLinks'
 import { cn } from '@/lib/utils'
 
+import { DocumentChecklistArt } from './DocumentChecklistArt'
 import { DocumentChecklistTracker, type DocumentChecklistLayout } from './DocumentChecklistTracker'
 import {
   normalizeChecklistColumns,
@@ -36,6 +41,7 @@ type DocumentChecklistBlockLike = {
   actions?: CmsActionValue[] | null
   actionsPosition?: 'intro' | 'bottom' | null
   appearance?: BlockAppearance | null
+  artTitle?: string | null
   checklistPosition?: 'left' | 'right' | null
   columns?: 'one' | 'two' | 'three' | null
   contentAlignment?: ContentAlignment | null
@@ -48,8 +54,10 @@ type DocumentChecklistBlockLike = {
   layoutMode?: 'stacked' | 'split' | null
   markerStyle?: DocumentChecklistMarkerStyle | null
   notes?: DocumentChecklistNoteInput[] | null
-  presentation?: 'ledger' | 'tracker' | null
+  presentation?: 'composition' | 'ledger' | 'tracker' | null
   progressLabel?: string | null
+  sealCaption?: string | null
+  sealLabel?: string | null
   sectionVerticalAlignment?: 'top' | 'topStatic' | 'center' | 'bottom' | null
   showPrintButton?: boolean | null
   showProgressPanel?: boolean | null
@@ -71,6 +79,7 @@ export function DocumentChecklistBlockComponent({
   actions,
   actionsPosition = 'intro',
   appearance,
+  artTitle,
   checklistPosition = 'right',
   columns = 'two',
   contentAlignment = 'left',
@@ -85,6 +94,8 @@ export function DocumentChecklistBlockComponent({
   notes,
   presentation,
   progressLabel,
+  sealCaption,
+  sealLabel,
   sectionVerticalAlignment = 'top',
   showPrintButton = true,
   showProgressPanel = true,
@@ -102,6 +113,19 @@ export function DocumentChecklistBlockComponent({
   const alignment: ContentAlignment = contentAlignment ?? 'left'
   const { className: appearanceClassName } = resolveBlockAppearanceClasses(appearance)
   const sectionBackground = appearance?.background ?? 'none'
+  const resolvedPresentation = normalizeChecklistPresentation(presentation)
+  const isComposition = resolvedPresentation === 'composition'
+  const isBrandSurface = resolveBlockSurface(sectionBackground) === 'brand'
+  // Icons are resolved on the server so the client bundle never ships the full icon set.
+  const trackerItems = isComposition
+    ? resolvedItems.map((item) => {
+        const Icon = resolveLucideIcon(item.icon) ?? FileText
+        return {
+          ...item,
+          iconNode: <Icon aria-hidden="true" className="size-5" strokeWidth={1.5} />,
+        }
+      })
+    : resolvedItems
   const layout: DocumentChecklistLayout = {
     checklistPosition: checklistPosition === 'left' ? 'left' : 'right',
     mode: layoutMode === 'split' ? 'split' : 'stacked',
@@ -132,12 +156,26 @@ export function DocumentChecklistBlockComponent({
       {eyebrow?.trim() ? (
         <SectionEyebrow surface={sectionBackground}>{eyebrow.trim()}</SectionEyebrow>
       ) : null}
-      <h2 className={contentSectionHeadingClasses}>
+      <h2
+        className={
+          isComposition
+            ? 'font-[family-name:var(--font-display)] text-4xl leading-[1.04] font-medium tracking-tight text-balance text-current sm:text-5xl lg:text-6xl'
+            : contentSectionHeadingClasses
+        }
+      >
         {resolvedTitle}
         {resolvedAccentTitle ? (
           <>
             {resolvedTitle ? ' ' : ''}
-            <span className="italic">{resolvedAccentTitle}</span>
+            <span
+              className={cn(
+                'italic',
+                isComposition && 'block',
+                isComposition && !isBrandSurface && 'text-primary',
+              )}
+            >
+              {resolvedAccentTitle}
+            </span>
           </>
         ) : null}
       </h2>
@@ -155,15 +193,24 @@ export function DocumentChecklistBlockComponent({
     >
       <div className={regularBlockContainerClasses}>
         <DocumentChecklistTracker
+          art={
+            isComposition ? (
+              <DocumentChecklistArt
+                sealCaption={sealCaption?.trim() || undefined}
+                sealLabel={sealLabel?.trim() || 'Verified'}
+                title={artTitle?.trim() || 'Certificate'}
+              />
+            ) : undefined
+          }
           columns={normalizeChecklistColumns(columns)}
           enableTracking={enableTracking !== false}
           bottomContent={actionsAtBottom ? sectionActions : undefined}
           header={header}
-          items={resolvedItems}
+          items={trackerItems}
           layout={layout}
           markerStyle={markerStyle ?? 'lowerRoman'}
           notes={normalizeChecklistNotes(notes)}
-          presentation={normalizeChecklistPresentation(presentation)}
+          presentation={resolvedPresentation}
           progressLabel={progressLabel?.trim() || 'Your progress'}
           sectionBackground={sectionBackground}
           showPrintButton={showPrintButton !== false}
