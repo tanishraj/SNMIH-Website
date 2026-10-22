@@ -97,6 +97,8 @@ The isolated browser suite runs through `pnpm test:two-factor` using its own Mon
 MongoDB is the supported database. Local Docker Compose pins MongoDB 8.0.29 and isolates its files in the version-specific
 `mongo_data_8_0` volume so Atlas dump and restore workflows do not cross MongoDB server versions. Local development may use local-disk media. Vercel production must use durable S3-compatible storage. Email is either disabled or delivered through Resend. Production requires a non-placeholder Payload secret of at least 32 characters and disables GraphQL introspection and Playground. Upload limits live in [uploadLimits.ts](../../../../src/config/uploadLimits.ts).
 
+`next build` type-checks through [tsconfig.build.json](../../../../tsconfig.build.json), which extends `tsconfig.json` but excludes `tests/`, the Playwright configs, and `vitest.setup.ts`. Docker and Railpack builds use `.dockerignore`, which omits `.agents/` and other tooling that some tests import, so the build must not type-check tests. CI's `tsc --noEmit` still checks everything through `tsconfig.json`.
+
 The production database backup workflow runs daily and on manual dispatch. It uses a read-only
 MongoDB source credential to export only `prod`, verifies the compressed archive after uploading it
 to the private `snmih-prod-db-backups` R2 bucket under `prod-db-backup/`, and retains the newest 30
