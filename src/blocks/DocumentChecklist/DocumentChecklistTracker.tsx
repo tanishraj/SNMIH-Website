@@ -535,15 +535,12 @@ export function DocumentChecklistTracker({
         data-document-checklist-notes="true"
       >
         {notes.map((note) => (
-          <div
-            key={note.key}
-            className="flex flex-col gap-1.5 px-5 py-4 sm:px-6"
-            data-document-checklist-note="true"
-          >
-            {note.label ? (
-              <p className={cn(sidebarLabelClasses, 'text-muted-foreground')}>{note.label}</p>
-            ) : null}
-            <p className="max-w-prose text-sm leading-6">{note.text}</p>
+          <div key={note.key} className="px-5 py-4 sm:px-6" data-document-checklist-note="true">
+            {/* The label leads the sentence in bold, so it reads with its text instead of apart. */}
+            <p className="max-w-4xl text-sm leading-6">
+              {note.label ? <strong className="font-semibold">{note.label}: </strong> : null}
+              {note.text}
+            </p>
           </div>
         ))}
       </div>

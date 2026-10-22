@@ -226,6 +226,7 @@ describe('Document Checklist block', () => {
     expect(html).toContain('0 of 2 ready')
     expect(html).toContain('Print')
     expect(html).toContain('data-document-checklist-notes="true"')
+    expect(html).toContain('<strong class="font-semibold">Note: </strong>Merge files.')
   })
 
   it('renders the Editorial Ledger presentation without card chrome', () => {
@@ -307,6 +308,21 @@ describe('Document Checklist block', () => {
     expect(stacked).not.toContain('data-document-checklist-intro-bottom')
     expect(stacked.split('Download prospectus')).toHaveLength(2)
     expect(stacked.indexOf('Download prospectus')).toBeGreaterThan(stacked.indexOf('</ol>'))
+  })
+
+  it.each([
+    ['center', 'mx-auto items-center text-center'],
+    ['right', 'ml-auto items-end text-right'],
+  ] as const)('positions the %s-aligned introduction itself', (contentAlignment, classes) => {
+    const html = renderToStaticMarkup(
+      <DocumentChecklistBlockComponent
+        contentAlignment={contentAlignment}
+        items={items}
+        title="Documents"
+      />,
+    )
+
+    expect(html).toContain(classes)
   })
 
   it('renders nothing without a heading or a valid item', () => {
