@@ -300,6 +300,7 @@
         "configPath": "src/blocks/DocumentChecklist/config.ts",
         "files": [
           "src/blocks/DocumentChecklist/Component.tsx",
+          "src/blocks/DocumentChecklist/DocumentChecklistArt.tsx",
           "src/blocks/DocumentChecklist/DocumentChecklistTracker.tsx",
           "src/blocks/DocumentChecklist/config.ts",
           "src/blocks/DocumentChecklist/normalizeDocumentChecklist.ts"
@@ -2406,6 +2407,7 @@
       "src/blocks/DepartmentProfiles/config.ts",
       "src/blocks/DepartmentProfiles/types.ts",
       "src/blocks/DocumentChecklist/Component.tsx",
+      "src/blocks/DocumentChecklist/DocumentChecklistArt.tsx",
       "src/blocks/DocumentChecklist/DocumentChecklistTracker.tsx",
       "src/blocks/DocumentChecklist/config.ts",
       "src/blocks/DocumentChecklist/normalizeDocumentChecklist.ts",
@@ -3092,7 +3094,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "ae50073d4fbbd6033f4f5833657d4e7593776d73e0d3a4f09135ce0dc32e2aee"
+    "sha256": "b748f7fb69050de1cb1d0cbb1a5576777f540ae27b2e86b86606a2984a647d4e"
   },
   "surfaces": {
     "access": [

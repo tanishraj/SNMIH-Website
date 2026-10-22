@@ -7318,6 +7318,12 @@ export interface DocumentChecklistBlock {
    * Introductory instruction shown above the checklist.
    */
   description?: string | null;
+  artTitle?: string | null;
+  sealLabel?: string | null;
+  /**
+   * Optional, e.g. "2026".
+   */
+  sealCaption?: string | null;
   actions?:
     | {
         label: string;
@@ -7359,6 +7365,10 @@ export interface DocumentChecklistBlock {
      * e.g. "Caste Certificate" or "Mark sheets of MBBS (I, II & III Parts)"
      */
     label: string;
+    /**
+     * Composition presentation only. Lucide icon name, e.g. "ScrollText", "IdCard", "Ticket", "ClipboardCheck", "ShieldCheck", "Images", "House", "Files". Defaults to a document icon.
+     */
+    icon?: string | null;
     /**
      * Optional short tag shown beside the document, e.g. "If required".
      */
@@ -7423,7 +7433,7 @@ export interface DocumentChecklistBlock {
   /**
    * Editorial Ledger sits directly on the section with no card. For its calmest look, turn off the progress panel and visitor ticking.
    */
-  presentation: 'tracker' | 'ledger';
+  presentation: 'tracker' | 'ledger' | 'composition';
   /**
    * Split places section content, progress, and notes beside the checklist on desktop. Compact screens stack content above the checklist.
    */
@@ -13687,6 +13697,9 @@ export interface DocumentChecklistBlockSelect<T extends boolean = true> {
   title?: T;
   accentTitle?: T;
   description?: T;
+  artTitle?: T;
+  sealLabel?: T;
+  sealCaption?: T;
   actions?:
     | T
     | {
@@ -13709,6 +13722,7 @@ export interface DocumentChecklistBlockSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        icon?: T;
         qualifier?: T;
         details?: T;
         id?: T;

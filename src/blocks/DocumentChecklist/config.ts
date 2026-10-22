@@ -3,6 +3,7 @@ import type { ArrayField, Block, CheckboxField, SelectField, TabsField } from 'p
 import { createBlockAppearanceFields } from '@/blocks/shared/blockAppearanceFields'
 import { createCardBackgroundField } from '@/blocks/shared/cardThemeFields'
 import { createContentActionsField } from '@/blocks/shared/contentActionsFields'
+import { createIconField } from '@/blocks/shared/iconField'
 import { getBlockThumbnailAdmin } from '@/block-thumbnails/definitions'
 
 const itemsField: ArrayField = {
@@ -26,6 +27,10 @@ const itemsField: ArrayField = {
         description: 'e.g. "Caste Certificate" or "Mark sheets of MBBS (I, II & III Parts)"',
       },
     },
+    createIconField({
+      description:
+        'Composition presentation only. Lucide icon name, e.g. "ScrollText", "IdCard", "Ticket", "ClipboardCheck", "ShieldCheck", "Images", "House", "Files". Defaults to a document icon.',
+    }),
     {
       name: 'qualifier',
       label: 'Condition Tag',
@@ -106,6 +111,34 @@ export const DocumentChecklistBlock: Block = {
                 description: 'Introductory instruction shown above the checklist.',
               },
             },
+            {
+              type: 'row',
+              admin: {
+                condition: (_data, siblingData) => siblingData?.presentation === 'composition',
+              },
+              fields: [
+                {
+                  name: 'artTitle',
+                  label: 'Illustration Title',
+                  type: 'text',
+                  defaultValue: 'Certificate',
+                  admin: { width: '34%' },
+                },
+                {
+                  name: 'sealLabel',
+                  label: 'Seal Label',
+                  type: 'text',
+                  defaultValue: 'Verified',
+                  admin: { width: '33%' },
+                },
+                {
+                  name: 'sealCaption',
+                  label: 'Seal Caption',
+                  type: 'text',
+                  admin: { description: 'Optional, e.g. "2026".', width: '33%' },
+                },
+              ],
+            },
             createContentActionsField({ label: 'Section Actions', maxRows: 2 }),
             itemsField,
             notesField,
@@ -138,6 +171,10 @@ export const DocumentChecklistBlock: Block = {
               options: [
                 { label: 'Tracker (bordered checklist card)', value: 'tracker' },
                 { label: 'Editorial Ledger (hairline rules, serif numerals)', value: 'ledger' },
+                {
+                  label: 'Composition (illustrated hero with an icon list)',
+                  value: 'composition',
+                },
               ],
               admin: {
                 description:
