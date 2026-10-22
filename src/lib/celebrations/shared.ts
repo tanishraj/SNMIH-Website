@@ -30,11 +30,15 @@ export const CELEBRATION_FREQUENCY_OPTIONS: { label: string; value: CelebrationF
   { label: 'A set number of times per visitor per day', value: 'timesPerDay' },
 ]
 
-export const CONFETTI_SPEEDS = ['slow', 'medium', 'lively'] as const
+export const CONFETTI_SPEEDS = ['verySlow', 'slow', 'medium', 'lively'] as const
 export type ConfettiSpeed = (typeof CONFETTI_SPEEDS)[number]
 
 export const CONFETTI_MAX_SHOTS = 8
-export const DEFAULT_CONFETTI_SHOTS = 8
+export const DEFAULT_CONFETTI_SHOTS = 5
+/** Pieces fired from each bottom corner per burst. */
+export const CONFETTI_MIN_PIECES = 20
+export const CONFETTI_MAX_PIECES = 300
+export const DEFAULT_CONFETTI_PIECES = 160
 export const MAX_TIMES_PER_DAY = 20
 
 const dateKeyPattern = /^\d{4}-\d{2}-\d{2}$/
@@ -122,6 +126,12 @@ export const recordCelebrationOpen = (
 
 export const clampTimesPerDay = (value?: number | null) =>
   Math.min(MAX_TIMES_PER_DAY, Math.max(1, Math.floor(Number(value) || 1)))
+
+export const clampConfettiPieces = (value?: number | null) =>
+  Math.min(
+    CONFETTI_MAX_PIECES,
+    Math.max(CONFETTI_MIN_PIECES, Math.floor(Number(value) || DEFAULT_CONFETTI_PIECES)),
+  )
 
 export const clampConfettiShots = (value?: number | null) =>
   Math.min(CONFETTI_MAX_SHOTS, Math.max(1, Math.floor(Number(value) || DEFAULT_CONFETTI_SHOTS)))

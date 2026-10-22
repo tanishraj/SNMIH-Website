@@ -37,6 +37,15 @@ Medallion style, such as "25".
 
 ## Confetti
 
-Full-window confetti falls slowly in several bursts (8 by default) from different directions. Choose 1
-to 8 bursts and Slow, Medium, or Lively speed, or switch it off. Visitors who prefer reduced motion see
-the modal without confetti.
+Confetti fires from the bottom-left and bottom-right corners at once and splashes up to the top of
+the window, then drifts down. It stops as soon as the modal is closed. Settings on the **Confetti**
+tab:
+
+- **Bursts**: how many times the corners fire (1–8, default 5).
+- **Pieces per Burst**: pieces from each corner per burst (20–300, default 160). Larger values make
+  a bigger splash.
+- **Speed**: Very slow, Slow, Normal (default), or Lively. Every speed reaches the same height;
+  slower settings play the same splash in slow motion, Lively a little faster.
+
+Switch confetti off entirely with **Celebrate with confetti**. Visitors who prefer reduced motion
+see the modal without confetti.

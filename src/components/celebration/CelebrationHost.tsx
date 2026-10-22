@@ -5,7 +5,6 @@ import {
   useEffect,
   useId,
   useMemo,
-  useRef,
   useState,
   useSyncExternalStore,
   type CSSProperties,
@@ -105,7 +104,6 @@ export function CelebrationHost({ celebrations, priority, timeZone }: Celebratio
 
   const [open, setOpen] = useState(false)
   const [hasClosed, setHasClosed] = useState(false)
-  const stopConfetti = useRef<(() => void) | null>(null)
 
   useEffect(() => {
     if (!isWinner || !active || !todayKey || !autoOpen) return
@@ -117,15 +115,15 @@ export function CelebrationHost({ celebrations, priority, timeZone }: Celebratio
     return () => window.clearTimeout(timer)
   }, [active, autoOpen, isWinner, todayKey])
 
+  // Confetti lasts only while the modal is open: closing it (or leaving the page) clears the canvas.
   useEffect(() => {
     if (!open || !active?.confetti.enabled) return
-    stopConfetti.current = launchConfetti({
+    return launchConfetti({
+      pieces: active.confetti.pieces,
       shots: active.confetti.shots,
       speed: active.confetti.speed,
     })
   }, [active, open])
-
-  useEffect(() => () => stopConfetti.current?.(), [])
 
   if (!active || !isWinner) return null
 

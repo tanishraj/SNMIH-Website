@@ -2442,7 +2442,7 @@ export const blockThumbnailFixtures = {
     <CelebrationPreview
       view={{
         badgeLabel: 'Celebrating today',
-        confetti: { enabled: true, shots: 8, speed: 'slow' },
+        confetti: { enabled: true, pieces: 160, shots: 5, speed: 'medium' },
         dateLabel: { day: '22', month: 'October', year: '2026' },
         endKey: '2026-10-22',
         eyebrow: 'Today we celebrate',

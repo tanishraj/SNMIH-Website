@@ -100,10 +100,13 @@ Admin live previews target their dedicated authenticated `/preview/` routes.
 site timezone, and a hidden indexed `lastDay` kept in step by a `beforeValidate` hook so the loader can skip ended
 celebrations. Content (eyebrow, heading and italic accent, message, image or image-only, Medallion highlight,
 signature, one action), Display (five styles, frequency: once per day, every page load, once per visitor, or N times
-per day; open delay; reopen badge), and Confetti (enable, 1–8 bursts, speed) live in tabs.
+per day; open delay; reopen badge), and Confetti (enable, 1–8 bursts default 5, 20–300 pieces per
+burst default 160, speed Very slow/Slow/Normal/Lively default Normal) live in tabs. Confetti fires from
+both bottom corners with launch power scaled to √(viewport height), speed is a time scale over the
+same trajectories, and closing the dialog stops it immediately.
 
-`getSiteWideCelebrations` (server-only, `unstable_cache` tagged `cms-celebrations` and `cms-site-settings`, hourly
-revalidate) returns published, enabled, every-page celebrations that have not ended, mapped by `toCelebrationView`.
+`getSiteWideCelebrations` (server-only, `unstable_cache` keyed `['site-wide-celebrations', 'v2']` and tagged
+`cms-celebrations` and `cms-site-settings`, hourly revalidate; bump the version when `CelebrationView` changes) returns published, enabled, every-page celebrations that have not ended, mapped by `toCelebrationView`.
 The frontend layout mounts `CelebrationHost`, which renders nothing on the server, picks today's celebration in the
 browser using the site timezone, applies frequency with a `celebration:<id>` localStorage record, and opens a Radix
 dialog with full-window confetti (skipped for reduced motion). The `celebration` Page block (relationship to a

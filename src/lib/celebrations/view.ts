@@ -7,6 +7,7 @@ import {
   CELEBRATION_FREQUENCIES,
   CELEBRATION_STYLES,
   CONFETTI_SPEEDS,
+  clampConfettiPieces,
   clampConfettiShots,
   clampTimesPerDay,
   type CelebrationFrequency,
@@ -19,7 +20,7 @@ export type CelebrationView = {
   accentHeading?: string
   action?: ResolvedCmsAction
   badgeLabel: string
-  confetti: { enabled: boolean; shots: number; speed: ConfettiSpeed }
+  confetti: { enabled: boolean; pieces: number; shots: number; speed: ConfettiSpeed }
   dateLabel: { day: string; month: string; year: string }
   endKey: string
   eyebrow?: string
@@ -66,8 +67,9 @@ export const toCelebrationView = (
     badgeLabel: text(doc.badgeLabel) ?? 'Celebrating today',
     confetti: {
       enabled: doc.confettiEnabled !== false,
+      pieces: clampConfettiPieces(doc.confettiPieces),
       shots: clampConfettiShots(doc.confettiShots),
-      speed: pick(doc.confettiSpeed, CONFETTI_SPEEDS, 'slow'),
+      speed: pick(doc.confettiSpeed, CONFETTI_SPEEDS, 'medium'),
     },
     dateLabel: {
       day: formatZonedDate(doc.startDate, timeZone, {

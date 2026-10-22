@@ -108,7 +108,13 @@ export const revalidateArticlesCache: CollectionAfterChangeHook = ({ doc, previo
  * Revalidates celebrations when one changes. Pages embed celebrations through the Celebration
  * block, so their cache is refreshed too.
  */
-export const revalidateCelebrationsCache: CollectionAfterChangeHook = ({ doc, previousDoc }) => {
+export const revalidateCelebrationsCache: CollectionAfterChangeHook = ({
+  context,
+  doc,
+  previousDoc,
+}) => {
+  if (context?.[SKIP_CACHE_REVALIDATION_CONTEXT] === true) return doc
+
   if (isOrWasPublished(doc, previousDoc)) {
     revalidateTags(CMS_CACHE_TAGS.celebrations, CMS_CACHE_TAGS.pages)
   }
@@ -229,7 +235,9 @@ export const revalidateDeletedArticleCache: CollectionAfterDeleteHook = ({ doc }
   return doc
 }
 
-export const revalidateDeletedCelebrationCache: CollectionAfterDeleteHook = ({ doc }) => {
+export const revalidateDeletedCelebrationCache: CollectionAfterDeleteHook = ({ context, doc }) => {
+  if (context?.[SKIP_CACHE_REVALIDATION_CONTEXT] === true) return doc
+
   if (doc._status === 'published') {
     revalidateTags(CMS_CACHE_TAGS.celebrations, CMS_CACHE_TAGS.pages)
   }
