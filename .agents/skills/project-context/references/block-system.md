@@ -387,6 +387,12 @@ sidebar; progress, Print, and Clear then render in the list header and notes bel
 `presentation` selects Tracker (bordered card) or Editorial Ledger (no card; per-column hairline
 rules from `ledgerItem`, gutters instead of vertical rules, italic display numerals, footnote notes,
 surface-aware accents and checkbox fill). Both share the same state, grid, and panel behaviour.
+Composition (`presentation: 'composition'`) renders a container-query hero (header beside the
+server-only `DocumentChecklistArt` certificate stack and seal) above a ruled icon list using
+`ledgerItem` rules. Item `icon` names resolve with `resolveLucideIcon` in the server component
+(falling back to `FileText`) and reach the client tracker as rendered nodes, so the client bundle
+never imports the full Lucide map. Ticking uses a visually hidden native checkbox whose `peer`
+state colours the icon square. Composition ignores Layout Mode and the progress panel.
 `getChecklistGridLayout` provides one/two/three columns in both layouts with container queries
 (`@xl` two, `@3xl` three) and `grid-flow-col` with per-breakpoint row counts, so reading order stays
 top-to-bottom while rows align; each item computes its own bottom/left rules per active column count.

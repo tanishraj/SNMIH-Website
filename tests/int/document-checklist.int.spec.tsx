@@ -325,6 +325,51 @@ describe('Document Checklist block', () => {
     expect(html).toContain(classes)
   })
 
+  it('renders the Composition presentation with an illustration and server-resolved icons', () => {
+    const html = renderToStaticMarkup(
+      <DocumentChecklistBlockComponent
+        accentTitle="one confident visit"
+        enableTracking={false}
+        items={[
+          { id: 'a', label: 'Aadhaar Card', icon: 'IdCard' },
+          { id: 'b', label: 'Six Photographs', icon: 'not-a-real-icon' },
+        ]}
+        notes={[{ label: 'Note for DQ candidates', text: 'Merge files.' }]}
+        presentation="composition"
+        sealCaption="2026"
+        sealLabel="Verified"
+        showPrintButton={false}
+        title="Twenty documents,"
+      />,
+    )
+
+    expect(html).toContain('data-document-checklist-layout="composition"')
+    expect(html).toContain('data-document-checklist-art="true"')
+    expect(html).toContain('Verified')
+    expect(html).toContain('· 2026 ·')
+    // A named Lucide icon resolves; an unknown name falls back to the document icon.
+    expect(html).toContain('lucide-id-card')
+    expect(html).toContain('lucide-file-text')
+    expect(html).toMatch(
+      /<span class="(?=[^"]*\bblock\b)(?=[^"]*\bitalic\b)(?=[^"]*\btext-primary\b)[^"]*">one confident visit<\/span>/,
+    )
+    expect(html).toContain('Note for DQ candidates')
+  })
+
+  it('lets visitors tick Composition rows through an accessible checkbox', () => {
+    const html = renderToStaticMarkup(
+      <DocumentChecklistBlockComponent
+        items={[{ id: 'a', label: 'Aadhaar Card', icon: 'IdCard' }]}
+        presentation="composition"
+        title="Documents"
+      />,
+    )
+
+    expect(html).toContain('type="checkbox"')
+    expect(html).toContain('class="peer sr-only"')
+    expect(html).toContain('0 of 1 ready')
+  })
+
   it('renders nothing without a heading or a valid item', () => {
     expect(renderToStaticMarkup(<DocumentChecklistBlockComponent items={items} />)).toBe('')
     expect(
