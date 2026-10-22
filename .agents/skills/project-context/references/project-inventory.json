@@ -2171,12 +2171,12 @@
   },
   "project": {
     "frameworks": {
-      "next": "16.2.11",
-      "payload": "3.85.2",
+      "next": "16.3.8",
+      "payload": "3.91.0",
       "react": "19.2.7",
       "tailwindcss": "^4.3.2",
       "typescript": "5.7.3",
-      "vitest": "4.1.0"
+      "vitest": "5.0.5"
     },
     "name": "payload-cms-next-tailwind-shadcn-starter-kit",
     "scripts": [
@@ -3047,7 +3047,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "5293f2af7ee92b094d3304e46030634ecaa705555d5c228ebbc76f6518a028da"
+    "sha256": "0a1e72b6229ab506fdd51bf65e030dc4ce117ee92908975a854b12df8620fe1d"
   },
   "surfaces": {
     "access": [
