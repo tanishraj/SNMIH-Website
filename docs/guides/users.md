@@ -43,7 +43,7 @@ panel each person can operate. The two roles are Admin and Site Manager.
 5. Verify both the sidebar and a direct URL for one granted and one ungranted feature.
 
 Feature changes clear the affected user's sessions, so an already signed-in user must authenticate
-again. New Site Managers have all 29 features disabled unless the creating Admin selects them.
+again. New Site Managers have all 30 features disabled unless the creating Admin selects them.
 
 ## Create Another Admin
 
@@ -57,7 +57,7 @@ Action Queue or Audit Log alone: their rows are also filtered by the source feat
 review moderator commonly needs Reviews and optionally Action Queue; a form operator needs Form
 Submissions and optionally Action Queue.
 
-See the complete 29-feature action table in
+See the complete 30-feature action table in
 [Users, Features, and Publication Governance](../operations/editorial-governance.md).
 
 ## Best Practices

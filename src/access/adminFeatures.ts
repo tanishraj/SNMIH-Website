@@ -7,6 +7,7 @@ export const ADMIN_FEATURE_KEYS = [
   'articles',
   'reviews',
   'reusableSections',
+  'celebrations',
   'newsEvents',
   'newsEventClassifications',
   'newsEventsDetailTemplate',
@@ -87,6 +88,7 @@ export const ADMIN_FEATURES: Record<AdminFeatureKey, AdminFeatureDefinition> = {
       'forms',
       'galleryAlbums',
       'officeLocations',
+      'celebrations',
     ],
   }),
   articles: feature({
@@ -122,7 +124,18 @@ export const ADMIN_FEATURES: Record<AdminFeatureKey, AdminFeatureDefinition> = {
       'forms',
       'galleryAlbums',
       'officeLocations',
+      'celebrations',
     ],
+  }),
+  celebrations: feature({
+    key: 'celebrations',
+    label: 'Celebrations',
+    group: 'Content',
+    description:
+      'Schedule, edit, preview, publish, enable or disable, trash, and restore celebration modals.',
+    resource: { kind: 'collection', slug: 'celebrations' },
+    policyKind: 'draftContent',
+    dependencyReads: ['media', 'pages'],
   }),
   newsEvents: feature({
     key: 'newsEvents',
@@ -157,6 +170,7 @@ export const ADMIN_FEATURES: Record<AdminFeatureKey, AdminFeatureDefinition> = {
       'newsEventClassifications',
       'officeLocations',
       'pages',
+      'celebrations',
     ],
   }),
   topics: feature({

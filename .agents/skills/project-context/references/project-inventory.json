@@ -185,6 +185,21 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/Celebration/Component.tsx",
+        "configPath": "src/blocks/Celebration/config.ts",
+        "files": [
+          "src/blocks/Celebration/Component.tsx",
+          "src/blocks/Celebration/PreviewComponent.tsx",
+          "src/blocks/Celebration/config.ts"
+        ],
+        "interfaceName": "CelebrationBlock",
+        "presentationPath": null,
+        "previewComponentPath": "src/blocks/Celebration/PreviewComponent.tsx",
+        "slug": "celebration",
+        "symbol": "CelebrationBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/Contact24/Component.tsx",
         "configPath": "src/blocks/Contact24/config.ts",
         "files": [
@@ -1079,6 +1094,7 @@
       "BentoGridBlock",
       "BreadcrumbBlock",
       "CalendarBlock",
+      "CelebrationBlock",
       "Contact24Block",
       "Contact33Block",
       "ContactNumbersBlock",
@@ -1194,6 +1210,7 @@
       "pgFeeStructure",
       "bankDetails",
       "documentChecklist",
+      "celebration",
       "contactNumbers",
       "numberedSteps",
       "bentoGrid",
@@ -1261,6 +1278,7 @@
       "bankDetails",
       "documentChecklist",
       "contactNumbers",
+      "celebration",
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
@@ -1320,6 +1338,7 @@
       "pgFeeStructure",
       "bankDetails",
       "documentChecklist",
+      "celebration",
       "contactNumbers",
       "numberedSteps",
       "bentoGrid",
@@ -1386,6 +1405,7 @@
       "bankDetails",
       "documentChecklist",
       "contactNumbers",
+      "celebration",
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
@@ -1641,6 +1661,7 @@
         "public/block-thumbnails/bento-grid.jpg",
         "public/block-thumbnails/breadcrumb.jpg",
         "public/block-thumbnails/calendar.jpg",
+        "public/block-thumbnails/celebration.jpg",
         "public/block-thumbnails/contact-24.jpg",
         "public/block-thumbnails/contact-33.jpg",
         "public/block-thumbnails/contact-numbers.jpg",
@@ -1904,6 +1925,10 @@
           "slug": "documentChecklist"
         },
         {
+          "filename": "celebration.jpg",
+          "slug": "celebration"
+        },
+        {
           "filename": "contact-numbers.jpg",
           "slug": "contactNumbers"
         },
@@ -2017,6 +2042,7 @@
         "feeStructure",
         "pgFeeStructure",
         "bankDetails",
+        "celebration",
         "contactNumbers",
         "documentChecklist",
         "iconGrid",
@@ -2065,6 +2091,10 @@
       {
         "source": "src/collections/ReusableSections.ts",
         "symbol": "ReusableSections"
+      },
+      {
+        "source": "src/collections/Celebrations.ts",
+        "symbol": "Celebrations"
       },
       {
         "source": "src/collections/Categories.ts",
@@ -2218,6 +2248,7 @@
       "docs/guides/articles.md",
       "docs/guides/blocks.md",
       "docs/guides/categories.md",
+      "docs/guides/celebrations.md",
       "docs/guides/cookie-consent.md",
       "docs/guides/dashboard.md",
       "docs/guides/footers.md",
@@ -2352,6 +2383,9 @@
       "src/blocks/Calendar/calendarStyles.ts",
       "src/blocks/Calendar/calendarTone.ts",
       "src/blocks/Calendar/config.ts",
+      "src/blocks/Celebration/Component.tsx",
+      "src/blocks/Celebration/PreviewComponent.tsx",
+      "src/blocks/Celebration/config.ts",
       "src/blocks/Contact24/Component.tsx",
       "src/blocks/Contact24/Presentation.tsx",
       "src/blocks/Contact24/PreviewComponent.tsx",
@@ -2567,6 +2601,7 @@
       "src/blocks/systemPageFields.ts",
       "src/collections/Articles.ts",
       "src/collections/Categories.ts",
+      "src/collections/Celebrations.ts",
       "src/collections/Footers.ts",
       "src/collections/FormSubmissions.ts",
       "src/collections/Forms.ts",
@@ -2610,6 +2645,12 @@
       "src/components/announcement/RotatingAnnouncementContent.tsx",
       "src/components/articles/ArticleArchivePage.tsx",
       "src/components/articles/ArticlePage.tsx",
+      "src/components/celebration/CelebrationCard.tsx",
+      "src/components/celebration/CelebrationHost.tsx",
+      "src/components/celebration/CelebrationPreview.tsx",
+      "src/components/celebration/celebration.module.css",
+      "src/components/celebration/celebrationSlot.ts",
+      "src/components/celebration/confetti.ts",
       "src/components/contact24.tsx",
       "src/components/contact33.tsx",
       "src/components/content-highlights.tsx",
@@ -2749,6 +2790,9 @@
       "src/lib/analyticsConsent.ts",
       "src/lib/calendarEvents.ts",
       "src/lib/calendarRequest.ts",
+      "src/lib/celebrations/celebrations.server.ts",
+      "src/lib/celebrations/shared.ts",
+      "src/lib/celebrations/view.ts",
       "src/lib/cmsLinks.ts",
       "src/lib/cmsSession.ts",
       "src/lib/contact33Form.ts",
@@ -2874,6 +2918,7 @@
       "tests/int/card-theme-contract.int.spec.ts",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/celebrations.int.spec.tsx",
       "tests/int/contact-numbers.int.spec.tsx",
       "tests/int/contact24-data.int.spec.ts",
       "tests/int/contact24-render.int.spec.tsx",
@@ -3049,7 +3094,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "5b4a85f6cc68afb2f13134ea67fdbec928fd17639c868d26facba4802979683a"
+    "sha256": "b748f7fb69050de1cb1d0cbb1a5576777f540ae27b2e86b86606a2984a647d4e"
   },
   "surfaces": {
     "access": [
@@ -3100,6 +3145,9 @@
       "src/lib/analyticsConsent.ts",
       "src/lib/calendarEvents.ts",
       "src/lib/calendarRequest.ts",
+      "src/lib/celebrations/celebrations.server.ts",
+      "src/lib/celebrations/shared.ts",
+      "src/lib/celebrations/view.ts",
       "src/lib/cmsLinks.ts",
       "src/lib/cmsSession.ts",
       "src/lib/contact33Form.ts",
@@ -3244,6 +3292,7 @@
       "tests/int/card-theme-contract.int.spec.ts",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/celebrations.int.spec.tsx",
       "tests/int/contact-numbers.int.spec.tsx",
       "tests/int/contact24-data.int.spec.ts",
       "tests/int/contact24-render.int.spec.tsx",

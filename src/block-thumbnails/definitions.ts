@@ -360,6 +360,12 @@ export const blockThumbnailDefinitions = [
     stageAlignment: 'top',
   }),
   defineThumbnail({
+    alt: 'Celebration block preview',
+    filename: 'celebration.jpg',
+    label: 'Celebration',
+    slug: 'celebration',
+  }),
+  defineThumbnail({
     alt: 'Contact Numbers block preview',
     filename: 'contact-numbers.jpg',
     label: 'Contact Numbers',
