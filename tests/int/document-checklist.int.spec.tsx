@@ -226,6 +226,7 @@ describe('Document Checklist block', () => {
     expect(html).toContain('0 of 2 ready')
     expect(html).toContain('Print')
     expect(html).toContain('data-document-checklist-notes="true"')
+    expect(html).toContain('<strong class="font-semibold">Note: </strong>Merge files.')
   })
 
   it('renders the Editorial Ledger presentation without card chrome', () => {
