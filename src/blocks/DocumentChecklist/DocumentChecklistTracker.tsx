@@ -531,19 +531,29 @@ export function DocumentChecklistTracker({
     ledgerNotes ??
     (!hasSidebar && notes.length > 0 ? (
       <div
-        className="flex min-w-0 flex-col divide-y divide-border rounded-card border border-border bg-muted/40 text-card-foreground"
+        className="@container flex min-w-0 flex-col divide-y divide-border rounded-card border border-border bg-muted/40 text-card-foreground"
         data-document-checklist-notes="true"
       >
         {notes.map((note) => (
           <div
             key={note.key}
-            className="flex flex-col gap-1.5 px-5 py-4 sm:px-6"
+            className={cn(
+              'grid gap-1.5 px-5 py-4 sm:px-6',
+              // Once the box is wide enough, the label takes a narrow column and the text runs
+              // beside it, so a full-width box isn't half empty.
+              note.label && '@2xl:grid-cols-[auto_minmax(0,1fr)] @2xl:gap-x-6',
+            )}
             data-document-checklist-note="true"
           >
             {note.label ? (
-              <p className={cn(sidebarLabelClasses, 'text-muted-foreground')}>{note.label}</p>
+              // The label column fits the label, so short labels sit beside the text; long ones wrap.
+              <p
+                className={cn(sidebarLabelClasses, 'leading-6 text-muted-foreground @2xl:max-w-56')}
+              >
+                {note.label}
+              </p>
             ) : null}
-            <p className="max-w-prose text-sm leading-6">{note.text}</p>
+            <p className="max-w-4xl text-sm leading-6">{note.text}</p>
           </div>
         ))}
       </div>

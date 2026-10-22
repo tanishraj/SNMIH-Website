@@ -91,10 +91,11 @@ const pillButton = cn(
 const metaLabelClasses = 'font-mono text-xs font-semibold uppercase tracking-[0.18em]'
 const numberClasses = 'font-sans font-semibold tracking-tight tabular-nums'
 
+// Auto margins position the width-capped intro itself, in flex and grid containers alike.
 const alignmentClasses: Record<ContentAlignment, string> = {
-  left: 'items-start text-left',
-  center: 'items-center text-center',
-  right: 'items-end text-right',
+  left: 'mr-auto items-start text-left',
+  center: 'mx-auto items-center text-center',
+  right: 'ml-auto items-end text-right',
 }
 
 const cardColumnClasses = {

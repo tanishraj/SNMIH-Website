@@ -309,6 +309,21 @@ describe('Document Checklist block', () => {
     expect(stacked.indexOf('Download prospectus')).toBeGreaterThan(stacked.indexOf('</ol>'))
   })
 
+  it.each([
+    ['center', 'mx-auto items-center text-center'],
+    ['right', 'ml-auto items-end text-right'],
+  ] as const)('positions the %s-aligned introduction itself', (contentAlignment, classes) => {
+    const html = renderToStaticMarkup(
+      <DocumentChecklistBlockComponent
+        contentAlignment={contentAlignment}
+        items={items}
+        title="Documents"
+      />,
+    )
+
+    expect(html).toContain(classes)
+  })
+
   it('renders nothing without a heading or a valid item', () => {
     expect(renderToStaticMarkup(<DocumentChecklistBlockComponent items={items} />)).toBe('')
     expect(
