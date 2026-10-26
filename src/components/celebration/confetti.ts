@@ -1,4 +1,9 @@
-import type { ConfettiSpeed } from '@/lib/celebrations/shared'
+import {
+  CONFETTI_SPEEDS,
+  clampConfettiPieces,
+  clampConfettiShots,
+  type ConfettiSpeed,
+} from '@/lib/celebrations/shared'
 
 const COLORS = [
   '#e3b552',
@@ -11,13 +16,26 @@ const COLORS = [
   '#11275a',
 ]
 
-/** Gravity, air drag, and lifetime (frames) per speed; slow pieces drift and flutter longest. */
-const SPEEDS: Record<ConfettiSpeed, { drag: number; gravity: number; life: number }> = {
-  slow: { drag: 0.992, gravity: 0.06, life: 900 },
-  medium: { drag: 0.988, gravity: 0.1, life: 650 },
-  lively: { drag: 0.984, gravity: 0.16, life: 460 },
+/**
+ * One trajectory for every speed: launch power scales with √(viewport height) so the strongest
+ * pieces reach near the top. Speed only changes how fast time passes, so Slow follows the same
+ * arcs as Lively, just in slow motion.
+ */
+const PHYSICS = { drag: 0.992, gravity: 0.06, life: 900, power: 0.6 }
+
+const TIME_SCALE: Record<ConfettiSpeed, number> = {
+  verySlow: 0.4,
+  slow: 0.7,
+  // Normal (the default) plays the splash in real time.
+  medium: 1,
+  lively: 1.4,
 }
 
+/** Cannons aim up and inward: 62° above the horizontal, give or take about 18°. */
+const CANNON_ANGLE = (62 * Math.PI) / 180
+const CANNON_SPREAD = 0.62
+
+/** Bursts are spaced further apart at slower speeds so each splash has room to bloom. */
 const WAVE_INTERVAL_MS = 1400
 
 type Piece = {
@@ -54,54 +72,24 @@ const piece = (x: number, y: number, angle: number, velocity: number): Piece => 
   y,
 })
 
-/** Each wave fires from a different place so the whole window fills over the celebration. */
-const waves: Array<(w: number, h: number, add: (p: Piece) => void) => void> = [
-  (w, h, add) => {
-    for (let i = 0; i < 70; i++) {
-      add(piece(0, h, -Math.PI / 2.9 + (Math.random() - 0.5) * 0.6, 9 + Math.random() * 6))
-      add(
-        piece(w, h, -Math.PI + Math.PI / 2.9 + (Math.random() - 0.5) * 0.6, 9 + Math.random() * 6),
-      )
-    }
-  },
-  (w, _h, add) => {
-    for (let i = 0; i < 140; i++)
-      add(
-        piece(
-          Math.random() * w,
-          -20 - Math.random() * 120,
-          Math.PI / 2 + (Math.random() - 0.5) * 0.5,
-          1 + Math.random() * 2,
-        ),
-      )
-  },
-  (_w, h, add) => {
-    for (let i = 0; i < 90; i++)
-      add(
-        piece(
-          -10,
-          h * (0.2 + Math.random() * 0.5),
-          -0.4 + (Math.random() - 0.5) * 0.5,
-          7 + Math.random() * 5,
-        ),
-      )
-  },
-  (w, h, add) => {
-    for (let i = 0; i < 90; i++)
-      add(
-        piece(
-          w + 10,
-          h * (0.2 + Math.random() * 0.5),
-          Math.PI + 0.4 + (Math.random() - 0.5) * 0.5,
-          7 + Math.random() * 5,
-        ),
-      )
-  },
-  (w, h, add) => {
-    for (let i = 0; i < 120; i++)
-      add(piece(w / 2, h * 0.45, Math.random() * Math.PI * 2, 3 + Math.random() * 6))
-  },
-]
+/** One burst: both bottom corners fire at once, so the splash meets in the middle of the window. */
+const fireCannons = (
+  width: number,
+  height: number,
+  power: number,
+  piecesPerCannon: number,
+  add: (p: Piece) => void,
+) => {
+  const maxVelocity = power * Math.sqrt(height)
+
+  for (let i = 0; i < piecesPerCannon; i++) {
+    // A wide range of launch speeds layers the splash from low to near the top.
+    const velocity = maxVelocity * (0.55 + Math.random() * 0.45)
+    const spread = (Math.random() - 0.5) * CANNON_SPREAD
+    add(piece(-4, height + 4, -CANNON_ANGLE + spread, velocity))
+    add(piece(width + 4, height + 4, -Math.PI + CANNON_ANGLE + spread, velocity))
+  }
+}
 
 export const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -111,9 +99,12 @@ export const prefersReducedMotion = () =>
  * Does nothing when the visitor prefers reduced motion or canvas is unavailable.
  */
 export function launchConfetti({
+  pieces,
   shots,
   speed,
 }: {
+  /** Pieces fired from each bottom corner per burst. */
+  pieces: number
   shots: number
   speed: ConfettiSpeed
 }): () => void {
@@ -135,10 +126,15 @@ export function launchConfetti({
   })
   document.body.appendChild(canvas)
 
-  const settings = SPEEDS[speed]
-  let pieces: Piece[] = []
+  // Settings can come from data cached by an older release, so missing values fall back safely.
+  const dt = TIME_SCALE[CONFETTI_SPEEDS.includes(speed) ? speed : 'medium']
+  const piecesPerCannon = clampConfettiPieces(pieces)
+  const bursts = clampConfettiShots(shots)
+  const life = PHYSICS.life / dt
+  const drag = Math.pow(PHYSICS.drag, dt)
+  let live: Piece[] = []
   let frame = 0
-  let pendingWaves = shots
+  let pendingWaves = bursts
   let stopped = false
   const timers: number[] = []
 
@@ -164,23 +160,23 @@ export function launchConfetti({
     const width = window.innerWidth
     const height = window.innerHeight
     context.clearRect(0, 0, width, height)
-    pieces = pieces.filter((p) => p.age < settings.life && p.y < height + 40)
+    live = live.filter((p) => p.age < life && p.y < height + 40)
 
-    for (const p of pieces) {
+    for (const p of live) {
       p.age += 1
-      p.vy += settings.gravity
-      p.vx *= settings.drag
-      p.vy *= settings.drag
-      p.sway += 0.02
-      p.x += p.vx + Math.sin(p.sway) * p.swayAmp
-      p.y += p.vy
-      p.rot += p.spin
-      p.flip += p.flipSpeed
+      p.vy += PHYSICS.gravity * dt
+      p.vx *= drag
+      p.vy *= drag
+      p.sway += 0.02 * dt
+      p.x += (p.vx + Math.sin(p.sway) * p.swayAmp) * dt
+      p.y += p.vy * dt
+      p.rot += p.spin * dt
+      p.flip += p.flipSpeed * dt
 
       context.save()
       context.translate(p.x, p.y)
       context.rotate(p.rot)
-      context.globalAlpha = Math.min(1, (settings.life - p.age) / 60)
+      context.globalAlpha = Math.min(1, (life - p.age) / (60 / dt))
       context.fillStyle = p.color
       if (p.shape === 'dot') {
         context.beginPath()
@@ -196,16 +192,21 @@ export function launchConfetti({
       context.restore()
     }
 
-    if (pieces.length > 0 || pendingWaves > 0) frame = window.requestAnimationFrame(draw)
+    if (live.length > 0 || pendingWaves > 0) frame = window.requestAnimationFrame(draw)
     else stop()
   }
 
-  for (let index = 0; index < shots; index++) {
+  for (let index = 0; index < bursts; index++) {
     timers.push(
-      window.setTimeout(() => {
-        waves[index % waves.length]!(window.innerWidth, window.innerHeight, (p) => pieces.push(p))
-        pendingWaves -= 1
-      }, index * WAVE_INTERVAL_MS),
+      window.setTimeout(
+        () => {
+          fireCannons(window.innerWidth, window.innerHeight, PHYSICS.power, piecesPerCannon, (p) =>
+            live.push(p),
+          )
+          pendingWaves -= 1
+        },
+        (index * WAVE_INTERVAL_MS) / Math.sqrt(dt),
+      ),
     )
   }
   frame = window.requestAnimationFrame(draw)

@@ -7753,8 +7753,15 @@ export interface Celebration {
    * Full-screen confetti when the modal opens. Skipped for visitors who prefer reduced motion.
    */
   confettiEnabled?: boolean | null;
+  /**
+   * How many times the corners fire.
+   */
   confettiShots?: number | null;
-  confettiSpeed?: ('slow' | 'medium' | 'lively') | null;
+  /**
+   * From each bottom corner, 20–300. Larger values make a bigger splash.
+   */
+  confettiPieces?: number | null;
+  confettiSpeed?: ('verySlow' | 'slow' | 'medium' | 'lively') | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -14415,6 +14422,7 @@ export interface CelebrationsSelect<T extends boolean = true> {
   badgeLabel?: T;
   confettiEnabled?: T;
   confettiShots?: T;
+  confettiPieces?: T;
   confettiSpeed?: T;
   updatedAt?: T;
   createdAt?: T;

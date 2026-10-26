@@ -6,7 +6,7 @@ import { useId, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { resolveBlockSurface, type BlockBackground } from '@/blocks/shared/blockAppearance'
 import { resolveCardSurface } from '@/blocks/shared/cardSurface'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
 
@@ -228,17 +228,27 @@ export function DocumentChecklistTracker({
                 </span>
               </p>
             ) : null}
+            {/* Plain buttons: these sit on the white card, so the brand-section button
+                inversion (which targets data-slot="button") must not apply. */}
             {showClear ? (
-              <Button onClick={() => updateCheckedKeys([])} size="xs" type="button" variant="ghost">
+              <button
+                className={cn(buttonVariants({ size: 'xs', variant: 'ghost' }))}
+                onClick={() => updateCheckedKeys([])}
+                type="button"
+              >
                 <RotateCcw aria-hidden="true" />
                 Clear
-              </Button>
+              </button>
             ) : null}
             {showPrintButton ? (
-              <Button onClick={() => window.print()} size="xs" type="button" variant="outline">
+              <button
+                className={cn(buttonVariants({ size: 'xs', variant: 'outline' }))}
+                onClick={() => window.print()}
+                type="button"
+              >
                 <Printer aria-hidden="true" />
                 Print
-              </Button>
+              </button>
             ) : null}
           </div>
         ) : null}
@@ -540,7 +550,7 @@ export function DocumentChecklistTracker({
     ledgerNotes ??
     (!hasSidebar && notes.length > 0 ? (
       <div
-        className="flex min-w-0 flex-col divide-y divide-border rounded-card border border-border bg-muted/40 text-card-foreground"
+        className="flex min-w-0 flex-col divide-y divide-border rounded-card border border-border bg-[color-mix(in_oklch,var(--muted)_40%,var(--card))] text-card-foreground"
         data-document-checklist-notes="true"
       >
         {notes.map((note) => (

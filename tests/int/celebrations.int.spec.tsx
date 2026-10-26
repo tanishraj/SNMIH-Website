@@ -7,6 +7,7 @@ import { Celebrations } from '@/collections/Celebrations'
 import { CelebrationCard } from '@/components/celebration/CelebrationCard'
 import { CelebrationHost } from '@/components/celebration/CelebrationHost'
 import {
+  clampConfettiPieces,
   clampConfettiShots,
   clampTimesPerDay,
   isCelebrationActiveOn,
@@ -140,8 +141,11 @@ describe('celebration frequency', () => {
     })
     expect(clampTimesPerDay(0)).toBe(1)
     expect(clampTimesPerDay(99)).toBe(20)
-    expect(clampConfettiShots(undefined)).toBe(8)
+    expect(clampConfettiShots(undefined)).toBe(5)
     expect(clampConfettiShots(50)).toBe(8)
+    expect(clampConfettiPieces(undefined)).toBe(160)
+    expect(clampConfettiPieces(5)).toBe(20)
+    expect(clampConfettiPieces(999)).toBe(300)
   })
 })
 
@@ -157,7 +161,7 @@ describe('celebration view', () => {
       doc({ confettiShots: null, confettiSpeed: null }),
       'Asia/Kolkata',
     )
-    expect(view?.confetti).toEqual({ enabled: true, shots: 8, speed: 'slow' })
+    expect(view?.confetti).toEqual({ enabled: true, pieces: 160, shots: 5, speed: 'medium' })
     expect(view?.badgeLabel).toBe('Celebrating today')
     expect(view?.dateLabel).toEqual({ day: '22', month: 'October', year: '2026' })
   })
@@ -192,6 +196,7 @@ describe('celebration schema', () => {
         'actions',
         'confettiEnabled',
         'confettiShots',
+        'confettiPieces',
         'confettiSpeed',
       ]),
     )
