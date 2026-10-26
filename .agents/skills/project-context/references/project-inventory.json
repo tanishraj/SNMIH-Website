@@ -296,6 +296,25 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/DisclosureProforma/Component.tsx",
+        "configPath": "src/blocks/DisclosureProforma/config.ts",
+        "files": [
+          "src/blocks/DisclosureProforma/Component.tsx",
+          "src/blocks/DisclosureProforma/Presentation.tsx",
+          "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+          "src/blocks/DisclosureProforma/config.ts",
+          "src/blocks/DisclosureProforma/load.ts",
+          "src/blocks/DisclosureProforma/request.ts",
+          "src/blocks/DisclosureProforma/shared.ts"
+        ],
+        "interfaceName": "DisclosureProformaBlock",
+        "presentationPath": "src/blocks/DisclosureProforma/Presentation.tsx",
+        "previewComponentPath": "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+        "slug": "disclosureProforma",
+        "symbol": "DisclosureProformaBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/DocumentChecklist/Component.tsx",
         "configPath": "src/blocks/DocumentChecklist/config.ts",
         "files": [
@@ -1101,6 +1120,7 @@
       "ContentHighlightsBlock",
       "Cta39Block",
       "DepartmentProfilesBlock",
+      "DisclosureProformaBlock",
       "DocumentChecklistBlock",
       "DownloadListBlock",
       "EditorialReasonsBlock",
@@ -1157,6 +1177,7 @@
       "headerNavbar12"
     ],
     "livePreviewRenderer": [
+      "disclosureProforma",
       "announcement",
       "heroBanner",
       "heroCarousel",
@@ -1233,6 +1254,7 @@
       "calendar",
       "annualCalendar",
       "departmentProfiles",
+      "disclosureProforma",
       "galleryAlbumTabs",
       "qaAccordion",
       "statsStrip",
@@ -1285,6 +1307,7 @@
       "awardsList"
     ],
     "productionRenderer": [
+      "disclosureProforma",
       "announcement",
       "heroBanner",
       "heroCarousel",
@@ -1360,6 +1383,7 @@
       "calendar",
       "annualCalendar",
       "departmentProfiles",
+      "disclosureProforma",
       "galleryAlbumTabs",
       "qaAccordion",
       "statsStrip",
@@ -1668,6 +1692,7 @@
         "public/block-thumbnails/content-highlights.jpg",
         "public/block-thumbnails/cta-39.jpg",
         "public/block-thumbnails/department-profiles.jpg",
+        "public/block-thumbnails/disclosure-proforma.jpg",
         "public/block-thumbnails/document-checklist.jpg",
         "public/block-thumbnails/download-list.jpg",
         "public/block-thumbnails/editorial-reasons.jpg",
@@ -1720,6 +1745,10 @@
         "public/block-thumbnails/video-embed.jpg"
       ],
       "definitions": [
+        {
+          "filename": "disclosure-proforma.jpg",
+          "slug": "disclosureProforma"
+        },
         {
           "filename": "logos20.jpg",
           "slug": "logos20"
@@ -1994,6 +2023,7 @@
         }
       ],
       "fixtures": [
+        "disclosureProforma",
         "accreditationCards",
         "academicProgrammes",
         "leadershipProfiles",
@@ -2095,6 +2125,18 @@
       {
         "source": "src/collections/Celebrations.ts",
         "symbol": "Celebrations"
+      },
+      {
+        "source": "src/collections/Disclosure.ts",
+        "symbol": "DisclosureDatasets"
+      },
+      {
+        "source": "src/collections/Disclosure.ts",
+        "symbol": "DisclosurePeriods"
+      },
+      {
+        "source": "src/collections/Disclosure.ts",
+        "symbol": "DisclosureRecords"
       },
       {
         "source": "src/collections/Categories.ts",
@@ -2251,6 +2293,7 @@
       "docs/guides/celebrations.md",
       "docs/guides/cookie-consent.md",
       "docs/guides/dashboard.md",
+      "docs/guides/disclosure-proforma.md",
       "docs/guides/footers.md",
       "docs/guides/form-submissions.md",
       "docs/guides/forms.md",
@@ -2327,6 +2370,7 @@
       "src/app/(payload)/custom.scss",
       "src/app/(payload)/layout.tsx",
       "src/app/api/calendar-events/route.ts",
+      "src/app/api/disclosure-data/route.ts",
       "src/app/api/forms/[slug]/submit/route.ts",
       "src/app/api/frontend-session/route.ts",
       "src/app/api/media-download/[id]/route.ts",
@@ -2407,6 +2451,13 @@
       "src/blocks/DepartmentProfiles/RowLabels.tsx",
       "src/blocks/DepartmentProfiles/config.ts",
       "src/blocks/DepartmentProfiles/types.ts",
+      "src/blocks/DisclosureProforma/Component.tsx",
+      "src/blocks/DisclosureProforma/Presentation.tsx",
+      "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+      "src/blocks/DisclosureProforma/config.ts",
+      "src/blocks/DisclosureProforma/load.ts",
+      "src/blocks/DisclosureProforma/request.ts",
+      "src/blocks/DisclosureProforma/shared.ts",
       "src/blocks/DocumentChecklist/Component.tsx",
       "src/blocks/DocumentChecklist/DocumentChecklistArt.tsx",
       "src/blocks/DocumentChecklist/DocumentChecklistTracker.tsx",
@@ -2603,6 +2654,8 @@
       "src/collections/Articles.ts",
       "src/collections/Categories.ts",
       "src/collections/Celebrations.ts",
+      "src/collections/Disclosure/hooks.ts",
+      "src/collections/Disclosure/index.ts",
       "src/collections/Footers.ts",
       "src/collections/FormSubmissions.ts",
       "src/collections/Forms.ts",
@@ -2735,6 +2788,7 @@
       "src/components/ui/label.tsx",
       "src/components/ui/navigation-menu.tsx",
       "src/components/ui/pagination.tsx",
+      "src/components/ui/popover.tsx",
       "src/components/ui/progress.tsx",
       "src/components/ui/radio-group.tsx",
       "src/components/ui/select.tsx",
@@ -2940,6 +2994,8 @@
       "tests/int/dashboard-capability-filtering.int.spec.tsx",
       "tests/int/department-profiles-migration.int.spec.ts",
       "tests/int/department-profiles.int.spec.tsx",
+      "tests/int/disclosure-loader.int.spec.ts",
+      "tests/int/disclosure-proforma.int.spec.tsx",
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",
@@ -3098,7 +3154,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "a4746a756d0233e01210680d89e4af558d6701d42b88ef3ddaf978f0c3074ad8"
+    "sha256": "239a52013fcee59b5eaafaeeb302f2946ee549bd574677235baf2733e0f921cd"
   },
   "surfaces": {
     "access": [
@@ -3243,6 +3299,7 @@
       "src/app/(payload)/api/graphql/route.ts",
       "src/app/(payload)/layout.tsx",
       "src/app/api/calendar-events/route.ts",
+      "src/app/api/disclosure-data/route.ts",
       "src/app/api/forms/[slug]/submit/route.ts",
       "src/app/api/frontend-session/route.ts",
       "src/app/api/media-download/[id]/route.ts",
@@ -3316,6 +3373,8 @@
       "tests/int/dashboard-capability-filtering.int.spec.tsx",
       "tests/int/department-profiles-migration.int.spec.ts",
       "tests/int/department-profiles.int.spec.tsx",
+      "tests/int/disclosure-loader.int.spec.ts",
+      "tests/int/disclosure-proforma.int.spec.tsx",
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",

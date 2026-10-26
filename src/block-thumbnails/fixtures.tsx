@@ -1,3 +1,4 @@
+import { DisclosurePresentation } from '@/blocks/DisclosureProforma/Presentation'
 import type { ReactNode } from 'react'
 
 import { AnnouncementBlockComponent } from '@/blocks/Announcement/Component'
@@ -544,6 +545,44 @@ const thumbnailNewsEventsTabsGroups = {
 }
 
 export const blockThumbnailFixtures = {
+  disclosureProforma: (
+    <DisclosurePresentation
+      dataset="thumbnail"
+      title="Institutional disclosures"
+      description="Explore current information and previous reporting periods."
+      defaultSection="statistics"
+      archiveNote="Previous reporting periods remain available within each section."
+      staticPreview
+      initial={{
+        dataset: 'thumbnail',
+        periods: [{ id: 'september', label: 'September 2026' }],
+        period: 'september',
+        periodPage: 1,
+        hasMorePeriods: false,
+        groups: {
+          highlights: {
+            rows: [
+              { id: 'opd', label: 'Outpatient visits', value: '58,245' },
+              { id: 'ipd', label: 'Inpatients', value: '6,264' },
+              { id: 'births', label: 'Births reported', value: '182' },
+            ],
+            page: 1,
+            total: 3,
+            totalPages: 1,
+          },
+          monthly: {
+            rows: [
+              { id: 'deaths', label: 'Deaths reported', value: '26' },
+              { id: 'grievances', label: 'Grievances reported', value: null },
+            ],
+            page: 1,
+            total: 2,
+            totalPages: 1,
+          },
+        },
+      }}
+    />
+  ),
   accreditationCards: (
     <AccreditationCardsBlockComponent
       accreditations={[

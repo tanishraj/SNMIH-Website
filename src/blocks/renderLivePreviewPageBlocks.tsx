@@ -1,3 +1,4 @@
+import { DisclosureProformaPreviewBlockComponent } from './DisclosureProforma/PreviewComponent'
 import React from 'react'
 import type { Page } from '@/payload-types'
 import type { ReviewPreviewSnapshot } from '@/lib/reviewPreviewShared'
@@ -106,6 +107,8 @@ function renderLivePreviewPageBlockContent(
   } = args
 
   switch (block.blockType) {
+    case 'disclosureProforma':
+      return <DisclosureProformaPreviewBlockComponent key={key} {...block} />
     case 'announcement':
       return <AnnouncementBlockComponent key={key} {...block} />
     case 'heroBanner':

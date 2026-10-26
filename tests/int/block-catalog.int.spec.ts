@@ -45,7 +45,7 @@ const findBlocksFieldValue = (fields: Field[]): Block[] | undefined => {
 }
 
 describe('curated block catalog', () => {
-  it('offers the approved 20-block vocabulary before the advanced library', () => {
+  it('offers the approved 21-block vocabulary before the advanced library', () => {
     expect(slugsForGroup(pageBuilderBlocks, blockPickerGroups.start)).toEqual([
       'pageHeader',
       'heroBanner',
@@ -63,6 +63,7 @@ describe('curated block catalog', () => {
       'calendar',
       'annualCalendar',
       'departmentProfiles',
+      'disclosureProforma',
       'galleryAlbumTabs',
       'qaAccordion',
     ])
@@ -82,7 +83,7 @@ describe('curated block catalog', () => {
     )
     const groupsInDrawerOrder = [...new Set(pageBuilderBlocks.map((block) => block.admin?.group))]
 
-    expect(recommended).toHaveLength(20)
+    expect(recommended).toHaveLength(21)
     expect(groupsInDrawerOrder).toEqual([...recommendedGroups, blockPickerGroups.advanced])
   })
 
@@ -90,7 +91,7 @@ describe('curated block catalog', () => {
     const pageSlugs = pageBuilderBlocks.map((block) => block.slug)
     const advancedSlugs = slugsForGroup(pageBuilderBlocks, blockPickerGroups.advanced)
 
-    expect(pageSlugs).toHaveLength(62)
+    expect(pageSlugs).toHaveLength(63)
     expect(new Set(pageSlugs).size).toBe(pageSlugs.length)
     expect(advancedSlugs).toHaveLength(42)
     expect(advancedSlugs).toContain('integration23')

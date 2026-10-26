@@ -1,3 +1,4 @@
+import { DisclosureDatasets, DisclosurePeriods, DisclosureRecords } from '@/collections/Disclosure'
 import { describe, expect, it } from 'vitest'
 
 import { ADMIN_FEATURES, ADMIN_FEATURE_KEYS } from '@/access/adminFeatures'
@@ -38,6 +39,9 @@ const resources = {
   reviews: Reviews,
   reusableSections: ReusableSections,
   celebrations: Celebrations,
+  disclosureDatasets: DisclosureDatasets,
+  disclosurePeriods: DisclosurePeriods,
+  disclosureRecords: DisclosureRecords,
   newsEvents: NewsEvents,
   newsEventClassifications: NewsEventClassifications,
   newsEventsDetailTemplate: NewsEventsDetailTemplate,
@@ -75,7 +79,7 @@ describe('feature access matrix', () => {
       new Set(
         Object.values(ADMIN_FEATURES).map(({ resource }) => `${resource.kind}:${resource.slug}`),
       ).size,
-    ).toBe(30)
+    ).toBe(33)
   })
 
   it.each(ADMIN_FEATURE_KEYS)('uses %s for destination visibility and management', async (key) => {

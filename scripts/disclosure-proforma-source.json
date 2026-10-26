@@ -1,0 +1,204 @@
+{
+  "source": {
+    "fileName": "Pro forma 18.docx",
+    "sourceType": "user-supplied pro forma",
+    "currentAcademicSession": null,
+    "reportedMonth": "2026-09",
+    "publicationDate": null,
+    "publicationEditor": null,
+    "reportingLabel": "As of September 2026",
+    "userConfirmations": {
+      "reportingPeriod": "September 2026",
+      "publicationColumnLabel": "Scopes"
+    },
+    "publicationColumnInterpretation": null
+  },
+  "institution": {
+    "name": "Shree Narayan Medical Institute & Hospital",
+    "ownership": "Private",
+    "yearOfInception": null,
+    "address": "NH-107, Mahavir Nagar, Bherdhari, Saharsa, Bihar-852201",
+    "universityName": "Bihar University of Health Sciences",
+    "universityAddress": null,
+    "website": "https://snmih.in",
+    "leadershipName": "Col. Dr. (Prof.) Brajendra Kumar",
+    "leadershipPhone": "9324404919",
+    "leadershipEmail": "snfsaharsa@gmail.com",
+    "hospitalName": "Shree Narayan Medical Institute & Hospital",
+    "hospitalRegistrationDate": null,
+    "beds": 930,
+    "emergencyBeds": 30,
+    "firstLoPDate": "2021-11-01",
+    "firstLoPSeats": 150,
+    "recognitionStatusAsProvided": "Recognition"
+  },
+  "sessionPermission": {
+    "academicSession": null,
+    "mbbsPermittedIntake": 200,
+    "pgPermittedIntake": 38,
+    "superSpecialtyApplicability": "notApplicable",
+    "mbbsAdmitted": null,
+    "pgAdmittedFromListedCourses": 35,
+    "note": "The source row asks for admitted students, but its MBBS and MD/MS values explicitly describe permission. Preserve these as permitted intake, not actual admissions."
+  },
+  "monthlyStatistics": [
+    {
+      "month": "2026-09",
+      "inpatients": 6264,
+      "outpatients": 58245,
+      "deaths": 26,
+      "births": 182,
+      "grievances": null
+    }
+  ],
+  "pgCourses": [
+    {
+      "name": "MD- Pediatrics",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 3,
+      "admitted": 3,
+      "permittedSeats": null
+    },
+    {
+      "name": "MD- Anesthesiology",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 4,
+      "admitted": 4,
+      "permittedSeats": null
+    },
+    {
+      "name": "MD- Dermatology",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 4,
+      "admitted": 4,
+      "permittedSeats": null
+    },
+    {
+      "name": "MD- General Medicine",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 4,
+      "admitted": 4,
+      "permittedSeats": null
+    },
+    {
+      "name": "MD- Radio-Diagnosis",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 2,
+      "admitted": 2,
+      "permittedSeats": null
+    },
+    {
+      "name": "MD- Pathology",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 4,
+      "admitted": 4,
+      "permittedSeats": null
+    },
+    {
+      "name": "MS- General Surgery",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 4,
+      "admitted": 4,
+      "permittedSeats": null
+    },
+    {
+      "name": "MS- Obst. & Gynecology",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 3,
+      "admitted": 3,
+      "permittedSeats": null
+    },
+    {
+      "name": "MS- Orthopedics",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 3,
+      "admitted": 3,
+      "permittedSeats": null
+    },
+    {
+      "name": "MS- Ophthalmology",
+      "commencementSession": "2025-26",
+      "commencementNote": "LOP",
+      "pursuing": 4,
+      "admitted": 4,
+      "permittedSeats": null
+    }
+  ],
+  "hostels": [
+    {
+      "name": "Men’s hostel",
+      "rooms": null,
+      "studentsAccommodated": null,
+      "capacity": null
+    },
+    {
+      "name": "Women’s hostel",
+      "rooms": null,
+      "studentsAccommodated": null,
+      "capacity": null
+    }
+  ],
+  "grievanceOfficer": {
+    "name": null,
+    "role": null,
+    "address": null,
+    "phone": null,
+    "email": null
+  },
+  "statutoryReporting": [
+    {
+      "type": "births",
+      "authority": "Municipal Corporation, Gangjala Saharsa",
+      "postalCode": null,
+      "url": "https://hmis.mohfw.gov.in/#!/"
+    },
+    {
+      "type": "deaths",
+      "authority": "Municipal Corporation, Gangjala Saharsa",
+      "postalCode": null,
+      "url": "https://hmis.mohfw.gov.in/#!/"
+    }
+  ],
+  "faculty": [],
+  "publications": [],
+  "facultyRequiredFields": [
+    "department",
+    "name",
+    "qualifications",
+    "imrNumber",
+    "designation",
+    "promotionDate",
+    "employmentNature",
+    "serviceHistory",
+    "lecturesByYear",
+    "topicsCovered",
+    "medicalEducatorTraining",
+    "researchMethodologyTraining"
+  ],
+  "publicationRequiredFields": [
+    "faculty",
+    "vancouverCitation",
+    "pubmedIndexed",
+    "scopesAsProvided"
+  ],
+  "unconfirmed": [
+    "Current academic session for permission and PG enrolment/admission figures",
+    "Institution inception year",
+    "University address and postal code",
+    "Hospital registration date",
+    "Hostel rooms, accommodation counts and capacity",
+    "Grievance officer details and monthly grievance count",
+    "Faculty, service, teaching, training and publication records",
+    "Reporting authority postal code",
+    "Surgery, departmental facilities and annual hospital performance data"
+  ]
+}

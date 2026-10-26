@@ -26,13 +26,14 @@ This is the maintained technical map of the starter. It records what is register
 
 | Group          | Collection                             | Responsibilities                                                                                                     |
 | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Content        | Pages                                  | Hierarchical routes, 62-block layouts, native drafts, SEO, live preview, page-owned links, path-change redirects     |
+| Content        | Pages                                  | Hierarchical routes, 63-block layouts, native drafts, SEO, live preview, page-owned links, path-change redirects     |
 | Content        | Articles                               | Long-form Lexical content, topics/tags, related content, SEO, native drafts, live preview                            |
 | News & Events  | News & Events                          | Single-choice classifications, event validation/registration, taxonomy, block/detail/feed data, drafts, live preview |
 | News & Events  | Classifications                        | Public labels, Story/Event behavior, and Calendar colors used by entries, badges, tabs, dates, and validation        |
 | Content        | Reviews                                | Moderated ratings and testimonials, source-submission linkage, taxonomy, SEO, native drafts, live preview            |
 | Content        | Reusable Sections                      | Shared versioned block stacks with recursion and high-complexity block restrictions                                  |
 | Content        | Celebrations                           | Scheduled celebration modals: date window in the site timezone, enable switch, every-page or block placement, five styles, per-visitor frequency, slow multi-burst confetti|
+| Content        | Disclosure Datasets / Periods / Records | Retained institutional reports, configurable facts and tables, server pagination, publication credits |
 | Taxonomy       | Topics (`categories`)                  | Hierarchical editorial topics with SEO data                                                                          |
 | Taxonomy       | Tags                                   | Flat editorial keywords with SEO data                                                                                |
 | Navigation     | Navigation Links                       | Page/custom destinations, including records synchronized from Pages                                                  |
@@ -72,7 +73,7 @@ Globals with versions retain history. Relevant changes invalidate cached fronten
 
 - The only roles are Admin and Site Manager. The first user is promoted to Admin, and the last active Admin cannot be demoted or deleted.
 - Admins implicitly hold every feature and may create additional Admins or Site Managers. New Site Managers receive no features until an Admin grants them.
-- The registry exposes 30 features corresponding to Admin destinations. Each grant controls sidebar visibility and server access; missing grants fail closed.
+- The registry exposes 33 features corresponding to Admin destinations. Each grant controls sidebar visibility and server access; missing grants fail closed.
 - Pages, Articles, News & Events, Reviews, and System Pages use Payload's native `_status` as their only draft/publication state. Publishing stamps user/time metadata.
 - Review submissions remain draft and pending until an Admin or Reviews-granted Site Manager approves or rejects them. Only approved submitted Reviews may be public.
 - Action Queue and Audit Log access is intersected with the user's source-feature grants; records from ungranted or unmapped features remain hidden.
@@ -84,7 +85,7 @@ See [Users, Features, and Publication Governance](../operations/editorial-govern
 
 ## Page And Shell Block Systems
 
-The canonical catalog contains 62 Page blocks. Normal Pages register all 62 choices: Announcement, Banner CTA, News Grid, News & Events Tabs, Calendar, Annual Calendar, Call to Action, Hero Banner, Hero Carousel, Gallery Coverflow, Feature Spotlight, Testimonial Spotlight, Feature Matrix, Content Highlights, Editorial Reasons, Academic Programmes, Leadership Profiles, Department Profiles, News & Events Highlights, Profile Carousel, Gallery Showcase, Event Gallery, Gallery Album Tabs, Image Mosaic, Student Experience, Stats Strip, Q&A Accordion, Rating Spotlight, Review Feed, Review Submission, Contact Form, Regional Offices, Team Showcase, Services, Rich Text, Video Embed, Media Carousel, Program Matrix, Logo Strip, Logo Marquee, Partner Directory, Page Header, Breadcrumb, Timeline, Icon Card Showcase, Icon Grid, Quote Block, Tabs Content, Download List, Fee Structure, PG Fee Structure, Bank Details, Document Checklist, Contact Numbers, Celebration, Numbered Steps, Bento Grid, Testimonial Grid, Awards List, About Section, Accreditation Cards, and Reusable Section. Reusable Sections expose the 61 non-recursive Page-compatible blocks.
+The canonical catalog contains 63 Page blocks. Normal Pages register all 63 choices: Announcement, Banner CTA, News Grid, News & Events Tabs, Calendar, Annual Calendar, Call to Action, Hero Banner, Hero Carousel, Gallery Coverflow, Feature Spotlight, Testimonial Spotlight, Feature Matrix, Content Highlights, Editorial Reasons, Academic Programmes, Leadership Profiles, Department Profiles, Disclosure Proforma, News & Events Highlights, Profile Carousel, Gallery Showcase, Event Gallery, Gallery Album Tabs, Image Mosaic, Student Experience, Stats Strip, Q&A Accordion, Rating Spotlight, Review Feed, Review Submission, Contact Form, Regional Offices, Team Showcase, Services, Rich Text, Video Embed, Media Carousel, Program Matrix, Logo Strip, Logo Marquee, Partner Directory, Page Header, Breadcrumb, Timeline, Icon Card Showcase, Icon Grid, Quote Block, Tabs Content, Download List, Fee Structure, PG Fee Structure, Bank Details, Document Checklist, Contact Numbers, Celebration, Numbered Steps, Bento Grid, Testimonial Grid, Awards List, About Section, Accreditation Cards, and Reusable Section. Reusable Sections expose the 62 non-recursive Page-compatible blocks.
 
 Leadership Profiles provides a static, non-clickable leadership directory with an optional section title, required profile media and names, optional content nameplates, accented designations, qualifications, and up to three smaller expertise items. It omits an entirely empty header, adapts profile heading levels to the presence of a section title, and uses the shared split/stacked header when content exists. Its block-wide Standard layout preserves all profile metadata and one shared semantic card surface; a hidden per-profile field remains only as a first-profile fallback for saved content. The optional Image Overlay layout uses fixed `4:5` portraits plus shared tone, strength, direction, and coverage controls, and displays only the leadership label, name, and designation. Qualification and expertise values remain saved and return when Standard is selected. Existing documents use Standard without migration. The responsive grid retains one mobile column, at most two tablet columns, and two-to-four configured desktop columns.
 
@@ -291,3 +292,8 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
   tests, and the production build. Mongo-backed tests use a single-node replica set. The supplied
   Dockerfile builds a non-root Next.js standalone production image; production containers require
   durable MongoDB and S3-compatible media storage.
+
+
+### Disclosure Proforma
+
+The Explore block `disclosureProforma` uses shared Content/Theme Settings, appearance, spacing, actions and typography. Three retained collections (`disclosure-datasets`, `disclosure-periods`, `disclosure-records`) keep historical data outside Page layouts. Periods and records support unlimited versions and native drafts, with deletion disabled. The public `/api/disclosure-data` endpoint validates scope and bounds, filters published periods/records and projects safe row fields; authenticated drafts use feature/dependency access. Publication hooks maintain a dataset revision and containing-block credits, including unpublication after draft edits, and invalidate public Page caches. Public Display Name supplies safe editor credits.

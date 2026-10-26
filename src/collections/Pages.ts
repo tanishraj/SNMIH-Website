@@ -1,3 +1,4 @@
+import { stampPageDisclosures } from './Disclosure/hooks'
 import { type CollectionConfig, type RelationshipFieldSingleValidation } from 'payload'
 
 import { pageBuilderBlocks } from '@/blocks/blockCatalog'
@@ -160,6 +161,7 @@ export const Pages: CollectionConfig = {
     ],
     afterDelete: [syncNavigationLinkAfterDelete, revalidateDeletedPageCache],
     beforeChange: [
+      stampPageDisclosures,
       validateSEOContract(),
       enforcePublicationPolicy('pages', 'pages'),
       preventReferencedPageUnpublish,

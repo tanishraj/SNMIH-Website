@@ -53,7 +53,7 @@ Nine globals are registered:
 
 ## Feature and Publication Governance
 
-The only roles are Admin and Site Manager. Admins implicitly hold every registered feature and may grant any subset of the 30 Admin destinations to Site Managers. A missing grant fails closed in the sidebar and at the Payload access layer. Relationship dependencies receive bounded read access without exposing the destination or permitting mutation.
+The only roles are Admin and Site Manager. Admins implicitly hold every registered feature and may grant any subset of the 33 Admin destinations to Site Managers. A missing grant fails closed in the sidebar and at the Payload access layer. Relationship dependencies receive bounded read access without exposing the destination or permitting mutation.
 
 Governed content uses Payload's native `_status` as its only draft/publication state. Open or blocked approval/publish-issue queue items prevent publishing; in-progress items do not. Publishing stamps actor and time metadata. Public review submissions additionally remain draft and pending until an Admin or Reviews-granted Site Manager approves or rejects them.
 
@@ -119,3 +119,20 @@ dialog with full-window confetti (particles skipped for reduced motion). The `ce
 published celebration) mounts a page-priority host; a shared slot lets only one celebration open per page, with the
 page block outranking the site-wide host. Pages, Reusable Sections, and the News & Events detail template list
 `celebrations` in their dependency reads so editors can pick one.
+
+
+## Disclosure records
+
+Disclosure Datasets are lightweight shared scopes; Disclosure Periods and Disclosure Records use
+native drafts and unlimited versions. All three disable deletion and trash to retain history.
+Records are individual facts/metrics/table rows with typed native value/cell/detail fields, keyed to
+configured sections/groups. Each period belongs to one dataset; records cannot move between periods
+or datasets. Public record access also requires its parent period to be published. Internal source
+notes have feature-protected reads. The endpoint projects only display fields.
+
+Every published change and unpublication advances the dataset publication revision; draft saves over
+published content do not. Hooks read the published base before a change because Payload's latest
+version may be a draft, preserve transaction requests, and expire Page caches. Three explicit feature
+grants control mutations; Page, Reusable Section and detail-template editors have dependency reads.
+Users optionally provide Public Display Name for safe publication credits, with Editorial team and
+System import fallbacks instead of email addresses.

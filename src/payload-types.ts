@@ -74,6 +74,9 @@ export interface Config {
     reviews: Review;
     'reusable-sections': ReusableSection;
     celebrations: Celebration;
+    'disclosure-datasets': DisclosureDataset;
+    'disclosure-periods': DisclosurePeriod;
+    'disclosure-records': DisclosureRecord;
     categories: Category;
     tags: Tag;
     'navigation-links': NavigationLink;
@@ -104,6 +107,9 @@ export interface Config {
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'reusable-sections': ReusableSectionsSelect<false> | ReusableSectionsSelect<true>;
     celebrations: CelebrationsSelect<false> | CelebrationsSelect<true>;
+    'disclosure-datasets': DisclosureDatasetsSelect<false> | DisclosureDatasetsSelect<true>;
+    'disclosure-periods': DisclosurePeriodsSelect<false> | DisclosurePeriodsSelect<true>;
+    'disclosure-records': DisclosureRecordsSelect<false> | DisclosureRecordsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'navigation-links': NavigationLinksSelect<false> | NavigationLinksSelect<true>;
@@ -210,6 +216,7 @@ export interface Page {
         | CalendarBlock
         | AnnualCalendarBlock
         | DepartmentProfilesBlock
+        | DisclosureProformaBlock
         | GalleryAlbumTabsBlock
         | QaAccordionBlock
         | StatsStripBlock
@@ -650,6 +657,7 @@ export interface ReusableSection {
         | CalendarBlock
         | AnnualCalendarBlock
         | DepartmentProfilesBlock
+        | DisclosureProformaBlock
         | GalleryAlbumTabsBlock
         | QaAccordionBlock
         | StatsStripBlock
@@ -2000,6 +2008,166 @@ export interface DepartmentProfilesBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'departmentProfiles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisclosureProformaBlock".
+ */
+export interface DisclosureProformaBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Select the dataset whose reporting periods and records this block displays.
+   */
+  dataset: string | DisclosureDataset;
+  /**
+   * Reorder sections, edit labels and configure each group of facts, metrics or table columns.
+   */
+  sections: {
+    key: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
+    enabled?: boolean | null;
+    label: string;
+    description?: string | null;
+    groups: {
+      /**
+       * Stable key used to match data records. Changing it does not rename existing records.
+       */
+      key: string;
+      title?: string | null;
+      layout: 'facts' | 'metrics' | 'table';
+      /**
+       * Cell keys must match the keys entered on Disclosure Records.
+       */
+      columns?:
+        | {
+            /**
+             * Stable key used to match data records. Changing it does not rename existing records.
+             */
+            key: string;
+            label: string;
+            numeric?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  defaultSection?:
+    ('institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications') | null;
+  emptyMessage?: string | null;
+  missingMessage?: string | null;
+  archiveNote?: string | null;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  contentAlignment?: ('left' | 'center') | null;
+  /**
+   * Split shows the reporting record beside the introduction on wide screens. Centred sections always stack.
+   */
+  headerLayout?: ('split' | 'stacked') | null;
+  sidebarWidth?: ('standard' | 'wide') | null;
+  showSectionNumbers?: boolean | null;
+  density?: ('compact' | 'comfortable') | null;
+  /**
+   * How Not supplied and Not applicable values appear. Footnotes add one note under each affected group.
+   */
+  missingValueStyle?: ('chip' | 'footnote' | 'text') | null;
+  itemsPerPage?: ('5' | '10' | '20' | '50') | null;
+  paginationMode?: ('pages' | 'loadMore') | null;
+  size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'disclosureProforma';
+}
+/**
+ * A reusable disclosure directory. Historical records are retained; deletion is disabled.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-datasets".
+ */
+export interface DisclosureDataset {
+  id: string;
+  title: string;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8232,6 +8400,10 @@ export interface AwardsListBlock {
 export interface User {
   id: string;
   /**
+   * Shown in disclosure update credits. Use a name or office label; email addresses are never used as a fallback.
+   */
+  publicDisplayName?: string | null;
+  /**
    * Admins have full access. Site Managers receive only selected features.
    */
   role: 'admin' | 'siteManager';
@@ -8259,6 +8431,18 @@ export interface User {
      * Schedule, edit, preview, publish, enable or disable, trash, and restore celebration modals.
      */
     celebrations?: boolean | null;
+    /**
+     * Manage retained institutional disclosure information.
+     */
+    disclosureDatasets?: boolean | null;
+    /**
+     * Manage retained institutional disclosure information.
+     */
+    disclosurePeriods?: boolean | null;
+    /**
+     * Manage retained institutional disclosure information.
+     */
+    disclosureRecords?: boolean | null;
     /**
      * Create, edit, preview, publish, version, trash, and restore News & Events.
      */
@@ -8815,6 +8999,95 @@ export interface FormSubmission {
   deletedAt?: string | null;
 }
 /**
+ * Create a new period for each report; previous periods remain available.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-periods".
+ */
+export interface DisclosurePeriod {
+  id: string;
+  dataset: string | DisclosureDataset;
+  label: string;
+  /**
+   * Orders reporting periods. This is separate from the automatic publication date.
+   */
+  asOf: string;
+  /**
+   * Only enter a confirmed session. Course commencement is not the current session.
+   */
+  academicSession?: string | null;
+  source?: (string | null) | Media;
+  sourceNote?: string | null;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * One fact, metric or table row per record. Use the section and group keys configured in the Disclosure Proforma block.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-records".
+ */
+export interface DisclosureRecord {
+  id: string;
+  dataset: string | DisclosureDataset;
+  period: string | DisclosurePeriod;
+  section: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
+  /**
+   * Match a group key in the block, e.g. highlights, monthly, programmes or register.
+   */
+  groupKey: string;
+  /**
+   * Fact / metric label, or a descriptive title for a table row.
+   */
+  label: string;
+  sortOrder: number;
+  rowType?: ('value' | 'table') | null;
+  content?: {
+    valueState?: ('provided' | 'notSupplied' | 'notApplicable') | null;
+    /**
+     * Enter the source value exactly. A blank value is not treated as zero.
+     */
+    value?: string | null;
+  };
+  /**
+   * One cell for each configured column key. Leave unknown values unfilled.
+   */
+  cells?:
+    | {
+        key: string;
+        valueState?: ('provided' | 'notSupplied' | 'notApplicable') | null;
+        /**
+         * Enter the source value exactly. A blank value is not treated as zero.
+         */
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional department for searching faculty or clinical records.
+   */
+  department?: string | null;
+  /**
+   * Additional details such as promotion date, employment type, service history, lectures, topics and training dates. Add a new period record for later disclosures.
+   */
+  details?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  sourceNote?: string | null;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * Reusable destinations for menus, CTAs, legal links, and utility links.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9306,6 +9579,9 @@ export interface WorkQueue {
     | 'reviews'
     | 'reusableSections'
     | 'celebrations'
+    | 'disclosureDatasets'
+    | 'disclosurePeriods'
+    | 'disclosureRecords'
     | 'newsEvents'
     | 'newsEventClassifications'
     | 'newsEventsDetailTemplate'
@@ -9434,6 +9710,9 @@ export interface OperationalAuditEvent {
         | 'reviews'
         | 'reusableSections'
         | 'celebrations'
+        | 'disclosureDatasets'
+        | 'disclosurePeriods'
+        | 'disclosureRecords'
         | 'newsEvents'
         | 'newsEventClassifications'
         | 'newsEventsDetailTemplate'
@@ -9545,6 +9824,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'celebrations';
         value: string | Celebration;
+      } | null)
+    | ({
+        relationTo: 'disclosure-datasets';
+        value: string | DisclosureDataset;
+      } | null)
+    | ({
+        relationTo: 'disclosure-periods';
+        value: string | DisclosurePeriod;
+      } | null)
+    | ({
+        relationTo: 'disclosure-records';
+        value: string | DisclosureRecord;
       } | null)
     | ({
         relationTo: 'categories';
@@ -9675,6 +9966,7 @@ export interface PagesSelect<T extends boolean = true> {
         calendar?: T | CalendarBlockSelect<T>;
         annualCalendar?: T | AnnualCalendarBlockSelect<T>;
         departmentProfiles?: T | DepartmentProfilesBlockSelect<T>;
+        disclosureProforma?: T | DisclosureProformaBlockSelect<T>;
         galleryAlbumTabs?: T | GalleryAlbumTabsBlockSelect<T>;
         qaAccordion?: T | QaAccordionBlockSelect<T>;
         statsStrip?: T | StatsStripBlockSelect<T>;
@@ -10581,6 +10873,102 @@ export interface DepartmentProfilesBlockSelect<T extends boolean = true> {
   smallColumns?: T;
   cardFrame?: T;
   size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisclosureProformaBlock_select".
+ */
+export interface DisclosureProformaBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  dataset?: T;
+  sections?:
+    | T
+    | {
+        key?: T;
+        enabled?: T;
+        label?: T;
+        description?: T;
+        groups?:
+          | T
+          | {
+              key?: T;
+              title?: T;
+              layout?: T;
+              columns?:
+                | T
+                | {
+                    key?: T;
+                    label?: T;
+                    numeric?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  defaultSection?: T;
+  emptyMessage?: T;
+  missingMessage?: T;
+  archiveNote?: T;
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  contentAlignment?: T;
+  headerLayout?: T;
+  sidebarWidth?: T;
+  showSectionNumbers?: T;
+  density?: T;
+  missingValueStyle?: T;
+  itemsPerPage?: T;
+  paginationMode?: T;
+  size?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
   anchorId?: T;
   id?: T;
   blockName?: T;
@@ -14324,6 +14712,7 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         calendar?: T | CalendarBlockSelect<T>;
         annualCalendar?: T | AnnualCalendarBlockSelect<T>;
         departmentProfiles?: T | DepartmentProfilesBlockSelect<T>;
+        disclosureProforma?: T | DisclosureProformaBlockSelect<T>;
         galleryAlbumTabs?: T | GalleryAlbumTabsBlockSelect<T>;
         qaAccordion?: T | QaAccordionBlockSelect<T>;
         statsStrip?: T | StatsStripBlockSelect<T>;
@@ -14432,6 +14821,75 @@ export interface CelebrationsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-datasets_select".
+ */
+export interface DisclosureDatasetsSelect<T extends boolean = true> {
+  title?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-periods_select".
+ */
+export interface DisclosurePeriodsSelect<T extends boolean = true> {
+  dataset?: T;
+  label?: T;
+  asOf?: T;
+  academicSession?: T;
+  source?: T;
+  sourceNote?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-records_select".
+ */
+export interface DisclosureRecordsSelect<T extends boolean = true> {
+  dataset?: T;
+  period?: T;
+  section?: T;
+  groupKey?: T;
+  label?: T;
+  sortOrder?: T;
+  rowType?: T;
+  content?:
+    | T
+    | {
+        valueState?: T;
+        value?: T;
+      };
+  cells?:
+    | T
+    | {
+        key?: T;
+        valueState?: T;
+        value?: T;
+        id?: T;
+      };
+  department?: T;
+  details?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  sourceNote?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
   _status?: T;
 }
 /**
@@ -15047,6 +15505,7 @@ export interface OperationalAuditEventsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  publicDisplayName?: T;
   role?: T;
   features?:
     | T
@@ -15056,6 +15515,9 @@ export interface UsersSelect<T extends boolean = true> {
         reviews?: T;
         reusableSections?: T;
         celebrations?: T;
+        disclosureDatasets?: T;
+        disclosurePeriods?: T;
+        disclosureRecords?: T;
         newsEvents?: T;
         newsEventClassifications?: T;
         newsEventsDetailTemplate?: T;
@@ -15401,6 +15863,7 @@ export interface NewsEventsDetailTemplate {
         | CalendarBlock
         | AnnualCalendarBlock
         | DepartmentProfilesBlock
+        | DisclosureProformaBlock
         | GalleryAlbumTabsBlock
         | QaAccordionBlock
         | StatsStripBlock
@@ -15695,6 +16158,7 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         calendar?: T | CalendarBlockSelect<T>;
         annualCalendar?: T | AnnualCalendarBlockSelect<T>;
         departmentProfiles?: T | DepartmentProfilesBlockSelect<T>;
+        disclosureProforma?: T | DisclosureProformaBlockSelect<T>;
         galleryAlbumTabs?: T | GalleryAlbumTabsBlockSelect<T>;
         qaAccordion?: T | QaAccordionBlockSelect<T>;
         statsStrip?: T | StatsStripBlockSelect<T>;

@@ -120,6 +120,10 @@ export const LEGACY_FEATURE_CAPABILITY_RULES: Record<AdminFeatureKey, Capability
   reusableSections: { capabilities: ['manage_pages'] },
   // Added after this migration ran; kept typed so the record covers every current feature.
   celebrations: { capabilities: ['manage_page_settings'] },
+  // New destinations have no legacy grant; administrators opt managers in explicitly.
+  disclosureDatasets: { capabilities: [], mode: 'any' },
+  disclosurePeriods: { capabilities: [], mode: 'any' },
+  disclosureRecords: { capabilities: [], mode: 'any' },
   newsEvents: { capabilities: ['manage_news_events', 'publish_news_events'] },
   newsEventClassifications: { capabilities: ['manage_news_events'] },
   newsEventsDetailTemplate: {
