@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import type { ElementType, PointerEvent, ReactNode } from 'react'
 
 import type { CelebrationView } from '@/lib/celebrations/view'
+import { CELEBRATION_IMAGE_WIDTHS } from '@/lib/celebrations/shared'
 import { cn } from '@/lib/utils'
 
 import styles from './celebration.module.css'
@@ -26,6 +27,11 @@ export const CELEBRATION_WIDTHS: Record<CelebrationView['style'], number> = {
   poster: 460,
   ticket: 720,
 }
+
+export const getCelebrationWidth = (view: CelebrationView): number =>
+  view.imageOnly && view.image
+    ? (CELEBRATION_IMAGE_WIDTHS[view.imageSize ?? 'medium'] ?? CELEBRATION_IMAGE_WIDTHS.medium)
+    : CELEBRATION_WIDTHS[view.style]
 
 const Heading = ({ Title, view }: { Title: ElementType; view: CelebrationView }) =>
   view.heading || view.accentHeading ? (

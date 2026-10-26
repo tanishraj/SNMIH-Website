@@ -2288,6 +2288,7 @@
       "src/access/adminFeatures.ts",
       "src/access/featureAccess.ts",
       "src/app/(block-thumbnails)/block-thumbnail-previews/[slug]/page.tsx",
+      "src/app/(block-thumbnails)/celebration-examples/page.tsx",
       "src/app/(block-thumbnails)/layout.tsx",
       "src/app/(frontend)/ManagedCmsPage.tsx",
       "src/app/(frontend)/PageContent.tsx",
@@ -2646,11 +2647,13 @@
       "src/components/articles/ArticleArchivePage.tsx",
       "src/components/articles/ArticlePage.tsx",
       "src/components/celebration/CelebrationCard.tsx",
+      "src/components/celebration/CelebrationExamples.tsx",
       "src/components/celebration/CelebrationHost.tsx",
       "src/components/celebration/CelebrationPreview.tsx",
       "src/components/celebration/celebration.module.css",
       "src/components/celebration/celebrationSlot.ts",
       "src/components/celebration/confetti.ts",
+      "src/components/celebration/confettiCones.ts",
       "src/components/contact24.tsx",
       "src/components/contact33.tsx",
       "src/components/content-highlights.tsx",
@@ -2918,6 +2921,7 @@
       "tests/int/card-theme-contract.int.spec.ts",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/celebration-confetti.int.spec.ts",
       "tests/int/celebrations.int.spec.tsx",
       "tests/int/contact-numbers.int.spec.tsx",
       "tests/int/contact24-data.int.spec.ts",
@@ -3094,7 +3098,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "afd13ba8c83d38bcaeb8d75ccd40ed1e0290b8d4436c661ee0e7e41bdc729bd4"
+    "sha256": "a4746a756d0233e01210680d89e4af558d6701d42b88ef3ddaf978f0c3074ad8"
   },
   "surfaces": {
     "access": [
@@ -3210,6 +3214,7 @@
     ],
     "routes": [
       "src/app/(block-thumbnails)/block-thumbnail-previews/[slug]/page.tsx",
+      "src/app/(block-thumbnails)/celebration-examples/page.tsx",
       "src/app/(block-thumbnails)/layout.tsx",
       "src/app/(frontend)/[...slug]/page.tsx",
       "src/app/(frontend)/articles/[slug]/opengraph-image.tsx",
@@ -3292,6 +3297,7 @@
       "tests/int/card-theme-contract.int.spec.ts",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/celebration-confetti.int.spec.ts",
       "tests/int/celebrations.int.spec.tsx",
       "tests/int/contact-numbers.int.spec.tsx",
       "tests/int/contact24-data.int.spec.ts",

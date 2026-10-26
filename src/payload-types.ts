@@ -7685,6 +7685,10 @@ export interface Celebration {
    */
   imageOnly?: boolean | null;
   /**
+   * Image-only popup width: Small 560px, Medium 720px, Large 960px. Automatically fits smaller screens without cropping.
+   */
+  imageSize?: ('small' | 'medium' | 'large') | null;
+  /**
    * Portrait for Aurora Halo, picture for Glass Bloom and Ticket, poster for Floating Poster.
    */
   image?: (string | null) | Media;
@@ -14388,6 +14392,7 @@ export interface CelebrationsSelect<T extends boolean = true> {
   endDate?: T;
   lastDay?: T;
   imageOnly?: T;
+  imageSize?: T;
   image?: T;
   eyebrow?: T;
   heading?: T;

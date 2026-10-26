@@ -47,7 +47,7 @@ const loadSiteWideCelebrations = async (): Promise<CelebrationView[]> => {
 export const getSiteWideCelebrations = unstable_cache(
   loadSiteWideCelebrations,
   // Bump the version whenever CelebrationView changes shape, so stale cached views are not reused.
-  ['site-wide-celebrations', 'v2'],
+  ['site-wide-celebrations', 'v3'],
   {
     // An hourly refresh drops ended celebrations even when nothing is edited.
     revalidate: 3600,

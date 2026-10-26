@@ -4,7 +4,7 @@ import type { CelebrationView } from '@/lib/celebrations/view'
 import { cn } from '@/lib/utils'
 
 import styles from './celebration.module.css'
-import { CELEBRATION_WIDTHS, CelebrationCard } from './CelebrationCard'
+import { getCelebrationWidth, CelebrationCard } from './CelebrationCard'
 
 const formatWindow = (view: CelebrationView) =>
   view.startKey === view.endKey ? view.startKey : `${view.startKey} – ${view.endKey}`
@@ -22,7 +22,7 @@ export function CelebrationPreview({ view }: { view: CelebrationView }) {
       <div className={cn(styles.root, styles.preview)}>
         <div
           className={cn(styles.root, styles.content)}
-          style={{ ['--cel-width' as string]: `${CELEBRATION_WIDTHS[view.style]}px` }}
+          style={{ ['--cel-width' as string]: `${getCelebrationWidth(view)}px` }}
         >
           <CelebrationCard view={view} />
         </div>

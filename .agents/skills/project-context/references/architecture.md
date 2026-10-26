@@ -193,3 +193,9 @@ so moving that Page beneath a parent does not leave consent UI pointing at its l
   replica set so transaction behavior matches the supported adapter.
 
 Use the maintained [feature inventory](../../../../docs/architecture/feature-inventory.md), [content model map](../../../../docs/architecture/content-model-map.md), [runtime/provider runbook](../../../../docs/operations/runtime-and-providers.md), and [developer workflows](../../../../docs/operations/developer-workflows.md) for deeper operational context.
+
+## Local celebration gallery
+
+`/celebration-examples` uses the block-thumbnail root layout and returns 404 outside development.
+It presents all five celebration styles with illustrative fixtures and launches the real CelebrationHost
+for interactive cone/confetti previews, without writing CMS records.

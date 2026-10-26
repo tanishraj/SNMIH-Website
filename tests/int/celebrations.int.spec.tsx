@@ -4,7 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { CelebrationBlock } from '@/blocks/Celebration/config'
 import { Celebrations } from '@/collections/Celebrations'
-import { CelebrationCard } from '@/components/celebration/CelebrationCard'
+import { CelebrationCard, getCelebrationWidth } from '@/components/celebration/CelebrationCard'
+import { CelebrationPreview } from '@/components/celebration/CelebrationPreview'
 import { CelebrationHost } from '@/components/celebration/CelebrationHost'
 import {
   clampConfettiPieces,
@@ -163,6 +164,7 @@ describe('celebration view', () => {
     )
     expect(view?.confetti).toEqual({ enabled: true, pieces: 160, shots: 5, speed: 'medium' })
     expect(view?.badgeLabel).toBe('Celebrating today')
+    expect(view?.imageSize).toBe('medium')
     expect(view?.dateLabel).toEqual({ day: '22', month: 'October', year: '2026' })
   })
 })
@@ -190,6 +192,7 @@ describe('celebration schema', () => {
         'frequency',
         'timesPerDay',
         'imageOnly',
+        'imageSize',
         'image',
         'heading',
         'message',
@@ -247,6 +250,35 @@ describe('celebration rendering', () => {
     )
     expect(html).toContain('data-celebration-image-only="true"')
     expect(html).toContain('class="sr-only"')
+  })
+
+  it.each([
+    ['small', 560],
+    ['medium', 720],
+    ['large', 960],
+  ] as const)('uses the %s image size in the popup and preview', (imageSize, width) => {
+    const sized = toCelebrationView(doc({ imageSize }), 'Asia/Kolkata')!
+    const imageView = {
+      ...sized,
+      image: { alt: 'Invitation', src: '/invitation.jpg' },
+      imageOnly: true,
+    }
+    expect(getCelebrationWidth(imageView)).toBe(width)
+    expect(renderToStaticMarkup(<CelebrationPreview view={imageView} />)).toContain(
+      `--cel-width:${width}px`,
+    )
+    expect(getCelebrationWidth({ ...imageView, imageOnly: false })).toBe(520)
+  })
+
+  it('defaults older image-only views to Medium', () => {
+    expect(
+      getCelebrationWidth({
+        ...view,
+        imageOnly: true,
+        imageSize: undefined,
+        image: { alt: 'Invitation', src: '/invitation.jpg' },
+      }),
+    ).toBe(720)
   })
 
   it('renders nothing on the server so cached pages never show the wrong day', () => {

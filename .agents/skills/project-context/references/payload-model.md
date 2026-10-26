@@ -95,6 +95,10 @@ Admin live previews target their dedicated authenticated `/preview/` routes.
 
 ## Celebrations
 
+Image-only celebrations have an `imageSize` select: Small (560px), Medium (720px), or Large (960px).
+Medium is the schema and legacy fallback. The popup and static preview share `getCelebrationWidth`,
+independent of the selected style; viewport limits and uncropped image fitting remain in place.
+
 `celebrations` (feature `celebrations`, group Content, drafts) schedules celebration modals. Each document has an
 `enabled` switch, `placement` (`everyPage` or `selectedPages`), a `startDate` and optional `endDate` read in the
 site timezone, and a hidden indexed `lastDay` kept in step by a `beforeValidate` hook so the loader can skip ended
@@ -102,14 +106,16 @@ celebrations. Content (eyebrow, heading and italic accent, message, image or ima
 signature, one action), Display (five styles, frequency: once per day, every page load, once per visitor, or N times
 per day; open delay; reopen badge), and Confetti (enable, 1–8 bursts default 5, 20–300 pieces per
 burst default 160, speed Very slow/Slow/Normal/Lively default Normal) live in tabs. Confetti fires from
-both bottom corners with launch power scaled to √(viewport height), speed is a time scale over the
-same trajectories, and closing the dialog stops it immediately.
+the openings of two responsive navy-and-gold cones at the bottom corners. Cone artwork and particle
+origins share viewport geometry; launch power scales to √(viewport height). Speed is a time scale over
+the same trajectories. After the final particles, the canvas retains static cones without an animation
+loop; closing removes the canvas and resize listener. Reduced motion renders static cones only.
 
-`getSiteWideCelebrations` (server-only, `unstable_cache` keyed `['site-wide-celebrations', 'v2']` and tagged
+`getSiteWideCelebrations` (server-only, `unstable_cache` keyed `['site-wide-celebrations', 'v3']` and tagged
 `cms-celebrations` and `cms-site-settings`, hourly revalidate; bump the version when `CelebrationView` changes) returns published, enabled, every-page celebrations that have not ended, mapped by `toCelebrationView`.
 The frontend layout mounts `CelebrationHost`, which renders nothing on the server, picks today's celebration in the
 browser using the site timezone, applies frequency with a `celebration:<id>` localStorage record, and opens a Radix
-dialog with full-window confetti (skipped for reduced motion). The `celebration` Page block (relationship to a
+dialog with full-window confetti (particles skipped for reduced motion). The `celebration` Page block (relationship to a
 published celebration) mounts a page-priority host; a shared slot lets only one celebration open per page, with the
 page block outranking the site-wide host. Pages, Reusable Sections, and the News & Events detail template list
 `celebrations` in their dependency reads so editors can pick one.

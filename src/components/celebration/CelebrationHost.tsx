@@ -24,7 +24,7 @@ import { getZonedToday, type SiteTimeZone } from '@/lib/siteTimeZone'
 import { cn } from '@/lib/utils'
 
 import styles from './celebration.module.css'
-import { CELEBRATION_WIDTHS, CelebrationCard } from './CelebrationCard'
+import { getCelebrationWidth, CelebrationCard } from './CelebrationCard'
 import {
   getCelebrationSlotWinner,
   registerCelebrationHost,
@@ -155,7 +155,7 @@ export function CelebrationHost({ celebrations, priority, timeZone }: Celebratio
             {...(active.message ? {} : { 'aria-describedby': undefined })}
             className={cn(styles.root, styles.content)}
             data-celebration-id={active.id}
-            style={{ '--cel-width': `${CELEBRATION_WIDTHS[active.style]}px` } as CSSProperties}
+            style={{ '--cel-width': `${getCelebrationWidth(active)}px` } as CSSProperties}
           >
             <CelebrationCard
               closeSlot={
