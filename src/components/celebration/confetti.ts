@@ -4,6 +4,7 @@ import {
   clampConfettiShots,
   type ConfettiSpeed,
 } from '@/lib/celebrations/shared'
+import { drawConfettiCones, getConfettiConeGeometry } from './confettiCones'
 
 const COLORS = [
   '#e3b552',
@@ -81,13 +82,14 @@ const fireCannons = (
   add: (p: Piece) => void,
 ) => {
   const maxVelocity = power * Math.sqrt(height)
+  const { left, right } = getConfettiConeGeometry(width, height)
 
   for (let i = 0; i < piecesPerCannon; i++) {
     // A wide range of launch speeds layers the splash from low to near the top.
     const velocity = maxVelocity * (0.55 + Math.random() * 0.45)
     const spread = (Math.random() - 0.5) * CANNON_SPREAD
-    add(piece(-4, height + 4, -CANNON_ANGLE + spread, velocity))
-    add(piece(width + 4, height + 4, -Math.PI + CANNON_ANGLE + spread, velocity))
+    add(piece(left.x, left.y, -CANNON_ANGLE + spread, velocity))
+    add(piece(right.x, right.y, -Math.PI + CANNON_ANGLE + spread, velocity))
   }
 }
 
@@ -96,7 +98,7 @@ export const prefersReducedMotion = () =>
 
 /**
  * Fires `shots` waves of full-window confetti. Returns a function that stops it early.
- * Does nothing when the visitor prefers reduced motion or canvas is unavailable.
+ * Reduced motion shows static cones only. Does nothing when canvas is unavailable.
  */
 export function launchConfetti({
   pieces,
@@ -108,7 +110,7 @@ export function launchConfetti({
   shots: number
   speed: ConfettiSpeed
 }): () => void {
-  if (typeof document === 'undefined' || prefersReducedMotion()) return () => {}
+  if (typeof document === 'undefined') return () => {}
 
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d')
@@ -117,11 +119,11 @@ export function launchConfetti({
   canvas.setAttribute('aria-hidden', 'true')
   canvas.dataset.celebrationConfetti = 'true'
   Object.assign(canvas.style, {
-    height: '100vh',
+    height: '100%',
     inset: '0',
     pointerEvents: 'none',
     position: 'fixed',
-    width: '100vw',
+    width: '100%',
     zIndex: '1001',
   })
   document.body.appendChild(canvas)
@@ -129,7 +131,7 @@ export function launchConfetti({
   // Settings can come from data cached by an older release, so missing values fall back safely.
   const dt = TIME_SCALE[CONFETTI_SPEEDS.includes(speed) ? speed : 'medium']
   const piecesPerCannon = clampConfettiPieces(pieces)
-  const bursts = clampConfettiShots(shots)
+  const bursts = prefersReducedMotion() ? 0 : clampConfettiShots(shots)
   const life = PHYSICS.life / dt
   const drag = Math.pow(PHYSICS.drag, dt)
   let live: Piece[] = []
@@ -143,6 +145,7 @@ export function launchConfetti({
     canvas.width = window.innerWidth * ratio
     canvas.height = window.innerHeight * ratio
     context.setTransform(ratio, 0, 0, ratio, 0, 0)
+    drawConfettiCones(context, window.innerWidth, window.innerHeight)
   }
   resize()
   window.addEventListener('resize', resize)
@@ -160,6 +163,7 @@ export function launchConfetti({
     const width = window.innerWidth
     const height = window.innerHeight
     context.clearRect(0, 0, width, height)
+    drawConfettiCones(context, width, height)
     live = live.filter((p) => p.age < life && p.y < height + 40)
 
     for (const p of live) {
@@ -193,7 +197,7 @@ export function launchConfetti({
     }
 
     if (live.length > 0 || pendingWaves > 0) frame = window.requestAnimationFrame(draw)
-    else stop()
+    // Keep the final static cones until close, without an idle animation loop.
   }
 
   for (let index = 0; index < bursts; index++) {
@@ -209,7 +213,7 @@ export function launchConfetti({
       ),
     )
   }
-  frame = window.requestAnimationFrame(draw)
+  if (bursts > 0) frame = window.requestAnimationFrame(draw)
 
   return stop
 }

@@ -25,6 +25,11 @@ optional Button. **Image only** shows just the image (for example a festival pos
 the heading is still used for screen readers. **Highlight** is the large gold number in the
 Medallion style, such as "25".
 
+When **Image only** is enabled, **Image Size** selects Small (560px), Medium (720px), or
+Large (960px). Medium is the default, including existing celebrations without a saved size.
+The popup and live preview use the same width independently of Style. Images fit smaller screens
+and retain their full aspect ratio without cropping.
+
 ## Display
 
 - **Style**: Aurora Halo (navy card with a portrait in a gold ring), Holographic Ticket (an event
@@ -37,8 +42,10 @@ Medallion style, such as "25".
 
 ## Confetti
 
-Confetti fires from the bottom-left and bottom-right corners at once and splashes up to the top of
-the window, then drifts down. It stops as soon as the modal is closed. Settings on the **Confetti**
+Two navy-and-gold party cones sit in the bottom-left and bottom-right corners while the modal is
+open. Confetti launches from their openings, angled upward and inward, then drifts down. Cones
+scale down on phones and remain after the final burst. Closing removes both cones and confetti.
+Reduced-motion visitors see static cones only. Disabling confetti hides the cones too. Settings on the **Confetti**
 tab:
 
 - **Bursts**: how many times the corners fire (1–8, default 5).
@@ -49,3 +56,9 @@ tab:
 
 Switch confetti off entirely with **Celebrate with confetti**. Visitors who prefer reduced motion
 see the modal without confetti.
+
+## Local examples
+
+With `pnpm dev` running, open `/celebration-examples` to compare all five styles and open each
+as a real modal with party cones. This development-only gallery uses illustrative content and
+does not create or change CMS records. It returns 404 in production.

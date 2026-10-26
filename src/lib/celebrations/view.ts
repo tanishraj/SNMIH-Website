@@ -5,12 +5,14 @@ import type { Celebration } from '@/payload-types'
 
 import {
   CELEBRATION_FREQUENCIES,
+  CELEBRATION_IMAGE_SIZES,
   CELEBRATION_STYLES,
   CONFETTI_SPEEDS,
   clampConfettiPieces,
   clampConfettiShots,
   clampTimesPerDay,
   type CelebrationFrequency,
+  type CelebrationImageSize,
   type CelebrationStyle,
   type ConfettiSpeed,
 } from './shared'
@@ -30,6 +32,7 @@ export type CelebrationView = {
   id: string
   image?: { alt: string; height?: number; src: string; width?: number }
   imageOnly: boolean
+  imageSize?: CelebrationImageSize
   message?: string
   openDelayMs: number
   showReopenBadge: boolean
@@ -96,6 +99,7 @@ export const toCelebrationView = (
     id: String(doc.id),
     image,
     imageOnly,
+    imageSize: pick(doc.imageSize, CELEBRATION_IMAGE_SIZES, 'medium'),
     message: text(doc.message),
     openDelayMs: Math.min(30, Math.max(0, Number(doc.openDelay ?? 1) || 0)) * 1000,
     showReopenBadge: doc.showReopenBadge !== false,

@@ -717,6 +717,7 @@
   background: linear-gradient(135deg, #e9eef6, #f4f6f9);
 }
 .preview .content {
+  max-width: 100%;
   position: relative;
   left: auto;
   top: auto;

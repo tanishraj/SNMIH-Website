@@ -7,6 +7,14 @@
 export const CELEBRATION_STYLES = ['aurora', 'ticket', 'poster', 'glass', 'medallion'] as const
 export type CelebrationStyle = (typeof CELEBRATION_STYLES)[number]
 
+export const CELEBRATION_IMAGE_SIZES = ['small', 'medium', 'large'] as const
+export type CelebrationImageSize = (typeof CELEBRATION_IMAGE_SIZES)[number]
+export const CELEBRATION_IMAGE_WIDTHS: Record<CelebrationImageSize, number> = {
+  small: 560,
+  medium: 720,
+  large: 960,
+}
+
 export const CELEBRATION_STYLE_OPTIONS: { label: string; value: CelebrationStyle }[] = [
   { label: 'Aurora Halo (navy card, portrait in a gold ring)', value: 'aurora' },
   { label: 'Holographic Ticket (event ticket with a date stub)', value: 'ticket' },

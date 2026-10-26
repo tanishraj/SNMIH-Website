@@ -173,6 +173,22 @@ export const Celebrations: CollectionConfig = {
               },
             },
             {
+              name: 'imageSize',
+              label: 'Image Size',
+              type: 'select',
+              defaultValue: 'medium',
+              options: [
+                { label: 'Small', value: 'small' },
+                { label: 'Medium', value: 'medium' },
+                { label: 'Large', value: 'large' },
+              ],
+              admin: {
+                condition: (_data, siblingData) => Boolean(siblingData?.imageOnly),
+                description:
+                  'Image-only popup width: Small 560px, Medium 720px, Large 960px. Automatically fits smaller screens without cropping.',
+              },
+            },
+            {
               name: 'image',
               label: 'Image',
               type: 'upload',
