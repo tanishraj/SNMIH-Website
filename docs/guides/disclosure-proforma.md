@@ -9,11 +9,13 @@ Add **Disclosure Proforma** from **Explore** in the Page block picker. Use the e
 3. Add **Disclosure Records**, each linked to the same dataset and period. Choose its section and matching group key. A record is one fact, one metric, or one table row. Publish the period and the records when verified.
 4. Select the dataset in the Page's Disclosure Proforma block and publish the Page.
 
-The Content tab owns the title, optional eyebrow and italic accent, description, shared header/footer actions, dataset, ordered sections, default section, labels and archive help. Each section can be disabled, renamed and reordered. Each group has a stable key, title and Facts / Metrics / Table layout. Table columns have editable keys, labels and numeric alignment. Avoid changing keys after entering data unless the corresponding records are also updated.
+The Content tab owns the title, optional eyebrow and italic accent, description, shared header/footer actions, dataset, ordered sections, default section, labels, the empty-section message and hint, and archive help. Each section can be renamed and reordered, and hidden by unticking **Show in sidebar**; hidden sections are marked “(hidden)” in the collapsed list and their records are kept. Each group has a stable key, title and Facts / Metrics / Table layout. Table columns have editable keys, labels and numeric alignment. Avoid changing keys after entering data unless the corresponding records are also updated.
 
 Theme Settings owns shared appearance and section padding, introduction alignment, Split/Stacked section header layout, standard/wide sidebar, whether section numbers show, compact/comfortable rows, how missing values appear (Chip, Footnote or Text), rows per page (5/10/20/50), and pagination versus Load more. The selected sidebar edge remains square; colours, typography, controls and surfaces use the site's theme.
 
-The header always shows a reporting record card: **Data as of** (the selected period's label), **Last updated** and **Updated by**. Split places it beside the introduction on wide screens; Stacked and centred sections place it below. Search and the reporting-period picker share one control on the section heading row; the picker lists published periods, finds earlier ones by name and loads further batches. Footnote style marks each Not supplied value and adds one note under the affected group; Not applicable is always written out.
+The header shows the last public update as a date-only badge (“Updated · 27 Oct 2026”) in the eyebrow lettering. Split places it beside the introduction on wide screens; Stacked and centred sections place it below. The selected reporting period is named on the picker, which shares one outlined control with search on the section heading row; the picker groups published periods by year, finds earlier ones by name and loads further batches.
+
+The block sits directly on the section background: a thin divider separates the sticky section list from the content, facts and figures use hairline rules, and tables number their rows and show supplied numeric values as small badges. Rows tint on hover. Footnote style marks each Not supplied value and adds one note under the affected group; Not applicable is always written out. Empty sections show a centred icon, the empty-section message and the hint; slow loads show an animated pulse after a short delay, which stays still for visitors who prefer reduced motion.
 
 ## Default sections and group keys
 
@@ -41,7 +43,7 @@ Only the active section's bounded record batches are queried. Tables, facts and 
 
 The public timestamp advances for published record changes, period publication/unpublication, and publication of the containing Page or Reusable Section. Saving a draft over published data does not change the public stamp. The public page displays the later of its block's publication stamp and its dataset's publication revision.
 
-Set **Public Display Name** on the editor's user account to show their name or office label. Otherwise the public credit says **Editorial team**; it never falls back to an email address. System operations use **System import**. Reporting dates remain separate from publication timestamps, and public timestamps use the configured site timezone.
+The block records who published each change (the editor's **Public Display Name**, otherwise **Editorial team**, never an email address; system operations use **System import**), but the public page currently shows only the timestamp. Reporting dates remain separate from publication timestamps, and public timestamps use the configured site timezone.
 
 Admins have access automatically. Site Managers need explicit Disclosure Dataset / Period / Record grants to edit these destinations. Page and Reusable Section editors receive dependency reads without mutation rights.
 

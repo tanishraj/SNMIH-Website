@@ -158,6 +158,7 @@ export type DisclosureBlockLike = {
   itemsPerPage?: string | null
   paginationMode?: 'pages' | 'loadMore' | null
   emptyMessage?: string | null
+  emptyDescription?: string | null
   missingMessage?: string | null
   archiveNote?: string | null
   actions?: CmsActionValue[] | null
@@ -206,7 +207,9 @@ export const normalizeSections = (sections: Section[] | null | undefined): Secti
           ),
         })),
     }))
-export const normalizeLimit = (v: unknown) => ([5, 10, 20, 50].includes(Number(v)) ? Number(v) : 10)
+export const defaultEmptyDescription =
+  'Figures for this section have not been published yet. Earlier reporting periods remain available from the period selector above.'
+export const normalizeLimit =(v: unknown) => ([5, 10, 20, 50].includes(Number(v)) ? Number(v) : 10)
 export const missingKind = (value: string | null | undefined, state?: string | null) =>
   state === 'notApplicable'
     ? 'notApplicable'

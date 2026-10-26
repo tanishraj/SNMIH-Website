@@ -199,8 +199,58 @@ describe('Disclosure Proforma', () => {
         }}
       />,
     )
-  it('shows the reporting period in the header record', () => {
-    expect(renderStatistics()).toMatch(/Data as of<\/dt><dd[^>]*>September 2026</)
+  it('keeps the header to the update stamp and names the period on the picker', () => {
+    const pending = renderStatistics()
+    expect(pending).toContain('Publication pending')
+    expect(pending).not.toContain('Data as of')
+    expect(pending).not.toContain('Updated by')
+    expect(pending).toContain('aria-label="Reporting period: September 2026"')
+    const stamped = renderStatistics({
+      publicUpdatedAt: '2026-10-27T10:15:00.000Z',
+      publicUpdatedBy: 'Records Office',
+    })
+    expect(stamped).toMatch(/Updated ·.<time[^>]*>27 Oct 2026<\/time>/)
+    expect(stamped).not.toMatch(/\d{1,2}:\d{2}\s?[ap]m/i)
+    expect(stamped).not.toContain('Records Office')
+  })
+  it('numbers table rows across pages and badges only supplied figures', () => {
+    const html = renderToStaticMarkup(
+      <DisclosurePresentation
+        dataset="fixture"
+        sections={defaultSections}
+        defaultSection="courses"
+        itemsPerPage="5"
+        staticPreview
+        initial={{
+          dataset: 'fixture',
+          period: 'sep',
+          periods: [{ id: 'sep', label: 'September 2026' }],
+          periodPage: 1,
+          hasMorePeriods: false,
+          groups: {
+            programmes: {
+              rows: [
+                {
+                  id: 'md',
+                  label: 'MD- Pathology',
+                  cells: [
+                    { key: 'programme', value: 'MD- Pathology' },
+                    { key: 'pursuing', value: '4' },
+                    { key: 'admitted', value: null },
+                  ],
+                },
+              ],
+              page: 2,
+              total: 6,
+              totalPages: 2,
+            },
+          },
+        }}
+      />,
+    )
+    expect(html).toContain('>06</span>')
+    expect(html).toMatch(/rounded-full bg-current\/8[^>]*>4</)
+    expect(html).toContain('border-dashed border-current/45')
   })
   it('renders each configured missing-value style without inventing values', () => {
     const chip = renderStatistics()
@@ -213,6 +263,25 @@ describe('Disclosure Proforma', () => {
     const text = renderStatistics({ missingValueStyle: 'text' })
     expect(text).not.toContain('border-dashed')
     expect(text).not.toContain('for September 2026.')
+  })
+  it('removes hidden sections from the sidebar and labels the setting plainly', () => {
+    const sections = defaultSections.map((s) =>
+      s.key === 'surgeries' ? { ...s, enabled: false } : s,
+    )
+    const html = renderStatistics({ sections })
+    expect(html).not.toContain('>Surgeries<')
+    expect(html).toContain('>04</span>Departments &amp; faculty')
+    const tabs = DisclosureProformaBlock.fields.find((field) => field.type === 'tabs')
+    const content = tabs?.type === 'tabs' ? tabs.tabs[0].fields : []
+    const sectionsField = content.find((f) => 'name' in f && f.name === 'sections')
+    const enabled =
+      sectionsField?.type === 'array'
+        ? sectionsField.fields.find((f) => 'name' in f && f.name === 'enabled')
+        : undefined
+    expect(enabled && 'label' in enabled && enabled.label).toBe('Show in sidebar')
+    const rowLabel =
+      sectionsField?.type === 'array' ? sectionsField.admin?.components?.RowLabel : undefined
+    expect(String(rowLabel)).toContain('DisclosureSectionRowLabel')
   })
   it('lets editors hide section numbers', () => {
     expect(renderStatistics()).toContain('>02</span>')

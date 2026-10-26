@@ -137,7 +137,6 @@ export async function loadDisclosure(
       ? new Intl.DateTimeFormat('en-IN', {
           timeZone,
           dateStyle: 'medium',
-          timeStyle: 'short',
         }).format(new Date(dataset.publicUpdatedAt))
       : null,
     groups,

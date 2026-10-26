@@ -623,7 +623,7 @@ of facts, metrics or table columns. Content owns its dataset relationship, optio
 and actions, sections and empty/archive labels; Theme Settings owns semantic appearance/padding,
 introduction alignment, Split/Stacked header layout, sidebar width, section numbers, density,
 missing-value style (chip/footnote/text), bounded page size and Pages/Load more mode. It uses
-shared typography and containers, a square Primary selection edge, a header reporting-record card,
+shared typography and containers, a square Primary selection edge with a sticky divided section list, a date-only Updated badge, Show in sidebar section toggles with a hidden row label, hairline facts/figures, indexed tables, pulse loader and icon empty state,
 a joined search and shadcn Popover period picker, and semantic table surfaces.
 Three separate collections retain periods and individual rows; Page layouts contain no growing data
 arrays. Production renders the active section's first batches on the server. The client-safe live

@@ -2060,6 +2060,9 @@ export interface DisclosureProformaBlock {
    */
   sections: {
     key: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
+    /**
+     * Untick to hide this section from the sidebar and the page. Its records are kept.
+     */
     enabled?: boolean | null;
     label: string;
     description?: string | null;
@@ -2091,6 +2094,10 @@ export interface DisclosureProformaBlock {
   defaultSection?:
     ('institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications') | null;
   emptyMessage?: string | null;
+  /**
+   * Shown under the empty-section message. Leave blank to hide it.
+   */
+  emptyDescription?: string | null;
   missingMessage?: string | null;
   archiveNote?: string | null;
   footerActions?:
@@ -10932,6 +10939,7 @@ export interface DisclosureProformaBlockSelect<T extends boolean = true> {
       };
   defaultSection?: T;
   emptyMessage?: T;
+  emptyDescription?: T;
   missingMessage?: T;
   archiveNote?: T;
   footerActions?:

@@ -2,7 +2,7 @@ import type { ArrayFieldValidation, Block, Field } from 'payload'
 import { getBlockThumbnailAdmin } from '@/block-thumbnails/definitions'
 import { createBlockAppearanceFields } from '@/blocks/shared/blockAppearanceFields'
 import { createContentActionsField } from '@/blocks/shared/contentActionsFields'
-import { defaultSections, sectionOptions } from './shared'
+import { defaultEmptyDescription, defaultSections, sectionOptions } from './shared'
 
 export const uniqueKeys: ArrayFieldValidation = (value) => {
   if (!Array.isArray(value)) return true
@@ -66,6 +66,9 @@ export const DisclosureProformaBlock: Block = {
               validate: uniqueKeys,
               admin: {
                 initCollapsed: true,
+                components: {
+                  RowLabel: '/blocks/DisclosureProforma/RowLabels#DisclosureSectionRowLabel',
+                },
                 description:
                   'Reorder sections, edit labels and configure each group of facts, metrics or table columns.',
               },
@@ -77,7 +80,16 @@ export const DisclosureProformaBlock: Block = {
                   options: [...sectionOptions],
                   required: true,
                 },
-                { name: 'enabled', type: 'checkbox', defaultValue: true },
+                {
+                  name: 'enabled',
+                  label: 'Show in sidebar',
+                  type: 'checkbox',
+                  defaultValue: true,
+                  admin: {
+                    description:
+                      'Untick to hide this section from the sidebar and the page. Its records are kept.',
+                  },
+                },
                 { name: 'label', type: 'text', required: true },
                 { name: 'description', type: 'textarea' },
                 {
@@ -135,6 +147,15 @@ export const DisclosureProformaBlock: Block = {
               name: 'emptyMessage',
               type: 'text',
               defaultValue: 'No information is available for this reporting period.',
+            },
+            {
+              name: 'emptyDescription',
+              label: 'Empty Section Hint',
+              type: 'textarea',
+              defaultValue: defaultEmptyDescription,
+              admin: {
+                description: 'Shown under the empty-section message. Leave blank to hide it.',
+              },
             },
             { name: 'missingMessage', type: 'text', defaultValue: 'Not supplied' },
             {

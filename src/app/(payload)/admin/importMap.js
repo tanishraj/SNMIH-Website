@@ -21,6 +21,7 @@ import { IndentFeatureClient as IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { DepartmentProfileRowLabel as DepartmentProfileRowLabel_1aee918a1994951b1541eb9f07785563 } from '../../../blocks/DepartmentProfiles/RowLabels'
 import { DepartmentRowLabel as DepartmentRowLabel_1aee918a1994951b1541eb9f07785563 } from '../../../blocks/DepartmentProfiles/RowLabels'
+import { DisclosureSectionRowLabel as DisclosureSectionRowLabel_76c2e65c48ea5700be77f178aa389f7d } from '../../../blocks/DisclosureProforma/RowLabels'
 import { LogoItemLabel as LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { LogoRowLabel as LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { BankAccountRowLabel as BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3 } from '../../../blocks/BankDetails/RowLabel'
@@ -57,6 +58,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/blocks/DepartmentProfiles/RowLabels#DepartmentProfileRowLabel": DepartmentProfileRowLabel_1aee918a1994951b1541eb9f07785563,
   "/blocks/DepartmentProfiles/RowLabels#DepartmentRowLabel": DepartmentRowLabel_1aee918a1994951b1541eb9f07785563,
+  "/blocks/DisclosureProforma/RowLabels#DisclosureSectionRowLabel": DisclosureSectionRowLabel_76c2e65c48ea5700be77f178aa389f7d,
   "/blocks/Logos20/RowLabels#LogoItemLabel": LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/Logos20/RowLabels#LogoRowLabel": LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/BankDetails/RowLabel#BankAccountRowLabel": BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3,
