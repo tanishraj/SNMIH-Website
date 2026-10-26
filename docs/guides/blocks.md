@@ -17,7 +17,7 @@ The Add Block drawer is searchable and organized by editorial intent:
 - **Convert** gives visitors a clear next action, contact route, or document.
 - **Advanced Library** contains specialized alternatives that remain fully supported and searchable.
 
-The first five groups form the client-approved 20-block vocabulary. Advanced blocks are not hidden or permission-restricted, so existing pages always remain editable.
+The first five groups form the client-approved 21-block vocabulary. Advanced blocks are not hidden or permission-restricted, so existing pages always remain editable.
 
 For a new one-client deployment, developers customize the groups in `src/blocks/blockCatalog.ts`. Keep every Page-compatible block classified exactly once, retain Reusable Section and News/Event template exclusions, and run the catalog and registry contracts before handoff. Editors do not manage this vocabulary through Site Settings.
 
@@ -531,3 +531,8 @@ use the shared Page, Custom URL, and Media link controls.
 - [Gallery Albums](./gallery-albums.md)
 - [Office Locations](./office-locations.md)
 - [News & Events](./news-events.md)
+
+
+## Disclosure Proforma
+
+The Explore group includes Disclosure Proforma: configurable sidebar sections, facts, metrics and tables backed by retained datasets, reporting periods and records. It supports bounded search/pagination or Load more and automatic public update credits. See [Disclosure Proforma](disclosure-proforma.md) for field keys, publishing and local verification.

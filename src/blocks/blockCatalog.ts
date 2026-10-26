@@ -1,3 +1,4 @@
+import { DisclosureProformaBlock } from './DisclosureProforma/config'
 import type { Block } from 'payload'
 
 import { AboutSectionBlock } from '@/blocks/AboutSection/config'
@@ -128,6 +129,7 @@ export const pageBlockGroupDefinitions = [
       CalendarBlock,
       AnnualCalendarBlock,
       DepartmentProfilesBlock,
+      DisclosureProformaBlock,
       GalleryAlbumTabsBlock,
       QaAccordionBlock,
     ],

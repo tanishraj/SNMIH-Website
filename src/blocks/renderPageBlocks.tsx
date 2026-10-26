@@ -1,3 +1,4 @@
+import { DisclosureProformaBlockComponent } from './DisclosureProforma/Component'
 import React from 'react'
 import type { Page } from '@/payload-types'
 import { resolveAutomaticPageBreadcrumbs, type ResolvedPageBreadcrumb } from '@/lib/pageBreadcrumbs'
@@ -103,6 +104,8 @@ function renderPageBlockContent(
   )
 
   switch (block.blockType) {
+    case 'disclosureProforma':
+      return wrap(<DisclosureProformaBlockComponent {...block} />)
     case 'announcement':
       return wrap(<AnnouncementBlockComponent {...block} />)
     case 'heroBanner': {

@@ -103,3 +103,5 @@ Each guide follows the same pattern:
 7. related guides
 
 If you are new to the CMS, read in order. If you are already operating the website, jump directly to the section you need.
+
+- [Disclosure Proforma](disclosure-proforma.md): datasets, reporting periods, configurable tables, history and publication credits.

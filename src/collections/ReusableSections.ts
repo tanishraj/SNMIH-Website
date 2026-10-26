@@ -1,3 +1,4 @@
+import { stampPageDisclosures } from './Disclosure/hooks'
 import type { CollectionConfig } from 'payload'
 
 import { reusableSectionBuilderBlocks } from '@/blocks/blockCatalog'
@@ -33,6 +34,7 @@ export const ReusableSections: CollectionConfig = {
     update: requireFeature('reusableSections'),
   },
   hooks: {
+    beforeChange: [stampPageDisclosures],
     afterDelete: [revalidateDeletedGlobalsCache],
     afterChange: [
       revalidateGlobalsCache,

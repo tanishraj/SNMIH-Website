@@ -1,3 +1,4 @@
+import { stampDisclosureLayout } from '@/collections/Disclosure/hooks'
 import type { BlocksFieldValidation, GlobalConfig } from 'payload'
 
 import { allowPublicReadOrFeature, hideUnlessFeature, requireFeature } from '@/access/featureAccess'
@@ -35,7 +36,12 @@ export const NewsEventsDetailTemplate: GlobalConfig = {
     update: requireFeature('newsEventsDetailTemplate'),
   },
   versions: { drafts: true },
-  hooks: { afterChange: [revalidateGlobalsCacheForGlobal] },
+  hooks: {
+    beforeChange: [
+      ({ data, originalDoc, req }) => stampDisclosureLayout(data, originalDoc, req.user),
+    ],
+    afterChange: [revalidateGlobalsCacheForGlobal],
+  },
   fields: [
     {
       name: 'layout',

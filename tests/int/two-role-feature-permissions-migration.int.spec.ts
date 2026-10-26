@@ -31,7 +31,7 @@ const enabledFeatures = (record: JsonRecord) =>
     .map(([key]) => key)
 
 describe('two-role feature-permissions migration', () => {
-  it('defines an explicit compatibility rule for all 30 features', () => {
+  it('defines an explicit compatibility rule for all 33 features', () => {
     expect(Object.keys(LEGACY_FEATURE_CAPABILITY_RULES)).toEqual([...ADMIN_FEATURE_KEYS])
   })
 

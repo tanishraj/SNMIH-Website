@@ -199,3 +199,13 @@ Use the maintained [feature inventory](../../../../docs/architecture/feature-inv
 `/celebration-examples` uses the block-thumbnail root layout and returns 404 outside development.
 It presents all five celebration styles with illustrative fixtures and launches the real CelebrationHost
 for interactive cone/confetti previews, without writing CMS records.
+
+
+## Disclosure delivery
+
+`/api/disclosure-data` serves bounded section/group batches and reporting-period options for the
+Disclosure Proforma block. It validates identifiers, section/group keys, limits and page bounds;
+selected periods must belong to the requested dataset. Public reads use only published periods and
+records with collection access enabled. Draft requests authenticate via Payload and require relevant
+feature/dependency reads. All responses are no-store, with safe display projections and explicit errors.
+Initial public block data is server-rendered; linked publications expire cached frontend Pages.

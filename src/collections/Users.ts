@@ -325,6 +325,16 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
+      name: 'publicDisplayName',
+      label: 'Public Display Name',
+      type: 'text',
+      maxLength: 100,
+      admin: {
+        description:
+          'Shown in disclosure update credits. Use a name or office label; email addresses are never used as a fallback.',
+      },
+    },
+    {
       name: 'twoFactorSettings',
       type: 'ui',
       admin: { components: { Field: '@/components/admin/TwoFactorSettings#TwoFactorSettings' } },

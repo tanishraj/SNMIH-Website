@@ -1,3 +1,4 @@
+import { DisclosureDatasets, DisclosurePeriods, DisclosureRecords } from './collections/Disclosure'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -64,7 +65,10 @@ export default buildConfig({
     components: {
       beforeDashboard: ['@/components/admin/DashboardOverview#DashboardOverview'],
       views: {
-        login: { Component: '@/components/admin/TwoFactorLoginView#TwoFactorLoginView', path: '/login' },
+        login: {
+          Component: '@/components/admin/TwoFactorLoginView#TwoFactorLoginView',
+          path: '/login',
+        },
       },
     },
   },
@@ -77,6 +81,9 @@ export default buildConfig({
     Reviews,
     ReusableSections,
     Celebrations,
+    DisclosureDatasets,
+    DisclosurePeriods,
+    DisclosureRecords,
     // Taxonomy
     Categories,
     Tags,
