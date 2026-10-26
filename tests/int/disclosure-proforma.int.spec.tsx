@@ -199,8 +199,57 @@ describe('Disclosure Proforma', () => {
         }}
       />,
     )
-  it('shows the reporting period in the header record', () => {
-    expect(renderStatistics()).toMatch(/Data as of<\/dt><dd[^>]*>September 2026</)
+  it('keeps the header to the update stamp and names the period on the picker', () => {
+    const pending = renderStatistics()
+    expect(pending).toContain('Publication details pending')
+    expect(pending).not.toContain('Data as of')
+    expect(pending).not.toContain('Updated by')
+    expect(pending).toContain('aria-label="Reporting period: September 2026"')
+    const stamped = renderStatistics({
+      publicUpdatedAt: '2026-10-27T10:15:00.000Z',
+      publicUpdatedBy: 'Records Office',
+    })
+    expect(stamped).toMatch(/Last updated <\/span><time[^>]*>27 Oct 2026/)
+    expect(stamped).not.toContain('Records Office')
+  })
+  it('numbers table rows across pages and badges only supplied figures', () => {
+    const html = renderToStaticMarkup(
+      <DisclosurePresentation
+        dataset="fixture"
+        sections={defaultSections}
+        defaultSection="courses"
+        itemsPerPage="5"
+        staticPreview
+        initial={{
+          dataset: 'fixture',
+          period: 'sep',
+          periods: [{ id: 'sep', label: 'September 2026' }],
+          periodPage: 1,
+          hasMorePeriods: false,
+          groups: {
+            programmes: {
+              rows: [
+                {
+                  id: 'md',
+                  label: 'MD- Pathology',
+                  cells: [
+                    { key: 'programme', value: 'MD- Pathology' },
+                    { key: 'pursuing', value: '4' },
+                    { key: 'admitted', value: null },
+                  ],
+                },
+              ],
+              page: 2,
+              total: 6,
+              totalPages: 2,
+            },
+          },
+        }}
+      />,
+    )
+    expect(html).toContain('>06</span>')
+    expect(html).toMatch(/rounded-full bg-current\/\[0\.08\][^>]*>4</)
+    expect(html).toContain('border-dashed border-current/45')
   })
   it('renders each configured missing-value style without inventing values', () => {
     const chip = renderStatistics()
