@@ -21,6 +21,7 @@ import { IndentFeatureClient as IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { DepartmentProfileRowLabel as DepartmentProfileRowLabel_1aee918a1994951b1541eb9f07785563 } from '../../../blocks/DepartmentProfiles/RowLabels'
 import { DepartmentRowLabel as DepartmentRowLabel_1aee918a1994951b1541eb9f07785563 } from '../../../blocks/DepartmentProfiles/RowLabels'
+import { DisclosureSectionRowLabel as DisclosureSectionRowLabel_76c2e65c48ea5700be77f178aa389f7d } from '../../../blocks/DisclosureProforma/RowLabels'
 import { LogoItemLabel as LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { LogoRowLabel as LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { BankAccountRowLabel as BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3 } from '../../../blocks/BankDetails/RowLabel'
@@ -28,7 +29,6 @@ import { PageCreateView as PageCreateView_244e42c068b95e8a328a77a2c7c4ade4 } fro
 import { LogoHeightField as LogoHeightField_afbb23a221f2bb10f37063672149b807 } from '../../../blocks/HeaderNavbar12/LogoHeightField'
 import { TwoFactorSettings as TwoFactorSettings_505f098c80830d1a923c81d0e294f350 } from '@/components/admin/TwoFactorSettings'
 import { DashboardOverview as DashboardOverview_05d601da1b7f3b105394f9997b7afdb8 } from '@/components/admin/DashboardOverview'
-import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { TwoFactorLoginView as TwoFactorLoginView_0c096a82d618beae940aa81c00014aed } from '@/components/admin/TwoFactorLoginView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -57,6 +57,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/blocks/DepartmentProfiles/RowLabels#DepartmentProfileRowLabel": DepartmentProfileRowLabel_1aee918a1994951b1541eb9f07785563,
   "/blocks/DepartmentProfiles/RowLabels#DepartmentRowLabel": DepartmentRowLabel_1aee918a1994951b1541eb9f07785563,
+  "/blocks/DisclosureProforma/RowLabels#DisclosureSectionRowLabel": DisclosureSectionRowLabel_76c2e65c48ea5700be77f178aa389f7d,
   "/blocks/Logos20/RowLabels#LogoItemLabel": LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/Logos20/RowLabels#LogoRowLabel": LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/BankDetails/RowLabel#BankAccountRowLabel": BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3,
@@ -64,7 +65,6 @@ export const importMap = {
   "/blocks/HeaderNavbar12/LogoHeightField#LogoHeightField": LogoHeightField_afbb23a221f2bb10f37063672149b807,
   "@/components/admin/TwoFactorSettings#TwoFactorSettings": TwoFactorSettings_505f098c80830d1a923c81d0e294f350,
   "@/components/admin/DashboardOverview#DashboardOverview": DashboardOverview_05d601da1b7f3b105394f9997b7afdb8,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@/components/admin/TwoFactorLoginView#TwoFactorLoginView": TwoFactorLoginView_0c096a82d618beae940aa81c00014aed,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

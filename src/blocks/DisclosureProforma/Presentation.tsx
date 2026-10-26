@@ -20,7 +20,7 @@ import {
 } from '@/blocks/shared/contentStyles'
 import { BlockFooterActions } from '@/blocks/shared/BlockFooterActions'
 import { ContentActions } from '@/components/ContentActions'
-import { SectionEyebrow } from '@/components/SectionEyebrow'
+import { SectionEyebrow, sectionEyebrowClasses } from '@/components/SectionEyebrow'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { resolveCmsActions } from '@/lib/cmsLinks'
 import { cn } from '@/lib/utils'
@@ -41,7 +41,7 @@ import {
 
 // Lines, tints and badges derive from the text colour, so they read on light and brand surfaces alike.
 const control =
-  'min-h-11 rounded-control border border-current/20 bg-transparent px-3 py-2 text-sm transition-colors hover:border-current/35 hover:bg-current/[0.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-50 disabled:hover:bg-transparent'
+  'min-h-11 rounded-control border border-current/20 bg-transparent px-3 py-2 text-sm transition-colors hover:border-current/35 hover:bg-current/4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-50 disabled:hover:bg-transparent'
 const emptyBatch: Batch = { rows: [], total: 0, page: 1, totalPages: 1 }
 type MissingStyle = 'chip' | 'footnote' | 'text'
 function Value({
@@ -141,7 +141,7 @@ function PulseLoader() {
 function EmptyState({ title, description }: { title: string; description?: string }) {
   return (
     <div className="flex min-h-80 flex-col items-center justify-center gap-1.5 rounded-card border border-dashed border-current/20 px-6 py-12 text-center">
-      <span className="mb-3.5 flex size-16 items-center justify-center rounded-full bg-current/[0.07] ring-[10px] ring-current/[0.03]">
+      <span className="mb-3.5 flex size-16 items-center justify-center rounded-full bg-current/7 ring-[10px] ring-current/3">
         <ClipboardListIcon aria-hidden="true" className="size-7" strokeWidth={1.6} />
       </span>
       <p className="text-[17px] font-semibold leading-snug">{title}</p>
@@ -266,7 +266,7 @@ function GroupContent({
         {batch.rows.map((row) => (
           <div
             key={row.id}
-            className="grid border-b border-current/10 transition-colors hover:bg-current/[0.04] motion-reduce:transition-none sm:grid-cols-[35%_minmax(0,1fr)]"
+            className="grid border-b border-current/10 transition-colors hover:bg-current/4 motion-reduce:transition-none sm:grid-cols-[35%_minmax(0,1fr)]"
           >
             <dt className={cn(pad, 'text-sm opacity-70 max-sm:pb-1')}>{row.label}</dt>
             <dd
@@ -322,7 +322,7 @@ function GroupContent({
           {batch.rows.map((row, rowIndex) => (
             <tr
               key={row.id}
-              className="transition-colors hover:bg-current/[0.04] motion-reduce:transition-none"
+              className="transition-colors hover:bg-current/4 motion-reduce:transition-none"
             >
               <td className={cn(cellPad, 'w-12 border-b border-current/10 pr-0 align-middle')}>
                 <span
@@ -351,7 +351,7 @@ function GroupContent({
                       ) : c.numeric && provided ? (
                         <span
                           className={cn(
-                            'inline-block min-w-[30px] rounded-full bg-current/[0.08] px-2.5 py-0.5 text-center font-mono text-[13px] font-semibold tabular-nums',
+                            'inline-block min-w-[30px] rounded-full bg-current/8 px-2.5 py-0.5 text-center font-mono text-[13px] font-semibold tabular-nums',
                             accent,
                           )}
                         >
@@ -496,7 +496,6 @@ function DisclosureDirectory(props: Props) {
       ? new Intl.DateTimeFormat('en-IN', {
           timeZone: props.timeZone || snapshot?.timeZone || 'Asia/Kolkata',
           dateStyle: 'medium',
-          timeStyle: 'short',
         }).format(new Date(updatedDate))
       : snapshot?.updatedLabel
     : null
@@ -546,18 +545,22 @@ function DisclosureDirectory(props: Props) {
             )}
             <ContentActions actions={resolveCmsActions(props.actions)} alignment={alignment} />
           </div>
-          <p className="shrink-0 text-sm leading-6">
+          <p
+            className={cn(
+              sectionEyebrowClasses,
+              'inline-flex shrink-0 items-center self-start whitespace-nowrap rounded-full border border-current/20 bg-current/6 px-3.5 py-2 leading-none',
+              accent,
+              alignment === 'center' ? 'self-center' : !stackedHeader && 'lg:self-end',
+            )}
+          >
             {updatedLabel ? (
               <>
-                <span className="opacity-70">Last updated </span>
-                <time dateTime={updatedDate!} className="font-medium">
-                  {updatedLabel}
-                </time>
+                Updated ·&nbsp;<time dateTime={updatedDate!}>{updatedLabel}</time>
               </>
             ) : (
-              <span className="opacity-70">Publication details pending</span>
+              'Publication pending'
             )}
-            {draft && <span className="font-medium"> · Draft preview</span>}
+            {draft && ' · Draft'}
           </p>
         </div>
         <div
@@ -656,7 +659,7 @@ function DisclosureDirectory(props: Props) {
                       type="button"
                       disabled={!snapshot?.periods.length}
                       aria-label={'Reporting period: ' + (periodLabel || 'none published')}
-                      className="flex shrink-0 items-center gap-2 rounded-r-control border-l border-current/20 px-3 text-sm font-medium transition-colors hover:bg-current/[0.04] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:opacity-50"
+                      className="flex shrink-0 items-center gap-2 rounded-r-control border-l border-current/20 px-3 text-sm font-medium transition-colors hover:bg-current/4 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:opacity-50"
                     >
                       <CalendarIcon aria-hidden="true" className="size-4 opacity-60" />
                       {periodLabel || 'No reporting periods'}
@@ -683,7 +686,7 @@ function DisclosureDirectory(props: Props) {
                           className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground"
                         />
                         <input
-                          className="h-[34px] w-full rounded-control border border-primary/15 bg-popover/45 pl-8 pr-2.5 text-[13px] outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus:border-primary/45 focus:ring-3 focus:ring-primary/10"
+                          className="h-8.5 w-full rounded-control border border-primary/15 bg-popover/45 pl-8 pr-2.5 text-[13px] outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus:border-primary/45 focus:ring-3 focus:ring-primary/10"
                           value={periodSearch}
                           maxLength={100}
                           placeholder="e.g. August 2026"
@@ -708,7 +711,7 @@ function DisclosureDirectory(props: Props) {
                                 <button
                                   type="button"
                                   aria-current={p.id === selectedPeriod ? 'true' : undefined}
-                                  className="flex h-9 w-full items-center justify-between gap-2 rounded-control px-2.5 text-left text-[13.5px] transition-colors hover:bg-primary/5 focus-visible:outline-2 focus-visible:outline-ring aria-[current=true]:bg-primary/8 aria-[current=true]:font-semibold aria-[current=true]:text-primary"
+                                  className="flex h-9 w-full items-center justify-between gap-2 rounded-control px-2.5 text-left text-[13.5px] transition-colors hover:bg-primary/5 focus-visible:outline-2 focus-visible:outline-ring aria-current:bg-primary/8 aria-current:font-semibold aria-current:text-primary"
                                   onClick={() => {
                                     setPeriodOpen(false)
                                     if (p.id === selectedPeriod) return

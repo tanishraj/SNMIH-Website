@@ -302,6 +302,7 @@
           "src/blocks/DisclosureProforma/Component.tsx",
           "src/blocks/DisclosureProforma/Presentation.tsx",
           "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+          "src/blocks/DisclosureProforma/RowLabels.tsx",
           "src/blocks/DisclosureProforma/config.ts",
           "src/blocks/DisclosureProforma/load.ts",
           "src/blocks/DisclosureProforma/request.ts",
@@ -2454,6 +2455,7 @@
       "src/blocks/DisclosureProforma/Component.tsx",
       "src/blocks/DisclosureProforma/Presentation.tsx",
       "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+      "src/blocks/DisclosureProforma/RowLabels.tsx",
       "src/blocks/DisclosureProforma/config.ts",
       "src/blocks/DisclosureProforma/load.ts",
       "src/blocks/DisclosureProforma/request.ts",
@@ -3154,7 +3156,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "b787e512a682d56ca9861ee005e8561769528cfc4ef57bcfebc3a965dab3a54e"
+    "sha256": "e79261331d923c8b5a55f431195769553f86f2e641c19f72644fe259560a966c"
   },
   "surfaces": {
     "access": [

@@ -2060,6 +2060,9 @@ export interface DisclosureProformaBlock {
    */
   sections: {
     key: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
+    /**
+     * Untick to hide this section from the sidebar and the page. Its records are kept.
+     */
     enabled?: boolean | null;
     label: string;
     description?: string | null;

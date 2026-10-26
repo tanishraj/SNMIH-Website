@@ -66,6 +66,9 @@ export const DisclosureProformaBlock: Block = {
               validate: uniqueKeys,
               admin: {
                 initCollapsed: true,
+                components: {
+                  RowLabel: '/blocks/DisclosureProforma/RowLabels#DisclosureSectionRowLabel',
+                },
                 description:
                   'Reorder sections, edit labels and configure each group of facts, metrics or table columns.',
               },
@@ -77,7 +80,16 @@ export const DisclosureProformaBlock: Block = {
                   options: [...sectionOptions],
                   required: true,
                 },
-                { name: 'enabled', type: 'checkbox', defaultValue: true },
+                {
+                  name: 'enabled',
+                  label: 'Show in sidebar',
+                  type: 'checkbox',
+                  defaultValue: true,
+                  admin: {
+                    description:
+                      'Untick to hide this section from the sidebar and the page. Its records are kept.',
+                  },
+                },
                 { name: 'label', type: 'text', required: true },
                 { name: 'description', type: 'textarea' },
                 {
