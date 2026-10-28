@@ -98,7 +98,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'disclosure-periods': {
+      records: 'disclosure-records';
+    };
+  };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
@@ -2149,8 +2153,10 @@ export interface DisclosureProformaBlock {
    * How Not supplied and Not applicable values appear. Footnotes add one note under each affected group.
    */
   missingValueStyle?: ('chip' | 'footnote' | 'text') | null;
-  itemsPerPage?: ('5' | '10' | '20' | '50') | null;
-  paginationMode?: ('pages' | 'loadMore') | null;
+  /**
+   * Each table shows at most ten rows at once; longer tables add page numbers.
+   */
+  itemsPerPage?: ('5' | '10') | null;
   size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
   publicUpdatedAt?: string | null;
   publicUpdatedBy?: string | null;
@@ -9006,7 +9012,7 @@ export interface FormSubmission {
   deletedAt?: string | null;
 }
 /**
- * Create a new period for each report; previous periods remain available.
+ * One reporting month and its records. Use “Copy to a new month” to start the next report; previous months remain available.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "disclosure-periods".
@@ -9025,6 +9031,11 @@ export interface DisclosurePeriod {
   academicSession?: string | null;
   source?: (string | null) | Media;
   sourceNote?: string | null;
+  records?: {
+    docs?: (string | DisclosureRecord)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   publicUpdatedAt?: string | null;
   publicUpdatedBy?: string | null;
   updatedAt: string;
@@ -9039,7 +9050,10 @@ export interface DisclosurePeriod {
  */
 export interface DisclosureRecord {
   id: string;
-  dataset: string | DisclosureDataset;
+  /**
+   * Set from the reporting period.
+   */
+  dataset?: (string | null) | DisclosureDataset;
   period: string | DisclosurePeriod;
   section: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
   /**
@@ -10973,7 +10987,6 @@ export interface DisclosureProformaBlockSelect<T extends boolean = true> {
   density?: T;
   missingValueStyle?: T;
   itemsPerPage?: T;
-  paginationMode?: T;
   size?: T;
   publicUpdatedAt?: T;
   publicUpdatedBy?: T;
@@ -14853,6 +14866,7 @@ export interface DisclosurePeriodsSelect<T extends boolean = true> {
   academicSession?: T;
   source?: T;
   sourceNote?: T;
+  records?: T;
   publicUpdatedAt?: T;
   publicUpdatedBy?: T;
   updatedAt?: T;

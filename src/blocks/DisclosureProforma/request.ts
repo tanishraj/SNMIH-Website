@@ -1,4 +1,4 @@
-import { sectionOptions, type SectionKey } from './shared'
+import { sectionOptions, type SectionKey, PAGE_SIZES } from './shared'
 export type DisclosureQuery = {
   dataset: string
   section: SectionKey
@@ -37,7 +37,7 @@ export function parseDisclosureQuery(params: URLSearchParams): DisclosureQuery {
     !Number.isInteger(periodPage) ||
     periodPage < 1 ||
     periodPage > 10000 ||
-    ![5, 10, 20, 50].includes(limit) ||
+    !(PAGE_SIZES as readonly number[]).includes(limit) ||
     (params.has('draft') && !['true', 'false'].includes(params.get('draft')!))
   )
     throw new Error('Invalid disclosure filters.')

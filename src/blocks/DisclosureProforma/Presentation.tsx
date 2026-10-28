@@ -1,14 +1,15 @@
 'use client'
-import { useEffect, useEffectEvent, useRef, useState } from 'react'
+import { Fragment, useEffect, useEffectEvent, useRef, useState } from 'react'
 import {
   CalendarIcon,
   CheckIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ClipboardListIcon,
   SearchIcon,
 } from 'lucide-react'
 import { resolveBlockAppearanceClasses } from '@/blocks/shared/blockAppearance'
-import type { BlockBackground } from '@/blocks/shared/blockAppearance'
 import {
   regularBlockContainerClasses,
   regularBlockMobilePaddingClasses,
@@ -191,25 +192,85 @@ export function DisclosurePresentation(props: Props) {
     />
   )
 }
-function RowDetails({ row, missing }: { row: Row; missing: string }) {
-  return row.details?.length ? (
-    <details className="mt-2">
-      <summary className="cursor-pointer text-sm font-medium underline-offset-4 hover:underline">
-        View details
-      </summary>
-      <dl className="mt-3 space-y-2">
-        {row.details.map((detail, i) => (
-          <div key={i}>
-            <dt className="text-xs font-medium">{detail.label}</dt>
-            <dd className="whitespace-pre-line text-sm opacity-80">
-              {displayValue(detail.value, null, missing)}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </details>
-  ) : null
+// Every group sits in the same outline panel: title and count above, the content below. The panel
+// draws only lines and tints from the text colour, so it reads on every section surface.
+function Panel({
+  title,
+  count,
+  children,
+}: {
+  title: string
+  count?: string
+  children: React.ReactNode
+}) {
+  return (
+    <section
+      aria-label={title}
+      className="overflow-hidden rounded-card border border-current/20 motion-safe:transition-colors"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-5 pb-4 pt-5 sm:px-6">
+        <h4 className="font-sans text-[17px] font-semibold leading-snug">{title}</h4>
+        {count && (
+          <span className="whitespace-nowrap font-mono text-[11px] font-medium uppercase tracking-[0.12em] opacity-60">
+            {count}
+          </span>
+        )}
+      </div>
+      {children}
+    </section>
+  )
 }
+function DetailsToggle({
+  open,
+  onClick,
+  controls,
+  name,
+}: {
+  open: boolean
+  onClick: () => void
+  controls: string
+  name: string
+}) {
+  return (
+    <button
+      type="button"
+      aria-expanded={open}
+      aria-controls={controls}
+      aria-label={(open ? 'Hide details: ' : 'Show details: ') + name}
+      onClick={onClick}
+      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-current/25 py-1.5 pl-3 pr-2.5 text-[13px] font-medium leading-none transition-colors hover:border-current/50 hover:bg-current/4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none"
+    >
+      Details
+      <ChevronDownIcon
+        aria-hidden="true"
+        className={cn(
+          'size-3.5 transition-transform motion-reduce:transition-none',
+          open && 'rotate-180',
+        )}
+      />
+    </button>
+  )
+}
+function DetailList({ row, missing, id }: { row: Row; missing: string; id: string }) {
+  return (
+    <dl
+      id={id}
+      className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,12.5rem),1fr))] gap-x-8 gap-y-3.5 border-t border-dashed border-current/25 pt-4"
+    >
+      {row.details?.map((detail, i) => (
+        <div key={i}>
+          <dt className="font-mono text-[11px] font-medium uppercase leading-snug tracking-[0.1em] opacity-60">
+            {detail.label}
+          </dt>
+          <dd className="mt-1 whitespace-pre-line text-sm">
+            {displayValue(detail.value, null, missing)}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+const numeric = (value?: string | null) => !!value && /^[\d,.\s%–-]+$/.test(value.trim())
 function GroupContent({
   group,
   batch,
@@ -218,7 +279,6 @@ function GroupContent({
   missingStyle,
   indexStart,
   accent,
-  background,
 }: {
   group: Group
   batch: Batch
@@ -227,24 +287,25 @@ function GroupContent({
   missingStyle: MissingStyle
   indexStart: number
   accent: string
-  background: BlockBackground
 }) {
-  const pad = compact ? 'px-3 py-2.5' : 'px-3 py-4'
+  const [openRow, setOpenRow] = useState<string | null>(null)
+  const toggle = (id: string) => setOpenRow((current) => (current === id ? null : id))
+  const pad = compact ? 'py-3' : 'py-4'
   if (group.layout === 'metrics')
     return (
-      <dl className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] overflow-hidden border-y border-t-current/20 border-b-current/10">
+      // Inset shadows draw the tile dividers; the panel clips them on the outer edge.
+      <dl className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12.5rem),1fr))] border-t border-current/10">
         {batch.rows.map((row) => (
-          // Inset shadows draw the dividers; the list clips them on the outer edge.
           <div
             key={row.id}
-            className="flex flex-col gap-2 px-3 py-5 sm:px-5 sm:first:pl-3 [box-shadow:-1px_0_0_color-mix(in_oklch,currentColor_10%,transparent)]"
+            className="flex flex-col gap-2.5 px-5 pb-6 pt-5 sm:px-6 [box-shadow:-1px_0_0_color-mix(in_oklch,currentColor_10%,transparent)]"
           >
-            <dt className="font-mono text-[11px] font-medium uppercase leading-4 tracking-[0.14em] opacity-70">
+            <dt className="font-mono text-[11px] font-medium uppercase leading-4 tracking-[0.12em] opacity-60">
               {row.label}
             </dt>
             <dd
               className={cn(
-                'whitespace-pre-line font-mono text-2xl font-medium tabular-nums sm:text-3xl',
+                'whitespace-pre-line font-mono text-[28px] font-medium leading-none tracking-[-0.01em] tabular-nums sm:text-3xl',
                 accent,
               )}
             >
@@ -255,53 +316,96 @@ function GroupContent({
                 style={missingStyle}
               />
             </dd>
-            <RowDetails row={row} missing={missing} />
+            {!!row.details?.length && (
+              <div className="mt-1">
+                <DetailsToggle
+                  open={openRow === row.id}
+                  onClick={() => toggle(row.id)}
+                  controls={group.key + '-' + row.id}
+                  name={row.label}
+                />
+                {openRow === row.id && (
+                  <div className="mt-4">
+                    <DetailList row={row} missing={missing} id={group.key + '-' + row.id} />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </dl>
     )
   if (group.layout === 'facts')
     return (
-      <dl className="border-t border-current/20">
-        {batch.rows.map((row) => (
-          <div
-            key={row.id}
-            className="grid border-b border-current/10 transition-colors hover:bg-current/4 motion-reduce:transition-none sm:grid-cols-[35%_minmax(0,1fr)]"
-          >
-            <dt className={cn(pad, 'text-sm opacity-70 max-sm:pb-1')}>{row.label}</dt>
-            <dd
+      <dl className="border-t border-current/10">
+        {batch.rows.map((row) => {
+          const open = openRow === row.id
+          return (
+            <div
+              key={row.id}
               className={cn(
-                pad,
-                'min-w-0 whitespace-pre-line break-words text-sm font-medium max-sm:pt-0',
+                'border-b border-current/10 px-5 transition-colors last:border-b-0 hover:bg-current/3 motion-reduce:transition-none sm:px-6',
+                open && 'bg-current/3',
               )}
             >
-              <Value
-                value={row.value}
-                state={row.valueState}
-                missing={missing}
-                style={missingStyle}
-              />
-              <RowDetails row={row} missing={missing} />
-            </dd>
-          </div>
-        ))}
+              <div className="grid gap-x-6 gap-y-1 sm:grid-cols-[minmax(0,38%)_minmax(0,1fr)_auto] sm:items-center">
+                <dt className={cn(pad, 'text-sm text-current/70 max-sm:pb-0')}>{row.label}</dt>
+                <dd
+                  className={cn(
+                    pad,
+                    'min-w-0 whitespace-pre-line break-words text-sm font-medium max-sm:pt-0',
+                    numeric(row.value) &&
+                      !missingKind(row.value, row.valueState) &&
+                      'font-mono text-[15px] tabular-nums',
+                  )}
+                >
+                  <Value
+                    value={row.value}
+                    state={row.valueState}
+                    missing={missing}
+                    style={missingStyle}
+                  />
+                </dd>
+                {!!row.details?.length && (
+                  <dd className={cn(pad, 'max-sm:pt-0')}>
+                    <DetailsToggle
+                      open={open}
+                      onClick={() => toggle(row.id)}
+                      controls={group.key + '-' + row.id}
+                      name={row.label}
+                    />
+                  </dd>
+                )}
+              </div>
+              {open && !!row.details?.length && (
+                <dd className="pb-5">
+                  <DetailList row={row} missing={missing} id={group.key + '-' + row.id} />
+                </dd>
+              )}
+            </div>
+          )
+        })}
       </dl>
     )
   const columns = group.columns?.length
     ? group.columns
     : [{ key: 'label', label: 'Record', numeric: false }]
-  const cellPad = compact ? 'px-3.5 py-2.5' : 'px-3.5 py-3.5'
+  const hasDetails = batch.rows.some((row) => row.details?.length)
+  const cellPad = compact ? 'px-4 py-3' : 'px-4 py-4'
   return (
     <div
-      className="overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring"
+      className="overflow-x-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
       role="region"
       aria-label={group.title || 'Disclosure table'}
       tabIndex={0}
     >
       <table className="w-full border-collapse text-left text-sm">
         <thead>
-          <tr>
-            <th scope="col" className="w-12 border-b border-current/20 py-2.5 pl-3.5">
+          <tr className="bg-current/5">
+            <th
+              scope="col"
+              className="w-14 border-y border-t-current/10 border-b-current/35 py-3 pl-5 sm:pl-6"
+            >
               <span className="sr-only">Row</span>
             </th>
             {columns.map((c) => (
@@ -309,71 +413,199 @@ function GroupContent({
                 key={c.key}
                 scope="col"
                 className={cn(
-                  'whitespace-nowrap border-b border-current/20 px-3.5 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-current/70',
+                  'whitespace-nowrap border-y border-t-current/10 border-b-current/35 px-4 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-current/65',
                   c.numeric && 'text-right',
                 )}
               >
                 {c.label}
               </th>
             ))}
+            {hasDetails && (
+              <th
+                scope="col"
+                className="w-px border-y border-t-current/10 border-b-current/35 py-3 pr-5 sm:pr-6"
+              >
+                <span className="sr-only">Details</span>
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
-          {batch.rows.map((row, rowIndex) => (
-            <tr
-              key={row.id}
-              className="transition-colors hover:bg-current/4 motion-reduce:transition-none"
-            >
-              <td className={cn(cellPad, 'w-12 border-b border-current/10 pr-0 align-middle')}>
-                <span
-                  data-section-eyebrow-surface={background}
-                  className="font-mono text-xs font-medium text-current"
+          {batch.rows.map((row, rowIndex) => {
+            const open = openRow === row.id
+            const detailsID = group.key + '-' + row.id
+            const span = columns.length + 1 + (hasDetails ? 1 : 0)
+            return (
+              <Fragment key={row.id}>
+                <tr
+                  className={cn(
+                    'transition-colors hover:bg-current/3 motion-reduce:transition-none',
+                    open && 'bg-current/3',
+                  )}
                 >
-                  {String(indexStart + rowIndex + 1).padStart(2, '0')}
-                </span>
-              </td>
-              {columns.map((c, index) => {
-                const cell = row.cells?.find((item) => item.key === c.key)
-                const provided = c.key !== 'label' && !missingKind(cell?.value, cell?.valueState)
-                return (
                   <td
-                    key={c.key}
                     className={cn(
                       cellPad,
-                      'min-w-28 border-b border-current/10 align-middle',
-                      index === 0 && 'font-semibold',
-                      c.numeric && 'text-right',
+                      'w-14 border-b border-current/10 pl-5 pr-0 align-middle font-mono text-xs font-medium tabular-nums opacity-60 sm:pl-6',
+                      open && 'border-b-transparent',
                     )}
                   >
-                    <div className="max-w-prose whitespace-pre-line break-words">
-                      {c.key === 'label' ? (
-                        row.label
-                      ) : c.numeric && provided ? (
-                        <span
-                          className={cn(
-                            'inline-block min-w-[30px] rounded-full bg-current/8 px-2.5 py-0.5 text-center font-mono text-[13px] font-semibold tabular-nums',
-                            accent,
+                    {String(indexStart + rowIndex + 1).padStart(2, '0')}
+                  </td>
+                  {columns.map((c, index) => {
+                    const cell = row.cells?.find((item) => item.key === c.key)
+                    const provided =
+                      c.key !== 'label' && !missingKind(cell?.value, cell?.valueState)
+                    return (
+                      <td
+                        key={c.key}
+                        className={cn(
+                          cellPad,
+                          'min-w-28 border-b border-current/10 align-middle',
+                          index === 0 && 'font-semibold',
+                          c.numeric && 'text-right',
+                          open && 'border-b-transparent',
+                        )}
+                      >
+                        <div className="max-w-prose whitespace-pre-line break-words">
+                          {c.key === 'label' ? (
+                            row.label
+                          ) : c.numeric && provided ? (
+                            <span
+                              className={cn(
+                                'inline-block min-w-[30px] rounded-full bg-current/8 px-2.5 py-0.5 text-center font-mono text-[13px] font-semibold tabular-nums',
+                                accent,
+                              )}
+                            >
+                              {cell?.value}
+                            </span>
+                          ) : (
+                            <Value
+                              value={cell?.value}
+                              state={cell?.valueState}
+                              missing={missing}
+                              style={missingStyle}
+                            />
                           )}
-                        >
-                          {cell?.value}
-                        </span>
-                      ) : (
-                        <Value
-                          value={cell?.value}
-                          state={cell?.valueState}
-                          missing={missing}
-                          style={missingStyle}
+                        </div>
+                      </td>
+                    )
+                  })}
+                  {hasDetails && (
+                    <td
+                      className={cn(
+                        cellPad,
+                        'w-px border-b border-current/10 pl-0 pr-5 text-right align-middle sm:pr-6',
+                        open && 'border-b-transparent',
+                      )}
+                    >
+                      {!!row.details?.length && (
+                        <DetailsToggle
+                          open={open}
+                          onClick={() => toggle(row.id)}
+                          controls={detailsID}
+                          name={row.label}
                         />
                       )}
-                    </div>
-                    {index === 0 && <RowDetails row={row} missing={missing} />}
-                  </td>
-                )
-              })}
-            </tr>
-          ))}
+                    </td>
+                  )}
+                </tr>
+                {open && !!row.details?.length && (
+                  <tr className="bg-current/3">
+                    <td
+                      colSpan={span}
+                      className="border-b border-current/10 px-5 pb-6 pt-0 sm:pl-[4.25rem] sm:pr-6"
+                    >
+                      <DetailList row={row} missing={missing} id={detailsID} />
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
+            )
+          })}
         </tbody>
       </table>
+    </div>
+  )
+}
+// Page numbers live in the panel footer; up to seven are shown, with an ellipsis around the gaps.
+const pageNumbers = (page: number, total: number): (number | '…')[] => {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+  const near = [page - 1, page, page + 1].filter((n) => n > 1 && n < total)
+  const list: (number | '…')[] = [1]
+  if (near[0] > 2) list.push('…')
+  list.push(...near)
+  if (near.at(-1)! < total - 1) list.push('…')
+  return [...list, total]
+}
+const pageButton =
+  'inline-grid size-8 place-items-center rounded-control border border-transparent font-mono text-[13px] font-medium tabular-nums transition-colors hover:bg-current/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-35 disabled:hover:bg-transparent motion-reduce:transition-none'
+function Pager({
+  batch,
+  limit,
+  busy,
+  name,
+  onPage,
+}: {
+  batch: Batch
+  limit: number
+  busy: boolean
+  name: string
+  onPage: (page: number) => void
+}) {
+  const first = (batch.page - 1) * limit + 1
+  const last = Math.min(batch.page * limit, batch.total)
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-current/10 px-5 py-3 text-[13px] sm:px-6">
+      <p className="opacity-70">
+        Showing{' '}
+        <span className="font-semibold tabular-nums opacity-100">
+          {first}–{last}
+        </span>{' '}
+        of <span className="font-semibold tabular-nums">{batch.total}</span>
+      </p>
+      <nav aria-label={'Pages: ' + name} className="flex items-center gap-1">
+        <button
+          type="button"
+          className={pageButton}
+          disabled={busy || batch.page <= 1}
+          aria-label="Previous page"
+          onClick={() => onPage(batch.page - 1)}
+        >
+          <ChevronLeftIcon aria-hidden="true" className="size-4" />
+        </button>
+        {pageNumbers(batch.page, batch.totalPages).map((n, i) =>
+          n === '…' ? (
+            <span key={'gap' + i} aria-hidden="true" className={cn(pageButton, 'opacity-60')}>
+              …
+            </span>
+          ) : (
+            <button
+              key={n}
+              type="button"
+              aria-current={n === batch.page ? 'page' : undefined}
+              aria-label={'Page ' + n}
+              disabled={busy}
+              className={cn(
+                pageButton,
+                n === batch.page && 'border-current/30 bg-current/6 font-semibold',
+              )}
+              onClick={() => n !== batch.page && onPage(n)}
+            >
+              {n}
+            </button>
+          ),
+        )}
+        <button
+          type="button"
+          className={pageButton}
+          disabled={busy || batch.page >= batch.totalPages}
+          aria-label="Next page"
+          onClick={() => onPage(batch.page + 1)}
+        >
+          <ChevronRightIcon aria-hidden="true" className="size-4" />
+        </button>
+      </nav>
     </div>
   )
 }
@@ -573,7 +805,9 @@ function DisclosureDirectory(props: Props) {
         >
           <nav
             aria-label="Disclosure sections"
-            className="flex flex-wrap content-start gap-1 lg:sticky lg:top-26 lg:flex-col lg:self-start lg:pr-6"
+            // The offset follows the global header (and announcement bar) height, so the first section
+            // never slides under them while the list stays pinned.
+            className="flex flex-wrap content-start gap-1 lg:sticky lg:top-[calc(var(--block-anchor-offset,1rem)+1rem)] lg:flex-col lg:self-start lg:pr-6"
           >
             {sections.map((s, index) => {
               const active = s.key === sectionKey
@@ -627,7 +861,7 @@ function DisclosureDirectory(props: Props) {
             )}
           </nav>
           <div className="min-w-0 lg:border-l lg:border-current/10 lg:pl-8">
-            <div className="mb-7 flex flex-wrap items-center justify-between gap-5">
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-5 border-b border-current/10 pb-6">
               <div className="min-w-56 flex-1">
                 <h3 className="font-display text-2xl font-semibold">{section.label}</h3>
                 {section.description && (
@@ -771,81 +1005,45 @@ function DisclosureDirectory(props: Props) {
               />
             )}
             {!loading && (
-              <div aria-busy={busy} className="space-y-8">
+              <div aria-busy={busy} className="space-y-7">
                 {section.groups.map((group) => {
                   const batch = snapshot?.groups[group.key] ?? emptyBatch
                   if (!batch.total) return null
+                  const title =
+                    group.title || (group.layout === 'metrics' ? 'Key figures' : section.label)
+                  const count =
+                    group.layout === 'metrics'
+                      ? undefined
+                      : `${batch.total} ${group.layout === 'table' ? 'row' : 'item'}${batch.total === 1 ? '' : 's'}`
+                  const pager = (page: number) => void fetchData(group.key, page)
                   return (
-                    <section key={group.key} aria-label={group.title || section.label}>
-                      {group.title && (
-                        <h4 className="mb-4 font-sans text-lg font-semibold sm:text-xl">
-                          {group.title}
-                        </h4>
-                      )}
+                    <Panel key={group.key} title={title} count={count}>
                       <GroupContent
                         group={group}
                         batch={batch}
                         compact={props.density === 'compact'}
                         missing={missing}
                         missingStyle={missingStyle}
-                        indexStart={
-                          props.paginationMode === 'loadMore' ? 0 : (batch.page - 1) * limit
-                        }
+                        indexStart={(batch.page - 1) * limit}
                         accent={accent}
-                        background={appearance.background}
                       />
                       {missingStyle === 'footnote' && hasNotSupplied(batch.rows) && (
-                        <p className="mt-3 text-[13px] leading-5 opacity-75">
+                        <p className="border-t border-current/10 px-5 py-3.5 text-[13px] leading-5 opacity-75 sm:px-6">
                           <sup className="mr-1.5 font-mono text-[11px] font-semibold">a</sup>
                           {missing}
                           {periodLabel ? ' for ' + periodLabel : ''}.
                         </p>
                       )}
                       {batch.total > limit && (
-                        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm">
-                          <p>
-                            Showing{' '}
-                            {props.paginationMode === 'loadMore'
-                              ? 1
-                              : (batch.page - 1) * limit + 1}
-                            –{Math.min(batch.page * limit, batch.total)} of {batch.total}
-                          </p>
-                          {props.paginationMode === 'loadMore' ? (
-                            batch.page < batch.totalPages && (
-                              <button
-                                className={control}
-                                disabled={busy}
-                                onClick={() => void fetchData(group.key, batch.page + 1)}
-                              >
-                                Load more
-                              </button>
-                            )
-                          ) : (
-                            <div className="flex items-center gap-3">
-                              <button
-                                className={control}
-                                disabled={busy || batch.page <= 1}
-                                aria-label={'Previous page: ' + (group.title || section.label)}
-                                onClick={() => void fetchData(group.key, batch.page - 1)}
-                              >
-                                Previous
-                              </button>
-                              <span>
-                                {batch.page} / {batch.totalPages}
-                              </span>
-                              <button
-                                className={control}
-                                disabled={busy || batch.page >= batch.totalPages}
-                                aria-label={'Next page: ' + (group.title || section.label)}
-                                onClick={() => void fetchData(group.key, batch.page + 1)}
-                              >
-                                Next
-                              </button>
-                            </div>
-                          )}
-                        </div>
+                        <Pager
+                          batch={batch}
+                          limit={limit}
+                          busy={busy}
+                          name={title}
+                          onPage={pager}
+                        />
                       )}
-                    </section>
+                    </Panel>
                   )
                 })}
               </div>
