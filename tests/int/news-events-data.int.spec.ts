@@ -9,11 +9,7 @@ import {
   pastEventWhere,
   resolveActiveNewsEventClassifications,
 } from '@/lib/newsEvents'
-import {
-  interleaveNewsEvents,
-  normalizeHighlightsItemCount,
-  type PublicNewsEventCard,
-} from '@/lib/newsEventsShared'
+import { normalizeHighlightsItemCount, type PublicNewsEventCard } from '@/lib/newsEventsShared'
 import type { ResolvedNewsEventClassification } from '@/lib/newsEventClassifications'
 
 const storyClassification: ResolvedNewsEventClassification = {
@@ -60,23 +56,6 @@ const legacyEventClassification: ResolvedNewsEventClassification = {
   title: 'Events',
 }
 
-const card = (
-  id: string,
-  classification: ResolvedNewsEventClassification,
-): PublicNewsEventCard => ({
-  behavior: classification.behavior,
-  classification,
-  contentType: classification.slug,
-  dateISO: '2026-07-20T00:00:00.000Z',
-  dateLabel: 'Jul 20, 2026',
-  excerpt: `${id} excerpt`,
-  href: `/news-events/${id}`,
-  id,
-  isPastEvent: false,
-  slug: id,
-  title: id,
-})
-
 const record = (id: string, classification: ResolvedNewsEventClassification) => ({
   classification,
   contentType: classification.legacyValue ?? undefined,
@@ -95,20 +74,6 @@ const record = (id: string, classification: ResolvedNewsEventClassification) => 
 })
 
 describe('News & Events public data helpers', () => {
-  it('alternates Story and Event records and backfills without duplicates', () => {
-    expect(
-      interleaveNewsEvents(
-        [
-          card('story-1', storyClassification),
-          card('story-2', storyClassification),
-          card('story-3', storyClassification),
-        ],
-        [card('event-1', eventClassification)],
-        4,
-      ).map(({ id }) => id),
-    ).toEqual(['story-1', 'event-1', 'story-2', 'story-3'])
-  })
-
   it('normalizes dynamic block item counts', () => {
     expect(normalizeHighlightsItemCount(99)).toBe(6)
     expect(normalizeHighlightsItemCount(0)).toBe(1)
@@ -208,17 +173,8 @@ describe('News & Events public data helpers', () => {
     const find = vi
       .fn()
       .mockResolvedValueOnce({ docs: [eventClassification, storyClassification] })
-      .mockResolvedValueOnce({
-        docs: [record('story-1', storyClassification)],
-        hasNextPage: false,
-        page: 1,
-      })
-      .mockResolvedValueOnce({
-        docs: [record('event-1', eventClassification)],
-        hasNextPage: false,
-        page: 1,
-      })
-      .mockResolvedValueOnce({ docs: [], hasNextPage: false, page: 1 })
+      .mockResolvedValueOnce({ docs: [record('event-1', eventClassification)] })
+      .mockResolvedValueOnce({ docs: [record('story-1', storyClassification)] })
 
     const page = await fetchNewsEventPageForScope({ find } as never, {
       classification: 'all',
@@ -228,7 +184,7 @@ describe('News & Events public data helpers', () => {
       page: 1,
     })
 
-    expect(page.docs.map(({ id }) => id)).toEqual(['story-1', 'event-1'])
+    expect(page.docs.map(({ id }) => id)).toEqual(['event-1', 'story-1'])
     expect(find).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
@@ -338,14 +294,19 @@ describe('News & Events public data helpers', () => {
     )
   })
 
-  it('continues deterministic All pagination across selected Story and Event streams', async () => {
-    const stories = ['story-1', 'story-2', 'story-3'].map((id) => record(id, storyClassification))
-    const events = ['event-1', 'event-2', 'event-3'].map((id) => record(id, eventClassification))
-    const find = vi.fn(async (query: { limit: number; where: unknown }) => {
-      const isEventQuery = JSON.stringify(query.where).includes(eventClassification.id)
-
-      return { docs: (isEventQuery ? events : stories).slice(0, query.limit) }
-    })
+  it('leads the All tab with upcoming Events, then everything else newest-published first', async () => {
+    const upcoming = [
+      record('event-soon', eventClassification),
+      record('event-later', eventClassification),
+    ]
+    const rest = [
+      record('story-new', storyClassification),
+      record('event-past', eventClassification),
+      record('story-old', storyClassification),
+    ]
+    const find = vi.fn(async (query: { limit: number; sort: string[] }) => ({
+      docs: (query.sort[0] === 'eventStart' ? upcoming : rest).slice(0, query.limit),
+    }))
     const input = {
       classification: 'all' as const,
       classifications: [storyClassification, eventClassification],
@@ -355,25 +316,45 @@ describe('News & Events public data helpers', () => {
 
     const first = await fetchNewsEventPage({ find } as never, { ...input, page: 1 })
     const second = await fetchNewsEventPage({ find } as never, { ...input, page: 2 })
-    const combined = [...first.docs, ...second.docs]
+    const third = await fetchNewsEventPage({ find } as never, { ...input, page: 3 })
 
-    expect(combined.map(({ id }) => id)).toEqual(['story-1', 'event-1', 'story-2', 'event-2'])
-    expect(new Set(combined.map(({ id }) => id)).size).toBe(combined.length)
+    expect([...first.docs, ...second.docs, ...third.docs].map(({ id }) => id)).toEqual([
+      'event-soon',
+      'event-later',
+      'story-new',
+      'event-past',
+      'story-old',
+    ])
     expect(first.hasNextPage).toBe(true)
-    expect(second.hasNextPage).toBe(true)
+    expect(third.hasNextPage).toBe(false)
+    // Current/upcoming Events soonest-first…
     expect(find.mock.calls[0]?.[0]).toEqual(
       expect.objectContaining({
-        sort: ['-publishedAt', '-id'],
-        where: {
-          and: expect.arrayContaining([{ classification: { in: [storyClassification.id] } }]),
-        },
-      }),
-    )
-    expect(find.mock.calls[1]?.[0]).toEqual(
-      expect.objectContaining({
+        limit: 3,
         sort: ['eventStart', 'id'],
         where: {
           and: expect.arrayContaining([{ classification: { in: [eventClassification.id] } }]),
+        },
+      }),
+    )
+    // …then Stories and past Events together, newest-published first.
+    expect(find.mock.calls[1]?.[0]).toEqual(
+      expect.objectContaining({
+        limit: 3,
+        sort: ['-publishedAt', '-id'],
+        where: {
+          and: expect.arrayContaining([
+            {
+              or: [
+                { classification: { in: [storyClassification.id] } },
+                expect.objectContaining({
+                  and: expect.arrayContaining([
+                    { classification: { in: [eventClassification.id] } },
+                  ]),
+                }),
+              ],
+            },
+          ]),
         },
       }),
     )

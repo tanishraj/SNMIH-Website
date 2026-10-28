@@ -1,0 +1,13 @@
+.disclosure-month-actions {
+  display: grid;
+  gap: 16px;
+
+  p {
+    margin: 0;
+    color: var(--theme-elevation-650);
+  }
+
+  .field-type {
+    margin: 0;
+  }
+}

@@ -156,54 +156,6 @@ export const normalizeHighlightsItemCount = (value: number | null | undefined): 
     ? Math.min(NEWS_EVENTS_MAX_HIGHLIGHT_COUNT, Math.max(1, value))
     : NEWS_EVENTS_DEFAULT_HIGHLIGHT_COUNT
 
-export function interleaveNewsEvents(
-  news: PublicNewsEventCard[],
-  events: PublicNewsEventCard[],
-  limit: number,
-): PublicNewsEventCard[] {
-  const result: PublicNewsEventCard[] = []
-  const seen = new Set<string>()
-  let newsIndex = 0
-  let eventIndex = 0
-  let preferNews = true
-
-  while (result.length < limit && (newsIndex < news.length || eventIndex < events.length)) {
-    let candidate: PublicNewsEventCard | undefined
-
-    if (preferNews && newsIndex < news.length) {
-      candidate = news[newsIndex++]
-    } else if (!preferNews && eventIndex < events.length) {
-      candidate = events[eventIndex++]
-    } else if (newsIndex < news.length) {
-      candidate = news[newsIndex++]
-    } else {
-      candidate = events[eventIndex++]
-    }
-
-    if (candidate && !seen.has(candidate.id)) {
-      seen.add(candidate.id)
-      result.push(candidate)
-    }
-
-    preferNews = !preferNews
-  }
-
-  if (result.length < limit) {
-    for (const candidate of [...news.slice(newsIndex), ...events.slice(eventIndex)]) {
-      if (result.length >= limit) {
-        break
-      }
-
-      if (!seen.has(candidate.id)) {
-        seen.add(candidate.id)
-        result.push(candidate)
-      }
-    }
-  }
-
-  return result
-}
-
 const getEffectiveEventEnd = (
   entry: Pick<NewsEvent, 'eventEnd' | 'eventStart'>,
 ): string | undefined => entry.eventEnd || entry.eventStart || undefined

@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { DisclosureProformaBlock, uniqueKeys } from '@/blocks/DisclosureProforma/config'
 import { DisclosurePresentation } from '@/blocks/DisclosureProforma/Presentation'
 import { parseDisclosureQuery } from '@/blocks/DisclosureProforma/request'
-import { defaultSections, displayValue } from '@/blocks/DisclosureProforma/shared'
+import { defaultSections, displayValue, normalizeLimit } from '@/blocks/DisclosureProforma/shared'
 import { DisclosureDatasets, DisclosurePeriods, DisclosureRecords } from '@/collections/Disclosure'
 import {
   editorName,
@@ -248,9 +248,62 @@ describe('Disclosure Proforma', () => {
         }}
       />,
     )
-    expect(html).toContain('>06</span>')
+    expect(html).toContain('>06</td>')
     expect(html).toMatch(/rounded-full bg-current\/8[^>]*>4</)
     expect(html).toContain('border-dashed border-current/45')
+    // Longer tables page inside the panel: a count in the header and numbered pages in the footer.
+    expect(html).toContain('>6 rows<')
+    expect(html).toContain('aria-label="Pages: Postgraduate programmes"')
+    expect(html).toMatch(/aria-current="page"[^>]*>2</)
+    expect(html).toContain('Showing <span')
+    expect(html).not.toContain('Load more')
+  })
+  it('caps every table at ten rows and falls back for older stored sizes', () => {
+    expect(normalizeLimit('50')).toBe(10)
+    expect(normalizeLimit('20')).toBe(10)
+    expect(normalizeLimit('5')).toBe(5)
+    expect(() => parse('&limit=20')).toThrow()
+    expect(parse('&limit=5').limit).toBe(5)
+  })
+  it('wraps each group in a titled panel and keeps row details behind a toggle', () => {
+    const html = renderStatistics()
+    expect(html).toContain('<section aria-label="Monthly records"')
+    expect(html).toContain('>2 items<')
+    const table = renderToStaticMarkup(
+      <DisclosurePresentation
+        dataset="fixture"
+        sections={defaultSections}
+        defaultSection="faculty"
+        staticPreview
+        initial={{
+          dataset: 'fixture',
+          period: 'sep',
+          periods: [{ id: 'sep', label: 'September 2026' }],
+          periodPage: 1,
+          hasMorePeriods: false,
+          groups: {
+            register: {
+              rows: [
+                {
+                  id: 'f1',
+                  label: 'Dr. One',
+                  cells: [{ key: 'name', value: 'Dr. One' }],
+                  details: [{ label: 'Date of joining', value: '01 Aug 2016' }],
+                },
+                { id: 'f2', label: 'Dr. Two', cells: [{ key: 'name', value: 'Dr. Two' }] },
+              ],
+              page: 1,
+              total: 2,
+              totalPages: 1,
+            },
+          },
+        }}
+      />,
+    )
+    expect(table).toContain('aria-label="Show details: Dr. One"')
+    expect(table).toContain('aria-expanded="false"')
+    expect(table).not.toContain('Date of joining')
+    expect(table).not.toContain('Show details: Dr. Two')
   })
   it('renders each configured missing-value style without inventing values', () => {
     const chip = renderStatistics()

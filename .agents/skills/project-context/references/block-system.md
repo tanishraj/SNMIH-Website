@@ -436,7 +436,10 @@ chapter presents fee values in the Fee Structure Atlas two-column ruled pattern,
 odd final items. At `lg`, compact row rules are removed and the existing adaptive value grid remains
 in effect. Compact layouts stack summary then statement, and container-aware fee grids reflow without
 page-level horizontal scrolling. Multiple categories reuse Contained, Pill, and Underline tabs with
-the same width behavior as Fee Structure and switch the complete frame. PG Fee Structure
+the same width behavior as Fee Structure and switch the complete frame. From the fifth department
+the statement list scrolls inside a fixed-height atlas through `DepartmentScrollRegion`, which fades
+the clipped edge and shows a "More departments" / "Back to top" pill once measured in the browser
+(server markup has no hint). PG Fee Structure
 intentionally has no alternate layout selector, calculated totals, department relationship, public
 filtering, payment-account fields, or migration.
 
@@ -539,7 +542,10 @@ The separate News & Events Tabs block renders Card Grid or Editorial List entrie
 first All tab and an editor-ordered set of active News & Event Classification relationships. Central
 classification titles become visitor tab labels; duplicate, inactive, missing, or unusable selected
 records are omitted without disturbing the remaining saved order. When no relationships are selected,
-the block intentionally renders only All and loads that group from every active classification. The
+the block intentionally renders only All and loads that group from every active classification. All
+fetches two prefixes and concatenates them: current/upcoming Events soonest-first, then Stories and
+past Events newest-published first (no story/event interleaving). Story tabs sort by publish date
+and Event tabs by current/upcoming then past. The
 block server-renders page one for each tab as a page-aware public group, with 3, 6, 9, or 12 entries
 per batch. When more entries exist, the client appends the next batch through the read-only
 `/api/news-events-tabs` route. Selected configurations carry their ordered classification scope for
@@ -622,8 +628,8 @@ pnpm project-context:check
 of facts, metrics or table columns. Content owns its dataset relationship, optional shared introduction
 and actions, sections and empty/archive labels; Theme Settings owns semantic appearance/padding,
 introduction alignment, Split/Stacked header layout, sidebar width, section numbers, density,
-missing-value style (chip/footnote/text), bounded page size and Pages/Load more mode. It uses
-shared typography and containers, a square Primary selection edge with a sticky divided section list, a date-only Updated badge, Show in sidebar section toggles with a hidden row label, hairline facts/figures, indexed tables, pulse loader and icon empty state,
+missing-value style (chip/footnote/text) and a page size capped at ten rows (`PAGE_SIZES`). It uses
+shared typography and containers, a square Primary selection edge with a sticky divided section list, a date-only Updated badge, Show in sidebar section toggles with a hidden row label, and one outline `Panel` per group (title plus row/item count): metric tiles, a label/value facts list, and tables with a tinted column header, a row-end Details toggle that expands an inline detail row, and a numbered footer pager; plus a pulse loader and icon empty state,
 a joined search and shadcn Popover period picker, and semantic table surfaces.
 Three separate collections retain periods and individual rows; Page layouts contain no growing data
 arrays. Production renders the active section's first batches on the server. The client-safe live

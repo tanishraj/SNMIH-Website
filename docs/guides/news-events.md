@@ -77,7 +77,9 @@ The primary topic is automatically included in additional topics. Tags are optio
 - `News & Events Tabs` is the separate text-only directory block. `All` is always first; editors
   can add, remove, rename, and reorder the News, Events, Notice, Holiday, Achievements,
   Announcement, and Others tabs, with each classification used at most once. The block loads 3, 6,
-  9, or 12 entries per tab and Load More makes every published entry available. Story-based tabs use
+  9, or 12 entries per tab and Load More makes every published entry available. `All` leads with
+  current and upcoming Events soonest-first, then every other Story and past Event newest-published
+  first. Story-based tabs use
   newest-published order. Event-based tabs show current and upcoming Events earliest-first, followed
   by past Events most-recent-first. The block supports 2–4 desktop columns and retains the shared
   section appearance, optional header, header actions, footer actions, spacing, action labels, and

@@ -230,7 +230,7 @@ complete chapter per department and repeats shared values so every chapter remai
 Its heading repeats the active category label exactly, without generated suffix text. With up to four
 departments, the atlas keeps its natural height. From the fifth department onward,
 large screens use a 676px frame: the Primary summary and statement header remain visible while the
-department chapter list scrolls. Compact layouts always keep every chapter in normal page flow.
+department chapter list scrolls. The list shows that it scrolls: the clipped edge fades, and a small “More departments” pill at its foot moves the list on; at the end it becomes “Back to top”. Compact layouts always keep every chapter in normal page flow.
 Compact layouts stack summary then statement, and fee grids reflow without page-level horizontal
 scrolling. Within each compact department chapter, fee values follow the Fee Structure Atlas ruled
 pattern: two values per row, paired vertical rules, horizontal row rules, and a full-width final value

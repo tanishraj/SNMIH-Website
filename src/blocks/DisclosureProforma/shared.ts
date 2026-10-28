@@ -209,7 +209,10 @@ export const normalizeSections = (sections: Section[] | null | undefined): Secti
     }))
 export const defaultEmptyDescription =
   'Figures for this section have not been published yet. Earlier reporting periods remain available from the period selector above.'
-export const normalizeLimit =(v: unknown) => ([5, 10, 20, 50].includes(Number(v)) ? Number(v) : 10)
+/** Rows per table page. Nothing shows more than ten rows at once; larger stored values fall back. */
+export const PAGE_SIZES = [5, 10] as const
+export const normalizeLimit = (v: unknown) =>
+  (PAGE_SIZES as readonly number[]).includes(Number(v)) ? Number(v) : 10
 export const missingKind = (value: string | null | undefined, state?: string | null) =>
   state === 'notApplicable'
     ? 'notApplicable'

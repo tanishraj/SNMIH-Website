@@ -234,18 +234,14 @@ export const DisclosureProformaBlock: Block = {
             },
             {
               name: 'itemsPerPage',
+              label: 'Rows Per Page',
               type: 'select',
               defaultValue: '10',
-              options: ['5', '10', '20', '50'],
-            },
-            {
-              name: 'paginationMode',
-              type: 'select',
-              defaultValue: 'pages',
-              options: [
-                { label: 'Page navigation', value: 'pages' },
-                { label: 'Load more', value: 'loadMore' },
-              ],
+              options: ['5', '10'],
+              admin: {
+                description:
+                  'Each table shows at most ten rows at once; longer tables add page numbers.',
+              },
             },
             {
               name: 'size',

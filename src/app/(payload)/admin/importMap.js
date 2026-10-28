@@ -26,10 +26,10 @@ import { LogoItemLabel as LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d } from 
 import { LogoRowLabel as LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { BankAccountRowLabel as BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3 } from '../../../blocks/BankDetails/RowLabel'
 import { PageCreateView as PageCreateView_244e42c068b95e8a328a77a2c7c4ade4 } from '@/components/admin/PageCreateView'
+import { DisclosureMonthActions as DisclosureMonthActions_434a481ef8538624e45c4dcba396b52b } from '@/components/admin/DisclosureMonthActions'
 import { LogoHeightField as LogoHeightField_afbb23a221f2bb10f37063672149b807 } from '../../../blocks/HeaderNavbar12/LogoHeightField'
 import { TwoFactorSettings as TwoFactorSettings_505f098c80830d1a923c81d0e294f350 } from '@/components/admin/TwoFactorSettings'
 import { DashboardOverview as DashboardOverview_05d601da1b7f3b105394f9997b7afdb8 } from '@/components/admin/DashboardOverview'
-import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { TwoFactorLoginView as TwoFactorLoginView_0c096a82d618beae940aa81c00014aed } from '@/components/admin/TwoFactorLoginView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -63,10 +63,10 @@ export const importMap = {
   "/blocks/Logos20/RowLabels#LogoRowLabel": LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/BankDetails/RowLabel#BankAccountRowLabel": BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3,
   "@/components/admin/PageCreateView#PageCreateView": PageCreateView_244e42c068b95e8a328a77a2c7c4ade4,
+  "@/components/admin/DisclosureMonthActions#DisclosureMonthActions": DisclosureMonthActions_434a481ef8538624e45c4dcba396b52b,
   "/blocks/HeaderNavbar12/LogoHeightField#LogoHeightField": LogoHeightField_afbb23a221f2bb10f37063672149b807,
   "@/components/admin/TwoFactorSettings#TwoFactorSettings": TwoFactorSettings_505f098c80830d1a923c81d0e294f350,
   "@/components/admin/DashboardOverview#DashboardOverview": DashboardOverview_05d601da1b7f3b105394f9997b7afdb8,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@/components/admin/TwoFactorLoginView#TwoFactorLoginView": TwoFactorLoginView_0c096a82d618beae940aa81c00014aed,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

@@ -351,15 +351,19 @@ describe('PGFeeStructureBlockComponent', () => {
     expect(statement?.className).toContain('max-h-none')
     expect(statement?.className).toContain('lg:flex-col')
     expect(statement?.firstElementChild?.tagName).toBe('HEADER')
-    expect(statement?.children[1]).toBe(scroller)
+    // The scroller sits in a frame that also holds the "More departments" / "Back to top" hint.
+    expect(statement?.children[1]?.contains(scroller as Node)).toBe(true)
+    expect(statement?.children[1]?.firstElementChild).toBe(scroller)
+    // The hint only appears after the list has measured in a browser; server markup has none.
+    expect(container.querySelector('[data-pg-fee-scroll-hint]')).toBeNull()
     expect(scroller?.className).toContain('h-auto')
     expect(scroller?.className).toContain('max-h-none')
     expect(scroller?.className).toContain('lg:flex-1')
     expect(scroller?.className).toContain('lg:overflow-y-auto')
-    expect(scroller?.className).toContain('lg:overscroll-contain')
+    // No overscroll containment: at either end of the list, the wheel scrolls the page.
+    expect(scroller?.className).not.toContain('overscroll-contain')
     expect(scroller?.className.split(' ')).not.toContain('h-[676px]')
     expect(scroller?.className.split(' ')).not.toContain('overflow-y-auto')
-    expect(scroller?.className.split(' ')).not.toContain('overscroll-contain')
     expect(scroller?.getAttribute('role')).toBe('region')
     expect(scroller?.getAttribute('aria-label')).toBe('Five department fee statements')
     expect(scroller?.getAttribute('tabindex')).toBe('0')
