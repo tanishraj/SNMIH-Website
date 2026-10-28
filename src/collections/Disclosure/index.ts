@@ -10,6 +10,11 @@ import {
 import { sectionOptions } from '@/blocks/DisclosureProforma/shared'
 import { uniqueKeys } from '@/blocks/DisclosureProforma/config'
 import {
+  copyDisclosurePeriodEndpoint,
+  publishDisclosurePeriodEndpoint,
+} from '@/endpoints/disclosureMonth'
+import {
+  deriveRecordDataset,
   stampDisclosure,
   touchDisclosureDataset,
   updateFields,
@@ -84,8 +89,19 @@ export const DisclosurePeriods: CollectionConfig = {
     group: 'Content',
     hidden: hideUnlessFeature('disclosurePeriods'),
     defaultColumns: ['label', 'dataset', 'asOf', '_status'],
-    description: 'Create a new period for each report; previous periods remain available.',
+    description:
+      'One reporting month and its records. Use “Copy to a new month” to start the next report; previous months remain available.',
+    components: {
+      edit: {
+        beforeDocumentControls: [
+          '@/components/admin/DisclosureMonthActions#DisclosureMonthActions',
+        ],
+      },
+    },
   },
+  // Duplicating the period alone leaves its records behind; “Copy to a new month” copies both.
+  disableDuplicate: true,
+  endpoints: [copyDisclosurePeriodEndpoint, publishDisclosurePeriodEndpoint],
   access: {
     read: allowPublishedReadOrFeature('disclosurePeriods'),
     create: requireFeature('disclosurePeriods'),
@@ -98,32 +114,58 @@ export const DisclosurePeriods: CollectionConfig = {
     afterChange: [touchDisclosureDataset],
   },
   fields: [
-    dataset,
-    { name: 'label', type: 'text', required: true },
     {
-      name: 'asOf',
-      label: 'Reporting Date',
-      type: 'date',
-      required: true,
-      index: true,
-      admin: {
-        description:
-          'Orders reporting periods. This is separate from the automatic publication date.',
-      },
-    },
-    {
-      name: 'academicSession',
-      type: 'text',
-      admin: {
-        description:
-          'Only enter a confirmed session. Course commencement is not the current session.',
-      },
-    },
-    { name: 'source', type: 'upload', relationTo: 'media' },
-    {
-      name: 'sourceNote',
-      type: 'textarea',
-      access: { read: featureFieldReadAccess('disclosurePeriods') },
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Details',
+          fields: [
+            dataset,
+            { name: 'label', type: 'text', required: true },
+            {
+              name: 'asOf',
+              label: 'Reporting Date',
+              type: 'date',
+              required: true,
+              index: true,
+              admin: {
+                description:
+                  'Orders reporting periods. This is separate from the automatic publication date.',
+              },
+            },
+            {
+              name: 'academicSession',
+              type: 'text',
+              admin: {
+                description:
+                  'Only enter a confirmed session. Course commencement is not the current session.',
+              },
+            },
+            { name: 'source', type: 'upload', relationTo: 'media' },
+            {
+              name: 'sourceNote',
+              type: 'textarea',
+              access: { read: featureFieldReadAccess('disclosurePeriods') },
+            },
+          ],
+        },
+        {
+          label: 'Records',
+          description:
+            'Every fact and table row reported for this month. Open a record to edit it, or add a new one here.',
+          fields: [
+            {
+              name: 'records',
+              type: 'join',
+              collection: 'disclosure-records',
+              on: 'period',
+              defaultLimit: 50,
+              defaultSort: ['section', 'groupKey', 'sortOrder'],
+              admin: { defaultColumns: ['label', 'section', 'groupKey', 'sortOrder', '_status'] },
+            },
+          ],
+        },
+      ],
     },
     ...updateFields,
   ],
@@ -134,7 +176,9 @@ export const DisclosureRecords: CollectionConfig = {
   versions: { drafts: true, maxPerDoc: 0 },
   admin: {
     useAsTitle: 'label',
-    group: 'Content',
+    // Records are edited inside their reporting month, so they stay out of the sidebar.
+    // Their list and edit routes remain available.
+    group: false,
     hidden: hideUnlessFeature('disclosureRecords'),
     defaultColumns: ['label', 'section', 'groupKey', 'period', '_status'],
     description:
@@ -157,6 +201,7 @@ export const DisclosureRecords: CollectionConfig = {
   },
   indexes: [{ fields: ['dataset', 'period', 'section', 'groupKey', 'sortOrder'] }],
   hooks: {
+    beforeValidate: [deriveRecordDataset],
     beforeChange: [validateDisclosureScope, stampDisclosure],
     afterChange: [touchDisclosureDataset],
   },
@@ -167,7 +212,13 @@ export const DisclosureRecords: CollectionConfig = {
         {
           label: 'Content',
           fields: [
-            dataset,
+            {
+              ...dataset,
+              // Filled from the reporting period on save, so a record added inside a month needs
+              // no dataset choice. The scope hook still rejects a mismatch.
+              required: false,
+              admin: { readOnly: true, description: 'Set from the reporting period.' },
+            },
             {
               name: 'period',
               type: 'relationship',
@@ -176,6 +227,7 @@ export const DisclosureRecords: CollectionConfig = {
               index: true,
               filterOptions: ({ siblingData }) => {
                 const value = (siblingData as { dataset?: string | { id: string } })?.dataset
+                if (!value) return true
                 return { dataset: { equals: typeof value === 'object' ? value.id : value } }
               },
             },

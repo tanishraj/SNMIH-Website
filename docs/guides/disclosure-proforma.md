@@ -6,12 +6,24 @@ Add **Disclosure Proforma** from **Explore** in the Page block picker. Use the e
 
 1. Create a **Disclosure Dataset**, for example SNMIH Institutional Disclosures.
 2. Create a **Disclosure Period** linked to that dataset. Give it a visitor-facing label and a reporting date; September 2026 is distinct from a confirmed academic session. Optionally attach the source document and provenance note.
-3. Add **Disclosure Records**, each linked to the same dataset and period. Choose its section and matching group key. A record is one fact, one metric, or one table row. Publish the period and the records when verified.
-4. Select the dataset in the Page's Disclosure Proforma block and publish the Page.
+3. Open the period's **Records** tab and use **Add new** for each record. The record takes its dataset from the period. Choose its section and matching group key. A record is one fact, one metric, or one table row.
+4. When everything is verified, select **Publish month** on the period. It publishes the period and every record in it that has unpublished changes.
+5. Select the dataset in the Page's Disclosure Proforma block and publish the Page.
+
+Disclosure Records do not appear in the admin sidebar; open them from their period. Their list remains available at `/admin/collections/disclosure-records`.
+
+## Each new month
+
+1. Open the latest period and select **Copy to a new month**. The name and reporting date are prefilled with the next month; a month-end date stays on the month end.
+2. **Create draft month** makes a draft period with the same academic session, source document and source note, and a draft copy of every record, including table cells, expandable details and source notes. Nothing is created if any record fails to copy, and the previous month is not changed. A month name already used in the dataset is refused.
+3. In the new period's **Records** tab, open only the records whose values changed and save them.
+4. Select **Publish month**. Visitors keep seeing the previous month until then.
+
+The period's own **Duplicate** action is disabled because it would leave the records behind.
 
 The Content tab owns the title, optional eyebrow and italic accent, description, shared header/footer actions, dataset, ordered sections, default section, labels, the empty-section message and hint, and archive help. Each section can be renamed and reordered, and hidden by unticking **Show in sidebar**; hidden sections are marked “(hidden)” in the collapsed list and their records are kept. Each group has a stable key, title and Facts / Metrics / Table layout. Table columns have editable keys, labels and numeric alignment. Avoid changing keys after entering data unless the corresponding records are also updated.
 
-Theme Settings owns shared appearance and section padding, introduction alignment, Split/Stacked section header layout, standard/wide sidebar, whether section numbers show, compact/comfortable rows, how missing values appear (Chip, Footnote or Text), rows per page (5/10/20/50), and pagination versus Load more. The selected sidebar edge remains square; colours, typography, controls and surfaces use the site's theme.
+Theme Settings owns shared appearance and section padding, introduction alignment, Split/Stacked section header layout, standard/wide sidebar, whether section numbers show, compact/comfortable rows, how missing values appear (Chip, Footnote or Text), and rows per page (5 or 10). Every group sits in an outline panel with its title and item count; key figures show as tiles, facts as a label/value list, and registers as tables with a tinted column header. A table never shows more than ten rows at once; longer tables add page numbers in the panel footer, and “Details” on a row opens its additional information beneath it. The selected sidebar edge remains square; colours, typography, controls and surfaces use the site's theme.
 
 The header shows the last public update as a date-only badge (“Updated · 27 Oct 2026”) in the eyebrow lettering. Split places it beside the introduction on wide screens; Stacked and centred sections place it below. The selected reporting period is named on the picker, which shares one outlined control with search on the section heading row; the picker groups published periods by year, finds earlier ones by name and loads further batches.
 
@@ -35,7 +47,7 @@ Expandable Details supports additional named information such as faculty promoti
 
 ## History and loading
 
-The Page stores presentation settings, not an expanding array of historical data. Each new report gets a new period and new records. Existing records and their versions remain retained; deletion and trash are disabled for these three collections. Editors can unpublish a mistaken disclosure without deleting its history.
+The Page stores presentation settings, not an expanding array of historical data. Each new report gets a new period and new records, usually copied from the previous month. Existing records and their versions remain retained; deletion and trash are disabled for these three collections. Editors can unpublish a mistaken disclosure without deleting its history.
 
 Only the active section's bounded record batches are queried. Tables, facts and metrics paginate independently. Search matches record titles, department and table cell values. The reporting selector starts with 20 periods, newest reporting date first. Visitors can search for an earlier period or load another batch. Failed requests offer Retry; draft data requires an authenticated user with the relevant feature or dependency read permissions.
 

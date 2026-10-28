@@ -24,7 +24,6 @@ import {
 import {
   createEmptyNewsEventGroups,
   createEmptyNewsEventPage,
-  interleaveNewsEvents,
   normalizeHighlightsItemCount,
   type PublicNewsEventCard,
   type PublicNewsEventDetail,
@@ -395,56 +394,9 @@ async function fetchEventDirectoryPrefix(
   ).slice(0, limit)
 }
 
-async function fetchMixedNewsEventDirectorySources(
-  payload: Pick<NewsEventsPayload, 'find'>,
-  {
-    classifications,
-    limit,
-    nowISO,
-    timeZone = DEFAULT_SITE_TIME_ZONE,
-  }: {
-    classifications: ResolvedNewsEventClassification[]
-    limit: number
-    nowISO: string
-    timeZone?: SiteTimeZone
-  },
-): Promise<{ events: PublicNewsEventCard[]; news: PublicNewsEventCard[] }> {
-  const storyWhere = classificationScopeWhere(
-    classifications.filter(({ behavior }) => behavior === 'story'),
-  )
-  const eventWhere = classificationScopeWhere(
-    classifications.filter(({ behavior }) => behavior === 'event'),
-  )
-  const [newsResult, eventRecords] = await Promise.all([
-    storyWhere
-      ? payload.find({
-          collection: 'news-events',
-          depth: 1,
-          limit,
-          overrideAccess: true,
-          select: cardSelect,
-          sort: ['-publishedAt', '-id'],
-          where: {
-            and: [...publishedWhere, storyWhere],
-          },
-        })
-      : Promise.resolve({ docs: [] }),
-    eventWhere
-      ? fetchEventDirectoryPrefix(payload, {
-          limit,
-          nowISO,
-          scopeWhere: eventWhere,
-          timeZone,
-        })
-      : Promise.resolve([]),
-  ])
-
-  const news = toPublicNewsEventCards(newsResult.docs as NewsEventCardRecord[], nowISO, timeZone)
-  const events = toPublicNewsEventCards(eventRecords, nowISO, timeZone)
-
-  return { events, news }
-}
-
+// The All tab leads with what is coming up: current and upcoming Events soonest-first, then every
+// other entry (Stories and past Events) newest-published first. Both streams are fetched as one
+// prefix so Load More pages never repeat or skip an entry.
 async function fetchMixedNewsEventsPage(
   payload: Pick<NewsEventsPayload, 'find'>,
   {
@@ -461,20 +413,55 @@ async function fetchMixedNewsEventsPage(
     timeZone?: SiteTimeZone
   },
 ): Promise<PublicNewsEventPage> {
+  const storyWhere = classificationScopeWhere(
+    classifications.filter(({ behavior }) => behavior === 'story'),
+  )
+  const eventWhere = classificationScopeWhere(
+    classifications.filter(({ behavior }) => behavior === 'event'),
+  )
+  if (!storyWhere && !eventWhere) return createEmptyNewsEventPage(page)
+
   const offset = (page - 1) * limit
   const end = page * limit
   const prefixLimit = end + 1
-  const { events, news } = await fetchMixedNewsEventDirectorySources(payload, {
-    classifications,
-    limit: prefixLimit,
-    nowISO,
-    timeZone,
-  })
-  const mixed = interleaveNewsEvents(news, events, prefixLimit)
+  const restWhere: Where[] = []
+  if (storyWhere) restWhere.push(storyWhere)
+  if (eventWhere) restWhere.push({ and: [eventWhere, pastEventWhere(nowISO, timeZone)] })
+
+  const [upcomingResult, restResult] = await Promise.all([
+    eventWhere
+      ? payload.find({
+          collection: 'news-events',
+          depth: 1,
+          limit: prefixLimit,
+          overrideAccess: true,
+          select: cardSelect,
+          sort: ['eventStart', 'id'],
+          where: {
+            and: [...publishedWhere, eventWhere, currentOrUpcomingEventWhere(nowISO, timeZone)],
+          },
+        })
+      : Promise.resolve({ docs: [] }),
+    payload.find({
+      collection: 'news-events',
+      depth: 1,
+      limit: prefixLimit,
+      overrideAccess: true,
+      select: cardSelect,
+      sort: ['-publishedAt', '-id'],
+      where: {
+        and: [...publishedWhere, { or: restWhere }],
+      },
+    }),
+  ])
+  const records = uniqueNewsEventRecords(
+    upcomingResult.docs as NewsEventCardRecord[],
+    restResult.docs as NewsEventCardRecord[],
+  )
 
   return {
-    docs: mixed.slice(offset, end),
-    hasNextPage: mixed.length > end,
+    docs: toPublicNewsEventCards(records.slice(offset, end), nowISO, timeZone),
+    hasNextPage: records.length > end,
     page,
   }
 }
