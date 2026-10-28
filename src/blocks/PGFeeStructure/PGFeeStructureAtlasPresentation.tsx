@@ -6,6 +6,7 @@ import {
 } from '@/blocks/shared/FeeDocumentDownload'
 import { cn } from '@/lib/utils'
 
+import { DepartmentScrollRegion } from './DepartmentScrollRegion'
 import { isNumericPGFeeValue } from './normalizePGFeeStructure'
 import type { ResolvedPGFeeCategory } from './types'
 
@@ -147,14 +148,16 @@ export function PGFeeStructureAtlasPresentation({
           ) : null}
         </header>
 
-        <div
+        <DepartmentScrollRegion
           aria-label={
             hasBoundedDepartmentList ? `${category.label} department fee statements` : undefined
           }
+          bounded={hasBoundedDepartmentList}
+          itemsLabel="departments"
           className={cn(
             'h-auto max-h-none divide-y divide-border',
             hasBoundedDepartmentList &&
-              'focus-visible:ring-ring/40 focus-visible:ring-3 focus-visible:ring-inset focus-visible:outline-none lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain lg:[scrollbar-gutter:stable]',
+              'focus-visible:ring-ring/40 focus-visible:ring-3 focus-visible:ring-inset focus-visible:outline-none lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:pb-14 lg:[scrollbar-gutter:stable]',
           )}
           data-pg-fee-department-scroll={hasBoundedDepartmentList ? 'true' : undefined}
           role={hasBoundedDepartmentList ? 'region' : undefined}
@@ -227,7 +230,7 @@ export function PGFeeStructureAtlasPresentation({
               </article>
             )
           })}
-        </div>
+        </DepartmentScrollRegion>
       </section>
     </div>
   )
