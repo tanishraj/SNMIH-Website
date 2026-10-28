@@ -1,3 +1,4 @@
+import { DisclosureProformaPreviewBlockComponent } from './DisclosureProforma/PreviewComponent'
 import React from 'react'
 import type { Page } from '@/payload-types'
 import type { ReviewPreviewSnapshot } from '@/lib/reviewPreviewShared'
@@ -60,6 +61,7 @@ import { FeeStructureBlockComponent } from './FeeStructure/Component'
 import { PGFeeStructureBlockComponent } from './PGFeeStructure/Component'
 import { BankDetailsBlockComponent } from './BankDetails/Component'
 import { DocumentChecklistBlockComponent } from './DocumentChecklist/Component'
+import { CelebrationBlockPreview } from './Celebration/PreviewComponent'
 import { ContactNumbersBlockComponent } from './ContactNumbers/Component'
 import { NumberedStepsBlockComponent } from './NumberedSteps/Component'
 import { BentoGridBlockComponent } from './BentoGrid/Component'
@@ -105,6 +107,8 @@ function renderLivePreviewPageBlockContent(
   } = args
 
   switch (block.blockType) {
+    case 'disclosureProforma':
+      return <DisclosureProformaPreviewBlockComponent key={key} {...block} />
     case 'announcement':
       return <AnnouncementBlockComponent key={key} {...block} />
     case 'heroBanner':
@@ -237,6 +241,8 @@ function renderLivePreviewPageBlockContent(
       return <BankDetailsBlockComponent key={key} {...block} />
     case 'documentChecklist':
       return <DocumentChecklistBlockComponent key={key} {...block} />
+    case 'celebration':
+      return <CelebrationBlockPreview key={key} celebration={block.celebration} />
     case 'contactNumbers':
       return <ContactNumbersBlockComponent key={key} {...block} />
     case 'numberedSteps':

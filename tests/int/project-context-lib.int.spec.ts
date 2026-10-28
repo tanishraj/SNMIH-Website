@@ -121,9 +121,9 @@ describe('project context parser', () => {
 
     expect(inventory.schemaVersion).toBe(1)
     expect(inventory.knowledgeGraph).toBeNull()
-    expect(inventory.payload.collections).toHaveLength(22)
+    expect(inventory.payload.collections).toHaveLength(26)
     expect(inventory.payload.globals).toHaveLength(9)
-    expect(inventory.blocks.page).toHaveLength(61)
+    expect(inventory.blocks.page).toHaveLength(63)
     expect(inventory.blocks.page).toEqual(expect.arrayContaining(['logos20', 'integration23']))
     expect(inventory.blocks.page).toContain('pgFeeStructure')
     expect(inventory.blocks.reusableSection).toEqual(

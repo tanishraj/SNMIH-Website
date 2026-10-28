@@ -73,6 +73,10 @@ export interface Config {
     'news-event-classifications': NewsEventClassification;
     reviews: Review;
     'reusable-sections': ReusableSection;
+    celebrations: Celebration;
+    'disclosure-datasets': DisclosureDataset;
+    'disclosure-periods': DisclosurePeriod;
+    'disclosure-records': DisclosureRecord;
     categories: Category;
     tags: Tag;
     'navigation-links': NavigationLink;
@@ -102,6 +106,10 @@ export interface Config {
     'news-event-classifications': NewsEventClassificationsSelect<false> | NewsEventClassificationsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'reusable-sections': ReusableSectionsSelect<false> | ReusableSectionsSelect<true>;
+    celebrations: CelebrationsSelect<false> | CelebrationsSelect<true>;
+    'disclosure-datasets': DisclosureDatasetsSelect<false> | DisclosureDatasetsSelect<true>;
+    'disclosure-periods': DisclosurePeriodsSelect<false> | DisclosurePeriodsSelect<true>;
+    'disclosure-records': DisclosureRecordsSelect<false> | DisclosureRecordsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'navigation-links': NavigationLinksSelect<false> | NavigationLinksSelect<true>;
@@ -208,6 +216,7 @@ export interface Page {
         | CalendarBlock
         | AnnualCalendarBlock
         | DepartmentProfilesBlock
+        | DisclosureProformaBlock
         | GalleryAlbumTabsBlock
         | QaAccordionBlock
         | StatsStripBlock
@@ -253,6 +262,7 @@ export interface Page {
         | BankDetailsBlock
         | DocumentChecklistBlock
         | ContactNumbersBlock
+        | CelebrationBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -647,6 +657,7 @@ export interface ReusableSection {
         | CalendarBlock
         | AnnualCalendarBlock
         | DepartmentProfilesBlock
+        | DisclosureProformaBlock
         | GalleryAlbumTabsBlock
         | QaAccordionBlock
         | StatsStripBlock
@@ -692,6 +703,7 @@ export interface ReusableSection {
         | BankDetailsBlock
         | DocumentChecklistBlock
         | ContactNumbersBlock
+        | CelebrationBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -1996,6 +2008,173 @@ export interface DepartmentProfilesBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'departmentProfiles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisclosureProformaBlock".
+ */
+export interface DisclosureProformaBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Select the dataset whose reporting periods and records this block displays.
+   */
+  dataset: string | DisclosureDataset;
+  /**
+   * Reorder sections, edit labels and configure each group of facts, metrics or table columns.
+   */
+  sections: {
+    key: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
+    /**
+     * Untick to hide this section from the sidebar and the page. Its records are kept.
+     */
+    enabled?: boolean | null;
+    label: string;
+    description?: string | null;
+    groups: {
+      /**
+       * Stable key used to match data records. Changing it does not rename existing records.
+       */
+      key: string;
+      title?: string | null;
+      layout: 'facts' | 'metrics' | 'table';
+      /**
+       * Cell keys must match the keys entered on Disclosure Records.
+       */
+      columns?:
+        | {
+            /**
+             * Stable key used to match data records. Changing it does not rename existing records.
+             */
+            key: string;
+            label: string;
+            numeric?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  defaultSection?:
+    ('institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications') | null;
+  emptyMessage?: string | null;
+  /**
+   * Shown under the empty-section message. Leave blank to hide it.
+   */
+  emptyDescription?: string | null;
+  missingMessage?: string | null;
+  archiveNote?: string | null;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  contentAlignment?: ('left' | 'center') | null;
+  /**
+   * Split shows the reporting record beside the introduction on wide screens. Centred sections always stack.
+   */
+  headerLayout?: ('split' | 'stacked') | null;
+  sidebarWidth?: ('standard' | 'wide') | null;
+  showSectionNumbers?: boolean | null;
+  density?: ('compact' | 'comfortable') | null;
+  /**
+   * How Not supplied and Not applicable values appear. Footnotes add one note under each affected group.
+   */
+  missingValueStyle?: ('chip' | 'footnote' | 'text') | null;
+  itemsPerPage?: ('5' | '10' | '20' | '50') | null;
+  paginationMode?: ('pages' | 'loadMore') | null;
+  size?: ('none' | 'compact' | 'default' | 'comfortable') | null;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'disclosureProforma';
+}
+/**
+ * A reusable disclosure directory. Historical records are retained; deletion is disabled.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-datasets".
+ */
+export interface DisclosureDataset {
+  id: string;
+  title: string;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7314,6 +7493,12 @@ export interface DocumentChecklistBlock {
    * Introductory instruction shown above the checklist.
    */
   description?: string | null;
+  artTitle?: string | null;
+  sealLabel?: string | null;
+  /**
+   * Optional, e.g. "2026".
+   */
+  sealCaption?: string | null;
   actions?:
     | {
         label: string;
@@ -7355,6 +7540,10 @@ export interface DocumentChecklistBlock {
      * e.g. "Caste Certificate" or "Mark sheets of MBBS (I, II & III Parts)"
      */
     label: string;
+    /**
+     * Composition presentation only. Lucide icon name, e.g. "ScrollText", "IdCard", "Ticket", "ClipboardCheck", "ShieldCheck", "Images", "House", "Files". Defaults to a document icon.
+     */
+    icon?: string | null;
     /**
      * Optional short tag shown beside the document, e.g. "If required".
      */
@@ -7419,7 +7608,7 @@ export interface DocumentChecklistBlock {
   /**
    * Editorial Ledger sits directly on the section with no card. For its calmest look, turn off the progress panel and visitor ticking.
    */
-  presentation: 'tracker' | 'ledger';
+  presentation: 'tracker' | 'ledger' | 'composition';
   /**
    * Split places section content, progress, and notes beside the checklist on desktop. Compact screens stack content above the checklist.
    */
@@ -7622,6 +7811,140 @@ export interface ContactNumbersBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contactNumbers';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CelebrationBlock".
+ */
+export interface CelebrationBlock {
+  /**
+   * Shows this celebration as a modal on this page during its dates. It takes priority over a site-wide celebration on the same day and adds nothing to the page layout itself. Create and schedule celebrations under Content → Celebrations.
+   */
+  celebration: string | Celebration;
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'celebration';
+}
+/**
+ * Scheduled celebration modals with confetti. Each appears on its own dates, on every page or only where a Celebration block is added.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "celebrations".
+ */
+export interface Celebration {
+  id: string;
+  /**
+   * For editors only, e.g. "Founder's Day 2027".
+   */
+  title: string;
+  /**
+   * Switch off to hide this celebration everywhere without deleting it.
+   */
+  enabled?: boolean | null;
+  placement: 'everyPage' | 'selectedPages';
+  /**
+   * Read in the site timezone (Site Settings).
+   */
+  startDate: string;
+  /**
+   * Leave blank for a single day.
+   */
+  endDate?: string | null;
+  lastDay?: string | null;
+  /**
+   * Show just the image (for example a festival poster). Text below is then used only for screen readers.
+   */
+  imageOnly?: boolean | null;
+  /**
+   * Image-only popup width: Small 560px, Medium 720px, Large 960px. Automatically fits smaller screens without cropping.
+   */
+  imageSize?: ('small' | 'medium' | 'large') | null;
+  /**
+   * Portrait for Aurora Halo, picture for Glass Bloom and Ticket, poster for Floating Poster.
+   */
+  image?: (string | null) | Media;
+  /**
+   * e.g. "A warm welcome".
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  accentHeading?: string | null;
+  message?: string | null;
+  /**
+   * Large gold text in the Medallion, e.g. "25".
+   */
+  highlight?: string | null;
+  /**
+   * e.g. "With warm wishes".
+   */
+  signature?: string | null;
+  /**
+   * e.g. "The Principal, SNMIH".
+   */
+  signatureRole?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  style: 'aurora' | 'ticket' | 'poster' | 'glass' | 'medallion';
+  /**
+   * Remembered in each visitor's browser. After closing, a small badge lets them reopen it.
+   */
+  frequency: 'oncePerDay' | 'everyPageLoad' | 'oncePerVisitor' | 'timesPerDay';
+  timesPerDay?: number | null;
+  openDelay?: number | null;
+  showReopenBadge?: boolean | null;
+  badgeLabel?: string | null;
+  /**
+   * Full-screen confetti when the modal opens. Skipped for visitors who prefer reduced motion.
+   */
+  confettiEnabled?: boolean | null;
+  /**
+   * How many times the corners fire.
+   */
+  confettiShots?: number | null;
+  /**
+   * From each bottom corner, 20–300. Larger values make a bigger splash.
+   */
+  confettiPieces?: number | null;
+  confettiSpeed?: ('verySlow' | 'slow' | 'medium' | 'lively') | null;
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8084,6 +8407,10 @@ export interface AwardsListBlock {
 export interface User {
   id: string;
   /**
+   * Shown in disclosure update credits. Use a name or office label; email addresses are never used as a fallback.
+   */
+  publicDisplayName?: string | null;
+  /**
    * Admins have full access. Site Managers receive only selected features.
    */
   role: 'admin' | 'siteManager';
@@ -8107,6 +8434,22 @@ export interface User {
      * Create, edit, version, trash, and restore Reusable Sections.
      */
     reusableSections?: boolean | null;
+    /**
+     * Schedule, edit, preview, publish, enable or disable, trash, and restore celebration modals.
+     */
+    celebrations?: boolean | null;
+    /**
+     * Manage retained institutional disclosure information.
+     */
+    disclosureDatasets?: boolean | null;
+    /**
+     * Manage retained institutional disclosure information.
+     */
+    disclosurePeriods?: boolean | null;
+    /**
+     * Manage retained institutional disclosure information.
+     */
+    disclosureRecords?: boolean | null;
     /**
      * Create, edit, preview, publish, version, trash, and restore News & Events.
      */
@@ -8216,6 +8559,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -8660,6 +9004,95 @@ export interface FormSubmission {
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
+}
+/**
+ * Create a new period for each report; previous periods remain available.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-periods".
+ */
+export interface DisclosurePeriod {
+  id: string;
+  dataset: string | DisclosureDataset;
+  label: string;
+  /**
+   * Orders reporting periods. This is separate from the automatic publication date.
+   */
+  asOf: string;
+  /**
+   * Only enter a confirmed session. Course commencement is not the current session.
+   */
+  academicSession?: string | null;
+  source?: (string | null) | Media;
+  sourceNote?: string | null;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * One fact, metric or table row per record. Use the section and group keys configured in the Disclosure Proforma block.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-records".
+ */
+export interface DisclosureRecord {
+  id: string;
+  dataset: string | DisclosureDataset;
+  period: string | DisclosurePeriod;
+  section: 'institution' | 'statistics' | 'courses' | 'surgeries' | 'faculty' | 'hostel' | 'publications';
+  /**
+   * Match a group key in the block, e.g. highlights, monthly, programmes or register.
+   */
+  groupKey: string;
+  /**
+   * Fact / metric label, or a descriptive title for a table row.
+   */
+  label: string;
+  sortOrder: number;
+  rowType?: ('value' | 'table') | null;
+  content?: {
+    valueState?: ('provided' | 'notSupplied' | 'notApplicable') | null;
+    /**
+     * Enter the source value exactly. A blank value is not treated as zero.
+     */
+    value?: string | null;
+  };
+  /**
+   * One cell for each configured column key. Leave unknown values unfilled.
+   */
+  cells?:
+    | {
+        key: string;
+        valueState?: ('provided' | 'notSupplied' | 'notApplicable') | null;
+        /**
+         * Enter the source value exactly. A blank value is not treated as zero.
+         */
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional department for searching faculty or clinical records.
+   */
+  department?: string | null;
+  /**
+   * Additional details such as promotion date, employment type, service history, lectures, topics and training dates. Add a new period record for later disclosures.
+   */
+  details?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  sourceNote?: string | null;
+  publicUpdatedAt?: string | null;
+  publicUpdatedBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Reusable destinations for menus, CTAs, legal links, and utility links.
@@ -9152,6 +9585,10 @@ export interface WorkQueue {
     | 'articles'
     | 'reviews'
     | 'reusableSections'
+    | 'celebrations'
+    | 'disclosureDatasets'
+    | 'disclosurePeriods'
+    | 'disclosureRecords'
     | 'newsEvents'
     | 'newsEventClassifications'
     | 'newsEventsDetailTemplate'
@@ -9279,6 +9716,10 @@ export interface OperationalAuditEvent {
         | 'articles'
         | 'reviews'
         | 'reusableSections'
+        | 'celebrations'
+        | 'disclosureDatasets'
+        | 'disclosurePeriods'
+        | 'disclosureRecords'
         | 'newsEvents'
         | 'newsEventClassifications'
         | 'newsEventsDetailTemplate'
@@ -9386,6 +9827,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reusable-sections';
         value: string | ReusableSection;
+      } | null)
+    | ({
+        relationTo: 'celebrations';
+        value: string | Celebration;
+      } | null)
+    | ({
+        relationTo: 'disclosure-datasets';
+        value: string | DisclosureDataset;
+      } | null)
+    | ({
+        relationTo: 'disclosure-periods';
+        value: string | DisclosurePeriod;
+      } | null)
+    | ({
+        relationTo: 'disclosure-records';
+        value: string | DisclosureRecord;
       } | null)
     | ({
         relationTo: 'categories';
@@ -9516,6 +9973,7 @@ export interface PagesSelect<T extends boolean = true> {
         calendar?: T | CalendarBlockSelect<T>;
         annualCalendar?: T | AnnualCalendarBlockSelect<T>;
         departmentProfiles?: T | DepartmentProfilesBlockSelect<T>;
+        disclosureProforma?: T | DisclosureProformaBlockSelect<T>;
         galleryAlbumTabs?: T | GalleryAlbumTabsBlockSelect<T>;
         qaAccordion?: T | QaAccordionBlockSelect<T>;
         statsStrip?: T | StatsStripBlockSelect<T>;
@@ -9561,6 +10019,7 @@ export interface PagesSelect<T extends boolean = true> {
         bankDetails?: T | BankDetailsBlockSelect<T>;
         documentChecklist?: T | DocumentChecklistBlockSelect<T>;
         contactNumbers?: T | ContactNumbersBlockSelect<T>;
+        celebration?: T | CelebrationBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
@@ -10421,6 +10880,103 @@ export interface DepartmentProfilesBlockSelect<T extends boolean = true> {
   smallColumns?: T;
   cardFrame?: T;
   size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisclosureProformaBlock_select".
+ */
+export interface DisclosureProformaBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  dataset?: T;
+  sections?:
+    | T
+    | {
+        key?: T;
+        enabled?: T;
+        label?: T;
+        description?: T;
+        groups?:
+          | T
+          | {
+              key?: T;
+              title?: T;
+              layout?: T;
+              columns?:
+                | T
+                | {
+                    key?: T;
+                    label?: T;
+                    numeric?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  defaultSection?: T;
+  emptyMessage?: T;
+  emptyDescription?: T;
+  missingMessage?: T;
+  archiveNote?: T;
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  contentAlignment?: T;
+  headerLayout?: T;
+  sidebarWidth?: T;
+  showSectionNumbers?: T;
+  density?: T;
+  missingValueStyle?: T;
+  itemsPerPage?: T;
+  paginationMode?: T;
+  size?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
   anchorId?: T;
   id?: T;
   blockName?: T;
@@ -13548,6 +14104,9 @@ export interface DocumentChecklistBlockSelect<T extends boolean = true> {
   title?: T;
   accentTitle?: T;
   description?: T;
+  artTitle?: T;
+  sealLabel?: T;
+  sealCaption?: T;
   actions?:
     | T
     | {
@@ -13570,6 +14129,7 @@ export interface DocumentChecklistBlockSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        icon?: T;
         qualifier?: T;
         details?: T;
         id?: T;
@@ -13704,6 +14264,16 @@ export interface ContactNumbersBlockSelect<T extends boolean = true> {
   showOpenStatus?: T;
   timeZone?: T;
   size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CelebrationBlock_select".
+ */
+export interface CelebrationBlockSelect<T extends boolean = true> {
+  celebration?: T;
   anchorId?: T;
   id?: T;
   blockName?: T;
@@ -14150,6 +14720,7 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         calendar?: T | CalendarBlockSelect<T>;
         annualCalendar?: T | AnnualCalendarBlockSelect<T>;
         departmentProfiles?: T | DepartmentProfilesBlockSelect<T>;
+        disclosureProforma?: T | DisclosureProformaBlockSelect<T>;
         galleryAlbumTabs?: T | GalleryAlbumTabsBlockSelect<T>;
         qaAccordion?: T | QaAccordionBlockSelect<T>;
         statsStrip?: T | StatsStripBlockSelect<T>;
@@ -14195,6 +14766,7 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         bankDetails?: T | BankDetailsBlockSelect<T>;
         documentChecklist?: T | DocumentChecklistBlockSelect<T>;
         contactNumbers?: T | ContactNumbersBlockSelect<T>;
+        celebration?: T | CelebrationBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
@@ -14203,6 +14775,129 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "celebrations_select".
+ */
+export interface CelebrationsSelect<T extends boolean = true> {
+  title?: T;
+  enabled?: T;
+  placement?: T;
+  startDate?: T;
+  endDate?: T;
+  lastDay?: T;
+  imageOnly?: T;
+  imageSize?: T;
+  image?: T;
+  eyebrow?: T;
+  heading?: T;
+  accentHeading?: T;
+  message?: T;
+  highlight?: T;
+  signature?: T;
+  signatureRole?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  style?: T;
+  frequency?: T;
+  timesPerDay?: T;
+  openDelay?: T;
+  showReopenBadge?: T;
+  badgeLabel?: T;
+  confettiEnabled?: T;
+  confettiShots?: T;
+  confettiPieces?: T;
+  confettiSpeed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-datasets_select".
+ */
+export interface DisclosureDatasetsSelect<T extends boolean = true> {
+  title?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-periods_select".
+ */
+export interface DisclosurePeriodsSelect<T extends boolean = true> {
+  dataset?: T;
+  label?: T;
+  asOf?: T;
+  academicSession?: T;
+  source?: T;
+  sourceNote?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disclosure-records_select".
+ */
+export interface DisclosureRecordsSelect<T extends boolean = true> {
+  dataset?: T;
+  period?: T;
+  section?: T;
+  groupKey?: T;
+  label?: T;
+  sortOrder?: T;
+  rowType?: T;
+  content?:
+    | T
+    | {
+        valueState?: T;
+        value?: T;
+      };
+  cells?:
+    | T
+    | {
+        key?: T;
+        valueState?: T;
+        value?: T;
+        id?: T;
+      };
+  department?: T;
+  details?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  sourceNote?: T;
+  publicUpdatedAt?: T;
+  publicUpdatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
   _status?: T;
 }
 /**
@@ -14818,6 +15513,7 @@ export interface OperationalAuditEventsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  publicDisplayName?: T;
   role?: T;
   features?:
     | T
@@ -14826,6 +15522,10 @@ export interface UsersSelect<T extends boolean = true> {
         articles?: T;
         reviews?: T;
         reusableSections?: T;
+        celebrations?: T;
+        disclosureDatasets?: T;
+        disclosurePeriods?: T;
+        disclosureRecords?: T;
         newsEvents?: T;
         newsEventClassifications?: T;
         newsEventsDetailTemplate?: T;
@@ -14860,6 +15560,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -15170,6 +15871,7 @@ export interface NewsEventsDetailTemplate {
         | CalendarBlock
         | AnnualCalendarBlock
         | DepartmentProfilesBlock
+        | DisclosureProformaBlock
         | GalleryAlbumTabsBlock
         | QaAccordionBlock
         | StatsStripBlock
@@ -15215,6 +15917,7 @@ export interface NewsEventsDetailTemplate {
         | BankDetailsBlock
         | DocumentChecklistBlock
         | ContactNumbersBlock
+        | CelebrationBlock
         | NumberedStepsBlock
         | BentoGridBlock
         | TestimonialGridBlock
@@ -15463,6 +16166,7 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         calendar?: T | CalendarBlockSelect<T>;
         annualCalendar?: T | AnnualCalendarBlockSelect<T>;
         departmentProfiles?: T | DepartmentProfilesBlockSelect<T>;
+        disclosureProforma?: T | DisclosureProformaBlockSelect<T>;
         galleryAlbumTabs?: T | GalleryAlbumTabsBlockSelect<T>;
         qaAccordion?: T | QaAccordionBlockSelect<T>;
         statsStrip?: T | StatsStripBlockSelect<T>;
@@ -15508,6 +16212,7 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         bankDetails?: T | BankDetailsBlockSelect<T>;
         documentChecklist?: T | DocumentChecklistBlockSelect<T>;
         contactNumbers?: T | ContactNumbersBlockSelect<T>;
+        celebration?: T | CelebrationBlockSelect<T>;
         numberedSteps?: T | NumberedStepsBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;

@@ -1,0 +1,790 @@
+/*
+ * Celebration modal styles. The palette is fixed (navy, gold, green) rather than theme tokens so
+ * each design keeps its contrast in light and dark website modes, like an illustration would.
+ */
+.root {
+  --cel-navy: #11275a;
+  --cel-navy-deep: #081634;
+  --cel-fg: #0f1b33;
+  --cel-muted: #5b6577;
+  --cel-green: #2f7a43;
+  --cel-green-bright: #9bd4a0;
+  --cel-gold: #e3b552;
+  --cel-gold-soft: #f6e3b4;
+  --cel-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --cel-display: var(--font-display), Georgia, serif;
+  --cel-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+@property --cel-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes halo {
+  to {
+    --cel-angle: 360deg;
+  }
+}
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes drift {
+  to {
+    transform: translateX(14%) translateY(6%);
+  }
+}
+@keyframes float {
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes contentIn {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgb(8 22 52 / 0.45);
+  backdrop-filter: blur(6px);
+  animation: overlayIn 0.5s var(--cel-ease);
+}
+
+.overlayLight {
+  background: radial-gradient(circle at 30% 30%, rgb(255 255 255 / 0.55), rgb(230 236 246 / 0.75));
+  backdrop-filter: blur(14px);
+}
+
+.content {
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(calc(100vw - 32px), var(--cel-width, 520px));
+  outline: none;
+  animation: contentIn 0.7s var(--cel-ease);
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: currentColor;
+  background: rgb(255 255 255 / 0.14);
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.close:hover {
+  background: rgb(255 255 255 / 0.26);
+}
+.close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.close svg {
+  width: 16px;
+  height: 16px;
+}
+.closeLight {
+  color: var(--cel-navy);
+  background: rgb(17 39 90 / 0.07);
+}
+.closeLight:hover {
+  background: rgb(17 39 90 / 0.14);
+}
+
+.eyebrow {
+  font: 600 11px/1.4 var(--cel-mono);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.heading {
+  font-family: var(--cel-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.heading em {
+  font-style: italic;
+}
+/* Doubled class outranks the site-wide `:root[data-theme-color] :is(h1,h2,h3) em` accent rule. */
+.root .accent.accent {
+  font-family: var(--cel-display);
+  font-style: italic;
+  color: var(--cel-accent, inherit);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    transform 0.3s var(--cel-ease),
+    box-shadow 0.3s;
+}
+.cta:hover {
+  transform: translateY(-2px);
+}
+.cta:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+.cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+.message {
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+
+.signature {
+  font-family: var(--cel-display);
+  font-style: italic;
+  font-size: 17px;
+}
+.signature small {
+  display: block;
+  margin-top: 4px;
+  font: 600 11px var(--cel-mono);
+  font-style: normal;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ───────── Aurora Halo ───────── */
+.aurora {
+  padding: 2px;
+  border-radius: 28px;
+  background: conic-gradient(
+    from var(--cel-angle),
+    var(--cel-gold),
+    var(--cel-green-bright),
+    #8fb3ff,
+    #c9a7ff,
+    var(--cel-gold)
+  );
+  animation: halo 6s linear infinite;
+  box-shadow:
+    0 40px 100px -30px rgb(8 22 52 / 0.8),
+    0 0 80px -20px rgb(227 181 82 / 0.45);
+}
+.auroraInner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: 56px 44px 40px;
+  text-align: center;
+  color: #fff;
+  background: radial-gradient(120% 80% at 50% 0%, #1b3b7d 0%, var(--cel-navy-deep) 60%);
+}
+.auroraInner::before {
+  content: '';
+  position: absolute;
+  inset: -40% -20% auto;
+  height: 70%;
+  background:
+    radial-gradient(closest-side, rgb(155 212 160 / 0.35), transparent),
+    radial-gradient(closest-side at 70% 50%, rgb(143 179 255 / 0.35), transparent);
+  filter: blur(30px);
+  animation: drift 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.auroraInner > *:not(.close) {
+  position: relative;
+}
+.auroraPortrait {
+  position: relative;
+  margin: 0 auto 28px;
+  width: 132px;
+  height: 132px;
+  padding: 4px;
+  border-radius: 50%;
+  background: conic-gradient(var(--cel-gold), #fff7e0, var(--cel-gold));
+  box-shadow:
+    0 0 0 8px rgb(255 255 255 / 0.05),
+    0 0 50px rgb(227 181 82 / 0.45);
+}
+.auroraPortrait img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.auroraOrbit {
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  border: 1px dashed rgb(255 255 255 / 0.2);
+  animation: spin 18s linear infinite;
+}
+.auroraOrbit::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cel-gold);
+  box-shadow: 0 0 12px var(--cel-gold);
+}
+.aurora .eyebrow {
+  color: var(--cel-gold);
+}
+.aurora .heading {
+  margin-top: 14px;
+  font-size: clamp(30px, 6vw, 42px);
+  line-height: 1.08;
+}
+.aurora {
+  --cel-accent: var(--cel-gold-soft);
+}
+.aurora .message {
+  margin: 16px auto 0;
+  max-width: 380px;
+  color: rgb(255 255 255 / 0.76);
+}
+.aurora .signature {
+  margin-top: 18px;
+  color: var(--cel-gold-soft);
+}
+.aurora .cta {
+  margin-top: 26px;
+  color: var(--cel-navy-deep);
+  background: linear-gradient(90deg, var(--cel-gold), #f1cf7f);
+  box-shadow: 0 12px 30px -10px rgb(227 181 82 / 0.7);
+}
+.auroraDate {
+  margin-top: 22px;
+  font: 600 11px var(--cel-mono);
+  letter-spacing: 0.2em;
+  color: rgb(255 255 255 / 0.5);
+  text-transform: uppercase;
+}
+
+/* ───────── Holographic Ticket ───────── */
+.ticketWrap {
+  perspective: 1200px;
+}
+.ticket {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 190px;
+  overflow: hidden;
+  border-radius: 22px;
+  color: #fff;
+  background: var(--cel-navy-deep);
+  box-shadow: 0 50px 110px -40px rgb(0 0 0 / 0.8);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.2s ease-out;
+}
+.ticket::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(
+      600px circle at var(--mx, 30%) var(--my, 20%),
+      rgb(255 255 255 / 0.18),
+      transparent 40%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgb(155 212 160 / 0.22) 35%,
+      rgb(143 179 255 / 0.22) 45%,
+      rgb(201 167 255 / 0.22) 55%,
+      rgb(227 181 82 / 0.22) 65%,
+      transparent 80%
+    );
+  background-size:
+    100% 100%,
+    250% 250%;
+  background-position:
+    0 0,
+    var(--hx, 50%) 50%;
+}
+.ticketMain {
+  position: relative;
+  padding: 44px 40px 40px;
+}
+.ticketMain::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 18px;
+  bottom: 18px;
+  border-right: 2px dashed rgb(255 255 255 / 0.2);
+}
+.ticket .eyebrow {
+  color: var(--cel-green-bright);
+}
+.ticket .heading {
+  margin-top: 16px;
+  font-size: clamp(32px, 6vw, 46px);
+  line-height: 1;
+}
+.ticket {
+  --cel-accent: var(--cel-gold-soft);
+}
+.ticket .message {
+  margin-top: 16px;
+  max-width: 420px;
+  color: rgb(255 255 255 / 0.72);
+}
+.ticket .signature {
+  margin-top: 16px;
+  color: var(--cel-gold-soft);
+}
+.ticket .cta {
+  margin-top: 24px;
+  color: var(--cel-navy-deep);
+  background: #fff;
+}
+.ticketImage {
+  margin-bottom: 20px;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.ticketStub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.04), rgb(255 255 255 / 0.09));
+}
+.ticketDay {
+  font: 500 76px/0.9 var(--cel-display);
+}
+.ticketMonth {
+  margin-top: 6px;
+  font: 600 12px var(--cel-mono);
+  letter-spacing: 0.3em;
+  color: var(--cel-green-bright);
+  text-transform: uppercase;
+}
+.ticketYear {
+  font: 600 11px var(--cel-mono);
+  letter-spacing: 0.2em;
+  color: rgb(255 255 255 / 0.55);
+}
+.ticketCode {
+  width: 120px;
+  height: 36px;
+  opacity: 0.55;
+  background: repeating-linear-gradient(
+    90deg,
+    #fff 0 2px,
+    transparent 2px 4px,
+    #fff 4px 5px,
+    transparent 5px 8px,
+    #fff 8px 11px,
+    transparent 11px 13px
+  );
+}
+
+/* ───────── Floating Poster ───────── */
+.posterFrame {
+  position: relative;
+  padding: 10px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.35), rgb(255 255 255 / 0.08));
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.4),
+    0 50px 110px -40px rgb(0 0 0 / 0.8),
+    0 0 90px -30px rgb(227 181 82 / 0.6);
+}
+.posterImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 120px);
+  object-fit: contain;
+  border-radius: 12px;
+}
+.posterCaption {
+  position: relative;
+  margin-top: 14px;
+  padding: 0 6px 6px;
+  color: #fff;
+  text-align: center;
+}
+.posterCaption .heading {
+  font-size: 28px;
+  line-height: 1.1;
+}
+.posterCaption {
+  --cel-accent: var(--cel-gold-soft);
+}
+.posterCaption .message {
+  margin-top: 8px;
+  color: rgb(255 255 255 / 0.82);
+}
+.posterCaption .cta {
+  margin-top: 14px;
+  color: var(--cel-navy-deep);
+  background: #fff;
+}
+.poster .close {
+  top: 22px;
+  right: 22px;
+  color: #fff;
+  background: rgb(0 0 0 / 0.28);
+}
+
+/* ───────── Glass Bloom ───────── */
+.orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+.orbs i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: float 7s ease-in-out infinite;
+}
+.orbs i:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  left: 26%;
+  top: 14%;
+  background: #9bd4a0;
+  opacity: 0.55;
+}
+.orbs i:nth-child(2) {
+  width: 260px;
+  height: 260px;
+  right: 24%;
+  top: 30%;
+  background: #8fb3ff;
+  opacity: 0.55;
+  animation-delay: -2s;
+}
+.orbs i:nth-child(3) {
+  width: 220px;
+  height: 220px;
+  left: 44%;
+  bottom: 8%;
+  background: #f6d58c;
+  opacity: 0.6;
+  animation-delay: -4s;
+}
+.glass {
+  position: relative;
+  border-radius: 28px;
+  padding: 44px 40px 38px;
+  text-align: center;
+  color: var(--cel-fg);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.6));
+  backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.9),
+    inset 0 -30px 60px -40px rgb(143 179 255 / 0.5),
+    0 40px 90px -40px rgb(17 39 90 / 0.45);
+}
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 29px;
+  padding: 1px;
+  background: linear-gradient(135deg, #9bd4a0, #8fb3ff, #f6d58c, #c9a7ff);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.8;
+  pointer-events: none;
+}
+.glassImage {
+  display: block;
+  margin: 0 auto 26px;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  border-radius: 18px;
+  object-fit: cover;
+}
+.glass .eyebrow {
+  color: var(--cel-green);
+}
+.glass .heading {
+  margin-top: 12px;
+  font-size: clamp(30px, 6vw, 40px);
+  line-height: 1.08;
+  color: var(--cel-navy-deep);
+}
+.glass {
+  --cel-accent: var(--cel-navy);
+}
+.glass .message {
+  margin: 14px auto 0;
+  max-width: 400px;
+  color: var(--cel-muted);
+}
+.glass .signature {
+  margin-top: 16px;
+  color: var(--cel-navy);
+}
+.glass .cta {
+  margin-top: 24px;
+  color: #fff;
+  background: var(--cel-navy);
+  box-shadow: 0 14px 28px -14px rgb(17 39 90 / 0.7);
+}
+
+/* ───────── Medallion ───────── */
+.medallion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(calc(100vw - 32px), 520px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  background: radial-gradient(circle at 50% 30%, #1d3f86, var(--cel-navy-deep) 70%);
+  box-shadow:
+    0 0 0 10px rgb(227 181 82 / 0.14),
+    0 0 0 11px rgb(227 181 82 / 0.5),
+    0 50px 120px -30px rgb(0 0 0 / 0.8),
+    0 0 120px -20px rgb(227 181 82 / 0.45);
+}
+.medallionTicks {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgb(227 181 82 / 0.55) 0 0.6deg, transparent 0.6deg 6deg);
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent calc(100% - 13px),
+    #000 calc(100% - 12px)
+  );
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 13px), #000 calc(100% - 12px));
+  animation: spin 60s linear infinite;
+}
+.medallionRing {
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  border: 1px solid rgb(227 181 82 / 0.45);
+}
+.medallionInner {
+  position: relative;
+  max-width: 72%;
+}
+.medallionHighlight {
+  font: 500 clamp(64px, 16vw, 92px)/0.9 var(--cel-display);
+  color: var(--cel-gold);
+  text-shadow: 0 0 40px rgb(227 181 82 / 0.35);
+}
+.medallion .eyebrow {
+  color: var(--cel-gold);
+}
+.medallion .heading {
+  margin-top: 10px;
+  font-size: clamp(22px, 4.5vw, 30px);
+  line-height: 1.15;
+}
+.medallion {
+  --cel-accent: var(--cel-gold-soft);
+}
+.medallion .message {
+  margin: 12px auto 0;
+  font-size: 14.5px;
+  color: rgb(255 255 255 / 0.72);
+}
+.medallion .cta {
+  margin-top: 18px;
+  color: var(--cel-navy-deep);
+  background: linear-gradient(90deg, var(--cel-gold), #f1cf7f);
+}
+.medallion .close {
+  top: 16%;
+  right: 16%;
+  color: #fff;
+}
+
+/* Image-only mode for the card styles */
+.imageOnlyImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+/* ───────── Reopen badge ───────── */
+.badge {
+  position: fixed;
+  z-index: 998;
+  left: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--cel-navy);
+  box-shadow: 0 16px 30px -12px rgb(8 22 52 / 0.6);
+  animation: contentIn 0.5s var(--cel-ease);
+}
+.badge:focus-visible {
+  outline: 2px solid var(--cel-gold);
+  outline-offset: 3px;
+}
+.badgeOrb {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--cel-gold),
+    var(--cel-green-bright),
+    #8fb3ff,
+    var(--cel-gold)
+  );
+  animation: spin 6s linear infinite;
+}
+.badgeOrb span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cel-navy);
+  animation: spin 6s linear infinite reverse;
+}
+.badgeOrb svg {
+  width: 12px;
+  height: 12px;
+  color: var(--cel-gold-soft);
+}
+
+/* ───────── Static preview (thumbnails, live preview) ───────── */
+.preview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 48px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e9eef6, #f4f6f9);
+}
+.preview .content {
+  max-width: 100%;
+  position: relative;
+  left: auto;
+  top: auto;
+  translate: none;
+  z-index: auto;
+  animation: none;
+  max-height: none;
+}
+
+/* Shadows must not be clipped, so the shell only scrolls when the viewport is genuinely short. */
+@media (max-height: 640px) {
+  .content {
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .ticket {
+    grid-template-columns: 1fr;
+  }
+  .ticketMain::after {
+    display: none;
+  }
+  .ticketStub {
+    flex-direction: row;
+    padding: 20px 28px;
+    border-top: 2px dashed rgb(255 255 255 / 0.2);
+  }
+  .ticketDay {
+    font-size: 44px;
+  }
+  .ticketCode {
+    display: none;
+  }
+  .auroraInner,
+  .glass {
+    padding: 44px 24px 32px;
+  }
+  .ticketMain {
+    padding: 36px 24px 28px;
+  }
+  .medallionInner {
+    max-width: 78%;
+  }
+  .medallion .message {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .auroraOrbit,
+  .auroraInner::before,
+  .orbs i,
+  .medallionTicks,
+  .badgeOrb,
+  .badgeOrb span {
+    animation: none;
+  }
+  .overlay,
+  .content,
+  .badge {
+    animation: none;
+  }
+  .ticket {
+    transform: none;
+    transition: none;
+  }
+}

@@ -20,6 +20,7 @@ export const CMS_CACHE_TAGS = {
   siteSettings: 'cms-site-settings',
   sitemap: 'cms-sitemap',
   redirects: 'cms-redirects',
+  celebrations: 'cms-celebrations',
 } as const
 
 // Admin publications require read-your-writes behavior on the next public request.
@@ -98,6 +99,24 @@ export const revalidatePagesCache: CollectionAfterChangeHook = ({ context, doc, 
 export const revalidateArticlesCache: CollectionAfterChangeHook = ({ doc, previousDoc }) => {
   if (isOrWasPublished(doc, previousDoc)) {
     revalidateTags(CMS_CACHE_TAGS.articles, CMS_CACHE_TAGS.sitemap)
+  }
+
+  return doc
+}
+
+/**
+ * Revalidates celebrations when one changes. Pages embed celebrations through the Celebration
+ * block, so their cache is refreshed too.
+ */
+export const revalidateCelebrationsCache: CollectionAfterChangeHook = ({
+  context,
+  doc,
+  previousDoc,
+}) => {
+  if (context?.[SKIP_CACHE_REVALIDATION_CONTEXT] === true) return doc
+
+  if (isOrWasPublished(doc, previousDoc)) {
+    revalidateTags(CMS_CACHE_TAGS.celebrations, CMS_CACHE_TAGS.pages)
   }
 
   return doc
@@ -212,6 +231,15 @@ export const revalidateDeletedPageCache: CollectionAfterDeleteHook = ({ doc }) =
 export const revalidateDeletedArticleCache: CollectionAfterDeleteHook = ({ doc }) => {
   if (doc._status === 'published') {
     revalidateTags(CMS_CACHE_TAGS.articles, CMS_CACHE_TAGS.sitemap)
+  }
+  return doc
+}
+
+export const revalidateDeletedCelebrationCache: CollectionAfterDeleteHook = ({ context, doc }) => {
+  if (context?.[SKIP_CACHE_REVALIDATION_CONTEXT] === true) return doc
+
+  if (doc._status === 'published') {
+    revalidateTags(CMS_CACHE_TAGS.celebrations, CMS_CACHE_TAGS.pages)
   }
   return doc
 }

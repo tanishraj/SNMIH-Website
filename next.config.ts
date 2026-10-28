@@ -26,6 +26,11 @@ export const nextConfig: NextConfig = {
     },
   },
   output: 'standalone',
+  typescript: {
+    // The build type-checks only application code. Test files import tooling that is excluded
+    // from the Docker build context (.dockerignore), and `tsc --noEmit` in CI still checks them.
+    tsconfigPath: 'tsconfig.build.json',
+  },
   async headers() {
     return [
       {

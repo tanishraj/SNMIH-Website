@@ -57,7 +57,7 @@ while System Page actions can use Navigation Links.
 
 `operational-audit-events`, labeled `Audit Log`, owns immutable selected operational history. It is not a complete record of every database change.
 
-`users` owns Payload authentication, the Admin and Site Manager roles, and the 29 feature grants that Admins assign to Site Managers. Admin access is implicit and Users administration is never grantable.
+`users` owns Payload authentication, the Admin and Site Manager roles, and the 30 feature grants that Admins assign to Site Managers. Admin access is implicit and Users administration is never grantable.
 
 `work-queue` and `operational-audit-events` carry their source feature. A Site Manager can see those records only when granted both the Action Queue or Audit Log feature and the record's source feature.
 

@@ -1,3 +1,4 @@
+import { DisclosurePresentation } from '@/blocks/DisclosureProforma/Presentation'
 import type { ReactNode } from 'react'
 
 import { AnnouncementBlockComponent } from '@/blocks/Announcement/Component'
@@ -64,6 +65,7 @@ import { AccreditationCardsBlockComponent } from '@/blocks/AccreditationCards/Co
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { BankDetailsBlockComponent } from '@/blocks/BankDetails/Component'
 import { DocumentChecklistBlockComponent } from '@/blocks/DocumentChecklist/Component'
+import { CelebrationPreview } from '@/components/celebration/CelebrationPreview'
 import { ContactNumbersBlockComponent } from '@/blocks/ContactNumbers/Component'
 import { BentoGridBlockComponent } from '@/blocks/BentoGrid/Component'
 import { DownloadListBlockComponent } from '@/blocks/DownloadList/Component'
@@ -543,6 +545,44 @@ const thumbnailNewsEventsTabsGroups = {
 }
 
 export const blockThumbnailFixtures = {
+  disclosureProforma: (
+    <DisclosurePresentation
+      dataset="thumbnail"
+      title="Institutional disclosures"
+      description="Explore current information and previous reporting periods."
+      defaultSection="statistics"
+      archiveNote="Previous reporting periods remain available within each section."
+      staticPreview
+      initial={{
+        dataset: 'thumbnail',
+        periods: [{ id: 'september', label: 'September 2026' }],
+        period: 'september',
+        periodPage: 1,
+        hasMorePeriods: false,
+        groups: {
+          highlights: {
+            rows: [
+              { id: 'opd', label: 'Outpatient visits', value: '58,245' },
+              { id: 'ipd', label: 'Inpatients', value: '6,264' },
+              { id: 'births', label: 'Births reported', value: '182' },
+            ],
+            page: 1,
+            total: 3,
+            totalPages: 1,
+          },
+          monthly: {
+            rows: [
+              { id: 'deaths', label: 'Deaths reported', value: '26' },
+              { id: 'grievances', label: 'Grievances reported', value: null },
+            ],
+            page: 1,
+            total: 2,
+            totalPages: 1,
+          },
+        },
+      }}
+    />
+  ),
   accreditationCards: (
     <AccreditationCardsBlockComponent
       accreditations={[
@@ -2435,6 +2475,28 @@ export const blockThumbnailFixtures = {
       panelPosition="right"
       panelTitle="Example transfer details"
       size="compact"
+    />
+  ),
+  celebration: (
+    <CelebrationPreview
+      view={{
+        badgeLabel: 'Celebrating today',
+        confetti: { enabled: true, pieces: 160, shots: 5, speed: 'medium' },
+        dateLabel: { day: '22', month: 'October', year: '2026' },
+        endKey: '2026-10-22',
+        eyebrow: 'Today we celebrate',
+        frequency: 'oncePerDay',
+        heading: 'Happy',
+        accentHeading: "Founder's Day",
+        id: 'preview',
+        imageOnly: false,
+        message: 'Join the SNMIH family for the ceremony, cultural programme, and alumni meet.',
+        openDelayMs: 0,
+        showReopenBadge: true,
+        startKey: '2026-10-22',
+        style: 'aurora',
+        timesPerDay: 1,
+      }}
     />
   ),
   contactNumbers: (

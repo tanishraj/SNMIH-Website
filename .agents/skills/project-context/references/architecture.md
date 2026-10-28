@@ -2,7 +2,7 @@
 
 ## Runtime and Layers
 
-This is one editorial marketing application: Payload CMS 3.85.2 and Next.js 16 share the App Router process, with React 19, Tailwind CSS 4, MongoDB, and TypeScript. The main entry points are [Payload configuration](../../../../src/payload.config.ts) and the [App Router](../../../../src/app).
+This is one editorial marketing application: Payload CMS 3.91.0 and Next.js 16 share the App Router process, with React 19, Tailwind CSS 4, MongoDB, and TypeScript. The main entry points are [Payload configuration](../../../../src/payload.config.ts) and the [App Router](../../../../src/app).
 
 The repository has eight practical layers:
 
@@ -96,6 +96,8 @@ The isolated browser suite runs through `pnpm test:two-factor` using its own Mon
 
 MongoDB is the supported database. Local Docker Compose pins MongoDB 8.0.29 and isolates its files in the version-specific
 `mongo_data_8_0` volume so Atlas dump and restore workflows do not cross MongoDB server versions. Local development may use local-disk media. Vercel production must use durable S3-compatible storage. Email is either disabled or delivered through Resend. Production requires a non-placeholder Payload secret of at least 32 characters and disables GraphQL introspection and Playground. Upload limits live in [uploadLimits.ts](../../../../src/config/uploadLimits.ts).
+
+`next build` type-checks through [tsconfig.build.json](../../../../tsconfig.build.json), which extends `tsconfig.json` but excludes `tests/`, the Playwright configs, and `vitest.setup.ts`. Docker and Railpack builds use `.dockerignore`, which omits `.agents/` and other tooling that some tests import, so the build must not type-check tests. CI's `tsc --noEmit` still checks everything through `tsconfig.json`.
 
 The production database backup workflow runs daily and on manual dispatch. It uses a read-only
 MongoDB source credential to export only `prod`, verifies the compressed archive after uploading it
@@ -191,3 +193,19 @@ so moving that Page beneath a parent does not leave consent UI pointing at its l
   replica set so transaction behavior matches the supported adapter.
 
 Use the maintained [feature inventory](../../../../docs/architecture/feature-inventory.md), [content model map](../../../../docs/architecture/content-model-map.md), [runtime/provider runbook](../../../../docs/operations/runtime-and-providers.md), and [developer workflows](../../../../docs/operations/developer-workflows.md) for deeper operational context.
+
+## Local celebration gallery
+
+`/celebration-examples` uses the block-thumbnail root layout and returns 404 outside development.
+It presents all five celebration styles with illustrative fixtures and launches the real CelebrationHost
+for interactive cone/confetti previews, without writing CMS records.
+
+
+## Disclosure delivery
+
+`/api/disclosure-data` serves bounded section/group batches and reporting-period options for the
+Disclosure Proforma block. It validates identifiers, section/group keys, limits and page bounds;
+selected periods must belong to the requested dataset. Public reads use only published periods and
+records with collection access enabled. Draft requests authenticate via Payload and require relevant
+feature/dependency reads. All responses are no-store, with safe display projections and explicit errors.
+Initial public block data is server-rendered; linked publications expire cached frontend Pages.

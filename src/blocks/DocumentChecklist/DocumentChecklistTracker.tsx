@@ -6,7 +6,7 @@ import { useId, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { resolveBlockSurface, type BlockBackground } from '@/blocks/shared/blockAppearance'
 import { resolveCardSurface } from '@/blocks/shared/cardSurface'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
 
@@ -29,13 +29,17 @@ export type DocumentChecklistLayout = {
   verticalAlignment: 'bottom' | 'center' | 'top' | 'topStatic'
 }
 
+type DocumentChecklistTrackerItem = DocumentChecklistItem & { iconNode?: ReactNode }
+
 type DocumentChecklistTrackerProps = {
+  /** Decorative illustration shown beside the header in the Composition presentation. */
+  art?: ReactNode
   columns: DocumentChecklistColumns
   enableTracking: boolean
   /** Rendered at the bottom of the introduction column in Split, or after the checklist when stacked. */
   bottomContent?: ReactNode
   header: ReactNode
-  items: DocumentChecklistItem[]
+  items: DocumentChecklistTrackerItem[]
   layout: DocumentChecklistLayout
   markerStyle: DocumentChecklistMarkerStyle
   notes: DocumentChecklistNote[]
@@ -134,6 +138,7 @@ function ChecklistMarker({
 }
 
 export function DocumentChecklistTracker({
+  art,
   columns,
   enableTracking,
   bottomContent,
@@ -223,17 +228,27 @@ export function DocumentChecklistTracker({
                 </span>
               </p>
             ) : null}
+            {/* Plain buttons: these sit on the white card, so the brand-section button
+                inversion (which targets data-slot="button") must not apply. */}
             {showClear ? (
-              <Button onClick={() => updateCheckedKeys([])} size="xs" type="button" variant="ghost">
+              <button
+                className={cn(buttonVariants({ size: 'xs', variant: 'ghost' }))}
+                onClick={() => updateCheckedKeys([])}
+                type="button"
+              >
                 <RotateCcw aria-hidden="true" />
                 Clear
-              </Button>
+              </button>
             ) : null}
             {showPrintButton ? (
-              <Button onClick={() => window.print()} size="xs" type="button" variant="outline">
+              <button
+                className={cn(buttonVariants({ size: 'xs', variant: 'outline' }))}
+                onClick={() => window.print()}
+                type="button"
+              >
                 <Printer aria-hidden="true" />
                 Print
-              </Button>
+              </button>
             ) : null}
           </div>
         ) : null}
@@ -327,59 +342,63 @@ export function DocumentChecklistTracker({
     </div>
   )
 
+  // Progress, Clear, and Print on one quiet line, shared by the card-free presentations.
+  const compactToolbar =
+    enableTracking || showPrintButton ? (
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 print:hidden">
+        <p className={cn(sidebarLabelClasses, 'text-current/70')}>{documentSummary}</p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          {enableTracking ? (
+            <p aria-live="polite" className="flex items-center gap-2.5 text-sm font-medium">
+              <span className="tabular-nums">
+                {readyCount} of {items.length} ready
+              </span>
+              <span
+                aria-hidden="true"
+                className="hidden h-px w-24 overflow-hidden bg-current/20 sm:block"
+              >
+                <span
+                  className="block h-full bg-current transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+                  style={{ width: `${percent}%` }}
+                />
+              </span>
+            </p>
+          ) : null}
+          {showClear ? (
+            <Button
+              className={clearButtonClasses}
+              onClick={() => updateCheckedKeys([])}
+              size="xs"
+              type="button"
+              variant="ghost"
+            >
+              <RotateCcw aria-hidden="true" />
+              Clear
+            </Button>
+          ) : null}
+          {showPrintButton ? (
+            <Button
+              className={printButtonClasses}
+              onClick={() => window.print()}
+              size="xs"
+              type="button"
+              variant="outline"
+            >
+              <Printer aria-hidden="true" />
+              Print
+            </Button>
+          ) : null}
+        </div>
+      </div>
+    ) : null
+
   const ledgerAccent = isBrandSurface ? 'text-current' : 'text-primary'
   const ledgerList = (
     <div
       className="@container flex min-w-0 flex-col gap-5 text-current"
       data-document-checklist-tracking={enableTracking ? 'true' : 'false'}
     >
-      {!hasSidebar && (enableTracking || showPrintButton) ? (
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 print:hidden">
-          <p className={cn(sidebarLabelClasses, 'text-current/70')}>{documentSummary}</p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            {enableTracking ? (
-              <p aria-live="polite" className="flex items-center gap-2.5 text-sm font-medium">
-                <span className="tabular-nums">
-                  {readyCount} of {items.length} ready
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="hidden h-px w-24 overflow-hidden bg-current/20 sm:block"
-                >
-                  <span
-                    className="block h-full bg-current transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
-                    style={{ width: `${percent}%` }}
-                  />
-                </span>
-              </p>
-            ) : null}
-            {showClear ? (
-              <Button
-                className={clearButtonClasses}
-                onClick={() => updateCheckedKeys([])}
-                size="xs"
-                type="button"
-                variant="ghost"
-              >
-                <RotateCcw aria-hidden="true" />
-                Clear
-              </Button>
-            ) : null}
-            {showPrintButton ? (
-              <Button
-                className={printButtonClasses}
-                onClick={() => window.print()}
-                size="xs"
-                type="button"
-                variant="outline"
-              >
-                <Printer aria-hidden="true" />
-                Print
-              </Button>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+      {!hasSidebar ? compactToolbar : null}
 
       <ol
         className={cn(
@@ -531,7 +550,7 @@ export function DocumentChecklistTracker({
     ledgerNotes ??
     (!hasSidebar && notes.length > 0 ? (
       <div
-        className="flex min-w-0 flex-col divide-y divide-border rounded-card border border-border bg-muted/40 text-card-foreground"
+        className="flex min-w-0 flex-col divide-y divide-border rounded-card border border-border bg-[color-mix(in_oklch,var(--muted)_40%,var(--card))] text-card-foreground"
         data-document-checklist-notes="true"
       >
         {notes.map((note) => (
@@ -648,6 +667,155 @@ export function DocumentChecklistTracker({
       ) : null}
     </aside>
   ) : null
+
+  if (presentation === 'composition') {
+    const iconBoxClasses = isBrandSurface
+      ? 'bg-current/10 text-current peer-checked:bg-primary-foreground peer-checked:text-primary'
+      : 'bg-primary/[0.07] text-primary peer-checked:bg-success/15 peer-checked:text-success'
+
+    return (
+      <div
+        className="@container/composition flex min-w-0 flex-col gap-14 lg:gap-20"
+        data-document-checklist-layout="composition"
+      >
+        <div className="grid min-w-0 items-center gap-10 @3xl/composition:grid-cols-2 @3xl/composition:gap-16">
+          <div className="min-w-0">{header}</div>
+          {art ? <div className="min-w-0">{art}</div> : null}
+        </div>
+
+        <div
+          className="@container flex min-w-0 flex-col gap-6 text-current"
+          data-document-checklist-tracking={enableTracking ? 'true' : 'false'}
+        >
+          {compactToolbar}
+          <ol
+            className={cn(
+              grid.container,
+              grid.usesTwo && '@xl:gap-x-16',
+              grid.usesThree && '@3xl:gap-x-10',
+            )}
+            data-document-checklist-columns={
+              grid.usesThree ? 'three' : grid.usesTwo ? 'two' : 'one'
+            }
+            data-document-checklist-presentation="composition"
+            style={grid.style}
+          >
+            {items.map((item, index) => {
+              const isChecked = checkedSet.has(item.key)
+              const inputId = `${baseId}-${index}`
+              const rowClasses = cn(
+                'grid h-full items-center gap-x-4 py-4',
+                showMarker
+                  ? 'grid-cols-[2.75rem_2rem_minmax(0,1fr)_auto]'
+                  : 'grid-cols-[2.75rem_minmax(0,1fr)_auto]',
+              )
+              const content = (
+                <>
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      'flex size-11 items-center justify-center rounded-control transition-colors motion-reduce:transition-none peer-focus-visible:ring-3 peer-focus-visible:ring-ring/40',
+                      iconBoxClasses,
+                    )}
+                  >
+                    {isChecked ? <Check className="size-5" strokeWidth={1.75} /> : item.iconNode}
+                  </span>
+                  {showMarker ? (
+                    <span
+                      aria-hidden="true"
+                      className="text-right font-[family-name:var(--font-display)] text-base italic opacity-60"
+                    >
+                      {formatChecklistMarker(index, markerStyle).replace(/\.$/, '')}
+                    </span>
+                  ) : null}
+                  <span className="flex min-w-0 flex-col gap-0.5">
+                    <span
+                      className={cn(
+                        'font-sans text-base leading-snug font-medium transition-colors motion-reduce:transition-none',
+                        isChecked && 'text-current/50',
+                      )}
+                    >
+                      {item.label}
+                    </span>
+                    {item.details ? (
+                      <span className="text-sm leading-5 text-current/65">{item.details}</span>
+                    ) : null}
+                  </span>
+                  {item.qualifier ? (
+                    <span
+                      className={cn(
+                        'font-[family-name:var(--font-display)] text-sm whitespace-nowrap italic',
+                        isBrandSurface ? 'text-current' : 'text-success',
+                      )}
+                    >
+                      {item.qualifier}
+                    </span>
+                  ) : (
+                    <span />
+                  )}
+                </>
+              )
+
+              return (
+                <li
+                  key={item.key}
+                  className={cn('min-w-0 border-current/12', grid.ledgerItem(index))}
+                  data-checked={isChecked || undefined}
+                >
+                  {enableTracking ? (
+                    <label className={cn(rowClasses, 'cursor-pointer')} htmlFor={inputId}>
+                      {/* The icon square doubles as the tick target; the native input stays accessible. */}
+                      <input
+                        checked={isChecked}
+                        className="peer sr-only"
+                        id={inputId}
+                        onChange={(event) => toggleItem(item.key, event.target.checked)}
+                        type="checkbox"
+                      />
+                      {content}
+                    </label>
+                  ) : (
+                    <div className={rowClasses}>{content}</div>
+                  )}
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+
+        {notes.length > 0 ? (
+          <div
+            className="grid min-w-0 gap-8 @3xl/composition:grid-cols-2 @3xl/composition:gap-16"
+            data-document-checklist-notes="true"
+          >
+            {notes.map((note) => (
+              <div
+                key={note.key}
+                className="flex flex-col gap-3"
+                data-document-checklist-note="true"
+              >
+                {note.label ? (
+                  <p
+                    className={cn(
+                      sidebarLabelClasses,
+                      isBrandSurface ? 'text-current/70' : 'text-success',
+                    )}
+                  >
+                    {note.label}
+                  </p>
+                ) : null}
+                <p className="max-w-2xl font-[family-name:var(--font-display)] text-lg leading-relaxed italic">
+                  {note.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {bottomContent}
+      </div>
+    )
+  }
 
   if (isSplit && bottomContent) {
     // The column stretches to the checklist's height so its last item can sit at the bottom. The

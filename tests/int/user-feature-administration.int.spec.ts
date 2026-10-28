@@ -19,7 +19,7 @@ const fieldNamed = (name: string) =>
   Users.fields.find((field) => 'name' in field && field.name === name)
 
 describe('two-role user administration', () => {
-  it('exposes only Admin and Site Manager with 29 default-off grants', () => {
+  it('exposes only Admin and Site Manager with 33 default-off grants', () => {
     const role = fieldNamed('role')
     const features = fieldNamed('features')
 

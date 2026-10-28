@@ -185,6 +185,21 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/Celebration/Component.tsx",
+        "configPath": "src/blocks/Celebration/config.ts",
+        "files": [
+          "src/blocks/Celebration/Component.tsx",
+          "src/blocks/Celebration/PreviewComponent.tsx",
+          "src/blocks/Celebration/config.ts"
+        ],
+        "interfaceName": "CelebrationBlock",
+        "presentationPath": null,
+        "previewComponentPath": "src/blocks/Celebration/PreviewComponent.tsx",
+        "slug": "celebration",
+        "symbol": "CelebrationBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/Contact24/Component.tsx",
         "configPath": "src/blocks/Contact24/config.ts",
         "files": [
@@ -281,10 +296,31 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/DisclosureProforma/Component.tsx",
+        "configPath": "src/blocks/DisclosureProforma/config.ts",
+        "files": [
+          "src/blocks/DisclosureProforma/Component.tsx",
+          "src/blocks/DisclosureProforma/Presentation.tsx",
+          "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+          "src/blocks/DisclosureProforma/RowLabels.tsx",
+          "src/blocks/DisclosureProforma/config.ts",
+          "src/blocks/DisclosureProforma/load.ts",
+          "src/blocks/DisclosureProforma/request.ts",
+          "src/blocks/DisclosureProforma/shared.ts"
+        ],
+        "interfaceName": "DisclosureProformaBlock",
+        "presentationPath": "src/blocks/DisclosureProforma/Presentation.tsx",
+        "previewComponentPath": "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+        "slug": "disclosureProforma",
+        "symbol": "DisclosureProformaBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/DocumentChecklist/Component.tsx",
         "configPath": "src/blocks/DocumentChecklist/config.ts",
         "files": [
           "src/blocks/DocumentChecklist/Component.tsx",
+          "src/blocks/DocumentChecklist/DocumentChecklistArt.tsx",
           "src/blocks/DocumentChecklist/DocumentChecklistTracker.tsx",
           "src/blocks/DocumentChecklist/config.ts",
           "src/blocks/DocumentChecklist/normalizeDocumentChecklist.ts"
@@ -1078,12 +1114,14 @@
       "BentoGridBlock",
       "BreadcrumbBlock",
       "CalendarBlock",
+      "CelebrationBlock",
       "Contact24Block",
       "Contact33Block",
       "ContactNumbersBlock",
       "ContentHighlightsBlock",
       "Cta39Block",
       "DepartmentProfilesBlock",
+      "DisclosureProformaBlock",
       "DocumentChecklistBlock",
       "DownloadListBlock",
       "EditorialReasonsBlock",
@@ -1140,6 +1178,7 @@
       "headerNavbar12"
     ],
     "livePreviewRenderer": [
+      "disclosureProforma",
       "announcement",
       "heroBanner",
       "heroCarousel",
@@ -1193,6 +1232,7 @@
       "pgFeeStructure",
       "bankDetails",
       "documentChecklist",
+      "celebration",
       "contactNumbers",
       "numberedSteps",
       "bentoGrid",
@@ -1215,6 +1255,7 @@
       "calendar",
       "annualCalendar",
       "departmentProfiles",
+      "disclosureProforma",
       "galleryAlbumTabs",
       "qaAccordion",
       "statsStrip",
@@ -1260,12 +1301,14 @@
       "bankDetails",
       "documentChecklist",
       "contactNumbers",
+      "celebration",
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
       "awardsList"
     ],
     "productionRenderer": [
+      "disclosureProforma",
       "announcement",
       "heroBanner",
       "heroCarousel",
@@ -1319,6 +1362,7 @@
       "pgFeeStructure",
       "bankDetails",
       "documentChecklist",
+      "celebration",
       "contactNumbers",
       "numberedSteps",
       "bentoGrid",
@@ -1340,6 +1384,7 @@
       "calendar",
       "annualCalendar",
       "departmentProfiles",
+      "disclosureProforma",
       "galleryAlbumTabs",
       "qaAccordion",
       "statsStrip",
@@ -1385,6 +1430,7 @@
       "bankDetails",
       "documentChecklist",
       "contactNumbers",
+      "celebration",
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
@@ -1640,12 +1686,14 @@
         "public/block-thumbnails/bento-grid.jpg",
         "public/block-thumbnails/breadcrumb.jpg",
         "public/block-thumbnails/calendar.jpg",
+        "public/block-thumbnails/celebration.jpg",
         "public/block-thumbnails/contact-24.jpg",
         "public/block-thumbnails/contact-33.jpg",
         "public/block-thumbnails/contact-numbers.jpg",
         "public/block-thumbnails/content-highlights.jpg",
         "public/block-thumbnails/cta-39.jpg",
         "public/block-thumbnails/department-profiles.jpg",
+        "public/block-thumbnails/disclosure-proforma.jpg",
         "public/block-thumbnails/document-checklist.jpg",
         "public/block-thumbnails/download-list.jpg",
         "public/block-thumbnails/editorial-reasons.jpg",
@@ -1698,6 +1746,10 @@
         "public/block-thumbnails/video-embed.jpg"
       ],
       "definitions": [
+        {
+          "filename": "disclosure-proforma.jpg",
+          "slug": "disclosureProforma"
+        },
         {
           "filename": "logos20.jpg",
           "slug": "logos20"
@@ -1903,6 +1955,10 @@
           "slug": "documentChecklist"
         },
         {
+          "filename": "celebration.jpg",
+          "slug": "celebration"
+        },
+        {
           "filename": "contact-numbers.jpg",
           "slug": "contactNumbers"
         },
@@ -1968,6 +2024,7 @@
         }
       ],
       "fixtures": [
+        "disclosureProforma",
         "accreditationCards",
         "academicProgrammes",
         "leadershipProfiles",
@@ -2016,6 +2073,7 @@
         "feeStructure",
         "pgFeeStructure",
         "bankDetails",
+        "celebration",
         "contactNumbers",
         "documentChecklist",
         "iconGrid",
@@ -2064,6 +2122,22 @@
       {
         "source": "src/collections/ReusableSections.ts",
         "symbol": "ReusableSections"
+      },
+      {
+        "source": "src/collections/Celebrations.ts",
+        "symbol": "Celebrations"
+      },
+      {
+        "source": "src/collections/Disclosure.ts",
+        "symbol": "DisclosureDatasets"
+      },
+      {
+        "source": "src/collections/Disclosure.ts",
+        "symbol": "DisclosurePeriods"
+      },
+      {
+        "source": "src/collections/Disclosure.ts",
+        "symbol": "DisclosureRecords"
       },
       {
         "source": "src/collections/Categories.ts",
@@ -2171,12 +2245,12 @@
   },
   "project": {
     "frameworks": {
-      "next": "16.2.11",
-      "payload": "3.85.2",
+      "next": "16.3.8",
+      "payload": "3.91.0",
       "react": "19.2.7",
       "tailwindcss": "^4.3.2",
       "typescript": "5.7.3",
-      "vitest": "4.1.0"
+      "vitest": "5.0.5"
     },
     "name": "payload-cms-next-tailwind-shadcn-starter-kit",
     "scripts": [
@@ -2217,8 +2291,10 @@
       "docs/guides/articles.md",
       "docs/guides/blocks.md",
       "docs/guides/categories.md",
+      "docs/guides/celebrations.md",
       "docs/guides/cookie-consent.md",
       "docs/guides/dashboard.md",
+      "docs/guides/disclosure-proforma.md",
       "docs/guides/footers.md",
       "docs/guides/form-submissions.md",
       "docs/guides/forms.md",
@@ -2256,6 +2332,7 @@
       "src/access/adminFeatures.ts",
       "src/access/featureAccess.ts",
       "src/app/(block-thumbnails)/block-thumbnail-previews/[slug]/page.tsx",
+      "src/app/(block-thumbnails)/celebration-examples/page.tsx",
       "src/app/(block-thumbnails)/layout.tsx",
       "src/app/(frontend)/ManagedCmsPage.tsx",
       "src/app/(frontend)/PageContent.tsx",
@@ -2294,6 +2371,7 @@
       "src/app/(payload)/custom.scss",
       "src/app/(payload)/layout.tsx",
       "src/app/api/calendar-events/route.ts",
+      "src/app/api/disclosure-data/route.ts",
       "src/app/api/forms/[slug]/submit/route.ts",
       "src/app/api/frontend-session/route.ts",
       "src/app/api/media-download/[id]/route.ts",
@@ -2351,6 +2429,9 @@
       "src/blocks/Calendar/calendarStyles.ts",
       "src/blocks/Calendar/calendarTone.ts",
       "src/blocks/Calendar/config.ts",
+      "src/blocks/Celebration/Component.tsx",
+      "src/blocks/Celebration/PreviewComponent.tsx",
+      "src/blocks/Celebration/config.ts",
       "src/blocks/Contact24/Component.tsx",
       "src/blocks/Contact24/Presentation.tsx",
       "src/blocks/Contact24/PreviewComponent.tsx",
@@ -2371,7 +2452,16 @@
       "src/blocks/DepartmentProfiles/RowLabels.tsx",
       "src/blocks/DepartmentProfiles/config.ts",
       "src/blocks/DepartmentProfiles/types.ts",
+      "src/blocks/DisclosureProforma/Component.tsx",
+      "src/blocks/DisclosureProforma/Presentation.tsx",
+      "src/blocks/DisclosureProforma/PreviewComponent.tsx",
+      "src/blocks/DisclosureProforma/RowLabels.tsx",
+      "src/blocks/DisclosureProforma/config.ts",
+      "src/blocks/DisclosureProforma/load.ts",
+      "src/blocks/DisclosureProforma/request.ts",
+      "src/blocks/DisclosureProforma/shared.ts",
       "src/blocks/DocumentChecklist/Component.tsx",
+      "src/blocks/DocumentChecklist/DocumentChecklistArt.tsx",
       "src/blocks/DocumentChecklist/DocumentChecklistTracker.tsx",
       "src/blocks/DocumentChecklist/config.ts",
       "src/blocks/DocumentChecklist/normalizeDocumentChecklist.ts",
@@ -2565,6 +2655,9 @@
       "src/blocks/systemPageFields.ts",
       "src/collections/Articles.ts",
       "src/collections/Categories.ts",
+      "src/collections/Celebrations.ts",
+      "src/collections/Disclosure/hooks.ts",
+      "src/collections/Disclosure/index.ts",
       "src/collections/Footers.ts",
       "src/collections/FormSubmissions.ts",
       "src/collections/Forms.ts",
@@ -2608,6 +2701,14 @@
       "src/components/announcement/RotatingAnnouncementContent.tsx",
       "src/components/articles/ArticleArchivePage.tsx",
       "src/components/articles/ArticlePage.tsx",
+      "src/components/celebration/CelebrationCard.tsx",
+      "src/components/celebration/CelebrationExamples.tsx",
+      "src/components/celebration/CelebrationHost.tsx",
+      "src/components/celebration/CelebrationPreview.tsx",
+      "src/components/celebration/celebration.module.css",
+      "src/components/celebration/celebrationSlot.ts",
+      "src/components/celebration/confetti.ts",
+      "src/components/celebration/confettiCones.ts",
       "src/components/contact24.tsx",
       "src/components/contact33.tsx",
       "src/components/content-highlights.tsx",
@@ -2689,6 +2790,7 @@
       "src/components/ui/label.tsx",
       "src/components/ui/navigation-menu.tsx",
       "src/components/ui/pagination.tsx",
+      "src/components/ui/popover.tsx",
       "src/components/ui/progress.tsx",
       "src/components/ui/radio-group.tsx",
       "src/components/ui/select.tsx",
@@ -2747,6 +2849,9 @@
       "src/lib/analyticsConsent.ts",
       "src/lib/calendarEvents.ts",
       "src/lib/calendarRequest.ts",
+      "src/lib/celebrations/celebrations.server.ts",
+      "src/lib/celebrations/shared.ts",
+      "src/lib/celebrations/view.ts",
       "src/lib/cmsLinks.ts",
       "src/lib/cmsSession.ts",
       "src/lib/contact33Form.ts",
@@ -2872,6 +2977,8 @@
       "tests/int/card-theme-contract.int.spec.ts",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/celebration-confetti.int.spec.ts",
+      "tests/int/celebrations.int.spec.tsx",
       "tests/int/contact-numbers.int.spec.tsx",
       "tests/int/contact24-data.int.spec.ts",
       "tests/int/contact24-render.int.spec.tsx",
@@ -2889,6 +2996,8 @@
       "tests/int/dashboard-capability-filtering.int.spec.tsx",
       "tests/int/department-profiles-migration.int.spec.ts",
       "tests/int/department-profiles.int.spec.tsx",
+      "tests/int/disclosure-loader.int.spec.ts",
+      "tests/int/disclosure-proforma.int.spec.tsx",
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",
@@ -3047,7 +3156,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "5293f2af7ee92b094d3304e46030634ecaa705555d5c228ebbc76f6518a028da"
+    "sha256": "e79261331d923c8b5a55f431195769553f86f2e641c19f72644fe259560a966c"
   },
   "surfaces": {
     "access": [
@@ -3098,6 +3207,9 @@
       "src/lib/analyticsConsent.ts",
       "src/lib/calendarEvents.ts",
       "src/lib/calendarRequest.ts",
+      "src/lib/celebrations/celebrations.server.ts",
+      "src/lib/celebrations/shared.ts",
+      "src/lib/celebrations/view.ts",
       "src/lib/cmsLinks.ts",
       "src/lib/cmsSession.ts",
       "src/lib/contact33Form.ts",
@@ -3160,6 +3272,7 @@
     ],
     "routes": [
       "src/app/(block-thumbnails)/block-thumbnail-previews/[slug]/page.tsx",
+      "src/app/(block-thumbnails)/celebration-examples/page.tsx",
       "src/app/(block-thumbnails)/layout.tsx",
       "src/app/(frontend)/[...slug]/page.tsx",
       "src/app/(frontend)/articles/[slug]/opengraph-image.tsx",
@@ -3188,6 +3301,7 @@
       "src/app/(payload)/api/graphql/route.ts",
       "src/app/(payload)/layout.tsx",
       "src/app/api/calendar-events/route.ts",
+      "src/app/api/disclosure-data/route.ts",
       "src/app/api/forms/[slug]/submit/route.ts",
       "src/app/api/frontend-session/route.ts",
       "src/app/api/media-download/[id]/route.ts",
@@ -3242,6 +3356,8 @@
       "tests/int/card-theme-contract.int.spec.ts",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
+      "tests/int/celebration-confetti.int.spec.ts",
+      "tests/int/celebrations.int.spec.tsx",
       "tests/int/contact-numbers.int.spec.tsx",
       "tests/int/contact24-data.int.spec.ts",
       "tests/int/contact24-render.int.spec.tsx",
@@ -3259,6 +3375,8 @@
       "tests/int/dashboard-capability-filtering.int.spec.tsx",
       "tests/int/department-profiles-migration.int.spec.ts",
       "tests/int/department-profiles.int.spec.tsx",
+      "tests/int/disclosure-loader.int.spec.ts",
+      "tests/int/disclosure-proforma.int.spec.tsx",
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",

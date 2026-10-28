@@ -1,3 +1,4 @@
+import { DisclosureProformaBlockComponent } from './DisclosureProforma/Component'
 import React from 'react'
 import type { Page } from '@/payload-types'
 import { resolveAutomaticPageBreadcrumbs, type ResolvedPageBreadcrumb } from '@/lib/pageBreadcrumbs'
@@ -56,6 +57,7 @@ import { FeeStructureBlockComponent } from './FeeStructure/Component'
 import { PGFeeStructureBlockComponent } from './PGFeeStructure/Component'
 import { BankDetailsBlockComponent } from './BankDetails/Component'
 import { DocumentChecklistBlockComponent } from './DocumentChecklist/Component'
+import { CelebrationBlockComponent } from './Celebration/Component'
 import { ContactNumbersBlockComponent } from './ContactNumbers/Component'
 import { NumberedStepsBlockComponent } from './NumberedSteps/Component'
 import { BentoGridBlockComponent } from './BentoGrid/Component'
@@ -102,6 +104,8 @@ function renderPageBlockContent(
   )
 
   switch (block.blockType) {
+    case 'disclosureProforma':
+      return wrap(<DisclosureProformaBlockComponent {...block} />)
     case 'announcement':
       return wrap(<AnnouncementBlockComponent {...block} />)
     case 'heroBanner': {
@@ -215,6 +219,8 @@ function renderPageBlockContent(
       return wrap(<BankDetailsBlockComponent {...block} />)
     case 'documentChecklist':
       return wrap(<DocumentChecklistBlockComponent {...block} />)
+    case 'celebration':
+      return wrap(<CelebrationBlockComponent {...block} />)
     case 'contactNumbers':
       return wrap(<ContactNumbersBlockComponent {...block} />)
     case 'numberedSteps':

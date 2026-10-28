@@ -2,7 +2,7 @@
 
 ## Registries 
 
-[blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 20-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 61 blocks and Reusable Sections expose the 60 non-recursive choices.
+[blockCatalog.ts](../../../../src/blocks/blockCatalog.ts) is the server-only canonical Payload schema catalog for Page-compatible blocks. It assigns native Admin groups in this order: Start, Explain, Explore, Prove, Convert, and Advanced Library. The first five groups contain the client-approved 21-block vocabulary; all remaining Page-compatible blocks stay registered under Advanced Library. Pages expose 63 blocks and Reusable Sections expose the 62 non-recursive choices.
 
 Partner Directory (`integration23`) adapts Shadcnblocks Integration 23 into an editorial insurer/partner
 directory in Advanced Library. The shared client-safe adapter normalizes up to 100 ordered entries
@@ -56,7 +56,7 @@ Calendar is an Explore block backed only by selected active Event-behavior News 
 
 Annual Calendar is the twelve-month Explore companion to Calendar. It uses the same strict one-to-five active Event-classification scope, site timezone, semantic calendar tones, section appearance/actions/alignment/spacing, and next-four Upcoming semantics. Editors use either the current calendar year or two day-only date pickers whose selected months define exactly twelve consecutive inclusive months; selected days are ignored. One shared normalizer owns production query bounds, persistent cache keys, authenticated preview scopes, the derived period label, and twelve month keys, while invalid custom periods fail closed before querying News & Events. Visitors receive a chronological Year Stream with a semantic spine, 10px square month markers, inset semantic month dividers, compact Current and event-count metadata, linked event cards, and lightweight empty-month copy. Coming Next remains independent of the selected period and stays beside the stream on desktop and below it on smaller screens. Calendar and Annual Calendar share one sidebar Download Panel field composer and resolver. The visible PDF Document Label remains `calendarPdfTitle`, while one canonical shared action supports Page, Custom URL, File View, or File Download destinations and Button or editorial Link presentation. Explicit variants, new-tab behavior, navigation arrows, and download-icon settings pass through unchanged. A non-empty new action is authoritative; rows saved by the preceding restricted schema use Button only as their missing-mode compatibility fallback. Hidden legacy PDF Media/label fields remain a no-migration fallback only when the new action is empty. The semantic panel stays at the bottom of the full-height desktop sidebar and renders through the canonical shared Content Actions system. Embedded Upcoming/action regions avoid nested landmarks and borders, and Annual Calendar intentionally gives up its former sticky sidebar to satisfy this full-height contract. Compact layouts retain natural flow, long labels wrap within the 20rem rail, and unresolved destinations produce no public link. Event queries, response snapshots, and cache identity remain unchanged. The block intentionally exposes no visitor navigation, view, filter, or pagination controls, and the uncommitted Month/Year controls require no migration.
 
-[Pages.ts](../../../../src/collections/Pages.ts) consumes the complete 61-block Page registry. [ReusableSections.ts](../../../../src/collections/ReusableSections.ts) consumes the same registry without `reusableSection`, preventing direct recursion. [NewsEventsDetailTemplate.ts](../../../../src/globals/NewsEventsDetailTemplate.ts) consumes the Page registry plus `newsEventsContent`, which appears first under Template Core. The [block operator guide](../../../../docs/guides/blocks.md) owns the editor-facing group membership and per-deployment customization instructions.
+[Pages.ts](../../../../src/collections/Pages.ts) consumes the complete 63-block Page registry. [ReusableSections.ts](../../../../src/collections/ReusableSections.ts) consumes the same registry without `reusableSection`, preventing direct recursion. [NewsEventsDetailTemplate.ts](../../../../src/globals/NewsEventsDetailTemplate.ts) consumes the Page registry plus `newsEventsContent`, which appears first under Template Core. The [block operator guide](../../../../docs/guides/blocks.md) owns the editor-facing group membership and per-deployment customization instructions.
 
 The catalog imports schema config only. Production and live-preview renderer switches remain explicit and separate so server/client boundaries are not mixed.
 
@@ -387,9 +387,20 @@ sidebar; progress, Print, and Clear then render in the list header and notes bel
 `presentation` selects Tracker (bordered card) or Editorial Ledger (no card; per-column hairline
 rules from `ledgerItem`, gutters instead of vertical rules, italic display numerals, footnote notes,
 surface-aware accents and checkbox fill). Both share the same state, grid, and panel behaviour.
+Composition (`presentation: 'composition'`) renders a container-query hero (header beside the
+server-only `DocumentChecklistArt` certificate stack and seal) above a ruled icon list using
+`ledgerItem` rules. Item `icon` names resolve with `resolveLucideIcon` in the server component
+(falling back to `FileText`) and reach the client tracker as rendered nodes, so the client bundle
+never imports the full Lucide map. Ticking uses a visually hidden native checkbox whose `peer`
+state colours the icon square. Composition ignores Layout Mode and the progress panel.
 `getChecklistGridLayout` provides one/two/three columns in both layouts with container queries
 (`@xl` two, `@3xl` three) and `grid-flow-col` with per-breakpoint row counts, so reading order stays
 top-to-bottom while rows align; each item computes its own bottom/left rules per active column count.
+
+Celebration (`celebration`) is an Advanced Library block with one required relationship to a published
+celebration (`filterOptions` on `_status`). Production renders `CelebrationBlockComponent`, which resolves the
+celebration (fetching by id when unpopulated) and mounts a page-priority `CelebrationHost`; it adds nothing to the
+layout. Live preview renders `CelebrationBlockPreview`, a static card with its date window instead of a modal.
 
 Contact Numbers (`contactNumbers`) is an Advanced Library block for helplines and desk numbers.
 `normalizeContactNumbers.ts` (client-safe) trims 1–24 contacts, drops rows without a dialable
@@ -603,3 +614,23 @@ Run focused block tests, then the Page block, live preview, thumbnail, and theme
 pnpm project-context:update
 pnpm project-context:check
 ```
+
+
+## Disclosure Proforma
+
+`disclosureProforma` is an Explore block with configurable ordered sidebar sections and keyed groups
+of facts, metrics or table columns. Content owns its dataset relationship, optional shared introduction
+and actions, sections and empty/archive labels; Theme Settings owns semantic appearance/padding,
+introduction alignment, Split/Stacked header layout, sidebar width, section numbers, density,
+missing-value style (chip/footnote/text), bounded page size and Pages/Load more mode. It uses
+shared typography and containers, a square Primary selection edge with a sticky divided section list, a date-only Updated badge, Show in sidebar section toggles with a hidden row label, hairline facts/figures, indexed tables, pulse loader and icon empty state,
+a joined search and shadcn Popover period picker, and semantic table surfaces.
+Three separate collections retain periods and individual rows; Page layouts contain no growing data
+arrays. Production renders the active section's first batches on the server. The client-safe live
+preview fetches authenticated draft projections through `/api/disclosure-data`; public requests use
+published data and no-store responses. Both paths validate scope and limits. Every group paginates
+independently; periods have a searchable 20-item batch selector. Rows support explicit missing/N/A
+states and expandable named details. Native Page/Reusable Section/template hooks stamp block
+publication credits, combined with a dataset revision for linked publications and unpublications.
+The production-component thumbnail uses supplied September 2026 statistics. Operator instructions
+are in `docs/guides/disclosure-proforma.md`.

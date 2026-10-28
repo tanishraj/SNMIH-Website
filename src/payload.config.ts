@@ -1,3 +1,4 @@
+import { DisclosureDatasets, DisclosurePeriods, DisclosureRecords } from './collections/Disclosure'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -5,6 +6,7 @@ import sharp from 'sharp'
 
 import { Articles } from './collections/Articles'
 import { Categories } from './collections/Categories'
+import { Celebrations } from './collections/Celebrations'
 import { Users } from './collections/Users'
 import { TwoFactorCredentials } from './collections/TwoFactorCredentials'
 import { Footers } from './collections/Footers'
@@ -63,7 +65,10 @@ export default buildConfig({
     components: {
       beforeDashboard: ['@/components/admin/DashboardOverview#DashboardOverview'],
       views: {
-        login: { Component: '@/components/admin/TwoFactorLoginView#TwoFactorLoginView', path: '/login' },
+        login: {
+          Component: '@/components/admin/TwoFactorLoginView#TwoFactorLoginView',
+          path: '/login',
+        },
       },
     },
   },
@@ -75,6 +80,10 @@ export default buildConfig({
     NewsEventClassifications,
     Reviews,
     ReusableSections,
+    Celebrations,
+    DisclosureDatasets,
+    DisclosurePeriods,
+    DisclosureRecords,
     // Taxonomy
     Categories,
     Tags,
