@@ -2,6 +2,7 @@ import {
   APIError,
   type CollectionAfterChangeHook,
   type CollectionBeforeChangeHook,
+  type CollectionBeforeValidateHook,
   type Field,
 } from 'payload'
 import { revalidatePagesCache } from '@/hooks/revalidateCmsContent'
@@ -33,6 +34,26 @@ export const updateFields: Field[] = [
 ]
 const id = (v: unknown): string =>
   typeof v === 'string' ? v : v && typeof v === 'object' && 'id' in v ? String(v.id) : ''
+/** A record always belongs to its period's dataset, so the dataset follows the chosen period. */
+export const deriveRecordDataset: CollectionBeforeValidateHook = async ({
+  data,
+  originalDoc,
+  req,
+}) => {
+  const period = id(data?.period ?? originalDoc?.period)
+  if (!data || !period || data.dataset || originalDoc?.dataset) return data
+  const parent = await req.payload.findByID({
+    collection: 'disclosure-periods',
+    id: period,
+    depth: 0,
+    draft: true,
+    joins: false,
+    req,
+    overrideAccess: false,
+    user: req.user,
+  })
+  return { ...data, dataset: id(parent.dataset) }
+}
 export const validateDisclosureScope: CollectionBeforeChangeHook = async ({
   data,
   originalDoc,

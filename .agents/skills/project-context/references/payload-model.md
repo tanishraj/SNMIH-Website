@@ -130,6 +130,15 @@ configured sections/groups. Each period belongs to one dataset; records cannot m
 or datasets. Public record access also requires its parent period to be published. Internal source
 notes have feature-protected reads. The endpoint projects only display fields.
 
+Editors work per period: the period edit view has Details and Records tabs (a `records` join on
+`period`), and Disclosure Records use `admin.group: false` so they leave the sidebar while keeping
+their routes. A record's dataset is read-only and derived from its period in `beforeValidate`.
+`src/endpoints/disclosureMonth.ts` adds `POST /:id/copy` (draft period plus draft copies of every
+record field, refuses a duplicate label, all-or-nothing through a transaction or, without database
+transactions, by deleting what it created) and `POST /:id/publish-month` (period first, then records
+whose latest version is a draft). Both require the period and record grants and run with
+`overrideAccess: false`; `DisclosureMonthActions` adds the buttons and native Duplicate is disabled.
+
 Every published change and unpublication advances the dataset publication revision; draft saves over
 published content do not. Hooks read the published base before a change because Payload's latest
 version may be a draft, preserve transaction requests, and expire Page caches. Three explicit feature
