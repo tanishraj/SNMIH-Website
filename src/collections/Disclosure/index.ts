@@ -45,7 +45,8 @@ const valueFields: Field[] = [
     maxLength: 6000,
     admin: {
       condition: (_, s) => s.valueState !== 'notApplicable' && s.valueState !== 'notSupplied',
-      description: 'Enter the source value exactly. A blank value is not treated as zero.',
+      description:
+        'Enter the source value exactly. A blank value is not treated as zero. Web and e-mail addresses become links on the page.',
     },
   },
 ]

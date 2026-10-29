@@ -43,6 +43,8 @@ The block sits directly on the section background: a thin divider separates the 
 
 For a metric or fact, enter its label and value. Select **Not supplied** or **Not applicable** explicitly when appropriate. Zero remains a real value. For a table row, enter cells whose keys match the configured columns. For example a course uses `programme`, `commencement`, `pursuing`, and `admitted`. Publications retain the source column **Scopes** via the `scopes` cell key.
 
+Any web address (`https://…` or `www.…`) or e-mail address typed into a value, table cell or detail becomes a link on the page; web links open in a new tab. No separate link field is needed.
+
 Expandable Details supports additional named information such as faculty promotion date, employment type, five-year service history, annual lectures, topics and training dates. Keep the record for that period when adding a new year's register. Source notes are not included in the block's public response projection.
 
 ## History and loading

@@ -258,6 +258,41 @@ describe('Disclosure Proforma', () => {
     expect(html).toContain('Showing <span')
     expect(html).not.toContain('Load more')
   })
+  it('turns web and e-mail addresses inside values into links', () => {
+    const html = renderToStaticMarkup(
+      <DisclosurePresentation
+        dataset="fixture"
+        sections={defaultSections}
+        defaultSection="hostel"
+        staticPreview
+        initial={{
+          dataset: 'fixture',
+          period: 'sep',
+          periods: [{ id: 'sep', label: 'September 2026' }],
+          periodPage: 1,
+          hasMorePeriods: false,
+          groups: {
+            reporting: {
+              rows: [
+                { id: 'portal', label: 'Portal', value: 'See https://hmis.mohfw.gov.in/#!/.' },
+                { id: 'mail', label: 'Email', value: 'snfsaharsa@gmail.com' },
+                { id: 'plain', label: 'Office', value: 'Municipal Corporation, Gangjala' },
+              ],
+              page: 1,
+              total: 3,
+              totalPages: 1,
+            },
+          },
+        }}
+      />,
+    )
+    expect(html).toContain('href="https://hmis.mohfw.gov.in/#!/" class="break-all')
+    expect(html).toMatch(
+      /target="_blank" rel="noopener noreferrer">https:\/\/hmis\.mohfw\.gov\.in\/#!\/<\/a>\.</,
+    )
+    expect(html).toContain('href="mailto:snfsaharsa@gmail.com"')
+    expect(html).not.toMatch(/<a[^>]*>Municipal Corporation/)
+  })
   it('caps every table at ten rows and falls back for older stored sizes', () => {
     expect(normalizeLimit('50')).toBe(10)
     expect(normalizeLimit('20')).toBe(10)
