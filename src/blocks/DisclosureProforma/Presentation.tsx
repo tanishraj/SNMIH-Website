@@ -45,6 +45,40 @@ const control =
   'min-h-11 rounded-control border border-current/20 bg-transparent px-3 py-2 text-sm transition-colors hover:border-current/35 hover:bg-current/4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-50 disabled:hover:bg-transparent'
 const emptyBatch: Batch = { rows: [], total: 0, page: 1, totalPages: 1 }
 type MissingStyle = 'chip' | 'footnote' | 'text'
+// Web addresses and e-mail addresses inside a value become links; everything else stays text.
+const linkPattern = /(https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|[\w.+-]+@[\w-]+(?:\.[\w-]+)+)/g
+const trailing = /[.,;:)\]]+$/
+function Linked({ text }: { text: string }) {
+  const parts = text.split(linkPattern)
+  if (parts.length === 1) return <>{text}</>
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (i % 2 === 0 || !part) return part
+        const punctuation = part.match(trailing)?.[0] ?? ''
+        const target = part.slice(0, part.length - punctuation.length)
+        const href = target.includes('@')
+          ? 'mailto:' + target
+          : target.startsWith('www.')
+            ? 'https://' + target
+            : target
+        const external = !href.startsWith('mailto:')
+        return (
+          <span key={i}>
+            <a
+              href={href}
+              className="break-all font-medium underline decoration-current/40 underline-offset-4 transition-colors hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none"
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {target}
+            </a>
+            {punctuation}
+          </span>
+        )
+      })}
+    </>
+  )
+}
 function Value({
   value,
   state,
@@ -57,7 +91,7 @@ function Value({
   style: MissingStyle
 }) {
   const kind = missingKind(value, state)
-  if (!kind) return <>{value}</>
+  if (!kind) return <Linked text={value as string} />
   const label = kind === 'notApplicable' ? 'Not applicable' : missing
   if (style === 'chip')
     return (
@@ -263,7 +297,7 @@ function DetailList({ row, missing, id }: { row: Row; missing: string; id: strin
             {detail.label}
           </dt>
           <dd className="mt-1 whitespace-pre-line text-sm">
-            {displayValue(detail.value, null, missing)}
+            <Linked text={displayValue(detail.value, null, missing)} />
           </dd>
         </div>
       ))}

@@ -9069,7 +9069,7 @@ export interface DisclosureRecord {
   content?: {
     valueState?: ('provided' | 'notSupplied' | 'notApplicable') | null;
     /**
-     * Enter the source value exactly. A blank value is not treated as zero.
+     * Enter the source value exactly. A blank value is not treated as zero. Web and e-mail addresses become links on the page.
      */
     value?: string | null;
   };
@@ -9081,7 +9081,7 @@ export interface DisclosureRecord {
         key: string;
         valueState?: ('provided' | 'notSupplied' | 'notApplicable') | null;
         /**
-         * Enter the source value exactly. A blank value is not treated as zero.
+         * Enter the source value exactly. A blank value is not treated as zero. Web and e-mail addresses become links on the page.
          */
         value?: string | null;
         id?: string | null;
