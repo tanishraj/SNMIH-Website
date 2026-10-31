@@ -185,6 +185,22 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/Careers/Component.tsx",
+        "configPath": "src/blocks/Careers/config.ts",
+        "files": [
+          "src/blocks/Careers/Component.tsx",
+          "src/blocks/Careers/GroupField.tsx",
+          "src/blocks/Careers/RowLabels.tsx",
+          "src/blocks/Careers/config.ts"
+        ],
+        "interfaceName": "CareersBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "careers",
+        "symbol": "CareersBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/Celebration/Component.tsx",
         "configPath": "src/blocks/Celebration/config.ts",
         "files": [
@@ -350,6 +366,20 @@
         "previewComponentPath": null,
         "slug": "downloadList",
         "symbol": "DownloadListBlock"
+      },
+      {
+        "clientFiles": [],
+        "componentPath": "src/blocks/DynamicForm/Component.tsx",
+        "configPath": "src/blocks/DynamicForm/config.ts",
+        "files": [
+          "src/blocks/DynamicForm/Component.tsx",
+          "src/blocks/DynamicForm/config.ts"
+        ],
+        "interfaceName": "DynamicFormBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "dynamicForm",
+        "symbol": "DynamicFormBlock"
       },
       {
         "clientFiles": [],
@@ -1115,6 +1145,7 @@
       "BentoGridBlock",
       "BreadcrumbBlock",
       "CalendarBlock",
+      "CareersBlock",
       "CelebrationBlock",
       "Contact24Block",
       "Contact33Block",
@@ -1125,6 +1156,7 @@
       "DisclosureProformaBlock",
       "DocumentChecklistBlock",
       "DownloadListBlock",
+      "DynamicFormBlock",
       "EditorialReasonsBlock",
       "EventGalleryBlock",
       "FeatureMatrixBlock",
@@ -1200,6 +1232,7 @@
       "studentExperience",
       "reviewSubmission",
       "contact33",
+      "dynamicForm",
       "contact24",
       "ratingSpotlight",
       "reviewFeed",
@@ -1239,6 +1272,7 @@
       "bentoGrid",
       "testimonialGrid",
       "awardsList",
+      "careers",
       "aboutSection",
       "accreditationCards",
       "reusableSection"
@@ -1306,7 +1340,9 @@
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
-      "awardsList"
+      "awardsList",
+      "careers",
+      "dynamicForm"
     ],
     "productionRenderer": [
       "disclosureProforma",
@@ -1330,6 +1366,7 @@
       "studentExperience",
       "reviewSubmission",
       "contact33",
+      "dynamicForm",
       "contact24",
       "ratingSpotlight",
       "reviewFeed",
@@ -1369,6 +1406,7 @@
       "bentoGrid",
       "testimonialGrid",
       "awardsList",
+      "careers",
       "aboutSection",
       "accreditationCards",
       "reusableSection"
@@ -1435,7 +1473,9 @@
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
-      "awardsList"
+      "awardsList",
+      "careers",
+      "dynamicForm"
     ],
     "shared": [
       {
@@ -1687,6 +1727,7 @@
         "public/block-thumbnails/bento-grid.jpg",
         "public/block-thumbnails/breadcrumb.jpg",
         "public/block-thumbnails/calendar.jpg",
+        "public/block-thumbnails/careers.jpg",
         "public/block-thumbnails/celebration.jpg",
         "public/block-thumbnails/contact-24.jpg",
         "public/block-thumbnails/contact-33.jpg",
@@ -1697,6 +1738,7 @@
         "public/block-thumbnails/disclosure-proforma.jpg",
         "public/block-thumbnails/document-checklist.jpg",
         "public/block-thumbnails/download-list.jpg",
+        "public/block-thumbnails/dynamic-form.jpg",
         "public/block-thumbnails/editorial-reasons.jpg",
         "public/block-thumbnails/event-gallery.jpg",
         "public/block-thumbnails/feature-matrix.jpg",
@@ -1888,6 +1930,10 @@
           "slug": "contact33"
         },
         {
+          "filename": "dynamic-form.jpg",
+          "slug": "dynamicForm"
+        },
+        {
           "filename": "contact-24.jpg",
           "slug": "contact24"
         },
@@ -1930,6 +1976,10 @@
         {
           "filename": "awards-list.jpg",
           "slug": "awardsList"
+        },
+        {
+          "filename": "careers.jpg",
+          "slug": "careers"
         },
         {
           "filename": "bento-grid.jpg",
@@ -2056,6 +2106,7 @@
         "heroCarousel",
         "reviewSubmission",
         "contact33",
+        "dynamicForm",
         "contact24",
         "reviewFeed",
         "services21",
@@ -2093,7 +2144,8 @@
         "tabsContent",
         "testimonialGrid",
         "timeline",
-        "videoEmbed"
+        "videoEmbed",
+        "careers"
       ]
     }
   },
@@ -2187,6 +2239,10 @@
       {
         "source": "src/collections/FormSubmissions.ts",
         "symbol": "FormSubmissions"
+      },
+      {
+        "source": "src/collections/FormAttachments.ts",
+        "symbol": "FormAttachments"
       },
       {
         "source": "src/collections/WorkQueue.ts",
@@ -2430,6 +2486,10 @@
       "src/blocks/Calendar/calendarStyles.ts",
       "src/blocks/Calendar/calendarTone.ts",
       "src/blocks/Calendar/config.ts",
+      "src/blocks/Careers/Component.tsx",
+      "src/blocks/Careers/GroupField.tsx",
+      "src/blocks/Careers/RowLabels.tsx",
+      "src/blocks/Careers/config.ts",
       "src/blocks/Celebration/Component.tsx",
       "src/blocks/Celebration/PreviewComponent.tsx",
       "src/blocks/Celebration/config.ts",
@@ -2472,6 +2532,8 @@
       "src/blocks/DownloadList/config.ts",
       "src/blocks/DownloadList/resolveActions.ts",
       "src/blocks/DownloadList/types.ts",
+      "src/blocks/DynamicForm/Component.tsx",
+      "src/blocks/DynamicForm/config.ts",
       "src/blocks/EditorialReasons/Component.tsx",
       "src/blocks/EditorialReasons/config.ts",
       "src/blocks/EventGallery/Component.tsx",
@@ -2661,6 +2723,7 @@
       "src/collections/Disclosure/hooks.ts",
       "src/collections/Disclosure/index.ts",
       "src/collections/Footers.ts",
+      "src/collections/FormAttachments.ts",
       "src/collections/FormSubmissions.ts",
       "src/collections/Forms.ts",
       "src/collections/GalleryAlbums.ts",
@@ -2685,6 +2748,7 @@
       "src/components/BreadcrumbTrail.tsx",
       "src/components/ContentActions.tsx",
       "src/components/ContentLink.tsx",
+      "src/components/DynamicForm.tsx",
       "src/components/SectionEyebrow.tsx",
       "src/components/admin/AdminSessionBar.tsx",
       "src/components/admin/AdminUserMenu.tsx",
@@ -2863,6 +2927,8 @@
       "src/lib/contentEntries.ts",
       "src/lib/eventGallery.ts",
       "src/lib/eventGalleryShared.ts",
+      "src/lib/formAttachments.ts",
+      "src/lib/formAttachmentsShared.ts",
       "src/lib/formNotifications.ts",
       "src/lib/formSpamProtection.ts",
       "src/lib/formSubmissionEvents.ts",
@@ -2980,6 +3046,7 @@
       "tests/int/card-block-renderers.int.spec.tsx",
       "tests/int/card-block-theme-contract.int.spec.ts",
       "tests/int/card-theme-contract.int.spec.ts",
+      "tests/int/careers.int.spec.tsx",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
       "tests/int/celebration-confetti.int.spec.ts",
@@ -3007,6 +3074,7 @@
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",
+      "tests/int/dynamic-form.int.spec.tsx",
       "tests/int/editorial-reasons.int.spec.tsx",
       "tests/int/editorial-workflow.int.spec.ts",
       "tests/int/event-gallery-data.int.spec.ts",
@@ -3023,6 +3091,7 @@
       "tests/int/footer-minimal.int.spec.tsx",
       "tests/int/footer-spacing.int.spec.ts",
       "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/form-file-upload.int.spec.ts",
       "tests/int/form-notifications.int.spec.ts",
       "tests/int/forms-submission.int.spec.ts",
       "tests/int/frontend-layout-cache.int.spec.ts",
@@ -3162,7 +3231,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "9db45a5df055ecfa9f1f0b01b2576256116af2c6ce5ea70dd51c70d700df43b4"
+    "sha256": "33f8bb7ad66311b67b851f23b1815edcf19eb8de6a342c93be8d3c530eb94a8b"
   },
   "surfaces": {
     "access": [
@@ -3222,6 +3291,8 @@
       "src/lib/contentEntries.ts",
       "src/lib/eventGallery.ts",
       "src/lib/eventGalleryShared.ts",
+      "src/lib/formAttachments.ts",
+      "src/lib/formAttachmentsShared.ts",
       "src/lib/formNotifications.ts",
       "src/lib/formSpamProtection.ts",
       "src/lib/formSubmissionEvents.ts",
@@ -3360,6 +3431,7 @@
       "tests/int/card-block-renderers.int.spec.tsx",
       "tests/int/card-block-theme-contract.int.spec.ts",
       "tests/int/card-theme-contract.int.spec.ts",
+      "tests/int/careers.int.spec.tsx",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
       "tests/int/celebration-confetti.int.spec.ts",
@@ -3387,6 +3459,7 @@
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",
+      "tests/int/dynamic-form.int.spec.tsx",
       "tests/int/editorial-reasons.int.spec.tsx",
       "tests/int/editorial-workflow.int.spec.ts",
       "tests/int/event-gallery-data.int.spec.ts",
@@ -3403,6 +3476,7 @@
       "tests/int/footer-minimal.int.spec.tsx",
       "tests/int/footer-spacing.int.spec.ts",
       "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/form-file-upload.int.spec.ts",
       "tests/int/form-notifications.int.spec.ts",
       "tests/int/forms-submission.int.spec.ts",
       "tests/int/frontend-layout-cache.int.spec.ts",

@@ -25,6 +25,9 @@ import { DisclosureSectionRowLabel as DisclosureSectionRowLabel_76c2e65c48ea5700
 import { LogoItemLabel as LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { LogoRowLabel as LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d } from '../../../blocks/Logos20/RowLabels'
 import { BankAccountRowLabel as BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3 } from '../../../blocks/BankDetails/RowLabel'
+import { CareersGroupRowLabel as CareersGroupRowLabel_642359851def99cbd7249ea15b8919e0 } from '../../../blocks/Careers/RowLabels'
+import { CareersGroupField as CareersGroupField_1ddf15ec17734ab082ffdbbbfd04084c } from '../../../blocks/Careers/GroupField'
+import { CareersOpeningRowLabel as CareersOpeningRowLabel_642359851def99cbd7249ea15b8919e0 } from '../../../blocks/Careers/RowLabels'
 import { PageCreateView as PageCreateView_244e42c068b95e8a328a77a2c7c4ade4 } from '@/components/admin/PageCreateView'
 import { DisclosureMonthActions as DisclosureMonthActions_434a481ef8538624e45c4dcba396b52b } from '@/components/admin/DisclosureMonthActions'
 import { LogoHeightField as LogoHeightField_afbb23a221f2bb10f37063672149b807 } from '../../../blocks/HeaderNavbar12/LogoHeightField'
@@ -62,6 +65,9 @@ export const importMap = {
   "/blocks/Logos20/RowLabels#LogoItemLabel": LogoItemLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/Logos20/RowLabels#LogoRowLabel": LogoRowLabel_e03ae97b482583a8a5dbc40323bee65d,
   "/blocks/BankDetails/RowLabel#BankAccountRowLabel": BankAccountRowLabel_869dcdd72c29b13be90b51ff955fa3b3,
+  "/blocks/Careers/RowLabels#CareersGroupRowLabel": CareersGroupRowLabel_642359851def99cbd7249ea15b8919e0,
+  "/blocks/Careers/GroupField#CareersGroupField": CareersGroupField_1ddf15ec17734ab082ffdbbbfd04084c,
+  "/blocks/Careers/RowLabels#CareersOpeningRowLabel": CareersOpeningRowLabel_642359851def99cbd7249ea15b8919e0,
   "@/components/admin/PageCreateView#PageCreateView": PageCreateView_244e42c068b95e8a328a77a2c7c4ade4,
   "@/components/admin/DisclosureMonthActions#DisclosureMonthActions": DisclosureMonthActions_434a481ef8538624e45c4dcba396b52b,
   "/blocks/HeaderNavbar12/LogoHeightField#LogoHeightField": LogoHeightField_afbb23a221f2bb10f37063672149b807,

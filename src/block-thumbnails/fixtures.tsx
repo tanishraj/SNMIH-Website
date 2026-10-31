@@ -39,6 +39,7 @@ import { QaAccordionBlockComponent } from '@/blocks/QaAccordion/Component'
 import { RatingSpotlightBlockComponent } from '@/blocks/RatingSpotlight/Component'
 import { ReviewSubmissionBlockComponent } from '@/blocks/ReviewSubmission/Component'
 import { Contact33BlockComponent } from '@/blocks/Contact33/Component'
+import { DynamicFormBlockComponent } from '@/blocks/DynamicForm/Component'
 import { FeatureSpotlightBlockComponent } from '@/blocks/FeatureSpotlight/Component'
 import { TestimonialSpotlightBlockComponent } from '@/blocks/TestimonialSpotlight/Component'
 import { StatsStripBlockComponent } from '@/blocks/StatsStrip/Component'
@@ -63,6 +64,7 @@ import type { Form, Media, RichTextBlock } from '@/payload-types'
 import { AboutSectionBlockComponent } from '@/blocks/AboutSection/Component'
 import { AccreditationCardsBlockComponent } from '@/blocks/AccreditationCards/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
+import { CareersBlockComponent } from '@/blocks/Careers/Component'
 import { BankDetailsBlockComponent } from '@/blocks/BankDetails/Component'
 import { DocumentChecklistBlockComponent } from '@/blocks/DocumentChecklist/Component'
 import { CelebrationPreview } from '@/components/celebration/CelebrationPreview'
@@ -1863,6 +1865,48 @@ export const blockThumbnailFixtures = {
       title="Start a conversation."
     />
   ),
+  dynamicForm: (
+    <DynamicFormBlockComponent
+      appearance={{ background: 'subtle', border: 'topAndBottom' }}
+      description="Send your CV and a short note. Shortlisted candidates hear from the department within two weeks of the closing date."
+      eyebrow="Careers"
+      image={{ alt: 'Clinician working at a laptop', url: editorialLandscape }}
+      imageAlt="Clinician working at a laptop"
+      form={{
+        fields: [
+          { label: 'Full name', name: 'fullName', required: true, type: 'text' },
+          { label: 'Email', name: 'email', required: true, type: 'email' },
+          { label: 'Phone', name: 'phone', required: true, type: 'phone' },
+          {
+            label: 'Post applied for',
+            name: 'post',
+            options: [
+              { label: 'Professor – General Medicine', value: 'prof-gm' },
+              { label: 'Senior Resident – Paediatrics', value: 'sr-paed' },
+            ],
+            required: true,
+            type: 'select',
+          },
+          {
+            fileTypes: ['pdf', 'document'],
+            label: 'CV / résumé',
+            maxFileSizeMB: 5,
+            name: 'cv',
+            required: true,
+            type: 'file',
+          },
+          { label: 'Cover note', name: 'coverNote', required: false, type: 'textarea' },
+        ],
+        slug: 'application',
+        submitButtonLabel: 'Submit application',
+        successMessage: 'Thanks. Your application has been received.',
+        title: 'Application',
+      }}
+      layout="image"
+      size="compact"
+      title="Apply for a post"
+    />
+  ),
   contact24: (
     <Contact24
       appearance={{ background: 'subtle', border: 'topAndBottom' }}
@@ -3020,6 +3064,74 @@ export const blockThumbnailFixtures = {
       size="compact"
       title="A closer look at Northstar."
       url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    />
+  ),
+  careers: (
+    <CareersBlockComponent
+      appearance={{ background: 'subtle', border: 'topAndBottom' }}
+      description="Current faculty, resident and administrative openings. Each notification lists eligibility, documents and how to apply."
+      eyebrow="Careers at SNMIH"
+      groups={[
+        { id: 'faculty', name: 'Faculty' },
+        { id: 'residents', name: 'Residents & nursing' },
+      ]}
+      layout="register"
+      openings={[
+        {
+          actions: [{ label: 'View notification', linkType: 'custom', url: '#', mode: 'link' }],
+          applyBy: '2026-11-15T12:00:00.000Z',
+          department: 'General Medicine',
+          employmentType: 'regular',
+          group: 'faculty',
+          location: 'Saharsa campus',
+          positions: 1,
+          publishedOn: '2026-10-12T12:00:00.000Z',
+          reference: 'SNMIH/FAC/2026/41',
+          status: 'open',
+          title: 'Professor – General Medicine',
+        },
+        {
+          actions: [{ label: 'View notification', linkType: 'custom', url: '#', mode: 'link' }],
+          applyBy: '2026-11-15T12:00:00.000Z',
+          department: 'Anaesthesiology',
+          employmentType: 'regular',
+          group: 'faculty',
+          location: 'Saharsa campus',
+          positions: 2,
+          publishedOn: '2026-10-12T12:00:00.000Z',
+          reference: 'SNMIH/FAC/2026/42',
+          status: 'open',
+          title: 'Associate Professor – Anaesthesiology',
+        },
+        {
+          actions: [{ label: 'View notification', linkType: 'custom', url: '#', mode: 'link' }],
+          applyBy: '2026-11-10T12:00:00.000Z',
+          department: 'Paediatrics',
+          employmentNote: '3 years',
+          employmentType: 'contract',
+          group: 'residents',
+          location: 'SNMIH Hospital',
+          positions: 3,
+          publishedOn: '2026-10-20T12:00:00.000Z',
+          reference: 'SNMIH/SR/2026/18',
+          status: 'open',
+          title: 'Senior Resident – Paediatrics',
+        },
+        {
+          actions: [{ label: 'View notification', linkType: 'custom', url: '#', mode: 'link' }],
+          applyBy: '2026-11-30T12:00:00.000Z',
+          department: 'Nursing',
+          employmentType: 'regular',
+          group: 'residents',
+          location: 'SNMIH Hospital',
+          positions: 12,
+          publishedOn: '2026-10-25T12:00:00.000Z',
+          reference: 'SNMIH/NUR/2026/07',
+          status: 'open',
+          title: 'Staff Nurse (GNM / B.Sc Nursing)',
+        },
+      ]}
+      title="Work with us"
     />
   ),
 } satisfies Record<BlockThumbnailSlug, ReactNode>

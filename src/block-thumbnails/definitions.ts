@@ -253,6 +253,13 @@ export const blockThumbnailDefinitions = [
     stageAlignment: 'top',
   }),
   defineThumbnail({
+    alt: 'Dynamic Form block preview',
+    filename: 'dynamic-form.jpg',
+    label: 'Dynamic Form',
+    slug: 'dynamicForm',
+    stageAlignment: 'top',
+  }),
+  defineThumbnail({
     alt: 'Regional Offices block preview',
     filename: 'contact-24.jpg',
     label: 'Regional Offices',
@@ -322,6 +329,13 @@ export const blockThumbnailDefinitions = [
     filename: 'awards-list.jpg',
     label: 'Awards List',
     slug: 'awardsList',
+    stageAlignment: 'top',
+  }),
+  defineThumbnail({
+    alt: 'Careers block preview',
+    filename: 'careers.jpg',
+    label: 'Careers',
+    slug: 'careers',
     stageAlignment: 'top',
   }),
   defineThumbnail({

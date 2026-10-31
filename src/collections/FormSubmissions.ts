@@ -221,6 +221,17 @@ export const FormSubmissions: CollectionConfig = {
       },
     },
     {
+      name: 'attachments',
+      type: 'relationship',
+      access: immutableSubmissionFieldAccess,
+      hasMany: true,
+      relationTo: 'form-attachments',
+      admin: {
+        description: 'Files uploaded with this submission. Open one to view or download it.',
+        readOnly: true,
+      },
+    },
+    {
       name: 'data',
       label: 'Submitted Data',
       type: 'json',

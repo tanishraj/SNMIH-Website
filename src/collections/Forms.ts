@@ -10,7 +10,11 @@ import {
 import { projectSlugField } from '@/fields/projectSlugField'
 import { revalidateGlobalsCache, revalidateDeletedGlobalsCache } from '@/hooks/revalidateCmsContent'
 import {
+  FORM_FILE_DEFAULT_KINDS,
+  FORM_FILE_DEFAULT_MAX_MB,
+  FORM_FILE_MAX_MB,
   formFieldTypeOptions,
+  formFileKindOptions,
   formSubmissionIntentOptions,
   isTextLikeFormFieldType,
   isValidFormFieldName,
@@ -176,7 +180,7 @@ export const Forms: CollectionConfig = {
       },
       admin: {
         description:
-          'Review Submission uses its fixed review fields; it cannot render additional required fields.',
+          'Review Submission uses its fixed review fields; it cannot render additional required fields. File upload fields are rendered only by the Dynamic Form block.',
         initCollapsed: true,
       },
       fields: [
@@ -240,6 +244,36 @@ export const Forms: CollectionConfig = {
           admin: {
             condition: (_, siblingData) => isTextLikeFormFieldType(siblingData?.type ?? 'text'),
           },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'fileTypes',
+              label: 'Accepted File Types',
+              type: 'select',
+              hasMany: true,
+              defaultValue: [...FORM_FILE_DEFAULT_KINDS],
+              options: [...formFileKindOptions],
+              admin: {
+                condition: (_, siblingData) => siblingData?.type === 'file',
+                width: '50%',
+              },
+            },
+            {
+              name: 'maxFileSizeMB',
+              label: 'Maximum File Size (MB)',
+              type: 'number',
+              defaultValue: FORM_FILE_DEFAULT_MAX_MB,
+              max: FORM_FILE_MAX_MB,
+              min: 1,
+              admin: {
+                condition: (_, siblingData) => siblingData?.type === 'file',
+                description: `Up to ${FORM_FILE_MAX_MB} MB. Uploaded files are stored privately in Form Attachments and attached to notification emails.`,
+                width: '50%',
+              },
+            },
+          ],
         },
         {
           name: 'options',

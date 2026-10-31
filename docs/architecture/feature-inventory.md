@@ -24,32 +24,33 @@ This is the maintained technical map of the starter. It records what is register
 
 ## Payload Collections
 
-| Group          | Collection                             | Responsibilities                                                                                                     |
-| -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Content        | Pages                                  | Hierarchical routes, 63-block layouts, native drafts, SEO, live preview, page-owned links, path-change redirects     |
-| Content        | Articles                               | Long-form Lexical content, topics/tags, related content, SEO, native drafts, live preview                            |
-| News & Events  | News & Events                          | Single-choice classifications, event validation/registration, taxonomy, block/detail/feed data, drafts, live preview |
-| News & Events  | Classifications                        | Public labels, Story/Event behavior, and Calendar colors used by entries, badges, tabs, dates, and validation        |
-| Content        | Reviews                                | Moderated ratings and testimonials, source-submission linkage, taxonomy, SEO, native drafts, live preview            |
-| Content        | Reusable Sections                      | Shared versioned block stacks with recursion and high-complexity block restrictions                                  |
-| Content        | Celebrations                           | Scheduled celebration modals: date window in the site timezone, enable switch, every-page or block placement, five styles, per-visitor frequency, slow multi-burst confetti|
-| Content        | Disclosure Datasets / Periods / Records | Retained institutional reports, configurable facts and tables, server pagination, publication credits |
-| Taxonomy       | Topics (`categories`)                  | Hierarchical editorial topics with SEO data                                                                          |
-| Taxonomy       | Tags                                   | Flat editorial keywords with SEO data                                                                                |
-| Navigation     | Navigation Links                       | Page/custom destinations, including records synchronized from Pages                                                  |
-| Navigation     | Redirects                              | Normalized unique incoming paths, page/custom targets, 301/302 choice, enable state                                  |
-| Site Structure | Headers                                | Versioned Header Navbar presets                                                                                      |
-| Site Structure | Footers                                | Versioned Footer 56 presets                                                                                          |
-| Site Structure | Office Locations                       | Versioned map/contact records used by Regional Offices                                                               |
-| Site Structure | System Pages                           | Governed 404, maintenance, and coming-soon presets with matching block validation                                    |
-| Media          | Media                                  | Uploads, classification, alt validation, usage detection, deletion guards, storage health, operational sync          |
-| Media          | Gallery Albums                         | Versioned ordered image albums used by Event Gallery's count-aware rectangular quilt and full-screen viewer          |
-| Forms          | Forms                                  | Versioned general, lead, and review-intent field schemas plus email configuration                                    |
-| Forms          | Form Submissions                       | Stored immutable payload/metadata, operational status/assignment/activity, optional review promotion                 |
-| Administration | Action Queue (`work-queue`)            | Deduplicated CMS-generated approval, moderation, follow-up, publishing, media, and system work                       |
-| Administration | Audit Log (`operational-audit-events`) | Immutable selected operational events and actor metadata                                                             |
-| Administration | Users                                  | Payload authentication, Admin/Site Manager roles, and Site Manager feature grants                                    |
-| Internal       | Two Factor Credentials                 | Private encrypted enrollment, recovery hashes, attempt counters and session cutoff; no client CRUD access          |
+| Group          | Collection                              | Responsibilities                                                                                                                                                            |
+| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Content        | Pages                                   | Hierarchical routes, 65-block layouts, native drafts, SEO, live preview, page-owned links, path-change redirects                                                            |
+| Content        | Articles                                | Long-form Lexical content, topics/tags, related content, SEO, native drafts, live preview                                                                                   |
+| News & Events  | News & Events                           | Single-choice classifications, event validation/registration, taxonomy, block/detail/feed data, drafts, live preview                                                        |
+| News & Events  | Classifications                         | Public labels, Story/Event behavior, and Calendar colors used by entries, badges, tabs, dates, and validation                                                               |
+| Content        | Reviews                                 | Moderated ratings and testimonials, source-submission linkage, taxonomy, SEO, native drafts, live preview                                                                   |
+| Content        | Reusable Sections                       | Shared versioned block stacks with recursion and high-complexity block restrictions                                                                                         |
+| Content        | Celebrations                            | Scheduled celebration modals: date window in the site timezone, enable switch, every-page or block placement, five styles, per-visitor frequency, slow multi-burst confetti |
+| Content        | Disclosure Datasets / Periods / Records | Retained institutional reports, configurable facts and tables, server pagination, publication credits                                                                       |
+| Taxonomy       | Topics (`categories`)                   | Hierarchical editorial topics with SEO data                                                                                                                                 |
+| Taxonomy       | Tags                                    | Flat editorial keywords with SEO data                                                                                                                                       |
+| Navigation     | Navigation Links                        | Page/custom destinations, including records synchronized from Pages                                                                                                         |
+| Navigation     | Redirects                               | Normalized unique incoming paths, page/custom targets, 301/302 choice, enable state                                                                                         |
+| Site Structure | Headers                                 | Versioned Header Navbar presets                                                                                                                                             |
+| Site Structure | Footers                                 | Versioned Footer 56 presets                                                                                                                                                 |
+| Site Structure | Office Locations                        | Versioned map/contact records used by Regional Offices                                                                                                                      |
+| Site Structure | System Pages                            | Governed 404, maintenance, and coming-soon presets with matching block validation                                                                                           |
+| Media          | Media                                   | Uploads, classification, alt validation, usage detection, deletion guards, storage health, operational sync                                                                 |
+| Media          | Gallery Albums                          | Versioned ordered image albums used by Event Gallery's count-aware rectangular quilt and full-screen viewer                                                                 |
+| Forms          | Forms                                   | Versioned general, lead, and review-intent field schemas plus email configuration                                                                                           |
+| Forms          | Form Submissions                        | Stored immutable payload/metadata, operational status/assignment/activity, optional review promotion, attachments                                                           |
+| Forms          | Form Attachments                        | Private, append-only files uploaded through form file fields; linked to form and submission, operator read only                                                             |
+| Administration | Action Queue (`work-queue`)             | Deduplicated CMS-generated approval, moderation, follow-up, publishing, media, and system work                                                                              |
+| Administration | Audit Log (`operational-audit-events`)  | Immutable selected operational events and actor metadata                                                                                                                    |
+| Administration | Users                                   | Payload authentication, Admin/Site Manager roles, and Site Manager feature grants                                                                                           |
+| Internal       | Two Factor Credentials                  | Private encrypted enrollment, recovery hashes, attempt counters and session cutoff; no client CRUD access                                                                   |
 
 All collections use timestamps. Two Factor Credentials and News & Events Classifications do not use Trash. Draft/version support is enabled where the individual config declares it; operational records and users are not public content.
 
@@ -85,7 +86,7 @@ See [Users, Features, and Publication Governance](../operations/editorial-govern
 
 ## Page And Shell Block Systems
 
-The canonical catalog contains 63 Page blocks. Normal Pages register all 63 choices: Announcement, Banner CTA, News Grid, News & Events Tabs, Calendar, Annual Calendar, Call to Action, Hero Banner, Hero Carousel, Gallery Coverflow, Feature Spotlight, Testimonial Spotlight, Feature Matrix, Content Highlights, Editorial Reasons, Academic Programmes, Leadership Profiles, Department Profiles, Disclosure Proforma, News & Events Highlights, Profile Carousel, Gallery Showcase, Event Gallery, Gallery Album Tabs, Image Mosaic, Student Experience, Stats Strip, Q&A Accordion, Rating Spotlight, Review Feed, Review Submission, Contact Form, Regional Offices, Team Showcase, Services, Rich Text, Video Embed, Media Carousel, Program Matrix, Logo Strip, Logo Marquee, Partner Directory, Page Header, Breadcrumb, Timeline, Icon Card Showcase, Icon Grid, Quote Block, Tabs Content, Download List, Fee Structure, PG Fee Structure, Bank Details, Document Checklist, Contact Numbers, Celebration, Numbered Steps, Bento Grid, Testimonial Grid, Awards List, About Section, Accreditation Cards, and Reusable Section. Reusable Sections expose the 62 non-recursive Page-compatible blocks.
+The canonical catalog contains 65 Page blocks. Normal Pages register all 65 choices: Announcement, Banner CTA, News Grid, News & Events Tabs, Calendar, Annual Calendar, Call to Action, Hero Banner, Hero Carousel, Gallery Coverflow, Feature Spotlight, Testimonial Spotlight, Feature Matrix, Content Highlights, Editorial Reasons, Academic Programmes, Leadership Profiles, Department Profiles, Disclosure Proforma, News & Events Highlights, Profile Carousel, Gallery Showcase, Event Gallery, Gallery Album Tabs, Image Mosaic, Student Experience, Stats Strip, Q&A Accordion, Rating Spotlight, Review Feed, Review Submission, Contact Form, Regional Offices, Team Showcase, Services, Rich Text, Video Embed, Media Carousel, Program Matrix, Logo Strip, Logo Marquee, Partner Directory, Page Header, Breadcrumb, Timeline, Icon Card Showcase, Icon Grid, Quote Block, Tabs Content, Download List, Fee Structure, PG Fee Structure, Bank Details, Document Checklist, Contact Numbers, Celebration, Numbered Steps, Bento Grid, Testimonial Grid, Awards List, Careers, Dynamic Form, About Section, Accreditation Cards, and Reusable Section. Reusable Sections expose the 64 non-recursive Page-compatible blocks.
 
 Leadership Profiles provides a static, non-clickable leadership directory with an optional section title, required profile media and names, optional content nameplates, accented designations, qualifications, and up to three smaller expertise items. It omits an entirely empty header, adapts profile heading levels to the presence of a section title, and uses the shared split/stacked header when content exists. Its block-wide Standard layout preserves all profile metadata and one shared semantic card surface; a hidden per-profile field remains only as a first-profile fallback for saved content. The optional Image Overlay layout uses fixed `4:5` portraits plus shared tone, strength, direction, and coverage controls, and displays only the leadership label, name, and designation. Qualification and expertise values remain saved and return when Standard is selected. Existing documents use Standard without migration. The responsive grid retains one mobile column, at most two tablet columns, and two-to-four configured desktop columns.
 
@@ -208,19 +209,19 @@ Maintenance and coming-soon overrides are applied to the homepage and catch-all 
 
 ## APIs And Middleware
 
-| Surface                                        | Contract                                                                                                                     |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `/admin`                                       | Payload admin UI with dashboard and session bar integration                                                                  |
-| `GET /api/frontend-session`                    | Private no-store email/role projection used by the deferred public editor toolbar                                            |
-| `/api/[...slug]`                               | Payload REST API                                                                                                             |
-| `/api/graphql` and `/api/graphql-playground`   | Payload GraphQL API and playground                                                                                           |
-| `POST /api/forms/[slug]/submit`                | Published-form validation, honeypot, best-effort in-memory throttling, storage, email, events, and optional review promotion |
-| `GET /api/search`                              | Debounced dialog search; six results/type; 20 requests/IP/10 seconds in memory                                               |
-| `GET /api/review-feed`                         | Validated paginated published Review data for load-more behavior                                                             |
-| `GET /api/calendar-events`                     | Validated published or authenticated-draft Calendar month projection for one to five Event classifications                   |
-| `GET /api/redirects`                           | Cached enabled redirect map consumed by the request proxy                                                                    |
-| `POST /api/operations/media/reconcile-storage` | Token-protected local/S3 media health reconciliation                                                                         |
-| `/my-route`                                    | Public example custom route returning a static JSON message; replace or remove before client handoff                         |
+| Surface                                        | Contract                                                                                                                                                                                         |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/admin`                                       | Payload admin UI with dashboard and session bar integration                                                                                                                                      |
+| `GET /api/frontend-session`                    | Private no-store email/role projection used by the deferred public editor toolbar                                                                                                                |
+| `/api/[...slug]`                               | Payload REST API                                                                                                                                                                                 |
+| `/api/graphql` and `/api/graphql-playground`   | Payload GraphQL API and playground                                                                                                                                                               |
+| `POST /api/forms/[slug]/submit`                | Published-form validation (JSON or multipart with files), honeypot, best-effort in-memory throttling, attachment storage, storage, email with attachments, events, and optional review promotion |
+| `GET /api/search`                              | Debounced dialog search; six results/type; 20 requests/IP/10 seconds in memory                                                                                                                   |
+| `GET /api/review-feed`                         | Validated paginated published Review data for load-more behavior                                                                                                                                 |
+| `GET /api/calendar-events`                     | Validated published or authenticated-draft Calendar month projection for one to five Event classifications                                                                                       |
+| `GET /api/redirects`                           | Cached enabled redirect map consumed by the request proxy                                                                                                                                        |
+| `POST /api/operations/media/reconcile-storage` | Token-protected local/S3 media health reconciliation                                                                                                                                             |
+| `/my-route`                                    | Public example custom route returning a static JSON message; replace or remove before client handoff                                                                                             |
 
 The redirect proxy excludes Next.js internals, APIs, Admin, and common static/metadata routes. It keeps an in-process map per origin for 60 seconds and safely falls back to its previous map on API failure.
 
@@ -229,7 +230,7 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
 - Public submission only loads published Forms.
 - The hidden honeypot key is `website`; suspected bots receive a neutral success response.
 - The built-in limiter allows five attempts per IP and form slug per ten minutes. It is per process, in memory, and is not a durable distributed rate limiter.
-- Required, email, phone, select-option, and checkbox-acceptance validation derive from the Form schema. Phone validation accepts common international display punctuation and requires 7 to 15 digits.
+- Required, email, phone, select-option, checkbox-acceptance, and file type/size validation derive from the Form schema. Phone validation accepts common international display punctuation and requires 7 to 15 digits. File fields accept PDF, Word and/or image kinds up to 10 MB; multipart bodies over 12 MB are rejected, Payload content inspection rejects renamed or damaged files, stored files live in Form Attachments and are attached to the notification e-mail.
 - Source, campaign, and landing-page metadata are captured when supplied.
 - General/lead Forms can optionally expose a dedicated `phone` input in Contact Form, store searchable submitter phone metadata, notify internal recipients, and send a submitter confirmation. Internal and confirmation messages use one responsive branded shell; internal dates render in the Site Identity timezone. Contact email lookup prefers `submitterEmail`, then `reviewerEmail`, then `email`.
 - Review-intent Forms can create or update a pending draft Review and record its relationship or promotion error. Form validation rejects additional required fields that the fixed Review Submission UI cannot render.
@@ -292,7 +293,6 @@ The redirect proxy excludes Next.js internals, APIs, Admin, and common static/me
   tests, and the production build. Mongo-backed tests use a single-node replica set. The supplied
   Dockerfile builds a non-root Next.js standalone production image; production containers require
   durable MongoDB and S3-compatible media storage.
-
 
 ### Disclosure Proforma
 

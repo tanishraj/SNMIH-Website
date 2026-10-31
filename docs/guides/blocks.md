@@ -89,6 +89,7 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Rating Spotlight         | Aggregate rating summary                     | Reads published Reviews                                                                                                                                                                                                                                                                                                                              |
 | Review Feed              | Paginated review list                        | Uses `/api/review-feed` after the initial render                                                                                                                                                                                                                                                                                                     |
 | Review Submission        | Public review form                           | Requires a Form with review intent                                                                                                                                                                                                                                                                                                                   |
+| Dynamic Form             | Any general or lead form                     | Renders every field of the selected form in saved order, including file uploads; image, split or stacked layout                                                                                                                                                                                                                                      |
 | Contact Form             | General or lead form                         | Requires `name`, `email`, `subject`, and `message` fields; optionally renders an exact-name `phone` field using the Phone type                                                                                                                                                                                                                       |
 | Regional Offices         | Office/map cards                             | Reads Office Locations                                                                                                                                                                                                                                                                                                                               |
 | Team Showcase            | Team member grid                             | Structured profile fields and independent card backgrounds                                                                                                                                                                                                                                                                                           |
@@ -116,6 +117,7 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Numbered Steps           | Ordered process                              | Backgrounds apply to numbered Cards, not connected/alternating layouts                                                                                                                                                                                                                                                                               |
 | Bento Grid               | Mixed-size feature cards                     | Grid layout and semantic background controls                                                                                                                                                                                                                                                                                                         |
 | Testimonial Grid         | Curated testimonials                         | Backgrounds apply to Grid and Featured cards                                                                                                                                                                                                                                                                                                         |
+| Careers                  | Open positions and recruitment notices       | Four layouts (Notice board, Register, Ledger, Departments) over one list of posts; closed posts are kept but hidden                                                                                                                                                                                                                                  |
 | Awards List              | Awards and recognition                       | Backgrounds apply to Cards, not table/row presentations                                                                                                                                                                                                                                                                                              |
 | About Section            | Editorial about layout                       | Media and actions                                                                                                                                                                                                                                                                                                                                    |
 | Accreditation Cards      | Accreditation and certification summary      | Two-to-four columns with shared semantic card and icon treatments                                                                                                                                                                                                                                                                                    |
@@ -213,6 +215,36 @@ scroller when long labels or narrow viewports overflow. In the table layout, sta
 cells use normal weight, Total rows are bold, and every desktop body row uses one continuous,
 theme-aware Accent or brand surface across its sticky label and value cells. Bank, payment-account,
 and online-payment details must not be entered in this block.
+
+Careers lists the institution's open positions from one block-owned list, so HR can add, close and
+reorder posts without touching the page structure. Groups (Faculty, Residents & nursing,
+Administration…) are defined once at the top of the Content tab in display order, and each post
+picks its group from that list, so headings stay consistent and can be renamed in one place. Each
+post has a title, status, group, department, employment type with an optional detail, number of
+posts, reference number, published and apply-by dates, location, a short summary and one link (a
+notification PDF, a page or a URL). Posts marked Closed stay in the list for the record but are not
+rendered; posts whose group was removed fall under "Other openings"; when nothing is
+open the block shows the Empty Message. Theme Settings choose one of four layouts over the same
+list: **Notice board** (centred introduction, a single list with department badges, reference,
+summary and location), **Register** (grouped rows with department, location/posts and the date on
+the right), **Ledger** (grouped rows showing only the title, department and date) and
+**Departments** (the group name beside its roles). All four fill the standard block container. Each
+row shows a few fields so the list keeps breathing room; group numbers (01, 02…) and the
+open-position count can be switched off. Web and e-mail addresses in
+the Closing Note become links. The block uses the shared section heading, description, eyebrow and
+metadata type scale, so it sits beside existing blocks without separate styling.
+
+Dynamic Form renders one published general or lead Form exactly as it is defined, so a single
+block covers career applications, requests and enquiries that do not fit the fixed Contact Form.
+Text, email, phone and select fields share a two-column grid; textarea, checkbox and file upload
+fields take the full width. File fields show the accepted types and size limit, validate before
+sending, and submit as multipart form data; uploaded files are stored privately in Form
+Attachments, linked from the submission and attached to the notification email. The default
+**Image** layout places the introduction and form beside a photo that fills the other half of
+the section (choose the image, its alt text and side, as in Contact Form); the **Split** layout
+keeps the introduction beside the form, and the **Stacked** layout places it above a centred or
+left-aligned form. Pair it with the Careers block by linking each opening to the page
+that holds the application form.
 
 PG Fee Structure is the department-based companion to Fee Structure. It models one programme and
 one academic session per block, with one to four independent fee categories such as General and
@@ -453,7 +485,7 @@ Prefer the data-backed blocks when the same records need governance or reuse:
 - News & Events Highlights, News Grid, or News & Events Tabs when records should remain collection-owned
 - Event Gallery or album-backed Image Mosaic instead of rebuilding an album from loose images
 - Rating Spotlight or Review Feed instead of copying public reviews
-- Contact Form or Review Submission instead of embedding an unmanaged form
+- Dynamic Form, Contact Form or Review Submission instead of embedding an unmanaged form
 - Regional Offices instead of repeating addresses on each Page
 
 ## Developer Thumbnail Workflow
@@ -531,7 +563,6 @@ use the shared Page, Custom URL, and Media link controls.
 - [Gallery Albums](./gallery-albums.md)
 - [Office Locations](./office-locations.md)
 - [News & Events](./news-events.md)
-
 
 ## Disclosure Proforma
 

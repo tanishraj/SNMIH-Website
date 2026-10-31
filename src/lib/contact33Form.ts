@@ -90,6 +90,12 @@ export function validateContact33FormDefinition(
     }
   }
 
+  const fileField = fields.find((candidate) => candidate.type === 'file')
+
+  if (fileField) {
+    return `Contact Form cannot render file upload field "${fileField.name}". Use the Dynamic Form block for forms with file uploads.`
+  }
+
   const phoneField = fields.find((candidate) => candidate.name === 'phone')
 
   if (phoneField && phoneField.type !== 'phone') {

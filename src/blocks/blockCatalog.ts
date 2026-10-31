@@ -6,6 +6,7 @@ import { AcademicProgrammesBlock } from '@/blocks/AcademicProgrammes/config'
 import { AccreditationCardsBlock } from '@/blocks/AccreditationCards/config'
 import { AnnouncementBlock } from '@/blocks/Announcement/config'
 import { AwardsListBlock } from '@/blocks/AwardsList/config'
+import { CareersBlock } from '@/blocks/Careers/config'
 import { BankDetailsBlock } from '@/blocks/BankDetails/config'
 import { BannerCtaBlock } from '@/blocks/BannerCta/config'
 import { BentoGridBlock } from '@/blocks/BentoGrid/config'
@@ -15,6 +16,7 @@ import { CelebrationBlock } from '@/blocks/Celebration/config'
 import { AnnualCalendarBlock } from '@/blocks/AnnualCalendar/config'
 import { Contact24Block } from '@/blocks/Contact24/config'
 import { Contact33Block } from '@/blocks/Contact33/config'
+import { DynamicFormBlock } from '@/blocks/DynamicForm/config'
 import { ContactNumbersBlock } from '@/blocks/ContactNumbers/config'
 import { ContentHighlightsBlock } from '@/blocks/ContentHighlights/config'
 import { Cta39Block } from '@/blocks/Cta39/config'
@@ -187,6 +189,8 @@ export const pageBlockGroupDefinitions = [
       BentoGridBlock,
       TestimonialGridBlock,
       AwardsListBlock,
+      CareersBlock,
+      DynamicFormBlock,
     ],
   },
 ] as const satisfies readonly BlockGroupDefinition[]

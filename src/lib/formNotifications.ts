@@ -21,6 +21,10 @@ const formatSubmissionValue = (field: FormDefinitionField, value: boolean | stri
     return field.options?.find((option) => option.value === value)?.label || value
   }
 
+  if (field.type === 'file' && value) {
+    return `${value} (attached)`
+  }
+
   return value || '—'
 }
 
@@ -39,6 +43,10 @@ const formatHTMLSubmissionValue = (field: FormDefinitionField, value: boolean | 
     const phoneTarget = value.replace(/[^\d+]/g, '')
 
     return `<a href="${escapeHTML(`tel:${phoneTarget}`)}" style="color: #146c4b; text-decoration: underline;">${escapeHTML(displayValue)}</a>`
+  }
+
+  if (field.type === 'file' && typeof value === 'string') {
+    return `📎 ${escapeHTML(value)} <span style="color: #68756f;">(attached to this email)</span>`
   }
 
   return escapeHTML(displayValue).replaceAll('\n', '<br>')

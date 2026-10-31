@@ -19,6 +19,7 @@ const form = {
       type: 'select',
     },
     { label: 'Message', name: 'message', required: true, type: 'textarea' },
+    { label: 'CV', name: 'cv', required: false, type: 'file' },
   ],
   id: 'form-id',
   slug: 'admission-enquiry',
@@ -56,6 +57,25 @@ describe('form notification emails', () => {
     expect(email.html).toContain('MBBS admission')
     expect(email.html).not.toContain('>mbbs-admission<')
     expect(email.html).toContain('Please share the admission details.<br>Thank you.')
+  })
+
+  it('lists uploaded files by name and notes that they are attached', () => {
+    const email = buildFormNotificationEmail({
+      form,
+      submittedAt: new Date('2026-09-06T12:11:16.470Z'),
+      values: {
+        cv: 'asha-verma-cv.pdf',
+        email: 'asha@example.com',
+        message: 'Application',
+        name: 'Asha',
+        phone: '+91 98765 43210',
+        subject: 'mbbs-admission',
+      },
+    })
+
+    expect(email.text).toContain('CV: asha-verma-cv.pdf (attached)')
+    expect(email.html).toContain('asha-verma-cv.pdf')
+    expect(email.html).toContain('attached to this email')
   })
 
   it('applies the shared professional shell to submitter confirmations', () => {
