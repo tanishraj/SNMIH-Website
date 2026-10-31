@@ -271,6 +271,7 @@ export interface Page {
         | BentoGridBlock
         | TestimonialGridBlock
         | AwardsListBlock
+        | CareersBlock
       )[]
     | null;
   metaTitle?: string | null;
@@ -712,6 +713,7 @@ export interface ReusableSection {
         | BentoGridBlock
         | TestimonialGridBlock
         | AwardsListBlock
+        | CareersBlock
       )[]
     | null;
   updatedAt: string;
@@ -8408,6 +8410,174 @@ export interface AwardsListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CareersBlock".
+ */
+export interface CareersBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Headings the openings are listed under, in display order, e.g. Faculty, Residents & nursing, Administration. Openings without a group appear under "Other openings".
+   */
+  groups?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * One row per advertised post. Closed posts stay here for your records but are not shown. The Notice board layout also shows the reference, summary and location; the Register adds location and number of posts.
+   */
+  openings?:
+    | {
+        title: string;
+        status: 'open' | 'closed';
+        group?: string | null;
+        department?: string | null;
+        employmentType?: ('regular' | 'contract' | 'partTime' | 'visiting' | 'training') | null;
+        employmentNote?: string | null;
+        positions?: number | null;
+        reference?: string | null;
+        publishedOn?: string | null;
+        applyBy?: string | null;
+        location?: string | null;
+        summary?: string | null;
+        actions?:
+          | {
+              label: string;
+              linkType?: ('page' | 'custom' | 'file') | null;
+              page?: (string | null) | Page;
+              /**
+               * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+               */
+              url?: string | null;
+              openInNewTab?: boolean | null;
+              /**
+               * Choose the Media asset this action should view or download.
+               */
+              file?: (string | null) | Media;
+              fileBehavior?: ('view' | 'download') | null;
+              openFileInNewTab?: boolean | null;
+              mode?: ('link' | 'button') | null;
+              /**
+               * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+               */
+              variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+              /**
+               * Adds a trailing arrow when this action is displayed as a button.
+               */
+              showArrow?: boolean | null;
+              /**
+               * Shows an animated down arrow for this file download.
+               */
+              showFileIcon?: boolean | null;
+              fileIconPosition?: ('left' | 'right') | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown under the list, e.g. how to send an unsolicited application. Web and e-mail addresses become links.
+   */
+  note?: string | null;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown when every post is closed or the list is empty.
+   */
+  emptyMessage?: string | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  layout: 'notice' | 'register' | 'ledger' | 'departments';
+  /**
+   * The Notice board layout always centres its introduction.
+   */
+  contentAlignment?: ('left' | 'center') | null;
+  /**
+   * Numbers group headings 01, 02… in the Register, Ledger and Departments layouts.
+   */
+  showGroupNumbers?: boolean | null;
+  showCount?: boolean | null;
+  size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'careers';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -10038,6 +10208,7 @@ export interface PagesSelect<T extends boolean = true> {
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
+        careers?: T | CareersBlockSelect<T>;
       };
   metaTitle?: T;
   metaDescription?: T;
@@ -14571,6 +14742,109 @@ export interface AwardsListBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CareersBlock_select".
+ */
+export interface CareersBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  groups?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  openings?:
+    | T
+    | {
+        title?: T;
+        status?: T;
+        group?: T;
+        department?: T;
+        employmentType?: T;
+        employmentNote?: T;
+        positions?: T;
+        reference?: T;
+        publishedOn?: T;
+        applyBy?: T;
+        location?: T;
+        summary?: T;
+        actions?:
+          | T
+          | {
+              label?: T;
+              linkType?: T;
+              page?: T;
+              url?: T;
+              openInNewTab?: T;
+              file?: T;
+              fileBehavior?: T;
+              openFileInNewTab?: T;
+              mode?: T;
+              variant?: T;
+              showArrow?: T;
+              showFileIcon?: T;
+              fileIconPosition?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  note?: T;
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  emptyMessage?: T;
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  layout?: T;
+  contentAlignment?: T;
+  showGroupNumbers?: T;
+  showCount?: T;
+  size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
@@ -14784,6 +15058,7 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
+        careers?: T | CareersBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -15936,6 +16211,7 @@ export interface NewsEventsDetailTemplate {
         | BentoGridBlock
         | TestimonialGridBlock
         | AwardsListBlock
+        | CareersBlock
       )[]
     | null;
   _status?: ('draft' | 'published') | null;
@@ -16231,6 +16507,7 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         bentoGrid?: T | BentoGridBlockSelect<T>;
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
+        careers?: T | CareersBlockSelect<T>;
       };
   _status?: T;
   updatedAt?: T;

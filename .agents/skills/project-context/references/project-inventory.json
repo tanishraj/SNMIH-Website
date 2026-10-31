@@ -185,6 +185,22 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/Careers/Component.tsx",
+        "configPath": "src/blocks/Careers/config.ts",
+        "files": [
+          "src/blocks/Careers/Component.tsx",
+          "src/blocks/Careers/GroupField.tsx",
+          "src/blocks/Careers/RowLabels.tsx",
+          "src/blocks/Careers/config.ts"
+        ],
+        "interfaceName": "CareersBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "careers",
+        "symbol": "CareersBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/Celebration/Component.tsx",
         "configPath": "src/blocks/Celebration/config.ts",
         "files": [
@@ -1115,6 +1131,7 @@
       "BentoGridBlock",
       "BreadcrumbBlock",
       "CalendarBlock",
+      "CareersBlock",
       "CelebrationBlock",
       "Contact24Block",
       "Contact33Block",
@@ -1239,6 +1256,7 @@
       "bentoGrid",
       "testimonialGrid",
       "awardsList",
+      "careers",
       "aboutSection",
       "accreditationCards",
       "reusableSection"
@@ -1306,7 +1324,8 @@
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
-      "awardsList"
+      "awardsList",
+      "careers"
     ],
     "productionRenderer": [
       "disclosureProforma",
@@ -1369,6 +1388,7 @@
       "bentoGrid",
       "testimonialGrid",
       "awardsList",
+      "careers",
       "aboutSection",
       "accreditationCards",
       "reusableSection"
@@ -1435,7 +1455,8 @@
       "numberedSteps",
       "bentoGrid",
       "testimonialGrid",
-      "awardsList"
+      "awardsList",
+      "careers"
     ],
     "shared": [
       {
@@ -1687,6 +1708,7 @@
         "public/block-thumbnails/bento-grid.jpg",
         "public/block-thumbnails/breadcrumb.jpg",
         "public/block-thumbnails/calendar.jpg",
+        "public/block-thumbnails/careers.jpg",
         "public/block-thumbnails/celebration.jpg",
         "public/block-thumbnails/contact-24.jpg",
         "public/block-thumbnails/contact-33.jpg",
@@ -1932,6 +1954,10 @@
           "slug": "awardsList"
         },
         {
+          "filename": "careers.jpg",
+          "slug": "careers"
+        },
+        {
           "filename": "bento-grid.jpg",
           "slug": "bentoGrid"
         },
@@ -2093,7 +2119,8 @@
         "tabsContent",
         "testimonialGrid",
         "timeline",
-        "videoEmbed"
+        "videoEmbed",
+        "careers"
       ]
     }
   },
@@ -2430,6 +2457,10 @@
       "src/blocks/Calendar/calendarStyles.ts",
       "src/blocks/Calendar/calendarTone.ts",
       "src/blocks/Calendar/config.ts",
+      "src/blocks/Careers/Component.tsx",
+      "src/blocks/Careers/GroupField.tsx",
+      "src/blocks/Careers/RowLabels.tsx",
+      "src/blocks/Careers/config.ts",
       "src/blocks/Celebration/Component.tsx",
       "src/blocks/Celebration/PreviewComponent.tsx",
       "src/blocks/Celebration/config.ts",
@@ -2980,6 +3011,7 @@
       "tests/int/card-block-renderers.int.spec.tsx",
       "tests/int/card-block-theme-contract.int.spec.ts",
       "tests/int/card-theme-contract.int.spec.ts",
+      "tests/int/careers.int.spec.tsx",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
       "tests/int/celebration-confetti.int.spec.ts",
@@ -3162,7 +3194,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "9db45a5df055ecfa9f1f0b01b2576256116af2c6ce5ea70dd51c70d700df43b4"
+    "sha256": "23c24a4df633a1b2d5e9bcd257ed7622a5ba7d7220094bebacca9066b555f762"
   },
   "surfaces": {
     "access": [
@@ -3360,6 +3392,7 @@
       "tests/int/card-block-renderers.int.spec.tsx",
       "tests/int/card-block-theme-contract.int.spec.ts",
       "tests/int/card-theme-contract.int.spec.ts",
+      "tests/int/careers.int.spec.tsx",
       "tests/int/carousel-blocks.int.spec.tsx",
       "tests/int/carousel-keyboard-navigation.int.spec.tsx",
       "tests/int/celebration-confetti.int.spec.ts",

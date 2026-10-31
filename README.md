@@ -40,7 +40,7 @@ Production containers require a durable external MongoDB database and `MEDIA_PRO
 - articles with lexical rich text, taxonomies (categories + tags), SEO fields, and live preview
 - moderated reviews promoted from form submissions into public editorial content
 - classification-backed news and events with live preview, manually prioritized eligible Events in Highlights, complete News & Events Tabs directories, and gallery albums
-- 63 selectable Page blocks covering editorial, events, Calendar and Annual Calendar, media, forms, reviews, galleries, offices, and reusable sections
+- 64 selectable Page blocks covering editorial, events, Calendar and Annual Calendar, media, forms, reviews, galleries, offices, and reusable sections
 - production Page block error boundaries that prevent one broken layout block from crashing the remaining Page
 
 **SEO and discoverability**
@@ -162,7 +162,7 @@ See [docs/architecture/content-model-map.md](docs/architecture/content-model-map
 - [Forms](docs/guides/forms.md) — form definitions and submitter confirmation email
 - [News & Events](docs/guides/news-events.md) — entry authoring, Page-backed listings, live preview, and feed
 - [Disclosure Proforma](docs/guides/disclosure-proforma.md) — reporting periods, configurable tables and publication credits
-- [Page Blocks](docs/guides/blocks.md) — all 63 Page layout choices and their data dependencies
+- [Page Blocks](docs/guides/blocks.md) — all 64 Page layout choices and their data dependencies
 - [Cookie Consent Banner](docs/guides/cookie-consent.md) — consent variants, copy, and analytics behavior
 
 ## Environment

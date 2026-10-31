@@ -116,6 +116,7 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Numbered Steps           | Ordered process                              | Backgrounds apply to numbered Cards, not connected/alternating layouts                                                                                                                                                                                                                                                                               |
 | Bento Grid               | Mixed-size feature cards                     | Grid layout and semantic background controls                                                                                                                                                                                                                                                                                                         |
 | Testimonial Grid         | Curated testimonials                         | Backgrounds apply to Grid and Featured cards                                                                                                                                                                                                                                                                                                         |
+| Careers                  | Open positions and recruitment notices       | Four layouts (Notice board, Register, Ledger, Departments) over one list of posts; closed posts are kept but hidden                                                                                                                                                                                                                                  |
 | Awards List              | Awards and recognition                       | Backgrounds apply to Cards, not table/row presentations                                                                                                                                                                                                                                                                                              |
 | About Section            | Editorial about layout                       | Media and actions                                                                                                                                                                                                                                                                                                                                    |
 | Accreditation Cards      | Accreditation and certification summary      | Two-to-four columns with shared semantic card and icon treatments                                                                                                                                                                                                                                                                                    |
@@ -213,6 +214,24 @@ scroller when long labels or narrow viewports overflow. In the table layout, sta
 cells use normal weight, Total rows are bold, and every desktop body row uses one continuous,
 theme-aware Accent or brand surface across its sticky label and value cells. Bank, payment-account,
 and online-payment details must not be entered in this block.
+
+Careers lists the institution's open positions from one block-owned list, so HR can add, close and
+reorder posts without touching the page structure. Groups (Faculty, Residents & nursing,
+Administration…) are defined once at the top of the Content tab in display order, and each post
+picks its group from that list, so headings stay consistent and can be renamed in one place. Each
+post has a title, status, group, department, employment type with an optional detail, number of
+posts, reference number, published and apply-by dates, location, a short summary and one link (a
+notification PDF, a page or a URL). Posts marked Closed stay in the list for the record but are not
+rendered; posts whose group was removed fall under "Other openings"; when nothing is
+open the block shows the Empty Message. Theme Settings choose one of four layouts over the same
+list: **Notice board** (centred introduction, a single list with department badges, reference,
+summary and location), **Register** (grouped rows with department, location/posts and the date on
+the right), **Ledger** (grouped rows showing only the title, department and date) and
+**Departments** (the group name beside its roles). All four fill the standard block container. Each
+row shows a few fields so the list keeps breathing room; group numbers (01, 02…) and the
+open-position count can be switched off. Web and e-mail addresses in
+the Closing Note become links. The block uses the shared section heading, description, eyebrow and
+metadata type scale, so it sits beside existing blocks without separate styling.
 
 PG Fee Structure is the department-based companion to Fee Structure. It models one programme and
 one academic session per block, with one to four independent fee categories such as General and
@@ -531,7 +550,6 @@ use the shared Page, Custom URL, and Media link controls.
 - [Gallery Albums](./gallery-albums.md)
 - [Office Locations](./office-locations.md)
 - [News & Events](./news-events.md)
-
 
 ## Disclosure Proforma
 
