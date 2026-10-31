@@ -22,7 +22,7 @@ jobs:
   # Types, typecheck and lint need no database and finish in about a minute.
   checks:
     name: Types, typecheck, lint
-    # Pinned: ubuntu-latest moved to Ubuntu 26.04, whose kernel MongoDB 8.x refuses to start on.
+    # Pinned so the runner image changes deliberately; ubuntu-latest moved to Ubuntu 26.04.
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
@@ -55,6 +55,8 @@ jobs:
     env:
       MONGODB_URI: mongodb://127.0.0.1:27017/payload-cms-starter-kit
       MONGOMS_DOWNLOAD_DIR: ${{ github.workspace }}/.cache/mongodb-binaries
+      # 8.2 starts on the runners' Linux 6.19+ kernels; 8.0 builds exit at start-up (SERVER-121912).
+      MONGOMS_VERSION: 8.2.6
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -69,7 +71,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .cache/mongodb-binaries
-          key: mongodb-binary-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: mongodb-binary-${{ runner.os }}-8.2.6
           restore-keys: mongodb-binary-${{ runner.os }}-
       - run: pnpm test:int -- --shard=${{ matrix.shard }}/2
 
@@ -80,7 +82,9 @@ jobs:
     timeout-minutes: 20
     services:
       mongo:
-        image: mongo:8.0
+        # 8.2, not 8.0: MongoDB 8.0 images refuse to start on the runners' Linux 6.19+ kernels
+        # (SERVER-121912); 8.2 is unaffected.
+        image: mongo:8.2
         ports:
           - 27017:27017
         options: >-
