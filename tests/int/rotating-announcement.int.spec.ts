@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { act } from 'react'
 import { createElement } from 'react'
 import type { HTMLAttributes, ReactNode } from 'react'

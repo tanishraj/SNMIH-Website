@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { createElement } from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { cleanup, render, waitFor } from '@testing-library/react'
