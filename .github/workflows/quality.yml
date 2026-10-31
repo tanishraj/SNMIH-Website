@@ -8,25 +8,25 @@ on:
 permissions:
   contents: read
 
+# A newer push to the same PR or branch supersedes the running checks.
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  EMAIL_PROVIDER: none
+  MEDIA_PROVIDER: localDisk
+  PAYLOAD_SECRET: ci-only-payload-secret-32-characters
+
 jobs:
-  verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    services:
-      mongo:
-        image: mongo:8.0
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
+  # Types, typecheck and lint need no database and finish in about a minute.
+  checks:
+    name: Types, typecheck, lint
+    # Pinned: ubuntu-latest moved to Ubuntu 26.04, whose kernel MongoDB 8.x refuses to start on.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     env:
-      EMAIL_PROVIDER: none
-      MEDIA_PROVIDER: localDisk
       MONGODB_URI: mongodb://127.0.0.1:27017/payload-cms-starter-kit
-      PAYLOAD_SECRET: ci-only-payload-secret-32-characters
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -41,5 +41,71 @@ jobs:
       - run: git diff --exit-code -- src/payload-types.ts
       - run: pnpm exec tsc --noEmit
       - run: pnpm lint
-      - run: pnpm test:int
+
+  # Integration tests use mongodb-memory-server, so no service container; the mongod binary is
+  # cached between runs and the files are split across two parallel shards.
+  tests:
+    name: Integration tests (${{ matrix.shard }}/2)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    env:
+      MONGODB_URI: mongodb://127.0.0.1:27017/payload-cms-starter-kit
+      MONGOMS_DOWNLOAD_DIR: ${{ github.workspace }}/.cache/mongodb-binaries
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Cache the MongoDB test binary
+        uses: actions/cache@v4
+        with:
+          path: .cache/mongodb-binaries
+          key: mongodb-binary-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: mongodb-binary-${{ runner.os }}-
+      - run: pnpm test:int -- --shard=${{ matrix.shard }}/2
+
+  # The production build is the only step that needs a running MongoDB (for page data).
+  build:
+    name: Production build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      mongo:
+        image: mongo:8.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      MONGODB_URI: mongodb://127.0.0.1:27017/payload-cms-starter-kit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Cache the Next.js compiler cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('src/**', 'next.config.*', 'tsconfig.json') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            nextjs-${{ runner.os }}-
       - run: pnpm build
