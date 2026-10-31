@@ -51,7 +51,11 @@ describe('Dynamic Form block', () => {
       true,
     )
     expect(blockThumbnailFixtures.dynamicForm).toBeTruthy()
-    expect(dynamicFormLayoutOptions.map((option) => option.value)).toEqual(['split', 'stacked'])
+    expect(dynamicFormLayoutOptions.map((option) => option.value)).toEqual([
+      'image',
+      'split',
+      'stacked',
+    ])
   })
 
   it('renders every field type in a two-column grid with file hints and multipart encoding', () => {
@@ -89,6 +93,28 @@ describe('Dynamic Form block', () => {
     )
     expect(stacked).toContain('data-dynamic-form-layout="stacked"')
     expect(stacked).toContain('max-w-3xl mx-auto')
+
+    const withImage = renderToStaticMarkup(
+      <DynamicFormBlockComponent
+        form={applicationForm}
+        image={{ alt: 'Clinic', height: 800, url: '/media/clinic.jpg', width: 1200 }}
+        imageAlt="Clinic reception"
+        imagePosition="left"
+        layout="image"
+        title="Apply"
+      />,
+    )
+    expect(withImage).toContain('data-dynamic-form-layout="image"')
+    expect(withImage).toContain('data-dynamic-form-image-position="left"')
+    expect(withImage).toContain('lg:grid-cols-2')
+    expect(withImage).toContain('lg:order-first')
+    expect(withImage).toMatch(/<img[^>]*alt="Clinic reception"/)
+
+    // Image layout without a usable image falls back to Split rather than an empty column.
+    const noImage = renderToStaticMarkup(
+      <DynamicFormBlockComponent form={applicationForm} layout="image" title="Apply" />,
+    )
+    expect(noImage).toContain('data-dynamic-form-layout="split"')
 
     const unavailable = renderToStaticMarkup(
       <DynamicFormBlockComponent form="form-id" title="Apply" />,

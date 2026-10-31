@@ -89,7 +89,7 @@ The setting follows the selected presentation. Content Highlights applies it to 
 | Rating Spotlight         | Aggregate rating summary                     | Reads published Reviews                                                                                                                                                                                                                                                                                                                              |
 | Review Feed              | Paginated review list                        | Uses `/api/review-feed` after the initial render                                                                                                                                                                                                                                                                                                     |
 | Review Submission        | Public review form                           | Requires a Form with review intent                                                                                                                                                                                                                                                                                                                   |
-| Dynamic Form             | Any general or lead form                     | Renders every field of the selected form in saved order, including file uploads; split or stacked layout                                                                                                                                                                                                                                             |
+| Dynamic Form             | Any general or lead form                     | Renders every field of the selected form in saved order, including file uploads; image, split or stacked layout                                                                                                                                                                                                                                      |
 | Contact Form             | General or lead form                         | Requires `name`, `email`, `subject`, and `message` fields; optionally renders an exact-name `phone` field using the Phone type                                                                                                                                                                                                                       |
 | Regional Offices         | Office/map cards                             | Reads Office Locations                                                                                                                                                                                                                                                                                                                               |
 | Team Showcase            | Team member grid                             | Structured profile fields and independent card backgrounds                                                                                                                                                                                                                                                                                           |
@@ -239,9 +239,11 @@ block covers career applications, requests and enquiries that do not fit the fix
 Text, email, phone and select fields share a two-column grid; textarea, checkbox and file upload
 fields take the full width. File fields show the accepted types and size limit, validate before
 sending, and submit as multipart form data; uploaded files are stored privately in Form
-Attachments, linked from the submission and attached to the notification email. The **Split**
-layout keeps the introduction beside the form and the **Stacked** layout places it above a
-centred or left-aligned form. Pair it with the Careers block by linking each opening to the page
+Attachments, linked from the submission and attached to the notification email. The default
+**Image** layout places the introduction and form beside a photo that fills the other half of
+the section (choose the image, its alt text and side, as in Contact Form); the **Split** layout
+keeps the introduction beside the form, and the **Stacked** layout places it above a centred or
+left-aligned form. Pair it with the Careers block by linking each opening to the page
 that holds the application form.
 
 PG Fee Structure is the department-based companion to Fee Structure. It models one programme and

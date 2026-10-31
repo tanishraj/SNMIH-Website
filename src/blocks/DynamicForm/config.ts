@@ -1,13 +1,31 @@
-import type { Block, SelectField, TabsField } from 'payload'
+import type { Block, SelectField, TabsField, UploadField } from 'payload'
 
 import { createBlockAppearanceFields } from '@/blocks/shared/blockAppearanceFields'
 import { createContentActionsField } from '@/blocks/shared/contentActionsFields'
 import { getBlockThumbnailAdmin } from '@/block-thumbnails/definitions'
 
 export const dynamicFormLayoutOptions = [
+  { label: 'Image (introduction and form beside a photo)', value: 'image' },
   { label: 'Split (introduction beside the form)', value: 'split' },
   { label: 'Stacked (introduction above the form)', value: 'stacked' },
 ] as const
+
+const usesImage = (_: unknown, siblingData: { layout?: unknown } | undefined) =>
+  siblingData?.layout === 'image'
+
+const imageField = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    condition: usesImage,
+    description: 'Fills the half of the section beside the form. Landscape photos work best.',
+  },
+  validate: (value, { siblingData }) =>
+    (siblingData as { layout?: unknown } | undefined)?.layout === 'image' && !value
+      ? 'Add an image or choose another layout.'
+      : true,
+} satisfies UploadField
 
 /**
  * Renders any published general or lead Form field by field, including file uploads, so a
@@ -37,6 +55,13 @@ export const DynamicFormBlock: Block = {
             { name: 'accentTitle', label: 'Accent Title (Italic)', type: 'text' },
             { name: 'description', type: 'textarea' },
             createContentActionsField({ label: 'Section Actions', maxRows: 2 }),
+            imageField,
+            {
+              name: 'imageAlt',
+              label: 'Image Alt Text',
+              type: 'text',
+              admin: { condition: usesImage },
+            },
             {
               name: 'form',
               type: 'relationship',
@@ -67,9 +92,20 @@ export const DynamicFormBlock: Block = {
             {
               name: 'layout',
               type: 'select',
-              defaultValue: 'split',
+              defaultValue: 'image',
               required: true,
               options: [...dynamicFormLayoutOptions],
+            } satisfies SelectField,
+            {
+              name: 'imagePosition',
+              label: 'Image Position',
+              type: 'select',
+              defaultValue: 'right',
+              options: [
+                { label: 'Left', value: 'left' },
+                { label: 'Right', value: 'right' },
+              ],
+              admin: { condition: usesImage },
             } satisfies SelectField,
             {
               name: 'contentAlignment',

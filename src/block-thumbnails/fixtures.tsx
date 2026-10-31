@@ -1870,6 +1870,8 @@ export const blockThumbnailFixtures = {
       appearance={{ background: 'subtle', border: 'topAndBottom' }}
       description="Send your CV and a short note. Shortlisted candidates hear from the department within two weeks of the closing date."
       eyebrow="Careers"
+      image={{ alt: 'Clinician working at a laptop', url: editorialLandscape }}
+      imageAlt="Clinician working at a laptop"
       form={{
         fields: [
           { label: 'Full name', name: 'fullName', required: true, type: 'text' },
@@ -1900,7 +1902,7 @@ export const blockThumbnailFixtures = {
         successMessage: 'Thanks. Your application has been received.',
         title: 'Application',
       }}
-      layout="split"
+      layout="image"
       size="compact"
       title="Apply for a post"
     />

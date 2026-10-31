@@ -8628,6 +8628,11 @@ export interface DynamicFormBlock {
       }[]
     | null;
   /**
+   * Fills the half of the section beside the form. Landscape photos work best.
+   */
+  image?: (string | null) | Media;
+  imageAlt?: string | null;
+  /**
    * A published general or lead form. Every field is rendered in its saved order; file upload fields are supported.
    */
   form: string | Form;
@@ -8668,7 +8673,8 @@ export interface DynamicFormBlock {
     background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
     border: 'none' | 'top' | 'bottom' | 'topAndBottom';
   };
-  layout: 'split' | 'stacked';
+  layout: 'image' | 'split' | 'stacked';
+  imagePosition?: ('left' | 'right') | null;
   /**
    * Applies to the Stacked layout.
    */
@@ -15014,6 +15020,8 @@ export interface DynamicFormBlockSelect<T extends boolean = true> {
         fileIconPosition?: T;
         id?: T;
       };
+  image?: T;
+  imageAlt?: T;
   form?: T;
   footerActions?:
     | T
@@ -15040,6 +15048,7 @@ export interface DynamicFormBlockSelect<T extends boolean = true> {
         border?: T;
       };
   layout?: T;
+  imagePosition?: T;
   contentAlignment?: T;
   size?: T;
   anchorId?: T;
