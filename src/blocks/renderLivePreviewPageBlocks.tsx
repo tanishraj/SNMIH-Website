@@ -67,6 +67,7 @@ import { NumberedStepsBlockComponent } from './NumberedSteps/Component'
 import { BentoGridBlockComponent } from './BentoGrid/Component'
 import { TestimonialGridBlockComponent } from './TestimonialGrid/Component'
 import { AwardsListBlockComponent } from './AwardsList/Component'
+import { CareersBlockComponent } from './Careers/Component'
 import { AboutSectionBlockComponent } from './AboutSection/Component'
 import { AccreditationCardsBlockComponent } from './AccreditationCards/Component'
 import { BlockAnchorWrapper } from './shared/BlockAnchorWrapper'
@@ -253,6 +254,8 @@ function renderLivePreviewPageBlockContent(
       return <TestimonialGridBlockComponent key={key} {...block} />
     case 'awardsList':
       return <AwardsListBlockComponent key={key} {...block} />
+    case 'careers':
+      return <CareersBlockComponent key={key} {...block} />
     case 'aboutSection':
       return <AboutSectionBlockComponent key={key} {...block} />
     case 'accreditationCards':

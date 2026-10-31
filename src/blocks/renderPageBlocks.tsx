@@ -63,6 +63,7 @@ import { NumberedStepsBlockComponent } from './NumberedSteps/Component'
 import { BentoGridBlockComponent } from './BentoGrid/Component'
 import { TestimonialGridBlockComponent } from './TestimonialGrid/Component'
 import { AwardsListBlockComponent } from './AwardsList/Component'
+import { CareersBlockComponent } from './Careers/Component'
 import { AboutSectionBlockComponent } from './AboutSection/Component'
 import { AccreditationCardsBlockComponent } from './AccreditationCards/Component'
 import { BlockAnchorWrapper } from './shared/BlockAnchorWrapper'
@@ -231,6 +232,8 @@ function renderPageBlockContent(
       return wrap(<TestimonialGridBlockComponent {...block} />)
     case 'awardsList':
       return wrap(<AwardsListBlockComponent {...block} />)
+    case 'careers':
+      return wrap(<CareersBlockComponent {...block} />)
     case 'aboutSection':
       return wrap(<AboutSectionBlockComponent {...block} />)
     case 'accreditationCards':

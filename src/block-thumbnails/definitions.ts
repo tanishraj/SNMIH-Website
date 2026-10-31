@@ -325,6 +325,13 @@ export const blockThumbnailDefinitions = [
     stageAlignment: 'top',
   }),
   defineThumbnail({
+    alt: 'Careers block preview',
+    filename: 'careers.jpg',
+    label: 'Careers',
+    slug: 'careers',
+    stageAlignment: 'top',
+  }),
+  defineThumbnail({
     alt: 'Bento Grid block preview',
     filename: 'bento-grid.jpg',
     label: 'Bento Grid',
