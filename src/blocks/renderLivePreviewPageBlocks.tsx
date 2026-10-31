@@ -37,6 +37,7 @@ import { ReviewFeedPreviewBlockComponent } from './ReviewFeed/PreviewComponent'
 import { ReviewSubmissionBlockComponent } from './ReviewSubmission/Component'
 import { Contact24PreviewBlockComponent } from './Contact24/PreviewComponent'
 import { Contact33BlockComponent } from './Contact33/Component'
+import { DynamicFormBlockComponent } from './DynamicForm/Component'
 import { TeamShowcaseBlockComponent } from './TeamShowcase/Component'
 import { StatsStripBlockComponent } from './StatsStrip/Component'
 import { Services21BlockComponent } from './Services21/Component'
@@ -158,6 +159,8 @@ function renderLivePreviewPageBlockContent(
       return <ReviewSubmissionBlockComponent key={key} {...block} />
     case 'contact33':
       return <Contact33BlockComponent key={key} {...block} />
+    case 'dynamicForm':
+      return <DynamicFormBlockComponent key={key} {...block} />
     case 'contact24':
       return (
         <Contact24PreviewBlockComponent key={key} officeLocations={officeLocations} {...block} />

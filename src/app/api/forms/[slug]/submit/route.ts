@@ -3,6 +3,14 @@ import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 
 import {
+  buildEmailAttachments,
+  FORM_UPLOAD_BODY_LIMIT_BYTES,
+  FormAttachmentValidationError,
+  parseFormSubmissionRequest,
+  storeFormAttachments,
+  withFileValues,
+} from '@/lib/formAttachments'
+import {
   getClientIPAddress,
   isRateLimited,
   isSpamHoneypotTriggered,
@@ -18,9 +26,7 @@ import {
   getSubmissionContactMetadata,
   isReviewFormSubmissionIntent,
   normalizeFormSubmissionIntent,
-  normalizeFormSubmissionMetadata,
   validateFormSubmission,
-  type FormSubmissionValues,
   type SimpleFormField,
 } from '@/lib/forms'
 import { upsertReviewFromSubmission } from '@/lib/reviewPromotion'
@@ -30,7 +36,9 @@ import type { Form } from '@/payload-types'
 
 const toSimpleFields = (form: Form): SimpleFormField[] => {
   return (form.fields ?? []).map((field) => ({
+    fileTypes: field.fileTypes ?? null,
     label: field.label,
+    maxFileSizeMB: field.maxFileSizeMB ?? null,
     name: field.name,
     options:
       field.options?.map((option) => ({
@@ -80,11 +88,20 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
     )
   }
 
-  let payloadBody: { metadata?: unknown; values?: FormSubmissionValues } | null = null
+  const declaredLength = Number(request.headers.get('content-length') ?? 0)
 
-  try {
-    payloadBody = (await request.json()) as { values?: FormSubmissionValues }
-  } catch {
+  if (declaredLength > FORM_UPLOAD_BODY_LIMIT_BYTES) {
+    return NextResponse.json(
+      {
+        message: 'The uploaded file is too large.',
+      },
+      { status: 413 },
+    )
+  }
+
+  const parsed = await parseFormSubmissionRequest(request)
+
+  if (!parsed) {
     return NextResponse.json(
       {
         message: 'Invalid form submission payload.',
@@ -93,9 +110,9 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
     )
   }
 
-  const submissionValues =
-    payloadBody?.values && typeof payloadBody.values === 'object' ? payloadBody.values : {}
-  const submissionMetadata = normalizeFormSubmissionMetadata(payloadBody?.metadata)
+  const submissionMetadata = parsed.metadata
+  const formFields = toSimpleFields(form)
+  const submissionValues = withFileValues(parsed.values, parsed.files, formFields)
 
   if (isSpamHoneypotTriggered(submissionValues)) {
     return NextResponse.json({
@@ -121,7 +138,6 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
 
   const submissionIntent = normalizeFormSubmissionIntent(form.submissionIntent)
   const isReviewSubmission = isReviewFormSubmissionIntent(submissionIntent)
-  const formFields = toSimpleFields(form)
   const validationFields = isReviewSubmission
     ? formFields.map((field) =>
         field.name === 'isGenuineExperience' ||
@@ -160,6 +176,41 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
     )
   }
 
+  // Files are stored before the submission so the record can link to them; a storage failure
+  // rejects the whole submission instead of saving an entry with missing attachments.
+  let attachments: Awaited<ReturnType<typeof storeFormAttachments>> = []
+
+  try {
+    attachments = await storeFormAttachments({
+      fields: formFields,
+      files: parsed.files,
+      formId: form.id,
+      payload,
+    })
+  } catch (error) {
+    if (error instanceof FormAttachmentValidationError) {
+      return NextResponse.json(
+        {
+          errors: { [error.fieldName]: error.publicMessage },
+          message: 'Please correct the highlighted fields and try again.',
+        },
+        { status: 400 },
+      )
+    }
+
+    payload.logger.error({
+      err: error,
+      msg: `Failed to store uploaded files for form "${form.slug}".`,
+    })
+
+    return NextResponse.json(
+      {
+        message: 'We could not save your file. Please try again in a moment.',
+      },
+      { status: 500 },
+    )
+  }
+
   const submissionData = reviewValidation
     ? {
         ...normalizedData,
@@ -175,6 +226,9 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
   const submission = await payload.create({
     collection: 'form-submissions',
     data: {
+      ...(attachments.length
+        ? { attachments: attachments.map((attachment) => attachment.id) }
+        : {}),
       data: submissionData,
       campaign: submissionMetadata.campaign,
       email: submitterEmail,
@@ -190,6 +244,22 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
     },
     overrideAccess: true,
   })
+
+  for (const attachment of attachments) {
+    try {
+      await payload.update({
+        collection: 'form-attachments',
+        data: { submission: submission.id },
+        id: attachment.id,
+        overrideAccess: true,
+      })
+    } catch (error) {
+      payload.logger.error({
+        err: error,
+        msg: `Failed to link attachment ${attachment.id} to submission ${submission.id}.`,
+      })
+    }
+  }
 
   if (reviewValidation) {
     try {
@@ -282,9 +352,11 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
       timeZone: emailTimeZone,
       values: submissionData,
     })
+    const emailAttachments = buildEmailAttachments(attachments)
 
     try {
       await payload.sendEmail({
+        ...(emailAttachments.length ? { attachments: emailAttachments } : {}),
         html: emailContent.html,
         subject: emailContent.subject,
         text: emailContent.text,

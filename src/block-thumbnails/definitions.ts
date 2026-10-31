@@ -253,6 +253,13 @@ export const blockThumbnailDefinitions = [
     stageAlignment: 'top',
   }),
   defineThumbnail({
+    alt: 'Dynamic Form block preview',
+    filename: 'dynamic-form.jpg',
+    label: 'Dynamic Form',
+    slug: 'dynamicForm',
+    stageAlignment: 'top',
+  }),
+  defineThumbnail({
     alt: 'Regional Offices block preview',
     filename: 'contact-24.jpg',
     label: 'Regional Offices',

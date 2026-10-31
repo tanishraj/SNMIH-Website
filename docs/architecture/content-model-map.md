@@ -49,7 +49,9 @@ while System Page actions can use Navigation Links.
 
 `forms` owns general, lead, or review-intent schemas, including dedicated phone fields, validation fields, notification recipients, and optional submitter confirmation copy. Review-intent validation prevents additional required fields that the fixed Review Submission renderer cannot display. Public spam controls, phone-format rules, email presentation, and rate-limit constants live in application code, not editable Form fields.
 
-`form-submissions` owns stored visitor data, searchable submitter contact metadata including phone, source/campaign metadata, assignment, follow-up state, activity, and optional promotion to a governed Review.
+`form-submissions` owns stored visitor data, searchable submitter contact metadata including phone, source/campaign metadata, assignment, follow-up state, activity, optional promotion to a governed Review, and links to any uploaded attachments.
+
+`form-attachments` owns files uploaded through `File upload` form fields. Records are created only by the submission route, are never editable, link back to their Form and Form Submission, and are readable only with the Form Submissions feature; object storage serves them through Payload access control rather than a public URL.
 
 ## Administration
 

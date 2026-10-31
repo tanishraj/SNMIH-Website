@@ -16,6 +16,7 @@ import { CelebrationBlock } from '@/blocks/Celebration/config'
 import { AnnualCalendarBlock } from '@/blocks/AnnualCalendar/config'
 import { Contact24Block } from '@/blocks/Contact24/config'
 import { Contact33Block } from '@/blocks/Contact33/config'
+import { DynamicFormBlock } from '@/blocks/DynamicForm/config'
 import { ContactNumbersBlock } from '@/blocks/ContactNumbers/config'
 import { ContentHighlightsBlock } from '@/blocks/ContentHighlights/config'
 import { Cta39Block } from '@/blocks/Cta39/config'
@@ -189,6 +190,7 @@ export const pageBlockGroupDefinitions = [
       TestimonialGridBlock,
       AwardsListBlock,
       CareersBlock,
+      DynamicFormBlock,
     ],
   },
 ] as const satisfies readonly BlockGroupDefinition[]

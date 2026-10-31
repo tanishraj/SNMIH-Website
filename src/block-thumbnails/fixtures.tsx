@@ -39,6 +39,7 @@ import { QaAccordionBlockComponent } from '@/blocks/QaAccordion/Component'
 import { RatingSpotlightBlockComponent } from '@/blocks/RatingSpotlight/Component'
 import { ReviewSubmissionBlockComponent } from '@/blocks/ReviewSubmission/Component'
 import { Contact33BlockComponent } from '@/blocks/Contact33/Component'
+import { DynamicFormBlockComponent } from '@/blocks/DynamicForm/Component'
 import { FeatureSpotlightBlockComponent } from '@/blocks/FeatureSpotlight/Component'
 import { TestimonialSpotlightBlockComponent } from '@/blocks/TestimonialSpotlight/Component'
 import { StatsStripBlockComponent } from '@/blocks/StatsStrip/Component'
@@ -1862,6 +1863,46 @@ export const blockThumbnailFixtures = {
       imagePosition="right"
       size="compact"
       title="Start a conversation."
+    />
+  ),
+  dynamicForm: (
+    <DynamicFormBlockComponent
+      appearance={{ background: 'subtle', border: 'topAndBottom' }}
+      description="Send your CV and a short note. Shortlisted candidates hear from the department within two weeks of the closing date."
+      eyebrow="Careers"
+      form={{
+        fields: [
+          { label: 'Full name', name: 'fullName', required: true, type: 'text' },
+          { label: 'Email', name: 'email', required: true, type: 'email' },
+          { label: 'Phone', name: 'phone', required: true, type: 'phone' },
+          {
+            label: 'Post applied for',
+            name: 'post',
+            options: [
+              { label: 'Professor – General Medicine', value: 'prof-gm' },
+              { label: 'Senior Resident – Paediatrics', value: 'sr-paed' },
+            ],
+            required: true,
+            type: 'select',
+          },
+          {
+            fileTypes: ['pdf', 'document'],
+            label: 'CV / résumé',
+            maxFileSizeMB: 5,
+            name: 'cv',
+            required: true,
+            type: 'file',
+          },
+          { label: 'Cover note', name: 'coverNote', required: false, type: 'textarea' },
+        ],
+        slug: 'application',
+        submitButtonLabel: 'Submit application',
+        successMessage: 'Thanks. Your application has been received.',
+        title: 'Application',
+      }}
+      layout="split"
+      size="compact"
+      title="Apply for a post"
     />
   ),
   contact24: (

@@ -16,7 +16,7 @@ Use `Form Submissions` when you need to:
 - add internal notes for staff coordination
 - verify whether a review submission created a linked draft review
 
-Do not use this section to edit the original submitted answers. The stored submission payload is intentionally read-only after intake.
+Do not use this section to edit the original submitted answers. The stored submission payload is intentionally read-only after intake, and so are the files in `Form Attachments`: they can be downloaded by operators with this feature but never edited or replaced, and they are not public.
 
 ## How It Connects To The Website
 
@@ -28,6 +28,7 @@ This section also powers internal workflow:
 - `owner` and `internalNotes` help staff manage follow-up
 - review-intent submissions can automatically create a linked draft in `Reviews`
 - new and in-review submissions automatically create or update items in `Work Queue`
+- files uploaded through `File upload` fields appear under `Attachments`; open one to view or download it, and the submitted data keeps the original filename
 
 If an operator changes status without discipline, the website will still work, but the lead and review pipeline becomes harder to manage safely.
 

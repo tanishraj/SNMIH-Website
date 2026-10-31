@@ -98,6 +98,7 @@ test.env
 
 # Local Payload uploads and database backups
 /media/
+/form-attachments/
 /backups/
 *.archive
 *.archive.gz

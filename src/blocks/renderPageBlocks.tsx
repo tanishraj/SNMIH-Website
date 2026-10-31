@@ -26,6 +26,7 @@ import { ReviewFeedBlockComponent } from './ReviewFeed/Component'
 import { ReviewSubmissionBlockComponent } from './ReviewSubmission/Component'
 import { Contact24BlockComponent } from './Contact24/Component'
 import { Contact33BlockComponent } from './Contact33/Component'
+import { DynamicFormBlockComponent } from './DynamicForm/Component'
 import { FeatureSpotlightBlockComponent } from './FeatureSpotlight/Component'
 import { TestimonialSpotlightBlockComponent } from './TestimonialSpotlight/Component'
 import { BannerCtaBlockComponent } from './BannerCta/Component'
@@ -150,6 +151,8 @@ function renderPageBlockContent(
       return wrap(<ReviewSubmissionBlockComponent {...block} />)
     case 'contact33':
       return wrap(<Contact33BlockComponent {...block} />)
+    case 'dynamicForm':
+      return wrap(<DynamicFormBlockComponent {...block} />)
     case 'contact24':
       return wrap(<Contact24BlockComponent {...block} />)
     case 'ratingSpotlight':

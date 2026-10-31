@@ -23,9 +23,49 @@ export const formFieldTypeOptions = [
     label: 'Checkbox',
     value: 'checkbox',
   },
+  {
+    label: 'File upload',
+    value: 'file',
+  },
 ] as const
 
 export type FormFieldType = (typeof formFieldTypeOptions)[number]['value']
+
+export const formFileKindOptions = [
+  { label: 'PDF (.pdf)', value: 'pdf' },
+  { label: 'Word document (.doc, .docx)', value: 'document' },
+  { label: 'Image (.jpg, .png)', value: 'image' },
+] as const
+
+export type FormFileKind = (typeof formFileKindOptions)[number]['value']
+
+export const formFileKindDefinitions: Record<
+  FormFileKind,
+  { extensions: string[]; label: string; mimeTypes: string[] }
+> = {
+  document: {
+    extensions: ['doc', 'docx'],
+    label: 'Word document',
+    mimeTypes: [
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ],
+  },
+  image: {
+    extensions: ['jpg', 'jpeg', 'png'],
+    label: 'JPG or PNG image',
+    mimeTypes: ['image/jpeg', 'image/png'],
+  },
+  pdf: {
+    extensions: ['pdf'],
+    label: 'PDF',
+    mimeTypes: ['application/pdf'],
+  },
+}
+
+export const FORM_FILE_DEFAULT_KINDS: FormFileKind[] = ['pdf', 'document']
+export const FORM_FILE_DEFAULT_MAX_MB = 5
+export const FORM_FILE_MAX_MB = 10
 
 export const formSubmissionIntentOptions = [
   {
@@ -50,13 +90,30 @@ export type SimpleFormFieldOption = {
 }
 
 export type SimpleFormField = {
-  name: string
+  fileTypes?: FormFileKind[] | null
   label: string
+  maxFileSizeMB?: number | null
+  name: string
   options?: SimpleFormFieldOption[] | null
   placeholder?: string | null
   required?: boolean | null
   type: FormFieldType
 }
+
+/** What a submitted file looks like to validation: the bytes themselves stay in the request. */
+export type FormSubmissionFileInfo = {
+  name: string
+  size: number
+  type?: string | null
+}
+
+export const isFormSubmissionFileInfo = (value: unknown): value is FormSubmissionFileInfo =>
+  Boolean(
+    value &&
+    typeof value === 'object' &&
+    typeof (value as FormSubmissionFileInfo).name === 'string' &&
+    typeof (value as FormSubmissionFileInfo).size === 'number',
+  )
 
 export type FormSubmissionValues = Record<string, unknown>
 export type FormSubmissionErrors = Record<string, string>
@@ -126,6 +183,103 @@ export const isTextLikeFormFieldType = (type: FormFieldType): boolean => {
 
 export const isSelectFormFieldType = (type: FormFieldType): boolean => {
   return type === 'select'
+}
+
+export const isFileFormFieldType = (type: FormFieldType): boolean => {
+  return type === 'file'
+}
+
+/** Short fields can share a row in a rendered form; long or interactive ones take the full width. */
+export const isShortFormFieldType = (type: FormFieldType): boolean => {
+  return type === 'text' || type === 'email' || type === 'phone' || type === 'select'
+}
+
+const isFormFileKind = (value: unknown): value is FormFileKind =>
+  typeof value === 'string' && value in formFileKindDefinitions
+
+export const resolveFormFileKinds = (field: Pick<SimpleFormField, 'fileTypes'>): FormFileKind[] => {
+  const kinds = (field.fileTypes ?? []).filter(isFormFileKind)
+  return kinds.length ? [...new Set(kinds)] : FORM_FILE_DEFAULT_KINDS
+}
+
+export const resolveFormFileMaxMB = (field: Pick<SimpleFormField, 'maxFileSizeMB'>): number => {
+  const value = field.maxFileSizeMB
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < 1) {
+    return FORM_FILE_DEFAULT_MAX_MB
+  }
+  return Math.min(Math.floor(value), FORM_FILE_MAX_MB)
+}
+
+export const resolveFormFileMaxBytes = (field: Pick<SimpleFormField, 'maxFileSizeMB'>): number =>
+  resolveFormFileMaxMB(field) * 1024 * 1024
+
+export const getFormFileExtensions = (field: Pick<SimpleFormField, 'fileTypes'>): string[] =>
+  resolveFormFileKinds(field).flatMap((kind) => formFileKindDefinitions[kind].extensions)
+
+export const getFormFileMimeTypes = (field: Pick<SimpleFormField, 'fileTypes'>): string[] =>
+  resolveFormFileKinds(field).flatMap((kind) => formFileKindDefinitions[kind].mimeTypes)
+
+/** Value for the `accept` attribute of a file input, e.g. ".pdf,.doc,.docx". */
+export const getFormFileAcceptAttribute = (field: Pick<SimpleFormField, 'fileTypes'>): string =>
+  getFormFileExtensions(field)
+    .map((extension) => `.${extension}`)
+    .join(',')
+
+const joinWithOr = (parts: string[]): string =>
+  parts.length <= 1
+    ? (parts[0] ?? '')
+    : `${parts.slice(0, -1).join(', ')} or ${parts[parts.length - 1]}`
+
+/** Hint shown under a file input, e.g. "PDF or Word document, up to 5 MB". */
+export const describeFormFileRules = (
+  field: Pick<SimpleFormField, 'fileTypes' | 'maxFileSizeMB'>,
+): string =>
+  `${joinWithOr(resolveFormFileKinds(field).map((kind) => formFileKindDefinitions[kind].label))}, up to ${resolveFormFileMaxMB(field)} MB`
+
+export const formatFileSize = (bytes: number): string => {
+  if (bytes >= 1024 * 1024) {
+    return `${(bytes / (1024 * 1024)).toFixed(bytes >= 10 * 1024 * 1024 ? 0 : 1)} MB`
+  }
+  return `${Math.max(1, Math.round(bytes / 1024))} KB`
+}
+
+export const getFileExtension = (filename: string): string => {
+  const match = /\.([A-Za-z0-9]+)$/.exec(filename.trim())
+  return match ? match[1].toLowerCase() : ''
+}
+
+/** Type and size rules for one uploaded file; the extension is authoritative because browsers report unreliable MIME types. */
+export const validateFormFile = ({
+  field,
+  file,
+}: {
+  field: SimpleFormField
+  file: FormSubmissionFileInfo
+}): string | null => {
+  const extensions = getFormFileExtensions(field)
+  const mimeTypes = getFormFileMimeTypes(field)
+  const extension = getFileExtension(file.name)
+  const mimeType = file.type?.trim().toLowerCase() || ''
+
+  if (!extension || !extensions.includes(extension)) {
+    return `${field.label} must be a ${joinWithOr(
+      resolveFormFileKinds(field).map((kind) => formFileKindDefinitions[kind].label),
+    )} (${extensions.map((value) => `.${value}`).join(', ')}).`
+  }
+
+  if (mimeType && mimeType !== 'application/octet-stream' && !mimeTypes.includes(mimeType)) {
+    return `${field.label} has an unsupported file type.`
+  }
+
+  if (file.size <= 0) {
+    return `${field.label} is empty.`
+  }
+
+  if (file.size > resolveFormFileMaxBytes(field)) {
+    return `${field.label} must be ${resolveFormFileMaxMB(field)} MB or smaller.`
+  }
+
+  return null
 }
 
 export const normalizeFormSubmissionIntent = (value: unknown): FormSubmissionIntent => {
@@ -231,6 +385,14 @@ export const validateFormFieldDefinitionsForIntent = ({
     return fieldValidation
   }
 
+  const fileField = fields.find((field): field is { name: string; type: 'file' } =>
+    Boolean(field && typeof field === 'object' && 'type' in field && field.type === 'file'),
+  )
+
+  if (fileField && typeof fileField.name === 'string') {
+    return `Review Submission cannot render file upload field "${normalizeFormFieldName(fileField.name)}".`
+  }
+
   const unsupportedRequiredField = fields.find((field): field is { name: string; required: true } =>
     Boolean(
       field &&
@@ -271,6 +433,26 @@ export const validateFormSubmission = ({
 
   for (const field of fields) {
     const rawValue = values[field.name]
+
+    if (field.type === 'file') {
+      // Stored data keeps the original filename; the file itself lives in Form Attachments.
+      const file = isFormSubmissionFileInfo(rawValue) ? rawValue : null
+      normalizedData[field.name] = file?.name.trim() ?? ''
+
+      if (!file) {
+        if (field.required) {
+          errors[field.name] = `${field.label} is required.`
+        }
+        continue
+      }
+
+      const fileError = validateFormFile({ field, file })
+      if (fileError) {
+        errors[field.name] = fileError
+      }
+
+      continue
+    }
 
     if (field.type === 'checkbox') {
       const normalizedValue = normalizeCheckboxValue(rawValue)

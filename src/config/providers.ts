@@ -3,6 +3,10 @@ import { resendAdapter } from '@payloadcms/email-resend'
 import { s3Storage } from '@payloadcms/storage-s3'
 import type { Plugin } from 'payload'
 
+import {
+  FORM_ATTACHMENTS_COLLECTION,
+  FORM_ATTACHMENTS_STORAGE_PREFIX,
+} from '../lib/formAttachmentsShared'
 import { buildMediaPublicURL } from './mediaPublicURL'
 import type { RuntimeConfig } from './runtime'
 
@@ -42,6 +46,9 @@ export const createStoragePlugins = (config: RuntimeConfig): Plugin[] => {
     bucket: config.media.bucket,
     clientUploads: config.media.clientUploads,
     collections: {
+      // Visitor uploads stay behind Payload access control: no public URL, served only to
+      // operators with the Form Submissions feature.
+      [FORM_ATTACHMENTS_COLLECTION]: { prefix: FORM_ATTACHMENTS_STORAGE_PREFIX },
       media: publicURL
         ? {
             disablePayloadAccessControl: true,

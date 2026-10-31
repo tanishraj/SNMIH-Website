@@ -8,7 +8,7 @@ Registration order in [payload.config.ts](../../../../src/payload.config.ts) is 
 2. Taxonomy: Categories (Topics), Tags.
 3. Navigation and structure: NavigationLinks, Headers, Footers, OfficeLocations, Redirects, SystemPages.
 4. Media: Media, GalleryAlbums.
-5. Intake: Forms, FormSubmissions.
+5. Intake: Forms, FormSubmissions, FormAttachments.
 6. Administration: WorkQueue (Action Queue), OperationalAuditEvents (Audit Log), Users.
 7. Internal: TwoFactorCredentials, denied to all client CRUD access and excluded from Admin, GraphQL and Trash.
 
@@ -48,7 +48,7 @@ Nine globals are registered:
 - NavigationLinks provide reusable destinations and page-synchronized records. Headers and Footers provide versioned shell presets. Publishing any of these relationship-backed records immediately invalidates shared shell and Page caches.
 - SystemPages pair one type with its matching block and are referenced from system modes; publishing a preset or Site Mode change immediately invalidates the cached public render state.
 - Media owns governed uploads, alt requirements, usage detection, deletion guards, storage health, queue sync, and audit events. GalleryAlbums own ordered reusable image sets. Their published changes invalidate cached Page and shell records that may contain those relationships.
-- Forms define general, lead, and review-intent inputs, including a dedicated phone type, and responsive branded notifications. Contact Form accepts an optional exact-name `phone` field, while review-intent validation rejects additional required fields that the fixed Review Submission renderer cannot display. Publishing a Form invalidates cached Page and shell records so field changes appear on the next public request. Notification dates use the Site Identity timezone. FormSubmissions own immutable submitted data, searchable submitter phone metadata, operational state, activity, assignment, and optional Review promotion.
+- Forms define general, lead, and review-intent inputs, including a dedicated phone type, and responsive branded notifications. Contact Form accepts an optional exact-name `phone` field, while review-intent validation rejects additional required fields that the fixed Review Submission renderer cannot display. Publishing a Form invalidates cached Page and shell records so field changes appear on the next public request. Notification dates use the Site Identity timezone. FormSubmissions own immutable submitted data, searchable submitter phone metadata, operational state, activity, assignment, optional Review promotion, and links to uploaded attachments. Forms may include `file` fields (accepted kinds pdf/document/image and a 1–10 MB limit); only the Dynamic Form block renders them, the submit route accepts multipart bodies for them, and FormAttachments stores the files privately (append-only, Form Submissions feature read, Payload-served under S3) while the notification email carries them as base64 attachments.
 - WorkQueue stores deduplicated actionable conditions. OperationalAuditEvents stores selected immutable operational history. Both record their source feature for Site Manager row filtering. Users own authentication, Admin/Site Manager roles, and feature grants.
 
 ## Feature and Publication Governance

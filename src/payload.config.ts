@@ -10,6 +10,7 @@ import { Celebrations } from './collections/Celebrations'
 import { Users } from './collections/Users'
 import { TwoFactorCredentials } from './collections/TwoFactorCredentials'
 import { Footers } from './collections/Footers'
+import { FormAttachments } from './collections/FormAttachments'
 import { FormSubmissions } from './collections/FormSubmissions'
 import { Forms } from './collections/Forms'
 import { GalleryAlbums } from './collections/GalleryAlbums'
@@ -100,6 +101,7 @@ export default buildConfig({
     // Forms
     Forms,
     FormSubmissions,
+    FormAttachments,
     // Administration
     WorkQueue,
     OperationalAuditEvents,
