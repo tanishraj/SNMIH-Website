@@ -369,6 +369,20 @@
       },
       {
         "clientFiles": [],
+        "componentPath": "src/blocks/DynamicForm/Component.tsx",
+        "configPath": "src/blocks/DynamicForm/config.ts",
+        "files": [
+          "src/blocks/DynamicForm/Component.tsx",
+          "src/blocks/DynamicForm/config.ts"
+        ],
+        "interfaceName": "DynamicFormBlock",
+        "presentationPath": null,
+        "previewComponentPath": null,
+        "slug": "dynamicForm",
+        "symbol": "DynamicFormBlock"
+      },
+      {
+        "clientFiles": [],
         "componentPath": "src/blocks/EditorialReasons/Component.tsx",
         "configPath": "src/blocks/EditorialReasons/config.ts",
         "files": [
@@ -1142,6 +1156,7 @@
       "DisclosureProformaBlock",
       "DocumentChecklistBlock",
       "DownloadListBlock",
+      "DynamicFormBlock",
       "EditorialReasonsBlock",
       "EventGalleryBlock",
       "FeatureMatrixBlock",
@@ -1217,6 +1232,7 @@
       "studentExperience",
       "reviewSubmission",
       "contact33",
+      "dynamicForm",
       "contact24",
       "ratingSpotlight",
       "reviewFeed",
@@ -1325,7 +1341,8 @@
       "bentoGrid",
       "testimonialGrid",
       "awardsList",
-      "careers"
+      "careers",
+      "dynamicForm"
     ],
     "productionRenderer": [
       "disclosureProforma",
@@ -1349,6 +1366,7 @@
       "studentExperience",
       "reviewSubmission",
       "contact33",
+      "dynamicForm",
       "contact24",
       "ratingSpotlight",
       "reviewFeed",
@@ -1456,7 +1474,8 @@
       "bentoGrid",
       "testimonialGrid",
       "awardsList",
-      "careers"
+      "careers",
+      "dynamicForm"
     ],
     "shared": [
       {
@@ -1719,6 +1738,7 @@
         "public/block-thumbnails/disclosure-proforma.jpg",
         "public/block-thumbnails/document-checklist.jpg",
         "public/block-thumbnails/download-list.jpg",
+        "public/block-thumbnails/dynamic-form.jpg",
         "public/block-thumbnails/editorial-reasons.jpg",
         "public/block-thumbnails/event-gallery.jpg",
         "public/block-thumbnails/feature-matrix.jpg",
@@ -1910,6 +1930,10 @@
           "slug": "contact33"
         },
         {
+          "filename": "dynamic-form.jpg",
+          "slug": "dynamicForm"
+        },
+        {
           "filename": "contact-24.jpg",
           "slug": "contact24"
         },
@@ -2082,6 +2106,7 @@
         "heroCarousel",
         "reviewSubmission",
         "contact33",
+        "dynamicForm",
         "contact24",
         "reviewFeed",
         "services21",
@@ -2214,6 +2239,10 @@
       {
         "source": "src/collections/FormSubmissions.ts",
         "symbol": "FormSubmissions"
+      },
+      {
+        "source": "src/collections/FormAttachments.ts",
+        "symbol": "FormAttachments"
       },
       {
         "source": "src/collections/WorkQueue.ts",
@@ -2503,6 +2532,8 @@
       "src/blocks/DownloadList/config.ts",
       "src/blocks/DownloadList/resolveActions.ts",
       "src/blocks/DownloadList/types.ts",
+      "src/blocks/DynamicForm/Component.tsx",
+      "src/blocks/DynamicForm/config.ts",
       "src/blocks/EditorialReasons/Component.tsx",
       "src/blocks/EditorialReasons/config.ts",
       "src/blocks/EventGallery/Component.tsx",
@@ -2692,6 +2723,7 @@
       "src/collections/Disclosure/hooks.ts",
       "src/collections/Disclosure/index.ts",
       "src/collections/Footers.ts",
+      "src/collections/FormAttachments.ts",
       "src/collections/FormSubmissions.ts",
       "src/collections/Forms.ts",
       "src/collections/GalleryAlbums.ts",
@@ -2716,6 +2748,7 @@
       "src/components/BreadcrumbTrail.tsx",
       "src/components/ContentActions.tsx",
       "src/components/ContentLink.tsx",
+      "src/components/DynamicForm.tsx",
       "src/components/SectionEyebrow.tsx",
       "src/components/admin/AdminSessionBar.tsx",
       "src/components/admin/AdminUserMenu.tsx",
@@ -2894,6 +2927,8 @@
       "src/lib/contentEntries.ts",
       "src/lib/eventGallery.ts",
       "src/lib/eventGalleryShared.ts",
+      "src/lib/formAttachments.ts",
+      "src/lib/formAttachmentsShared.ts",
       "src/lib/formNotifications.ts",
       "src/lib/formSpamProtection.ts",
       "src/lib/formSubmissionEvents.ts",
@@ -3039,6 +3074,7 @@
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",
+      "tests/int/dynamic-form.int.spec.tsx",
       "tests/int/editorial-reasons.int.spec.tsx",
       "tests/int/editorial-workflow.int.spec.ts",
       "tests/int/event-gallery-data.int.spec.ts",
@@ -3055,6 +3091,7 @@
       "tests/int/footer-minimal.int.spec.tsx",
       "tests/int/footer-spacing.int.spec.ts",
       "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/form-file-upload.int.spec.ts",
       "tests/int/form-notifications.int.spec.ts",
       "tests/int/forms-submission.int.spec.ts",
       "tests/int/frontend-layout-cache.int.spec.ts",
@@ -3194,7 +3231,7 @@
       "tests/security/two-factor.e2e.spec.ts",
       "tsconfig.json"
     ],
-    "sha256": "23c24a4df633a1b2d5e9bcd257ed7622a5ba7d7220094bebacca9066b555f762"
+    "sha256": "33f8bb7ad66311b67b851f23b1815edcf19eb8de6a342c93be8d3c530eb94a8b"
   },
   "surfaces": {
     "access": [
@@ -3254,6 +3291,8 @@
       "src/lib/contentEntries.ts",
       "src/lib/eventGallery.ts",
       "src/lib/eventGalleryShared.ts",
+      "src/lib/formAttachments.ts",
+      "src/lib/formAttachmentsShared.ts",
       "src/lib/formNotifications.ts",
       "src/lib/formSpamProtection.ts",
       "src/lib/formSubmissionEvents.ts",
@@ -3420,6 +3459,7 @@
       "tests/int/docker-standalone.int.spec.ts",
       "tests/int/document-checklist.int.spec.tsx",
       "tests/int/download-list.int.spec.tsx",
+      "tests/int/dynamic-form.int.spec.tsx",
       "tests/int/editorial-reasons.int.spec.tsx",
       "tests/int/editorial-workflow.int.spec.ts",
       "tests/int/event-gallery-data.int.spec.ts",
@@ -3436,6 +3476,7 @@
       "tests/int/footer-minimal.int.spec.tsx",
       "tests/int/footer-spacing.int.spec.ts",
       "tests/int/footer56-presentation.int.spec.tsx",
+      "tests/int/form-file-upload.int.spec.ts",
       "tests/int/form-notifications.int.spec.ts",
       "tests/int/forms-submission.int.spec.ts",
       "tests/int/frontend-layout-cache.int.spec.ts",

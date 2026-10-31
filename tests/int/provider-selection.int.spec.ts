@@ -94,6 +94,7 @@ describe('provider selection', () => {
       bucket: 'payload-media',
       clientUploads: true,
       collections: {
+        'form-attachments': { prefix: 'form-attachments' },
         media: true,
       },
       config: {

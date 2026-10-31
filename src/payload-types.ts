@@ -89,6 +89,7 @@ export interface Config {
     'gallery-albums': GalleryAlbum;
     forms: Form;
     'form-submissions': FormSubmission;
+    'form-attachments': FormAttachment;
     'work-queue': WorkQueue;
     'operational-audit-events': OperationalAuditEvent;
     users: User;
@@ -126,6 +127,7 @@ export interface Config {
     'gallery-albums': GalleryAlbumsSelect<false> | GalleryAlbumsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
+    'form-attachments': FormAttachmentsSelect<false> | FormAttachmentsSelect<true>;
     'work-queue': WorkQueueSelect<false> | WorkQueueSelect<true>;
     'operational-audit-events': OperationalAuditEventsSelect<false> | OperationalAuditEventsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -272,6 +274,7 @@ export interface Page {
         | TestimonialGridBlock
         | AwardsListBlock
         | CareersBlock
+        | DynamicFormBlock
       )[]
     | null;
   metaTitle?: string | null;
@@ -714,6 +717,7 @@ export interface ReusableSection {
         | TestimonialGridBlock
         | AwardsListBlock
         | CareersBlock
+        | DynamicFormBlock
       )[]
     | null;
   updatedAt: string;
@@ -5150,7 +5154,7 @@ export interface Form {
     message?: string | null;
   };
   /**
-   * Review Submission uses its fixed review fields; it cannot render additional required fields.
+   * Review Submission uses its fixed review fields; it cannot render additional required fields. File upload fields are rendered only by the Dynamic Form block.
    */
   fields: {
     /**
@@ -5158,9 +5162,14 @@ export interface Form {
      */
     name: string;
     label: string;
-    type: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox';
+    type: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox' | 'file';
     required?: boolean | null;
     placeholder?: string | null;
+    fileTypes?: ('pdf' | 'document' | 'image')[] | null;
+    /**
+     * Up to 10 MB. Uploaded files are stored privately in Form Attachments and attached to notification emails.
+     */
+    maxFileSizeMB?: number | null;
     options?:
       | {
           label: string;
@@ -8578,6 +8587,109 @@ export interface CareersBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DynamicFormBlock".
+ */
+export interface DynamicFormBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  accentTitle?: string | null;
+  description?: string | null;
+  actions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Fills the half of the section beside the form. Landscape photos work best.
+   */
+  image?: (string | null) | Media;
+  imageAlt?: string | null;
+  /**
+   * A published general or lead form. Every field is rendered in its saved order; file upload fields are supported.
+   */
+  form: string | Form;
+  footerActions?:
+    | {
+        label: string;
+        linkType?: ('page' | 'custom' | 'file') | null;
+        page?: (string | null) | Page;
+        /**
+         * Use #anchor-id for a section on this page or /page-path#anchor-id for a section on another page.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        /**
+         * Choose the Media asset this action should view or download.
+         */
+        file?: (string | null) | Media;
+        fileBehavior?: ('view' | 'download') | null;
+        openFileInNewTab?: boolean | null;
+        mode?: ('link' | 'button') | null;
+        /**
+         * Default adapts to the surrounding section or image overlay. Primary always uses the site theme's primary color. White variants stay white and are intended for dark, brand, or image backgrounds.
+         */
+        variant?: ('default' | 'primary' | 'secondary' | 'outline' | 'white' | 'whiteOutline') | null;
+        /**
+         * Adds a trailing arrow when this action is displayed as a button.
+         */
+        showArrow?: boolean | null;
+        /**
+         * Shows an animated down arrow for this file download.
+         */
+        showFileIcon?: boolean | null;
+        fileIconPosition?: ('left' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  appearance: {
+    background: 'none' | 'subtle' | 'brand' | 'gradient-subtle' | 'gradient-brand';
+    border: 'none' | 'top' | 'bottom' | 'topAndBottom';
+  };
+  layout: 'image' | 'split' | 'stacked';
+  imagePosition?: ('left' | 'right') | null;
+  /**
+   * Applies to the Stacked layout.
+   */
+  contentAlignment?: ('left' | 'center') | null;
+  size: 'none' | 'compact' | 'default' | 'comfortable';
+  /**
+   * Optional stable link target. Enter a value such as admissions, then link to #admissions on this page or /page-path#admissions from another page.
+   */
+  anchorId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dynamicForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -9168,6 +9280,10 @@ export interface FormSubmission {
   promotionError?: string | null;
   submittedAt: string;
   lastActionAt?: string | null;
+  /**
+   * Files uploaded with this submission. Open one to view or download it.
+   */
+  attachments?: (string | FormAttachment)[] | null;
   data:
     | {
         [k: string]: unknown;
@@ -9180,6 +9296,35 @@ export interface FormSubmission {
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
+}
+/**
+ * Files uploaded through public forms. Open the related Form Submission to see the full entry.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-attachments".
+ */
+export interface FormAttachment {
+  id: string;
+  originalFilename: string;
+  form: string | Form;
+  submission?: (string | null) | FormSubmission;
+  /**
+   * Machine key of the form field the file was uploaded through.
+   */
+  fieldName: string;
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {};
 }
 /**
  * One reporting month and its records. Use “Copy to a new month” to start the next report; previous months remain available.
@@ -10077,6 +10222,10 @@ export interface PayloadLockedDocument {
         value: string | FormSubmission;
       } | null)
     | ({
+        relationTo: 'form-attachments';
+        value: string | FormAttachment;
+      } | null)
+    | ({
         relationTo: 'work-queue';
         value: string | WorkQueue;
       } | null)
@@ -10209,6 +10358,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
         careers?: T | CareersBlockSelect<T>;
+        dynamicForm?: T | DynamicFormBlockSelect<T>;
       };
   metaTitle?: T;
   metaDescription?: T;
@@ -14845,6 +14995,68 @@ export interface CareersBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DynamicFormBlock_select".
+ */
+export interface DynamicFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  accentTitle?: T;
+  description?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  image?: T;
+  imageAlt?: T;
+  form?: T;
+  footerActions?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        openInNewTab?: T;
+        file?: T;
+        fileBehavior?: T;
+        openFileInNewTab?: T;
+        mode?: T;
+        variant?: T;
+        showArrow?: T;
+        showFileIcon?: T;
+        fileIconPosition?: T;
+        id?: T;
+      };
+  appearance?:
+    | T
+    | {
+        background?: T;
+        border?: T;
+      };
+  layout?: T;
+  imagePosition?: T;
+  contentAlignment?: T;
+  size?: T;
+  anchorId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
@@ -15059,6 +15271,7 @@ export interface ReusableSectionsSelect<T extends boolean = true> {
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
         careers?: T | CareersBlockSelect<T>;
+        dynamicForm?: T | DynamicFormBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -15707,6 +15920,8 @@ export interface FormsSelect<T extends boolean = true> {
         type?: T;
         required?: T;
         placeholder?: T;
+        fileTypes?: T;
+        maxFileSizeMB?: T;
         options?:
           | T
           | {
@@ -15742,10 +15957,34 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
   promotionError?: T;
   submittedAt?: T;
   lastActionAt?: T;
+  attachments?: T;
   data?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-attachments_select".
+ */
+export interface FormAttachmentsSelect<T extends boolean = true> {
+  originalFilename?: T;
+  form?: T;
+  submission?: T;
+  fieldName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?: T | {};
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -16212,6 +16451,7 @@ export interface NewsEventsDetailTemplate {
         | TestimonialGridBlock
         | AwardsListBlock
         | CareersBlock
+        | DynamicFormBlock
       )[]
     | null;
   _status?: ('draft' | 'published') | null;
@@ -16508,6 +16748,7 @@ export interface NewsEventsDetailTemplateSelect<T extends boolean = true> {
         testimonialGrid?: T | TestimonialGridBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
         careers?: T | CareersBlockSelect<T>;
+        dynamicForm?: T | DynamicFormBlockSelect<T>;
       };
   _status?: T;
   updatedAt?: T;

@@ -98,6 +98,7 @@ test.env
 
 # Local Payload uploads and database backups
 /media/
+/form-attachments/
 /backups/
 *.archive
 *.archive.gz
@@ -178,4 +179,3 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
-/form-attachments/
